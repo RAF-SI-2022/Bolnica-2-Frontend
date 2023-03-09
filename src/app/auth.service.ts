@@ -35,4 +35,8 @@ export class AuthService {
         console.log(localStorage.getItem('token'));
         return localStorage.getItem('token') !== null;
     }
+
+    forgotPassword(): void {
+
+    }
 }
