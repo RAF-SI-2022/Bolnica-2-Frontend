@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 
 @Component({
@@ -9,6 +10,11 @@ import { AuthService } from './auth.service';
 export class AppComponent {
   title = 'bolnica2-frontend';
 
-  constructor(protected authService: AuthService) {
+  constructor(protected authService: AuthService,
+              private router: Router) {
+  }
+
+  isOnHomePage(): boolean {
+    return this.router.url === '/';
   }
 }
