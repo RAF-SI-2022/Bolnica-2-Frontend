@@ -14,20 +14,35 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
+  submitted = false;
+
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               protected authService: AuthService) {
-    this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
-    })
+      this.loginForm = this.formBuilder.group({
+      username: ['', [
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(30),
+        Validators.pattern('[a-zA-Z0-9]+$')
+      ]],
+      password: ['', [
+        Validators.required,
+        Validators.pattern('[a-zA-Z0-9].-_+$')
+      ]]
+    });
   }
 
   ngOnInit(): void {
 
   }
 
+  get registerLoginControl() {
+    return this.loginForm.controls;
+  }
+
   login() {
+    this.submitted = true;
     const val = this.loginForm.value;
     this.authService.login(val.username, val.password);
   }
