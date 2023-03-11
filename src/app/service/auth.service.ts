@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { LOGIN_ENDPOINT } from "../app.constants";
-import { LoginResponse } from "../auth/login.response";
+import { LoginResponse } from "../dto/response/login.response";
 
 @Injectable({
     providedIn: 'root'
