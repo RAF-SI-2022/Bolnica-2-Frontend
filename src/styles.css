@@ -11,3 +11,8 @@ body {
     background-color: #58cdd3;
     border-color: #3aa0a5;
 }
+
+.validation-error {
+    padding: 0.3rem;
+    margin-bottom: 0;
+}

@@ -22,6 +22,8 @@
           required
         />
         <label for="floatingIme">E-mail</label>
+        <div *ngIf="submitted && newemployeeForm.get('email')?.errors?.required" class="validation-error small alert alert-danger">Email je obavezan</div>
+        <div *ngIf="submitted && newemployeeForm.get('email')?.errors?.email" class="validation-error small alert alert-danger">Email nije validan</div>
       </div>
     </div>
 
@@ -37,6 +39,7 @@
               placeholder="Ime"
             />
             <label for="floatingIme">Ime</label>
+            <div *ngIf="submitted && newemployeeForm.get('ime')?.errors?.required" class="validation-error small alert alert-danger">Ime je obavezno</div>
           </div>
           <div class="form-floating ms-4">
             <input
@@ -47,6 +50,7 @@
               placeholder="Prezime"
             />
             <label for="floatingPrezime">Prezime</label>
+            <div *ngIf="submitted && newemployeeForm.get('prezime')?.errors?.required" class="validation-error small alert alert-danger">Prezime je obavezno</div>
           </div>
           <div class="form-floating ms-4">
             <input
@@ -57,26 +61,30 @@
               placeholder="Datum rodjenja"
             />
             <label for="floatingDatRodjenja">Datum rodjenja</label>
+            <div *ngIf="submitted && newemployeeForm.get('datumrodjenja')?.errors?.required" class="validation-error small alert alert-danger">Datum rođenja je obavezan</div>
           </div>
           <div class="d-flex align-items-center ms-4">
             <div class="form-floating me-3 ms-4">
               <h3>Pol</h3>
+              <div *ngIf="submitted && newemployeeForm.get('pol')?.errors?.required" class="validation-error small alert alert-danger">Pol je obavezan</div>
             </div>
-            <label for="floatingIme">Muski</label>
+            <label for="floatingPolm">Muski</label>
             <div class="form-floating m-3">
               <input
-                formControlName="polm"
+                formControlName="pol"
                 type="radio"
+                value="Muski"
                 class="form-check-input"
                 id="floatingPolm"
                 placeholder=""
               />
             </div>
-            <label for="floatingIme">Zenski</label>
+            <label for="floatingPolz">Zenski</label>
             <div class="form-floating m-3">
               <input
-                formControlName="polz"
+                formControlName="pol"
                 type="radio"
+                value="Zenski"
                 class="form-check-input"
                 id="floatingPolz"
                 placeholder=""
@@ -97,6 +105,7 @@
               placeholder="JMBG"
             />
             <label for="floatingIme">JMBG</label>
+            <div *ngIf="submitted && newemployeeForm.get('jmbg')?.errors?.required" class="validation-error small alert alert-danger">JMBG je obavezan</div>
           </div>
           <div class="form-floating ms-4">
             <input
@@ -107,6 +116,7 @@
               placeholder="Adresa stanovanja"
             />
             <label for="floatingAdresaStanovanja">Adresa stanovanja</label>
+            <div *ngIf="submitted && newemployeeForm.get('adresastanovanja')?.errors?.required" class="validation-error small alert alert-danger">Adresa stanovanja je obavezna</div>
           </div>
           <div class="form-floating ms-4">
             <input
@@ -117,6 +127,7 @@
               placeholder="Mesto stanovanja"
             />
             <label for="floatingDatRodjenja">Mesto stanovanja</label>
+            <div *ngIf="submitted && newemployeeForm.get('mestostanovanja')?.errors?.required" class="validation-error small alert alert-danger">Mesto stanovanja je obavezno</div>
           </div>
           <div class="form-floating ms-4">
             <input
