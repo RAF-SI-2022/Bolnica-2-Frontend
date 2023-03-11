@@ -9,15 +9,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
-import { NewEmployeeComponent } from './new-employee/new-employee.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ForgotPasswordComponent,
     LoginComponent,
-    HomeComponent,
-    NewEmployeeComponent
+    HomeComponent
   ],
   imports: [
     BrowserModule,
