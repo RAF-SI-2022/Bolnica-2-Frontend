@@ -16,3 +16,12 @@ body {
     padding: 0.3rem;
     margin-bottom: 0;
 }
+
+ngb-pagination ::ng-deep a {
+    color: black !important;
+}
+
+ngb-pagination ::ng-deep .page-item.active .page-link {
+    border-color: #236f74;
+    background-color: #4aaeb4;
+}

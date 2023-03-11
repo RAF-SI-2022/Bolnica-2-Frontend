@@ -10,6 +10,8 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { NewEmployeeComponent } from './new-employee/new-employee.component';
+import { SearchEmployeesComponent } from './search-employees/search-employees.component';
+import { DecimalPipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,8 @@ import { NewEmployeeComponent } from './new-employee/new-employee.component';
     ForgotPasswordComponent,
     LoginComponent,
     HomeComponent,
-    NewEmployeeComponent
+    NewEmployeeComponent,
+    SearchEmployeesComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +30,7 @@ import { NewEmployeeComponent } from './new-employee/new-employee.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [DecimalPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
