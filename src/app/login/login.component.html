@@ -16,6 +16,7 @@
                     <div *ngIf="submitted && loginForm.get('password')?.errors?.required" class="validation-error small alert alert-danger">Lozinka je obavezna</div>
                 </div>
                 <button (click)="login()" class="w-100 btn btn-lg btn-primary" type="submit">Uloguj se</button>
+                <div *ngIf="loginFailed" class="validation-error small alert alert-danger">Pogrešno korisničko ime i/ili lozinka</div>
                 <hr class="my-4">
                 <a routerLink="/forgot-password" href="#" class="text-decoration-none">Zaboravili ste lozinku?</a>
             </form>

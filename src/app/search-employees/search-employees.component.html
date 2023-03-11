@@ -1,0 +1,66 @@
+<div class="container mt-5">
+	<div class="row">
+		<div class="col-lg-3">
+			<form [formGroup]="searchEmployeesForm" class="p-3 border rounded-3 bg-light">
+				<div class="mb-1">
+					<input formControlName="firstName" class="form-control" type="text" placeholder="Ime">
+				</div>
+				<div class="mb-1">
+					<input formControlName="lastName" class="form-control" type="text" placeholder="Prezime">
+				</div>
+				<div class="mb-1">
+					<input formControlName="ward" class="form-control" type="text" placeholder="Odeljenje">
+				</div>
+				<div class="mb-1">
+					<input formControlName="hospital" class="form-control" type="text" placeholder="Bolnica">
+				</div>
+				<div class="form-check">
+					<input formControlName="deleted" class="form-check-input" id="deletedCheckbox" type="checkbox">
+					<label class="form-check-label" for="deletedCheckbox">Pretraži i zaposlene koji su obrisani</label>
+				</div>
+				<hr class="my-4">
+				<button (click)="search()" class="btn btn-md btn-primary w-100" type="submit">Pretraži</button>
+			</form>
+		</div>
+		<div class="col-lg-9 table-responsive">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th scope="col">Ime</th>
+						<th scope="col">Prezime</th>
+						<th scope="col">Datum rođenja</th>
+						<th scope="col">Titula</th>
+						<th scope="col">Zanimanje</th>
+						<th scope="col">Broj telefona</th>
+						<th scope="col">Email</th>
+						<th scope="col"></th>
+						<th scope="col"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Dario</td>
+						<td>Borovac</td>
+						<td>25.01.2001</td>
+						<td>Titula</td>
+						<td>Zanimanje</td>
+						<td>062090090</td>
+						<td>borovacdario4@gmail.com</td>
+						<td><button class="btn btn-sm btn-primary">Ažuriraj</button></td>
+						<td><button class="btn btn-sm btn-danger">Obriši</button></td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="d-flex justify-content-center p-2">
+				<ngb-pagination
+					[collectionSize]="collectionSize"
+					[(page)]="page"
+					[pageSize]="pageSize"
+
+				>
+				</ngb-pagination>
+			</div>
+		</div>
+	</div>
+
+</div>
