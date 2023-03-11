@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 import { LOGIN_ENDPOINT } from "./app.constants";
 
 export interface LoginResponse {
@@ -10,7 +11,7 @@ export interface LoginResponse {
     providedIn: 'root'
 })
 export class AuthService {
-    constructor(private httpClient: HttpClient) {
+    constructor(private httpClient: HttpClient,private router:Router) {
     }
 
     login(username: string, password: string) {
@@ -38,5 +39,10 @@ export class AuthService {
 
     forgotPassword(): void {
 
+    }
+
+    logout():void{
+        localStorage.clear();
+        this.router.navigate(['']);
     }
 }

@@ -10,6 +10,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { NewEmployeeComponent } from './new-employee/new-employee.component';
+import { PersonalDataComponent } from './personal-data/personal-data.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { NewEmployeeComponent } from './new-employee/new-employee.component';
     ForgotPasswordComponent,
     LoginComponent,
     HomeComponent,
-    NewEmployeeComponent
+    NewEmployeeComponent,
+    PersonalDataComponent
   ],
   imports: [
     BrowserModule,

@@ -5,6 +5,7 @@ import { AuthGuard } from './guard/auth.guard';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { NewEmployeeComponent } from './new-employee/new-employee.component';
+import { PersonalDataComponent } from './personal-data/personal-data.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,11 @@ const routes: Routes = [
   {
     path: 'forgot-password',
     component: ForgotPasswordComponent
+  }
+  ,
+  {
+    path: 'personal-data',
+    component: PersonalDataComponent
   },
   {
     path: 'new-employee',
