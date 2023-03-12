@@ -2,10 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { AuthGuard } from './guard/auth.guard';
+import { AlreadyLoggedInGuard } from './guard/already-logged-in.guard';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { NewEmployeeComponent } from './new-employee/new-employee.component';
 import { PersonalDataComponent } from './personal-data/personal-data.component';
+import { SearchEmployeesComponent } from './search-employees/search-employees.component';
 
 const routes: Routes = [
   {
@@ -15,7 +17,8 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    canActivate: [AlreadyLoggedInGuard]
   },
   {
     path: 'forgot-password',
@@ -29,6 +32,10 @@ const routes: Routes = [
   {
     path: 'new-employee',
     component: NewEmployeeComponent,
+    canActivate: [AuthGuard]
+  }, {
+    path: 'search-employees',
+    component: SearchEmployeesComponent,
     canActivate: [AuthGuard]
   }
 ];

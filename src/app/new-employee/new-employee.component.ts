@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { EmployeesService } from '../service/employee.service';
 
 @Component({
   selector: 'app-new-employee',
@@ -12,7 +13,8 @@ export class NewEmployeeComponent implements OnInit {
 
   submitted = false;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,
+              private employeesService: EmployeesService) {
     this.newemployeeForm = this.formBuilder.group({
       ime: ['', Validators.required],
       email:['',[Validators.required, Validators.email]],
@@ -28,7 +30,7 @@ export class NewEmployeeComponent implements OnInit {
       doktorSpec: [''],
       doktorSpecPov: [''],
       medSestra: [''],
-      medSestraVisa: [''],
+      medSestraVisa: ['']
     })
   }
 
@@ -43,7 +45,30 @@ export class NewEmployeeComponent implements OnInit {
       return;
     }
 
-    alert('servis ');
-  }
+    const val = this.newemployeeForm.value;
+    console.log(val);
 
+    this.employeesService.addNewEmployee({
+      firstName: val.ime,
+      lastName: val.prezime,
+      dateOfBirth: val.datumrodjenja,
+      gender: val.pol,
+      jmbg: val.jmbg,
+      residentialAddress: val.adresastanovanja,
+      placeOfLiving: val.mestostanovanja,
+      phone: val.kontakttel,
+      email: val.email,
+      title: "Prof. dr. med.",
+      profession: "Med. sestra",
+      departmentId: 1,
+      permissions: ["Administrator"]
+    }).subscribe({
+      next: (res) => {
+        console.log(res);
+      },
+      error: (e) => {
+        console.log(e);
+      }
+    })
+  }
 }
