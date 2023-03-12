@@ -1,1 +1,136 @@
-<p>personal-data works!</p>
+
+<div class="container d-flex justify-content-center mt-4">
+    <form class="p-4 p-md-5 border rounded-3 bg-light d-flex">
+    <div class="d-flex flex-column justify-content-center align-items-center md-3">
+        <h2>Moji podaci</h2>
+        <br/>
+        <br/>
+        <div class="container">
+            <div class="d-flex mb-2">
+
+                <div class="form-floating ms-4">
+                    <input type="text" class="form-control" id="floatingId" placeholder="Id" [value]="this.userData.id" [disabled]="!this.isInEditMode"/>
+                    <label for="floatingPassword">Id</label>  
+                </div>
+
+                <div class="form-floating ms-4">
+                    <input type="text" class="form-control" id="floatingLbz" placeholder="Lbz" [value]="this.userData.lbz" [disabled]="!this.isInEditMode"/>
+                    <label for="floatingLbz">Lbz</label>  
+                </div>
+
+                <div class="form-floating ms-4">
+                    <input type="text" class="form-control" id="floatingFirstName" placeholder="First Name" [value]="this.userData.firstName" [disabled]="!this.isInEditMode"/>
+                    <label for="floatingFirstName">Ime</label>  
+                </div>
+
+                <div class="form-floating ms-4">
+                    <input type="text" class="form-control" id="floatingLastName" placeholder="Last Name" [value]="this.userData.lastName" [disabled]="!this.isInEditMode"/>
+                    <label for="floatingLastName">Prezime</label>  
+                </div>
+            </div>
+
+            <div class="d-flex mb-2">
+
+                <div class="form-floating ms-4">
+                    <input type="text" class="form-control" id="floatingGender" placeholder="Gender" [value]="this.userData.gender" [disabled]="!this.isInEditMode"/>
+                    <label for="floatingGender">Pol</label>  
+                </div>
+
+                <div class="form-floating ms-4">
+                    <input type="text" class="form-control" id="floatingAddress" placeholder="Residential Address" [value]="this.userData.residentalAddress" [disabled]="!this.isInEditMode"/>
+                    <label for="floatingAddress">Adresa stanovanja</label>  
+                </div>
+
+                <div class="form-floating ms-4">
+                    <input type="text" class="form-control" id="floatingPlace" placeholder="Place of Living" [value]="this.userData.placeOfLiving" [disabled]="!this.isInEditMode"/>
+                    <label for="floatingPlace">Mesto stanovanja</label>  
+                </div>
+                <div class="form-floating ms-4">
+                    <input type="date" class="form-control" id="floatingDob" placeholder="Date of Birth" [value]="this.userData.dateOfBirth" [disabled]="!this.isInEditMode"/>
+                    <label for="floatingDob">Datum rođenja</label>  
+                </div>
+            </div>
+            <div class="d-flex mb-2">
+                <div class="form-floating ms-4">
+                    <input type="text" class="form-control" id="floatingPhone" placeholder="Phone" [value]="this.userData.phone" [disabled]="!this.isInEditMode"/>
+                    <label for="floatingPhone">Telefon
+                    </label>  
+                </div>
+            
+                <div class="form-floating ms-4">
+                    <input type="text" class="form-control" id="floatingEmail" placeholder="Email" [value]="this.userData.email" [disabled]="!this.isInEditMode"/>
+                    <label for="floatingEmail">Imejl</label>  
+                </div>
+                
+                <div class="d-flex mb-2">
+                    <div class="form-floating ms-4">
+                        <input type="text" class="form-control" id="floatingTitle" placeholder="Title" [value]="this.userData.title.notation" [disabled]="!this.isInEditMode"/>
+                        <label for="floatingTitle">Titula</label>  
+                    </div>
+                </div>
+                <div class="d-flex mb-2">
+                    <div class="form-floating ms-4">
+                        <input type="text" class="form-control" id="floatingProffesion" placeholder="Profession" [value]="this.userData.profession.notation" [disabled]="!this.isInEditMode"/>
+                        <label for="floatingProffesion">Profesija</label>  
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex mb-2">
+                <div class="form-floating ms-4">
+                    <input type="text" class="form-control" id="floatingUsername" placeholder="Username" [value]="this.userData.username" [disabled]="!this.isInEditMode"/>
+                    <label for="floatingUsername">Korisničko ime</label>  
+                </div>
+            
+                <div class="form-floating ms-4">
+                    <input type="text" class="form-control" id="floatingDepartmentId" placeholder="DepartmentId" [value]="this.userData.department.id" [disabled]="!this.isInEditMode"/>
+                    <label for="floatingDepartmentId">Id odeljenja</label>  
+                </div>
+                
+                <div class="d-flex mb-2">
+                    <div class="form-floating ms-4">
+                        <input type="text" class="form-control" id="floatingJMBG" placeholder="JMBG" [value]="this.userData.jmbg" [disabled]="!this.isInEditMode"/>
+                        <label for="floatingJMBG">JMBG</label>  
+                    </div>
+                </div>
+                <div class="d-flex mb-2">
+                    <div class="form-floating ms-4">
+                        <input type="text" class="form-control" id="floatingDeleted" placeholder="Deleted" [value]="this.userData.deleted" [disabled]="!this.isInEditMode"/>
+                        <label for="floatingDeleted"> Obrisan</label>  
+                    </div>
+                </div>
+            </div>
+
+            <!--Lozinka-->
+            <div class="d-flex mb-2">
+                <div class="form-floating ms-4">
+                    <input type="text" class="form-control" id="floatingPassowrd" placeholder="Passowrd" value="" [disabled]="!this.isInEditMode"/>
+                    <label for="floatingPassowrd">Lozinka</label>  
+                </div>
+            
+                <div class="form-floating ms-4" *ngIf="this.isInEditMode">
+                    <input type="text" class="form-control" id="floatingNewPassowrd" [value]="this.newPassword" [disabled]="!this.isInEditMode" />
+                    <label for="floatingNewPassowrd">Nova lozinka</label>  
+                </div>
+                
+                
+                <div class="form-floating ms-4" *ngIf="this.isInEditMode">
+                    <input type="text" class="form-control" id="floatingNewPassowrdConfirm"  [value]="this.newPasswordConfirm" [disabled]="!this.isInEditMode" />
+                    <label for="floatingNewPassowrdConfirm">Ponovite lozinku</label>  
+                </div>
+                
+
+            </div>
+
+            <div class="d-flex mb-2">
+                <div class="d-flex justify-content-center mt-4">
+                <input type="button" class="btn btn-primary form-control" value="EditButton" (click)="this.isInEditMode=!this.isInEditMode" />
+                <input type="button" class="btn btn-primary form-control" value="ConfirmButton" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    </form>
+
+</div>

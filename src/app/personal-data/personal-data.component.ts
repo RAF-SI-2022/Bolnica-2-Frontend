@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from '../models/models';
+import { HttpClient } from '@angular/common/http';
+import jwt_decode,{ JwtPayload } from "jwt-decode";
+import { EMPLOYEE_ENDPOINT } from '../app.constants';
+import { FormBuilder } from '@angular/forms';
+import { EmployeeResponse } from '../dto/response/employee.response';
 
 @Component({
   selector: 'app-personal-data',
@@ -9,33 +13,48 @@ import { User } from '../models/models';
 })
 export class PersonalDataComponent implements OnInit {
 
-  httpClient: any;
-  users:User[]=[];
-  constructor(private router: Router) {
-    
+  userData!:EmployeeResponse;
+  isInEditMode:boolean;
+  newPassword:string;
+  newPasswordConfirm:string;
+  //newemployeeForm: FormGroup;
+  
+  constructor(private router: Router,private httpClient:HttpClient,private formBuilder: FormBuilder) {
+    this.isInEditMode=false;
+    this.newPassword="";
+    this.newPasswordConfirm="";
    }
 
 
   ngOnInit(): void {
     const token=localStorage.getItem('token');
+    if(token==null)
+      return;
+
     let lbz="";
     try{
-      let decodedHeader = jwt_decode(localStorage.getItem('token') as string);
-      lbz=( decodedHeader as unknown as { lbz: string }).lbz;
+      let decodedHeader = jwt_decode<JwtPayload>(token);
+
+      if(decodedHeader.sub==null)
+        return;
+      else
+        lbz=decodedHeader.sub;
+      
     }
     catch{}
+
     
-    return this.httpClient.get('/'+lbz,token )
-            .pipe({
-                next: (res: any) => this.users=res,
-                error: (e:any) => {
-                    console.log(e);
-                }
-            }
-        );
+    this.httpClient.get(EMPLOYEE_ENDPOINT+'/'+lbz, { headers: { Authorization: `Bearer ${token}` }} )
+    .subscribe((data: any) => {
+      this.userData=data;
+      console.log(data);
+      
+    });
+  }
+
+  editEmployee():void{
+
   }
 
 }
-function jwt_decode(arg0: string) {
-  throw new Error('Function not implemented.');
-}
+
