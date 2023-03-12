@@ -12,6 +12,9 @@ import { HomeComponent } from './home/home.component';
 import { NewEmployeeComponent } from './new-employee/new-employee.component';
 import { SearchEmployeesComponent } from './search-employees/search-employees.component';
 import { DecimalPipe } from '@angular/common';
+import { AdminEditEmployeeComponent } from './admin-edit-employee/admin-edit-employee.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HotToastModule } from '@ngneat/hot-toast';
 
 @NgModule({
   declarations: [
@@ -20,15 +23,21 @@ import { DecimalPipe } from '@angular/common';
     LoginComponent,
     HomeComponent,
     NewEmployeeComponent,
-    SearchEmployeesComponent
+    SearchEmployeesComponent,
+    AdminEditEmployeeComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    HotToastModule.forRoot({
+      dismissible: true,
+      position: 'top-right'
+    })
   ],
   providers: [DecimalPipe],
   bootstrap: [AppComponent]
