@@ -1,36 +1,47 @@
-<div class="container d-flex justify-content-center mt-4">
+<div class="container-fluid d-flex justify-content-center mt-4">
   <form
     [formGroup]="newemployeeForm"
-    class="p-4 p-md-5 border rounded-3 bg-light d-flex"
+    class="p-4 p-md-5 mb-4 border rounded-3 bg-light d-flex"
   >
-    <div
-      class="d-flex flex-column justify-content-center align-items-center md-3"
-    >
-      <img
-        src="../../assets/images/person-plus-fill.svg"
-        class="card-img-top w-50"
-        alt="New employee - person with a plus"
-      />
-      <h2 class="text-center">New employee</h2>
-      <div class="form-floating m-3">
-        <input
-          formControlName="email"
-          type="email"
-          class="form-control"
-          id="floatingEmail"
-          placeholder="Email"
-          required
-        />
-        <label for="floatingIme">E-mail</label>
-        <div *ngIf="submitted && newemployeeForm.get('email')?.errors?.required" class="validation-error small alert alert-danger">Email je obavezan</div>
-        <div *ngIf="submitted && newemployeeForm.get('email')?.errors?.email" class="validation-error small alert alert-danger">Email nije validan</div>
+    <div class="container-fluid d-flex flex-column align-items-center m-3">
+      <div
+        class="container-fluid d-flex flex-column justify-content-center align-items-center md-3"
+      >
+        <h1 class="text-center">Novi zaposleni</h1>
+        <div class="container-fluid" style="width: 150px">
+          <img
+            src="../../assets/images/person-plus-fill.svg"
+            class="card-img-top"
+            alt="New employee - person with a plus"
+          />
+        </div>
+        <div class="form-floating m-3 w-75">
+          <input
+            formControlName="email"
+            type="email"
+            class="form-control"
+            id="floatingEmail"
+            placeholder="Email"
+            required
+          />
+          <label for="floatingIme">E-mail</label>
+          <div
+            *ngIf="submitted && newemployeeForm.get('email')?.errors?.required"
+            class="validation-error small alert alert-danger"
+          >
+            Email je obavezan
+          </div>
+          <div
+            *ngIf="submitted && newemployeeForm.get('email')?.errors?.email"
+            class="validation-error small alert alert-danger"
+          >
+            Email nije validan
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="d-flex flex-column align-items-center m-3">
-      <div class="container">
-        <div class="d-flex mb-2">
-          <div class="form-floating ms-4">
+      <div class="container-fluid">
+        <div class="d-flex justify-content-center mb-2 w">
+          <div class="form-floating ms-4 w-50">
             <input
               formControlName="ime"
               type="text"
@@ -39,9 +50,14 @@
               placeholder="Ime"
             />
             <label for="floatingIme">Ime</label>
-            <div *ngIf="submitted && newemployeeForm.get('ime')?.errors?.required" class="validation-error small alert alert-danger">Ime je obavezno</div>
+            <div
+              *ngIf="submitted && newemployeeForm.get('ime')?.errors?.required"
+              class="validation-error small alert alert-danger"
+            >
+              Ime je obavezno
+            </div>
           </div>
-          <div class="form-floating ms-4">
+          <div class="form-floating ms-4 w-50">
             <input
               formControlName="prezime"
               type="text"
@@ -50,9 +66,21 @@
               placeholder="Prezime"
             />
             <label for="floatingPrezime">Prezime</label>
-            <div *ngIf="submitted && newemployeeForm.get('prezime')?.errors?.required" class="validation-error small alert alert-danger">Prezime je obavezno</div>
+            <div
+              *ngIf="
+                submitted && newemployeeForm.get('prezime')?.errors?.required
+              "
+              class="validation-error small alert alert-danger"
+            >
+              Prezime je obavezno
+            </div>
           </div>
-          <div class="form-floating ms-4">
+        </div>
+      </div>
+
+      <div class="container-fluid">
+        <div class="d-flex justify-content-center mb-4">
+          <div class="form-floating ms-4 w-50">
             <input
               formControlName="datumrodjenja"
               type="date"
@@ -61,12 +89,29 @@
               placeholder="Datum rodjenja"
             />
             <label for="floatingDatRodjenja">Datum rodjenja</label>
-            <div *ngIf="submitted && newemployeeForm.get('datumrodjenja')?.errors?.required" class="validation-error small alert alert-danger">Datum rođenja je obavezan</div>
+            <div
+              *ngIf="
+                submitted &&
+                newemployeeForm.get('datumrodjenja')?.errors?.required
+              "
+              class="validation-error small alert alert-danger"
+            >
+              Datum rođenja je obavezan
+            </div>
           </div>
-          <div class="d-flex align-items-center ms-4">
+          <div
+            class="d-flex justify-content-center align-items-center ms-4 w-50"
+          >
             <div class="form-floating me-3 ms-4">
               <h3>Pol</h3>
-              <div *ngIf="submitted && newemployeeForm.get('pol')?.errors?.required" class="validation-error small alert alert-danger">Pol je obavezan</div>
+              <div
+                *ngIf="
+                  submitted && newemployeeForm.get('pol')?.errors?.required
+                "
+                class="validation-error small alert alert-danger"
+              >
+                Pol je obavezan
+              </div>
             </div>
             <label for="floatingPolm">Muski</label>
             <div class="form-floating m-3">
@@ -76,7 +121,6 @@
                 value="Muski"
                 class="form-check-input"
                 id="floatingPolm"
-                placeholder=""
               />
             </div>
             <label for="floatingPolz">Zenski</label>
@@ -87,16 +131,15 @@
                 value="Zenski"
                 class="form-check-input"
                 id="floatingPolz"
-                placeholder=""
               />
             </div>
           </div>
         </div>
       </div>
 
-      <div class="container">
-        <div class="d-flex">
-          <div class="form-floating ms-4">
+      <div class="container-fluid mb-2">
+        <div class="d-flex justify-content-center">
+          <div class="form-floating ms-4 w-50">
             <input
               formControlName="jmbg"
               type="text"
@@ -105,9 +148,14 @@
               placeholder="JMBG"
             />
             <label for="floatingIme">JMBG</label>
-            <div *ngIf="submitted && newemployeeForm.get('jmbg')?.errors?.required" class="validation-error small alert alert-danger">JMBG je obavezan</div>
+            <div
+              *ngIf="submitted && newemployeeForm.get('jmbg')?.errors?.required"
+              class="validation-error small alert alert-danger"
+            >
+              JMBG je obavezan
+            </div>
           </div>
-          <div class="form-floating ms-4">
+          <div class="form-floating ms-4 w-50">
             <input
               formControlName="adresastanovanja"
               type="text"
@@ -116,9 +164,22 @@
               placeholder="Adresa stanovanja"
             />
             <label for="floatingAdresaStanovanja">Adresa stanovanja</label>
-            <div *ngIf="submitted && newemployeeForm.get('adresastanovanja')?.errors?.required" class="validation-error small alert alert-danger">Adresa stanovanja je obavezna</div>
+            <div
+              *ngIf="
+                submitted &&
+                newemployeeForm.get('adresastanovanja')?.errors?.required
+              "
+              class="validation-error small alert alert-danger"
+            >
+              Adresa stanovanja je obavezna
+            </div>
           </div>
-          <div class="form-floating ms-4">
+        </div>
+      </div>
+
+      <div class="container-fluid">
+        <div class="d-flex">
+          <div class="form-floating ms-4 w-50">
             <input
               formControlName="mestostanovanja"
               type="text"
@@ -127,9 +188,17 @@
               placeholder="Mesto stanovanja"
             />
             <label for="floatingDatRodjenja">Mesto stanovanja</label>
-            <div *ngIf="submitted && newemployeeForm.get('mestostanovanja')?.errors?.required" class="validation-error small alert alert-danger">Mesto stanovanja je obavezno</div>
+            <div
+              *ngIf="
+                submitted &&
+                newemployeeForm.get('mestostanovanja')?.errors?.required
+              "
+              class="validation-error small alert alert-danger"
+            >
+              Mesto stanovanja je obavezno
+            </div>
           </div>
-          <div class="form-floating ms-4">
+          <div class="form-floating ms-4 w-50">
             <input
               formControlName="kontakttel"
               type="text"
@@ -142,81 +211,86 @@
         </div>
       </div>
 
-      <div class="container">
-        <div class="d-flex">
-          <div class="d-flex align-items-center ms-4 mt-4">
-            <div class="form-floating me-3">
-              <h3>Privilegije</h3>
-            </div>
-            <label for="floatingAdminPriv">Administrator</label>
-            <div class="form-floating m-3">
-              <input
-                formControlName="adminPriv"
-                type="checkbox"
-                class="form-check-input"
-                id="floatingAdminPriv"
-                placeholder="Administrator"
-              />
-            </div>
-            <label for="floatingNacelnik">Načelnik odeljenja</label>
-            <div class="form-floating m-3">
-              <input
-                formControlName="nacelnik"
-                type="checkbox"
-                class="form-check-input"
-                id="floatingNacelnik"
-                placeholder=""
-              />
-            </div>
-            <label for="floatingDocSpec">Doktor specijalista</label>
-            <div class="form-floating m-3">
-              <input
-                formControlName="doktorSpec"
-                type="checkbox"
-                class="form-check-input"
-                id="floatingDocSpec"
-                placeholder=""
-              />
-            </div>
-            <label for="floatingDocSpec"
-              >Doktor specijalista (poverljiv pristup)</label
-            >
-            <div class="form-floating m-3">
-              <input
-                formControlName="doktorSpecPov"
-                type="checkbox"
-                class="form-check-input"
-                id="floatingDocSpecPov"
-                placeholder=""
-              />
-            </div>
-            <label for="floatingDocSpec">Medicinska sestra</label>
-            <div class="form-floating m-3">
-              <input
-                formControlName="medSestra"
-                type="checkbox"
-                class="form-check-input"
-                id="floatingMedSestra"
-                placeholder=""
-              />
-            </div>
-            <label for="floatingDocSpec">Viša medicinska sestra</label>
-            <div class="form-floating m-3">
-              <input
-                formControlName="medSestraVisa"
-                type="checkbox"
-                class="form-check-input"
-                id="floatingMedSestraVisa"
-                placeholder=""
-              />
-            </div>
+      <div class="form-floating me-2 mt-4">
+        <h3>Privilegije</h3>
+      </div>
+
+      <div class="d-flex flex-column">
+        <div class="d-flex align-items-center ms-4">
+          <div class="form-floating m-3">
+            <input
+              formControlName="adminPriv"
+              type="checkbox"
+              class="form-check-input"
+              id="floatingAdminPriv"
+              placeholder="Administrator"
+            />
           </div>
+          <label for="floatingAdminPriv">Administrator</label>
+          <div class="form-floating m-3">
+            <input
+              formControlName="nacelnik"
+              type="checkbox"
+              class="form-check-input"
+              id="floatingNacelnik"
+              placeholder=""
+            />
+          </div>
+          <label for="floatingNacelnik">Načelnik odeljenja</label>
+        </div>
+
+        <div class="d-flex align-items-center ms-4 mt-2">
+          <div class="form-floating m-3">
+            <input
+              formControlName="doktorSpec"
+              type="checkbox"
+              class="form-check-input"
+              id="floatingDocSpec"
+              placeholder=""
+            />
+          </div>
+          <label for="floatingDocSpec">Doktor specijalista</label>
+          <div class="form-floating m-3">
+            <input
+              formControlName="doktorSpecPov"
+              type="checkbox"
+              class="form-check-input"
+              id="floatingDocSpecPov"
+              placeholder=""
+            />
+          </div>
+          <label for="floatingDocSpec"
+            >Doktor specijalista (poverljiv pristup)</label
+          >
+        </div>
+
+        <div class="d-flex align-items-center ms-4 mt-2">
+          <div class="form-floating m-3">
+            <input
+              formControlName="medSestra"
+              type="checkbox"
+              class="form-check-input"
+              id="floatingMedSestra"
+              placeholder=""
+            />
+          </div>
+          <label for="floatingDocSpec">Medicinska sestra</label>
+          <div class="form-floating m-3">
+            <input
+              formControlName="medSestraVisa"
+              type="checkbox"
+              class="form-check-input"
+              id="floatingMedSestraVisa"
+              placeholder=""
+            />
+          </div>
+          <label for="floatingDocSpec">Viša medicinska sestra</label>
         </div>
       </div>
 
-      <div class="container">
+      <div class="container-fluid">
         <div class="d-flex justify-content-center mt-2">
-          <div class="form-floating ms-4 mt-2">
+          <div class="form-floating ms-4 mt-2 w-50">
             <select
               id="titula"
               class="form-select"
@@ -231,7 +305,7 @@
               <option value="6">Mr</option>
             </select>
           </div>
-          <div class="form-floating ms-4 mt-2">
+          <div class="form-floating ms-4 mt-2 w-50">
             <select class="form-select" aria-label="Default select example">
               <option selected>Odeljenje</option>
               <option value="1">Odeljenje 1</option>
@@ -242,7 +316,7 @@
               <option value="6">Odeljenje 6</option>
             </select>
           </div>
-          <div class="form-floating ms-4 mt-2 w-75">
+          <div class="form-floating ms-4 mt-2 w-100">
             <select class="form-select" aria-label="Default select example">
               <option selected>Zanimanje</option>
               <option value="1">Med. sestra</option>
