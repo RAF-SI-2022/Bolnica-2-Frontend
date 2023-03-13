@@ -22,7 +22,7 @@ export class EmployeesService {
         });
     }
 
-    updateEmployee(employee: UpdateEmployeeRequest) {
+   /* updateEmployee(employee: UpdateEmployeeRequest) {
 
         const token=localStorage.getItem('token');
         if(token==null)
@@ -43,6 +43,6 @@ export class EmployeesService {
                 'Authorization': 'Bearer ' + token
             }
         });
-        }
+        }*/
 
 }

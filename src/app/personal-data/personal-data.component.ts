@@ -19,10 +19,9 @@ export class PersonalDataComponent implements OnInit {
   userData:UpdateEmployeeRequest;
   isInEditMode:boolean;
   newPasswordConfirm:string;
-  updateEmployeeForm: FormGroup;
 
   
-  constructor(private router: Router,private httpClient:HttpClient,private formBuilder: FormBuilder,private employeesService: EmployeesService) {
+  constructor(private router: Router,private httpClient:HttpClient,private employeesService: EmployeesService) {
     this.isInEditMode=false;
     this.newPasswordConfirm='';
     this.userData= {
@@ -42,24 +41,6 @@ export class PersonalDataComponent implements OnInit {
       newPassword: '',
       departmentId: 0}
 
-
-    this.updateEmployeeForm = this.formBuilder.group({
-      firstName: [this.userData.firstName, [Validators.required,Validators.minLength(5),Validators.maxLength(30)]],
-      /*lastName: [this.userData.lastName, Validators.required],
-      dateOfBirth: [this.userData.dateOfBirth],
-      gender:[this.userData.gender , Validators.required],
-      jmbg:[this.userData.jmbg , Validators.required],
-      residentialAddress:[this.userData.residentialAddress , Validators.required],
-      placeOfLiving:[this.userData.placeOfLiving, Validators.required],
-      phone:[this.userData.phone],
-      email:[this.userData.email ,[Validators.required, Validators.email]],
-      title:[this.userData.title,[Validators.required]],
-      profession:[this.userData.profession,[Validators.required]],
-      username:[this.userData.username ,[Validators.required]],
-      departmentId:[this.userData.departmentId ,[Validators.required]],
-      oldPassword:[this.userData.oldPassword],
-      newPassword:[this.userData.newPassword],*/
-    });
 
  }
 
@@ -104,21 +85,31 @@ export class PersonalDataComponent implements OnInit {
     });
 
   }
+ 
   
-
   editEmployee(){
  
   
-    if (this.updateEmployeeForm.invalid) {
-      alert("Nesto nije dobro");
+    //provera da li su uslovi zadovoljeni da bi se poslao zahtev
+    if (!this.isFirstNameCorrect() ) {
       return;
     }
+    if (!this.userData.jmbg || !this.userData.residentialAddress || !this.userData.placeOfLiving || !this.userData.departmentId) {
+      return;
+    }
+    if (!this.userData.email ||  !this.userData.title || !this.userData.profession || !this.userData.username) {
+      return;
+    }
+    if(!this.userData.lastName || !this.userData.dateOfBirth ||!this.userData.gender  ){
+      return;
+    }
+    if(!this.userData.oldPassword || !this.userData.newPassword ){
+      return;
+    }
+
     if(this.userData.newPassword !== this.newPasswordConfirm){
-      alert("Lozinke se ne poklapaju");
       return;
     }
-
-
 
       /*this.employeesService.updateEmployee(this.userData).subscribe({
         next: (res) => {
@@ -147,8 +138,11 @@ export class PersonalDataComponent implements OnInit {
             'Authorization': 'Bearer ' + token
         }
     }).subscribe(
-      data=>console.log(data)
+      data=>{console.log(data)
+        window.location.reload()}
       );
+      
+
   }
   catch{}
   return;
@@ -162,6 +156,22 @@ export class PersonalDataComponent implements OnInit {
   }
   setGender(gender:string): void {
     this.userData.gender=gender;
+  }
+  isFirstNameCorrect():boolean{
+    if (!this.userData.firstName) 
+      return false;
+
+    if (!this.userData.firstName.match(/^[a-z0-9]+$/i) )
+      return false;
+
+    if (this.userData.firstName.length<5 || this.userData.firstName.length>30) {
+      console.log((this.userData.firstName.length<5) +" " +(this.userData.firstName.length>30))
+      return false;
+    }
+    
+    else
+      return true;
+
   }
 
 }

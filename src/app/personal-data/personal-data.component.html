@@ -8,21 +8,33 @@
         <div class="container">
             <div class="d-flex mb-2">
                 <div class="form-floating ms-4">
-                    <input type="text" class="form-control" name="firstName" [ngModelOptions]="{standalone: true}" [(ngModel)]="this.userData.firstName" [disabled]="!this.isInEditMode"/>
+                    <input type="text" class="form-control" name="firstName" [ngModelOptions]="{standalone: true}" [(ngModel)]="this.userData.firstName" [disabled]="!this.isInEditMode" required minlength="5" maxlength="30"/>
                     <label for="floatingFirstName">Ime</label>  
+                    <div *ngIf="isInEditMode && !isFirstNameCorrect()">
+                        Ime je obavezno i mora sadrzati izmedju 5 i 30 slova ili brojeva
+                    </div>
                 </div>
 
                 <div class="form-floating ms-4">
                     <input type="text" class="form-control" id="floatingLastName" placeholder="Last Name"  [ngModelOptions]="{standalone: true}" [(ngModel)]="this.userData.lastName" [disabled]="!this.isInEditMode"/>
                     <label for="floatingLastName">Prezime</label>  
+                    <div *ngIf="isInEditMode && !this.userData.lastName">
+                        Prezime je obavezno
+                    </div>
                 </div>
                 <div class="form-floating ms-4">
                     <input type="text" class="form-control" id="floatingUsername" placeholder="Username"  [ngModelOptions]="{standalone: true}" [(ngModel)]="this.userData.username" [disabled]="!this.isInEditMode"/>
                     <label for="floatingUsername">Korisničko ime</label>  
+                    <div *ngIf="isInEditMode && !this.userData.username">
+                        Korisničko ime je obavezno
+                    </div>
                 </div>
                 <div class="form-floating ms-4">
                     <input type="text" class="form-control" id="floatingEmail" placeholder="Email"  [ngModelOptions]="{standalone: true}" [(ngModel)]="this.userData.email" [disabled]="!this.isInEditMode"/>
                     <label for="floatingEmail">Imejl</label>  
+                    <div *ngIf="isInEditMode && !this.userData.email">
+                        Imejl jeo bavezan
+                    </div>
                 </div>
 
 
@@ -35,35 +47,49 @@
                 <div class="form-floating ms-4">
                     <input type="text" class="form-control" id="floatingAddress" placeholder="Residential Address"  [ngModelOptions]="{standalone: true}" [(ngModel)]="this.userData.residentialAddress" [disabled]="!this.isInEditMode"/>
                     <label for="floatingAddress">Adresa stanovanja</label>  
+                    <div *ngIf="isInEditMode && !this.userData.residentialAddress">
+                        Adresa stanovanja je obavezna
+                    </div>
                 </div>
 
                 <div class="form-floating ms-4">
                     <input type="text" class="form-control" id="floatingPlace" placeholder="Place of Living"  [ngModelOptions]="{standalone: true}" [(ngModel)]="this.userData.placeOfLiving" [disabled]="!this.isInEditMode"/>
                     <label for="floatingPlace">Mesto stanovanja</label>  
+                    <div *ngIf="isInEditMode && !this.userData.placeOfLiving">
+                        Mesto stanovanja je obavezno
+                    </div>
                 </div>
                 <div class="d-flex mb-2">
                     <div class="form-floating ms-4">
                         <input type="text" class="form-control" id="floatingJMBG" placeholder="JMBG"  [ngModelOptions]="{standalone: true}" [(ngModel)]="this.userData.jmbg" [disabled]="!this.isInEditMode"/>
                         <label for="floatingJMBG">JMBG</label>  
+                        <div *ngIf="isInEditMode && !this.userData.jmbg">
+                            JMBG ime je obavezan
+                        </div>
                     </div>
                 </div>
                 <div class="form-floating ms-4">
                     <input type="date" class="form-control" id="floatingDob" placeholder="Date of Birth"  [ngModelOptions]="{standalone: true}" [(ngModel)]="this.userData.dateOfBirth" [disabled]="!this.isInEditMode"/>
                     <label for="floatingDob">Datum rođenja</label>  
+                    <div *ngIf="isInEditMode && !this.userData.dateOfBirth">
+                        Datum rođenja je obavezan
+                    </div>
                 </div>
 
             </div>
             <div class="d-flex mb-2">
                 <div class="form-floating ms-4">
                     <input type="text" class="form-control" id="floatingPhone" placeholder="Phone"  [ngModelOptions]="{standalone: true}" [(ngModel)]="this.userData.phone" [disabled]="!this.isInEditMode"/>
-                    <label for="floatingPhone">Telefon
-                    </label>  
+                    <label for="floatingPhone">Telefon</label> 
                 </div>
             
 
                 <div class="form-floating ms-4">
                     <input type="text" class="form-control" id="floatingDepartmentId" placeholder="DepartmentId"  [ngModelOptions]="{standalone: true}" [(ngModel)]="this.userData.departmentId" [disabled]="!this.isInEditMode"/>
                     <label for="floatingDepartmentId">Id odeljenja</label>  
+                    <div *ngIf="isInEditMode && !this.userData.departmentId">
+                        Odeljenje je obavezno
+                    </div>
                 </div>
                 <div class="d-flex mb-2">
                     <div class="form-floating ms-4">             
@@ -141,17 +167,27 @@
                 <div class="form-floating ms-4">
                     <input type="password" class="form-control" id="floatingPassowrd" placeholder="Passowrd" [ngModelOptions]="{standalone: true}" [(ngModel)]="this.userData.oldPassword" value="" [disabled]="!this.isInEditMode" />
                     <label for="floatingPassowrd">Stara Lozinka</label>  
+                    <div *ngIf="isInEditMode && !this.userData.oldPassword">
+                        Stara lozinka je obavezna
+                    </div>
+                    
                 </div>
             
                 <div class="form-floating ms-4" *ngIf="this.isInEditMode">
                     <input type="password" class="form-control" id="floatingNewPassowrd"  [ngModelOptions]="{standalone: true}" [(ngModel)]="this.userData.newPassword" [disabled]="!this.isInEditMode" />
                     <label for="floatingNewPassowrd">Nova lozinka</label>  
+                    <div *ngIf="isInEditMode && !this.userData.newPassword">
+                        Nova lozinka je obavezna
+                    </div>
                 </div>
                 
                 
                 <div class="form-floating ms-4" *ngIf="this.isInEditMode">
                     <input type="password" class="form-control" id="floatingNewPassowrdConfirm"   [ngModelOptions]="{standalone: true}" [(ngModel)]="this.newPasswordConfirm" [disabled]="!this.isInEditMode" />
                     <label for="floatingNewPassowrdConfirm">Ponovite lozinku</label>  
+                    <div *ngIf="isInEditMode && this.userData.newPassword !== this.newPasswordConfirm">
+                        Lozinke nisu iste
+                    </div>
                 </div>
                 
 
