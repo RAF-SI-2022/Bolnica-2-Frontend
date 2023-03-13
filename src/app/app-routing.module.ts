@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { NewEmployeeComponent } from './new-employee/new-employee.component';
 import { PersonalDataComponent } from './personal-data/personal-data.component';
 import { SearchEmployeesComponent } from './search-employees/search-employees.component';
+import { AdminEditEmployeeComponent } from './admin-edit-employee/admin-edit-employee.component';
 
 const routes: Routes = [
   {
@@ -34,9 +35,15 @@ const routes: Routes = [
     path: 'new-employee',
     component: NewEmployeeComponent,
     canActivate: [AuthGuard]
-  }, {
+  },
+  {
     path: 'search-employees',
     component: SearchEmployeesComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'admin-edit-employee/:lbz',
+    component: AdminEditEmployeeComponent,
     canActivate: [AuthGuard]
   }
 ];
