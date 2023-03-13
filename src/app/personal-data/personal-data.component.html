@@ -1,100 +1,136 @@
 
 <div class="container d-flex justify-content-center mt-4">
-    <form class="p-4 p-md-5 border rounded-3 bg-light d-flex">
+    <form class="p-4 p-md-5 border rounded-3 bg-light d-flex" #myForm="ngForm" (ngSubmit)="editEmployee()">
     <div class="d-flex flex-column justify-content-center align-items-center md-3">
         <h2>Moji podaci</h2>
         <br/>
         <br/>
         <div class="container">
             <div class="d-flex mb-2">
-
                 <div class="form-floating ms-4">
-                    <input type="text" class="form-control" id="floatingId" placeholder="Id" [value]="this.userData.id" [disabled]="!this.isInEditMode"/>
-                    <label for="floatingPassword">Id</label>  
-                </div>
-
-                <div class="form-floating ms-4">
-                    <input type="text" class="form-control" id="floatingLbz" placeholder="Lbz" [value]="this.userData.lbz" [disabled]="!this.isInEditMode"/>
-                    <label for="floatingLbz">Lbz</label>  
-                </div>
-
-                <div class="form-floating ms-4">
-                    <input type="text" class="form-control" id="floatingFirstName" placeholder="First Name" [value]="this.userData.firstName" [disabled]="!this.isInEditMode"/>
+                    <input type="text" class="form-control" name="firstName" [ngModelOptions]="{standalone: true}" [(ngModel)]="this.userData.firstName" [disabled]="!this.isInEditMode"/>
                     <label for="floatingFirstName">Ime</label>  
                 </div>
 
                 <div class="form-floating ms-4">
-                    <input type="text" class="form-control" id="floatingLastName" placeholder="Last Name" [value]="this.userData.lastName" [disabled]="!this.isInEditMode"/>
+                    <input type="text" class="form-control" id="floatingLastName" placeholder="Last Name"  [ngModelOptions]="{standalone: true}" [(ngModel)]="this.userData.lastName" [disabled]="!this.isInEditMode"/>
                     <label for="floatingLastName">Prezime</label>  
                 </div>
+                <div class="form-floating ms-4">
+                    <input type="text" class="form-control" id="floatingUsername" placeholder="Username"  [ngModelOptions]="{standalone: true}" [(ngModel)]="this.userData.username" [disabled]="!this.isInEditMode"/>
+                    <label for="floatingUsername">Korisničko ime</label>  
+                </div>
+                <div class="form-floating ms-4">
+                    <input type="text" class="form-control" id="floatingEmail" placeholder="Email"  [ngModelOptions]="{standalone: true}" [(ngModel)]="this.userData.email" [disabled]="!this.isInEditMode"/>
+                    <label for="floatingEmail">Imejl</label>  
+                </div>
+
+
             </div>
 
             <div class="d-flex mb-2">
 
-                <div class="form-floating ms-4">
-                    <input type="text" class="form-control" id="floatingGender" placeholder="Gender" [value]="this.userData.gender" [disabled]="!this.isInEditMode"/>
-                    <label for="floatingGender">Pol</label>  
-                </div>
+
 
                 <div class="form-floating ms-4">
-                    <input type="text" class="form-control" id="floatingAddress" placeholder="Residential Address" [value]="this.userData.residentalAddress" [disabled]="!this.isInEditMode"/>
+                    <input type="text" class="form-control" id="floatingAddress" placeholder="Residential Address"  [ngModelOptions]="{standalone: true}" [(ngModel)]="this.userData.residentialAddress" [disabled]="!this.isInEditMode"/>
                     <label for="floatingAddress">Adresa stanovanja</label>  
                 </div>
 
                 <div class="form-floating ms-4">
-                    <input type="text" class="form-control" id="floatingPlace" placeholder="Place of Living" [value]="this.userData.placeOfLiving" [disabled]="!this.isInEditMode"/>
+                    <input type="text" class="form-control" id="floatingPlace" placeholder="Place of Living"  [ngModelOptions]="{standalone: true}" [(ngModel)]="this.userData.placeOfLiving" [disabled]="!this.isInEditMode"/>
                     <label for="floatingPlace">Mesto stanovanja</label>  
                 </div>
+                <div class="d-flex mb-2">
+                    <div class="form-floating ms-4">
+                        <input type="text" class="form-control" id="floatingJMBG" placeholder="JMBG"  [ngModelOptions]="{standalone: true}" [(ngModel)]="this.userData.jmbg" [disabled]="!this.isInEditMode"/>
+                        <label for="floatingJMBG">JMBG</label>  
+                    </div>
+                </div>
                 <div class="form-floating ms-4">
-                    <input type="date" class="form-control" id="floatingDob" placeholder="Date of Birth" [value]="this.userData.dateOfBirth" [disabled]="!this.isInEditMode"/>
+                    <input type="date" class="form-control" id="floatingDob" placeholder="Date of Birth"  [ngModelOptions]="{standalone: true}" [(ngModel)]="this.userData.dateOfBirth" [disabled]="!this.isInEditMode"/>
                     <label for="floatingDob">Datum rođenja</label>  
                 </div>
+
             </div>
             <div class="d-flex mb-2">
                 <div class="form-floating ms-4">
-                    <input type="text" class="form-control" id="floatingPhone" placeholder="Phone" [value]="this.userData.phone" [disabled]="!this.isInEditMode"/>
+                    <input type="text" class="form-control" id="floatingPhone" placeholder="Phone"  [ngModelOptions]="{standalone: true}" [(ngModel)]="this.userData.phone" [disabled]="!this.isInEditMode"/>
                     <label for="floatingPhone">Telefon
                     </label>  
                 </div>
             
+
                 <div class="form-floating ms-4">
-                    <input type="text" class="form-control" id="floatingEmail" placeholder="Email" [value]="this.userData.email" [disabled]="!this.isInEditMode"/>
-                    <label for="floatingEmail">Imejl</label>  
+                    <input type="text" class="form-control" id="floatingDepartmentId" placeholder="DepartmentId"  [ngModelOptions]="{standalone: true}" [(ngModel)]="this.userData.departmentId" [disabled]="!this.isInEditMode"/>
+                    <label for="floatingDepartmentId">Id odeljenja</label>  
                 </div>
-                
                 <div class="d-flex mb-2">
-                    <div class="form-floating ms-4">
-                        <input type="text" class="form-control" id="floatingTitle" placeholder="Title" [value]="this.userData.title.notation" [disabled]="!this.isInEditMode"/>
-                        <label for="floatingTitle">Titula</label>  
+                    <div class="form-floating ms-4">             
+                        Profesija:
+                        <div ngbDropdown>
+                            <button class="btn btn-outline-dark" id="titleDropDown" ngbDropdownToggle [disabled]="!this.isInEditMode">{{this.userData.profession}}</button>
+                            <div ngbDropdownMenu aria-labelledby="titleDropDown">
+                                <button ngbDropdownItem (click)="setProfession('Med. sestra')">Med. sestra</button>
+                                <button ngbDropdownItem (click)="setProfession('Spec. biohemičar')">Spec. biohemičar</button>
+                                <button ngbDropdownItem (click)="setProfession('Spec. gastroenterolog')">Spec. gastroenterolog</button>
+                                <button ngbDropdownItem (click)="setProfession('Spec. ginekolog')">Spec. ginekolog</button>
+                                <button ngbDropdownItem (click)="setProfession('Spec. endokrinolog')">Spec. endokrinolog</button>
+                                <button ngbDropdownItem (click)="setProfession('Spec. kardiolog')">Spec. kardiolog</button>
+                                <button ngbDropdownItem (click)="setProfession('Spec. neurolog')">Spec. neurolog</button>
+                                <button ngbDropdownItem (click)="setProfession('Spec. nefrolog')">Spec. nefrolog</button>
+                                <button ngbDropdownItem (click)="setProfession('Spec. psihijatar')">Spec. psihijatar</button>
+                                <button ngbDropdownItem (click)="setProfession('Spec. pulmolog')">Spec. pulmolog</button>
+                                <button ngbDropdownItem (click)="setProfession('Spec. urolog')">Spec. urolog</button>
+                                <button ngbDropdownItem (click)="setProfession('Spec. hematolog')">Spec. hematolog</button>
+                                <button ngbDropdownItem (click)="setProfession('Spec. hirurg')">Spec. hirurg</button>
+                              
+                            </div>
+                          </div>
                     </div>
                 </div>
                 <div class="d-flex mb-2">
                     <div class="form-floating ms-4">
-                        <input type="text" class="form-control" id="floatingProffesion" placeholder="Profession" [value]="this.userData.profession.notation" [disabled]="!this.isInEditMode"/>
-                        <label for="floatingProffesion">Profesija</label>  
+                        Titula:
+                        <div ngbDropdown>
+                            <button class="btn btn-outline-dark" id="titleDropDown" ngbDropdownToggle [disabled]="!this.isInEditMode">{{this.userData.title}}</button>
+                            <div ngbDropdownMenu aria-labelledby="titleDropDown">
+                                <button ngbDropdownItem (click)="setTitle('Prof. dr. med')">Prof. dr. med</button>
+                                <button ngbDropdownItem (click)="setTitle('Dr med. spec')">Dr med. spec</button>
+                                <button ngbDropdownItem (click)="setTitle('Dr sci. med')">Dr sci. med</button>
+                                <button ngbDropdownItem (click)="setTitle('Dipl. farm')">Dipl. farm</button>
+                                <button ngbDropdownItem (click)="setTitle('Mag. farm')">Mag. farm</button>
+                                <button ngbDropdownItem (click)="setTitle('Mr')">Mr</button>
+                            </div>
+                          </div>
                     </div>
+                </div>
+                <div class="form-floating ms-4">
+                    Pol:
+                    <div ngbDropdown>
+                        <button class="btn btn-outline-dark" id="genderDropdown" ngbDropdownToggle [disabled]="!this.isInEditMode">{{this.userData.gender}}</button>
+                        <div ngbDropdownMenu aria-labelledby="genderDropdown">
+                          <button class="dropdown-item" (click)="setGender('Muski')">Muski</button>
+                          <button class="dropdown-item" (click)="setGender('Zenski')">Zenski</button>
+                        </div>
+                      </div>
                 </div>
             </div>
             <div class="d-flex mb-2">
+
                 <div class="form-floating ms-4">
-                    <input type="text" class="form-control" id="floatingUsername" placeholder="Username" [value]="this.userData.username" [disabled]="!this.isInEditMode"/>
-                    <label for="floatingUsername">Korisničko ime</label>  
+                    <input type="text" class="form-control" id="floatingId" placeholder="Id"  [value]="this.uneditedUserData.id" [disabled]="true"/>
+                    <label for="floatingPassword">Id</label>  
                 </div>
-            
+
                 <div class="form-floating ms-4">
-                    <input type="text" class="form-control" id="floatingDepartmentId" placeholder="DepartmentId" [value]="this.userData.department.id" [disabled]="!this.isInEditMode"/>
-                    <label for="floatingDepartmentId">Id odeljenja</label>  
+                    <input type="text" class="form-control" id="floatingLbz" placeholder="Lbz"  [value]="this.uneditedUserData.lbz" [disabled]="true"/>
+                    <label for="floatingLbz">Lbz</label>  
                 </div>
-                
+
                 <div class="d-flex mb-2">
                     <div class="form-floating ms-4">
-                        <input type="text" class="form-control" id="floatingJMBG" placeholder="JMBG" [value]="this.userData.jmbg" [disabled]="!this.isInEditMode"/>
-                        <label for="floatingJMBG">JMBG</label>  
-                    </div>
-                </div>
-                <div class="d-flex mb-2">
-                    <div class="form-floating ms-4">
-                        <input type="text" class="form-control" id="floatingDeleted" placeholder="Deleted" [value]="this.userData.deleted" [disabled]="!this.isInEditMode"/>
+                        <input type="text" class="form-control" id="floatingDeleted" placeholder="Deleted"  [value]="this.uneditedUserData.deleted" [disabled]="true"/>
                         <label for="floatingDeleted"> Obrisan</label>  
                     </div>
                 </div>
@@ -103,18 +139,18 @@
             <!--Lozinka-->
             <div class="d-flex mb-2">
                 <div class="form-floating ms-4">
-                    <input type="text" class="form-control" id="floatingPassowrd" placeholder="Passowrd" value="" [disabled]="!this.isInEditMode"/>
-                    <label for="floatingPassowrd">Lozinka</label>  
+                    <input type="password" class="form-control" id="floatingPassowrd" placeholder="Passowrd" [ngModelOptions]="{standalone: true}" [(ngModel)]="this.userData.oldPassword" value="" [disabled]="!this.isInEditMode" />
+                    <label for="floatingPassowrd">Stara Lozinka</label>  
                 </div>
             
                 <div class="form-floating ms-4" *ngIf="this.isInEditMode">
-                    <input type="text" class="form-control" id="floatingNewPassowrd" [value]="this.newPassword" [disabled]="!this.isInEditMode" />
+                    <input type="password" class="form-control" id="floatingNewPassowrd"  [ngModelOptions]="{standalone: true}" [(ngModel)]="this.userData.newPassword" [disabled]="!this.isInEditMode" />
                     <label for="floatingNewPassowrd">Nova lozinka</label>  
                 </div>
                 
                 
                 <div class="form-floating ms-4" *ngIf="this.isInEditMode">
-                    <input type="text" class="form-control" id="floatingNewPassowrdConfirm"  [value]="this.newPasswordConfirm" [disabled]="!this.isInEditMode" />
+                    <input type="password" class="form-control" id="floatingNewPassowrdConfirm"   [ngModelOptions]="{standalone: true}" [(ngModel)]="this.newPasswordConfirm" [disabled]="!this.isInEditMode" />
                     <label for="floatingNewPassowrdConfirm">Ponovite lozinku</label>  
                 </div>
                 
@@ -123,8 +159,8 @@
 
             <div class="d-flex mb-2">
                 <div class="d-flex justify-content-center mt-4">
-                <input type="button" class="btn btn-primary form-control" value="EditButton" (click)="this.isInEditMode=!this.isInEditMode" />
-                <input type="button" class="btn btn-primary form-control" value="ConfirmButton" />
+                <input type="button" class="btn btn-primary form-control" value="Izmeni podatke" (click)="this.isInEditMode=!this.isInEditMode" />
+                <input type="submit" class="btn btn-primary form-control" value="Sacuvaj podatke" />
                 </div>
             </div>
         </div>

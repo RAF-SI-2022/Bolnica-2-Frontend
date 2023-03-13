@@ -7,7 +7,7 @@ export interface EmployeeResponse {
     lbz: string,
     firstName: string,
     lastName: string,
-    dateOfBirth: string,
+    dateOfBirth: Date,
     gender: string,
     residentalAddress: string,
     placeOfLiving: string,
