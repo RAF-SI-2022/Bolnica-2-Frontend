@@ -176,9 +176,6 @@
                 <div class="form-floating ms-4" *ngIf="this.isInEditMode">
                     <input type="password" class="form-control" id="floatingNewPassowrd"  [ngModelOptions]="{standalone: true}" [(ngModel)]="this.userData.newPassword" [disabled]="!this.isInEditMode" />
                     <label for="floatingNewPassowrd">Nova lozinka</label>  
-                   <!-- /*<div *ngIf="isInEditMode && !this.userData.newPassword">
-                        Nova lozinka je obavezna
-                    </div>*/-->
                 </div>
                 
                 

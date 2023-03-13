@@ -22,7 +22,8 @@ const routes: Routes = [
   },
   {
     path: 'forgot-password',
-    component: ForgotPasswordComponent
+    component: ForgotPasswordComponent,
+    canActivate: [AlreadyLoggedInGuard]
   }
   ,
   {

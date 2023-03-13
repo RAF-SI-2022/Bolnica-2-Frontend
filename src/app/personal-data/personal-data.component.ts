@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import jwt_decode,{ JwtPayload } from "jwt-decode";
 import { EMPLOYEE_ENDPOINT } from '../app.constants';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmployeeResponse } from '../dto/response/employee.response';
 import { UpdateEmployeeRequest } from '../dto/request/update.employee.request';
 import { EmployeesService } from '../service/employee.service';
@@ -103,22 +102,13 @@ export class PersonalDataComponent implements OnInit {
     if(!this.userData.lastName || !this.userData.dateOfBirth ||!this.userData.gender  ){
       return;
     }
-    if(!this.userData.oldPassword /*|| !this.userData.newPassword */){
+    if(!this.userData.oldPassword){
       return;
     }
 
     if(this.userData.newPassword !== this.newPasswordConfirm){
       return;
     }
-
-      /*this.employeesService.updateEmployee(this.userData).subscribe({
-        next: (res) => {
-          console.log(res);
-        },
-        error: (e) => {
-          console.log(e);
-        }
-      })*/
 
     const token=localStorage.getItem('token');
     if(token==null)
