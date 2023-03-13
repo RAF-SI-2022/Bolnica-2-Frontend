@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { HotToastService } from '@ngneat/hot-toast';
 import { AuthService } from '../service/auth.service';
 
 @Component({
@@ -15,10 +16,10 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
 
   submitted = false;
-  loginFailed = false;
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
+              private toaster: HotToastService,
               protected authService: AuthService) {
       this.loginForm = this.formBuilder.group({
       username: ['', [
@@ -48,12 +49,11 @@ export class LoginComponent implements OnInit {
     const val = this.loginForm.value;
     this.authService.login(val.username, val.password).subscribe({
       next: (res) => {
-        localStorage.setItem('token', res.token);
-        this.router.navigate(['/']);
+        this.authService.setSession(res.token);
       },
       error: (e) => {
         if (e.status == 401) {
-            this.loginFailed = true;
+            this.toaster.error(e.error.errorMessage);
         }
       }
     })

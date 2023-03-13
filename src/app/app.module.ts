@@ -16,6 +16,7 @@ import { AdminEditEmployeeComponent } from './admin-edit-employee/admin-edit-emp
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HotToastModule } from '@ngneat/hot-toast';
 import { PersonalDataComponent } from './personal-data/personal-data.component';
+import { BooleanDaNePipe } from './pipe/boolean.pipe';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { PersonalDataComponent } from './personal-data/personal-data.component';
   ],
   providers: [
     DecimalPipe,
-    DatePipe
+    DatePipe,
+    BooleanDaNePipe
   ],
   bootstrap: [AppComponent]
 })

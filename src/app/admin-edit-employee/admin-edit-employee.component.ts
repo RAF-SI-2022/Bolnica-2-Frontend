@@ -66,8 +66,7 @@ export class AdminEditEmployeeComponent implements OnInit {
       error: (e) => {
         this.toast.error(e.error.errorMessage);
       }
-    })
-
+    });
   }
 
   onPrivilegijeCheckboxChange(event: any) {
