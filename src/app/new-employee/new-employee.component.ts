@@ -72,9 +72,7 @@ export class NewEmployeeComponent implements OnInit {
         })
       },
       error: (e) => {
-        if (e.error.errorMessage === 'Korisnik sa datim email-om vec postoji') {
-          this.toast.error('Korisnik sa datim email-om vec postoji');
-        }
+        this.toast.error(e.error.errorMessage);
       }
     })
   }

@@ -35,9 +35,7 @@
             <input formControlName="prezime" type="text" class="form-control" id="floatingPrezime"
               placeholder="Prezime" />
             <label for="floatingPrezime">Prezime</label>
-            <div *ngIf="
-                submitted && newemployeeForm.get('prezime')?.errors?.required
-              " class="validation-error small alert alert-danger">
+            <div *ngIf="submitted && newemployeeForm.get('prezime')?.errors?.required" class="validation-error small alert alert-danger">
               Prezime je obavezno
             </div>
           </div>
@@ -50,10 +48,7 @@
             <input formControlName="datumrodjenja" type="date" class="form-control" id="floatingDatRodjenja"
               placeholder="Datum rodjenja" />
             <label for="floatingDatRodjenja">Datum rodjenja</label>
-            <div *ngIf="
-                submitted &&
-                newemployeeForm.get('datumrodjenja')?.errors?.required
-              " class="validation-error small alert alert-danger">
+            <div *ngIf="submitted && newemployeeForm.get('datumrodjenja')?.errors?.required" class="validation-error small alert alert-danger">
               Datum rođenja je obavezan
             </div>
           </div>
@@ -90,10 +85,7 @@
             <input formControlName="adresastanovanja" type="text" class="form-control" id="floatingAdresaStanovanja"
               placeholder="Adresa stanovanja" />
             <label for="floatingAdresaStanovanja">Adresa stanovanja</label>
-            <div *ngIf="
-                submitted &&
-                newemployeeForm.get('adresastanovanja')?.errors?.required
-              " class="validation-error small alert alert-danger">
+            <div *ngIf="submitted && newemployeeForm.get('adresastanovanja')?.errors?.required" class="validation-error small alert alert-danger">
               Adresa stanovanja je obavezna
             </div>
           </div>
@@ -106,10 +98,7 @@
             <input formControlName="mestostanovanja" type="text" class="form-control" id="floatingMestoStanovanja"
               placeholder="Mesto stanovanja" />
             <label for="floatingDatRodjenja">Mesto stanovanja</label>
-            <div *ngIf="
-                submitted &&
-                newemployeeForm.get('mestostanovanja')?.errors?.required
-              " class="validation-error small alert alert-danger">
+            <div *ngIf="submitted && newemployeeForm.get('mestostanovanja')?.errors?.required" class="validation-error small alert alert-danger">
               Mesto stanovanja je obavezno
             </div>
           </div>
@@ -166,8 +155,9 @@
           </div>
           <label for="floatingDocSpec">Viša medicinska sestra</label>
         </div>
-        <div *ngIf="submitted && newemployeeForm.get('privilegije')?.errors?.required"
-          class="validation-error small alert alert-danger">Odaberite bar jednu privilegiju</div>
+        <div *ngIf="submitted && newemployeeForm.get('privilegije')?.errors?.required" class="validation-error small alert alert-danger">
+          Odaberite bar jednu privilegiju
+        </div>
       </div>
 
       <div class="container-fluid">
