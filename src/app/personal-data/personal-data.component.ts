@@ -103,7 +103,7 @@ export class PersonalDataComponent implements OnInit {
     if(!this.userData.lastName || !this.userData.dateOfBirth ||!this.userData.gender  ){
       return;
     }
-    if(!this.userData.oldPassword || !this.userData.newPassword ){
+    if(!this.userData.oldPassword /*|| !this.userData.newPassword */){
       return;
     }
 
