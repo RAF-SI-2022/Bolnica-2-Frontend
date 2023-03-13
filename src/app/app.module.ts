@@ -12,6 +12,7 @@ import { HomeComponent } from './home/home.component';
 import { NewEmployeeComponent } from './new-employee/new-employee.component';
 import { SearchEmployeesComponent } from './search-employees/search-employees.component';
 import { DecimalPipe } from '@angular/common';
+import { PersonalDataComponent } from './personal-data/personal-data.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { DecimalPipe } from '@angular/common';
     LoginComponent,
     HomeComponent,
     NewEmployeeComponent,
-    SearchEmployeesComponent
+    SearchEmployeesComponent,
+    PersonalDataComponent
   ],
   imports: [
     BrowserModule,
