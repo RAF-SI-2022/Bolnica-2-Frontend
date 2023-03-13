@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import jwt_decode,{ JwtPayload } from "jwt-decode";
-import { EMPLOYEE_ENDPOINT } from '../app.constants';
-import { EmployeeResponse } from '../dto/response/employee.response';
-import { UpdateEmployeeRequest } from '../dto/request/update.employee.request';
 import { EmployeesService } from '../service/employee.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DatePipe } from '@angular/common';
+import { HotToastService } from '@ngneat/hot-toast';
+import { AuthService } from '../service/auth.service';
+import { BooleanDaNePipe } from '../pipe/boolean.pipe';
 
 @Component({
   selector: 'app-personal-data',
@@ -13,155 +14,144 @@ import { EmployeesService } from '../service/employee.service';
   styleUrls: ['./personal-data.component.css']
 })
 export class PersonalDataComponent implements OnInit {
+  personalDataForm: FormGroup;
 
-  uneditedUserData!:EmployeeResponse;
-  userData:UpdateEmployeeRequest;
   isInEditMode:boolean;
   newPasswordConfirm:string;
 
-  
-  constructor(private router: Router,private httpClient:HttpClient,private employeesService: EmployeesService) {
+  submitted = false;
+  passwordsDontMatch = false;
+
+  constructor(private router: Router,
+              private formBuilder: FormBuilder,
+              private datePipe: DatePipe,
+              private booleanDaNePipe: BooleanDaNePipe,
+              private toast: HotToastService,
+              private employeesService: EmployeesService,
+              protected authService: AuthService) {
     this.isInEditMode=false;
     this.newPasswordConfirm='';
-    this.userData= {
-      firstName: '',
-      lastName: '',
-      dateOfBirth: '',
-      gender: '',
-      jmbg: '',
-      residentialAddress: '',
-      placeOfLiving: '',
-      phone: '',
-      email: '',
-      title: '',
-      profession: '',
-      username: '',
-      oldPassword: '',
-      newPassword: '',
-      departmentId: 0}
 
-
+    this.personalDataForm = formBuilder.group({
+      ime: ['', Validators.required],
+      prezime: ['', Validators.required],
+      username: ['', [
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(30),
+        Validators.pattern('[a-zA-Z0-9]+')
+      ]],
+      email: ['', [
+        Validators.required,
+        Validators.email
+      ]],
+      pol: ['', Validators.required],
+      datumrodjenja: ['', Validators.required],
+      jmbg: ['', Validators.required],
+      adresastanovanja: ['', Validators.required],
+      mestostanovanja: ['', Validators.required],
+      kontakttel: [''],
+      titula: ['', Validators.required],
+      odeljenje: ['', Validators.required],
+      zanimanje: ['', Validators.required],
+      lbz: [{value: '', disabled: true}],
+      obrisan: [{value: '', disabled: true}],
+      staraLozinka: ['', [
+        Validators.required
+      ]],
+      novaLozinka: ['', [
+        Validators.required,
+        Validators.pattern('[a-zA-Z0-9]+$')
+      ]],
+      ponovnaLozinka: ['', [
+        Validators.required
+      ]]
+    });
+    this.personalDataForm.disable();
  }
 
   ngOnInit(): void {
-    const token=localStorage.getItem('token');
-    if(token==null)
-      return;
-
-    let lbz="";
-    try{
-      let decodedHeader = jwt_decode<JwtPayload>(token);
-
-      if(decodedHeader.sub==null)
-        return;
-      else
-        lbz=decodedHeader.sub;
-      
-    }
-    catch{}
-
-    
-    this.httpClient.get(EMPLOYEE_ENDPOINT+'/'+lbz, { headers: { Authorization: `Bearer ${token}` }} )
-    .subscribe((data: any) => {
-      this.uneditedUserData=data;
-      this.userData = {
-        firstName: data.firstName,
-        lastName: data.lastName,
-        dateOfBirth: data.dateOfBirth,
-        gender: data.gender,
-        jmbg: data.jmbg,
-        residentialAddress: data.residentalAddress,
-        placeOfLiving: data.placeOfLiving,
-        phone: data.phone,
-        email: data.email,
-        title: data.title.notation,
-        profession: data.profession.notation,
-        username: data.username,
-        oldPassword: "",
-        newPassword: "",
-        departmentId: data.department.id
-      };
+    this.employeesService.getEmployeeByLbz(localStorage.getItem('lbz')!).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.personalDataForm.get('ime')?.setValue(res.firstName);
+        this.personalDataForm.get('prezime')?.setValue(res.lastName);
+        this.personalDataForm.get('username')?.setValue(res.username);
+        this.personalDataForm.get('email')?.setValue(res.email);
+        this.personalDataForm.get('pol')?.setValue(res.gender);
+        this.personalDataForm.get('datumrodjenja')?.setValue(this.datePipe.transform(res.dateOfBirth, 'yyyy-MM-dd'));
+        this.personalDataForm.get('jmbg')?.setValue(res.jmbg);
+        this.personalDataForm.get('adresastanovanja')?.setValue(res.residentalAddress);
+        this.personalDataForm.get('mestostanovanja')?.setValue(res.placeOfLiving);
+        this.personalDataForm.get('kontakttel')?.setValue(res.phone);
+        this.personalDataForm.get('lbz')?.setValue(res.lbz);
+        this.personalDataForm.get('obrisan')?.setValue(this.booleanDaNePipe.transform(res.deleted));
+        this.personalDataForm.get('titula')?.setValue(res.title.notation);
+        this.personalDataForm.get('odeljenje')?.setValue(res.department.id);
+        this.personalDataForm.get('zanimanje')?.setValue(res.profession.notation);
+      },
+      error: (e) => {
+        this.toast.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
+      }
     });
-
-  }
- 
-  
-  editEmployee(){
- 
-  
-    //provera da li su uslovi zadovoljeni da bi se poslao zahtev
-    if (!this.isFirstNameCorrect() ) {
-      return;
-    }
-    if (!this.userData.jmbg || !this.userData.residentialAddress || !this.userData.placeOfLiving || !this.userData.departmentId) {
-      return;
-    }
-    if (!this.userData.email ||  !this.userData.title || !this.userData.profession || !this.userData.username) {
-      return;
-    }
-    if(!this.userData.lastName || !this.userData.dateOfBirth ||!this.userData.gender  ){
-      return;
-    }
-    if(!this.userData.oldPassword){
-      return;
-    }
-
-    if(this.userData.newPassword !== this.newPasswordConfirm){
-      return;
-    }
-
-    const token=localStorage.getItem('token');
-    if(token==null)
-        return;
-
-    let lbz="";
-    try{
-    let decodedHeader = jwt_decode<JwtPayload>(token);
-        if(decodedHeader.sub==null)
-            return;
-        else
-            lbz=decodedHeader.sub;
-
-
-    return this.httpClient.put<EmployeeResponse>(EMPLOYEE_ENDPOINT+'/'+lbz, this.userData, {
-        headers: {
-            'Authorization': 'Bearer ' + token
-        }
-    }).subscribe(
-      data=>{console.log(data)
-        window.location.reload()}
-      );
-      
-
-  }
-  catch{}
-  return;
   }
 
-  setProfession(profession:string): void {
-    this.userData.profession=profession;
-  }
-  setTitle(title:string): void {
-    this.userData.title=title;
-  }
-  setGender(gender:string): void {
-    this.userData.gender=gender;
-  }
-  isFirstNameCorrect():boolean{
-    if (!this.userData.firstName) 
-      return false;
-
-    if (!this.userData.firstName.match(/^[a-z0-9]+$/i) )
-      return false;
-
-    if (this.userData.firstName.length<5 || this.userData.firstName.length>30) {
-      console.log((this.userData.firstName.length<5) +" " +(this.userData.firstName.length>30))
-      return false;
+  edit(): void {
+    if (this.authService.hasPermission('ROLE_ADMIN')) {
+      this.personalDataForm.enable();
+      this.personalDataForm.get('lbz')?.disable();
+      this.personalDataForm.get('obrisan')?.disable();
+      this.isInEditMode = true;
+    } else {
+      this.personalDataForm.get('kontakttel')?.enable();
+      this.personalDataForm.get('staraLozinka')?.enable();
+      this.personalDataForm.get('novaLozinka')?.enable();
+      this.personalDataForm.get('ponovnaLozinka')?.enable();
+      this.isInEditMode = true;
     }
-    
-    else
-      return true;
+  }
 
+  save(): void {
+    this.submitted = true;
+
+    const val = this.personalDataForm.value;
+
+    if (this.personalDataForm.invalid) {
+      return;
+    }
+
+    if (val.novaLozinka != val.ponovnaLozinka) {
+      this.passwordsDontMatch = true;
+      return;
+    }
+
+    this.employeesService.updateEmployee(localStorage.getItem('lbz')!, {
+      firstName: this.personalDataForm.get('ime')?.value,
+      lastName: this.personalDataForm.get('prezime')?.value,
+      dateOfBirth: this.personalDataForm.get('datumrodjenja')?.value,
+      gender: this.personalDataForm.get('pol')?.value,
+      jmbg: this.personalDataForm.get('jmbg')?.value,
+      residentialAddress: this.personalDataForm.get('adresastanovanja')?.value,
+      placeOfLiving: this.personalDataForm.get('mestostanovanja')?.value,
+      phone: this.personalDataForm.get('kontakttel')?.value,
+      email: this.personalDataForm.get('email')?.value,
+      title: this.personalDataForm.get('titula')?.value,
+      profession: this.personalDataForm.get('zanimanje')?.value,
+      username: this.personalDataForm.get('username')?.value,
+      oldPassword: this.personalDataForm.get('staraLozinka')?.value,
+      newPassword: this.personalDataForm.get('novaLozinka')?.value,
+      departmentId: this.personalDataForm.get('odeljenje')?.value
+    }).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.router.navigate(['/']).then(() => {
+          this.toast.success('Uspešno ste ažurirali vaše podatke');
+        })
+      },
+      error: (e) => {
+        this.toast.error(e.error.errorMessage);
+      }
+    })
   }
 
 }

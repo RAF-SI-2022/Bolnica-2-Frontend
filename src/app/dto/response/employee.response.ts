@@ -1,6 +1,4 @@
 import { DepartmentResponse } from "./department.response";
-import { ProfessionResponse } from "./profession.response";
-import { TitleResponse } from "./title.response";
 
 export interface EmployeeResponse {
     id: number,

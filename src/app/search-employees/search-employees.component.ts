@@ -65,7 +65,7 @@ export class SearchEmployeesComponent implements OnInit {
         this.collectionSize = response.count;
       },
       error: (e) => {
-        this.toast.error(e.error.errorMessage);
+        this.toast.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
       }
     });
   }

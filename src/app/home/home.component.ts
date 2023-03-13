@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -8,11 +8,8 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(protected authService: AuthService) { }
 
   ngOnInit(): void {
-  }
-  navigate(path:string):void{
-    this.router.navigate(['/'+path]);
   }
 }

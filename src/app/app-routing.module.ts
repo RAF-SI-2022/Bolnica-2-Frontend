@@ -9,6 +9,7 @@ import { NewEmployeeComponent } from './new-employee/new-employee.component';
 import { PersonalDataComponent } from './personal-data/personal-data.component';
 import { SearchEmployeesComponent } from './search-employees/search-employees.component';
 import { AdminEditEmployeeComponent } from './admin-edit-employee/admin-edit-employee.component';
+import { PermissionGuard } from './guard/permission.guard';
 
 const routes: Routes = [
   {
@@ -29,22 +30,26 @@ const routes: Routes = [
   ,
   {
     path: 'personal-data',
-    component: PersonalDataComponent
+    component: PersonalDataComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'new-employee',
     component: NewEmployeeComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permission: 'ROLE_ADMIN' }
   },
   {
     path: 'search-employees',
     component: SearchEmployeesComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permission: 'ROLE_ADMIN' }
   },
   {
     path: 'admin-edit-employee/:lbz',
     component: AdminEditEmployeeComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permission: 'ROLE_ADMIN' }
   }
 ];
 
