@@ -1,11 +1,13 @@
 import { DepartmentResponse } from "./department.response";
+import { ProfessionResponse } from "./profession.response";
+import { TitleResponse } from "./title.response";
 
 export interface EmployeeResponse {
     id: number,
     lbz: string,
     firstName: string,
     lastName: string,
-    dateOfBirth: string,
+    dateOfBirth: Date,
     gender: string,
     residentalAddress: string,
     placeOfLiving: string,

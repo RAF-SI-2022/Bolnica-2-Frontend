@@ -23,4 +23,9 @@ export class AuthService {
     forgotPassword(): void {
 
     }
+    
+    logout():void{
+        localStorage.clear();
+        this.router.navigate(['']);
+    }
 }

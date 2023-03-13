@@ -6,6 +6,7 @@ import { AlreadyLoggedInGuard } from './guard/already-logged-in.guard';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { NewEmployeeComponent } from './new-employee/new-employee.component';
+import { PersonalDataComponent } from './personal-data/personal-data.component';
 import { SearchEmployeesComponent } from './search-employees/search-employees.component';
 import { AdminEditEmployeeComponent } from './admin-edit-employee/admin-edit-employee.component';
 
@@ -24,6 +25,11 @@ const routes: Routes = [
     path: 'forgot-password',
     component: ForgotPasswordComponent,
     canActivate: [AlreadyLoggedInGuard]
+  }
+  ,
+  {
+    path: 'personal-data',
+    component: PersonalDataComponent
   },
   {
     path: 'new-employee',

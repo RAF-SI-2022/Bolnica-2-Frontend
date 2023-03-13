@@ -15,6 +15,7 @@ import { DatePipe, DecimalPipe } from '@angular/common';
 import { AdminEditEmployeeComponent } from './admin-edit-employee/admin-edit-employee.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HotToastModule } from '@ngneat/hot-toast';
+import { PersonalDataComponent } from './personal-data/personal-data.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { HotToastModule } from '@ngneat/hot-toast';
     HomeComponent,
     NewEmployeeComponent,
     SearchEmployeesComponent,
-    AdminEditEmployeeComponent
+    AdminEditEmployeeComponent,
+    PersonalDataComponent
   ],
   imports: [
     BrowserModule,
