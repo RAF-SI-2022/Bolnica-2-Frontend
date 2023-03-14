@@ -31,3 +31,7 @@ export interface UpdateEmployeeRequest {
     newPassword: string | null,
     departmentId: number
 }
+
+export interface ResetPasswordResponse {
+    message: string
+}

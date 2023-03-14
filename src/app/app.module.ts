@@ -17,6 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HotToastModule } from '@ngneat/hot-toast';
 import { PersonalDataComponent } from './personal-data/personal-data.component';
 import { BooleanDaNePipe } from './pipe/boolean.pipe';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { BooleanDaNePipe } from './pipe/boolean.pipe';
     NewEmployeeComponent,
     SearchEmployeesComponent,
     AdminEditEmployeeComponent,
-    PersonalDataComponent
+    PersonalDataComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,

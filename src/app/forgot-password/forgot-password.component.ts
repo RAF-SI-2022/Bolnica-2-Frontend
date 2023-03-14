@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HotToastService } from '@ngneat/hot-toast';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -10,9 +12,13 @@ export class ForgotPasswordComponent implements OnInit {
 
   forgotPasswordForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  submitted = false;
+
+  constructor(private formBuilder: FormBuilder,
+              private authService: AuthService,
+              private toaster: HotToastService) {
     this.forgotPasswordForm = this.formBuilder.group({
-      username: ['', Validators.required]
+      email: ['', Validators.required]
     })
   }
 
@@ -20,6 +26,20 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.submitted = true;
 
+    if (this.forgotPasswordForm.invalid) {
+      return;
+    }
+
+    const val = this.forgotPasswordForm.value;
+    this.authService.forgotPassword(val.email).subscribe({
+      next: (res) => {
+        this.toaster.success(res.message);
+      },
+      error: (e) => {
+        this.toaster.error(e.error.errorMessage || 'Greška. Server se ne odaziva');
+      }
+    });
   }
 }
