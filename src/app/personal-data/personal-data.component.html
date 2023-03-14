@@ -1,0 +1,205 @@
+<form [formGroup]="personalDataForm" class="container p-4 border rounded-3 bg-light mt-4">
+    <h4 class="mb-4">Moji podaci</h4>
+    <div class="row g-3 mb-3">
+        <div class="col-md-3 form-floating gx-1">
+            <input formControlName="ime" type="text" class="form-control" name="firstName" id="floatingFirstName" placeholder="Ime"/>
+            <label for="floatingFirstName">Ime</label>
+            <div *ngIf="submitted && personalDataForm.get('ime')?.errors?.required"
+                class="validation-error small alert alert-danger">
+                Ime je obavezno
+            </div>
+        </div>
+        <div class="col-md-3 form-floating gx-1">
+            <input formControlName="prezime" type="text" class="form-control" id="floatingLastName" placeholder="Last Name"/>
+            <label for="floatingLastName">Prezime</label>
+            <div *ngIf="submitted && personalDataForm.get('prezime')?.errors?.required"
+                class="validation-error small alert alert-danger">
+                Prezime je obavezno
+            </div>
+        </div>
+        <div class="col-md-3 form-floating gx-1">
+            <input formControlName="username" type="text" class="form-control" id="floatingUsername" placeholder="Username"/>
+            <label for="floatingUsername">Korisničko ime</label>
+            <div *ngIf="submitted && personalDataForm.get('username')?.errors?.required"
+                class="validation-error small alert alert-danger">
+                Korisničko ime je obavezno
+            </div>
+            <div *ngIf="submitted && personalDataForm.get('username')?.errors?.minlength"
+                class="validation-error small alert alert-danger">
+                Korisničko ime mora sadržati najmanje 5 slova
+            </div>
+            <div *ngIf="submitted && personalDataForm.get('username')?.errors?.maxlength"
+                class="validation-error small alert alert-danger">
+                Korisničko ime mora sadržati najviše 30 slova
+            </div>
+            <div *ngIf="submitted && personalDataForm.get('username')?.errors?.pattern"
+                class="validation-error small alert alert-danger">
+                Korisničko ime može sadržati isključivo slova i/ili brojeve
+            </div>
+        </div>
+        <div class="col-md-3 form-floating gx-1">
+            <input formControlName="email" type="text" class="form-control" id="floatingEmail" placeholder="Email" />
+            <label for="floatingEmail">Email</label>
+            <div *ngIf="submitted && personalDataForm.get('email')?.errors?.required"
+                class="validation-error small alert alert-danger">
+                Email je obavezan
+            </div>
+            <div *ngIf="submitted && personalDataForm.get('email')?.errors?.email"
+                class="validation-error small alert alert-danger">
+                Email nije validan
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-3 mb-3">
+        <div class="col-md-4 form-floating gx-1">
+            <input formControlName="datumrodjenja" type="date" class="form-control" id="floatingDob" placeholder="Date of Birth"/>
+            <label for="floatingDob">Datum rođenja</label>
+            <div *ngIf="submitted && personalDataForm.get('datumrodjenja')?.errors?.required"
+                class="validation-error small alert alert-danger">
+                Datum rođenja je obavezan
+            </div>
+
+        </div>
+        <div class="col-md-5 form-floating gx-1">
+            <input formControlName="jmbg" type="text" class="form-control" id="floatingJMBG" placeholder="JMBG" />
+            <label for="floatingJMBG">JMBG</label>
+            <div *ngIf="submitted && personalDataForm.get('jmbg')?.errors?.required"
+                class="validation-error small alert alert-danger">
+                JMBG je obavezan
+            </div>
+        </div>
+        <div class="col-md-2 form-floating gx-1">
+            <input formControlName="kontakttel" type="text" class="form-control" id="floatingPhone" placeholder="Phone"/>
+            <label for="floatingPhone">Telefon</label>
+        </div>
+        <div class="col-md-1 form-check gx-1">
+            <div class="form-check">
+                <input formControlName="pol" type="radio" value="Muski" class="form-check-input" id="floatingPolm" />
+                <label class="form-check-label" for="floatingPolm">Muško</label>
+            </div>
+            <div class="form-check">
+                <input formControlName="pol" type="radio" value="Zenski" class="form-check-input" id="floatingPolz" />
+                <label class="form-check-label" for="floatingPolz">Žensko</label>
+            </div>
+            <div *ngIf="submitted && personalDataForm.get('pol')?.errors?.required"
+                class="validation-error small alert alert-danger">
+                Pol je obavezan
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-3 mb-3">
+        <div class="col-md-6 form-floating gx-1">
+            <input formControlName="mestostanovanja" type="text" class="form-control" id="floatingPlace" placeholder="Place of Living" />
+            <label for="floatingPlace">Mesto stanovanja</label>
+            <div *ngIf="submitted && personalDataForm.get('mestostanovanja')?.errors?.required"
+                class="validation-error small alert alert-danger">
+                Mesto stanovanja je obavezno
+            </div>
+        </div>
+        <div class="col-md-6 form-floating gx-1">
+            <input formControlName="adresastanovanja" type="text" class="form-control" id="floatingAddress" placeholder="Residential Address" />
+            <label for="floatingAddress">Adresa stanovanja</label>
+            <div *ngIf="submitted && personalDataForm.get('adresastanovanja')?.errors?.required"
+                class="validation-error small alert alert-danger">
+                Adresa stanovanja je obavezna
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-3 mb-3">
+        <div class="col-md-4 gx-1">
+            <select formControlName="titula" class="form-select" aria-label="Default select example">
+                <option disabled selected value>Titula</option>
+                <option value="Prof. dr. med.">Prof. dr. med.</option>
+                <option value="Dr med. spec.">Dr med. spec.</option>
+                <option value="Dr sci. med.">Dr sci. med.</option>
+                <option value="Dipl. farm.">Dipl. farm.</option>
+                <option value="Mag. farm.">Mag. farm.</option>
+            </select>
+            <div *ngIf="submitted && personalDataForm.get('titula')?.errors?.required"
+                class="validation-error small alert alert-danger">Titula je obavezna</div>
+        </div>
+        <div class="col-md-4 gx-1">
+            <select formControlName="odeljenje" class="form-select" aria-label="Default select example">
+                <option disabled selected value>Odeljenje</option>
+                <option value="1">Hirurgija</option>
+                <option value="2">Laboratorija</option>
+                <option value="3">Dijagnostika</option>
+            </select>
+            <div *ngIf="submitted && personalDataForm.get('odeljenje')?.errors?.required"
+                class="validation-error small alert alert-danger">Odeljenje je obavezno</div>
+        </div>
+        <div class="col-md-4 gx-1">
+            <select formControlName="zanimanje" class="form-select" aria-label="Default select example">
+                <option disabled selected value>Zanimanje</option>
+                <option value="Med. sestra">Med. sestra</option>
+                <option value="Spec. biohemičar">Spec. biohemičar</option>
+                <option value="Spec. gastroenterolog">Spec. gastroenterolog</option>
+                <option value="Spec. ginekolog">Spec. ginekolog</option>
+                <option value="Spec. endokrinolog">Spec. endokrinolog</option>
+                <option value="Spec. kardiolog">Spec. kardiolog</option>
+                <option value="Spec. neurolog">Spec. neurolog</option>
+                <option value="Spec. nefrolog">Spec. nefrolog</option>
+                <option value="Spec. psihijatar">Spec. psihijatar</option>
+                <option value="Spec. pulmolog">Spec. pulmolog</option>
+                <option value="Spec. urolog">Spec. urolog</option>
+                <option value="Spec. hematolog">Spec. hematolog</option>
+                <option value="Spec. hirurg">Spec. hirurg</option>
+            </select>
+            <div *ngIf="submitted && personalDataForm.get('zanimanje')?.errors?.required"
+                class="validation-error small alert alert-danger">Zanimanje je obavezno</div>
+        </div>
+    </div>
+
+    <div class="row g-3 mb-3">
+        <div class="col-md-6 form-floating gx-1">
+            <input formControlName="lbz" type="text" class="form-control" id="floatingLbz" placeholder="Lbz" />
+            <label for="floatingLbz">LBZ (Lični broj zaposlenog)</label>
+        </div>
+        <div class="col-md-1 form-floating gx-1">
+            <input formControlName="obrisan" type="text" class="form-control" id="floatingDeleted" placeholder="Deleted" />
+            <label for="floatingDeleted">Obrisan</label>
+        </div>
+    </div>
+
+    <div class="row g-3 mb-3">
+        <div class="col-md-3 form-floating gx-1">
+            <input formControlName="staraLozinka" type="password" class="form-control" id="floatingPassowrd" placeholder="Passowrd" />
+            <label for="floatingPassowrd">Stara lozinka</label>
+            <div *ngIf="submitted && personalDataForm.get('staraLozinka')?.errors?.required" class="validation-error small alert alert-danger">
+                Unesite staru lozinku
+            </div>
+        </div>
+        <div class="col-md-3 form-floating gx-1" *ngIf="this.isInEditMode">
+            <input formControlName="novaLozinka" type="password" class="form-control" id="floatingNewPassowrd" placeholder="New password" />
+            <label for="floatingNewPassowrd">Nova lozinka</label>
+            <div *ngIf="submitted && personalDataForm.get('novaLozinka')?.errors?.required" class="validation-error small alert alert-danger">
+                Unesite novu lozinku
+            </div>
+            <div *ngIf="submitted && personalDataForm.get('novaLozinka')?.errors?.pattern" class="validation-error small alert alert-danger">
+                Lozinka mora sadržati slova i/ili brojeve, tačke, crtice i donje crtice
+            </div>
+        </div>
+        <div class="col-md-3 form-floating gx-1" *ngIf="this.isInEditMode">
+            <input formControlName="ponovnaLozinka" type="password" class="form-control" id="floatingNewPassowrdConfirm" placeholder="Repeat password"/>
+            <label for="floatingNewPassowrdConfirm">Ponovite lozinku</label>
+            <div *ngIf="submitted && personalDataForm.get('ponovnaLozinka')?.errors?.required" class="validation-error small alert alert-danger">
+                Ponovo unesite lozinku
+            </div>
+            <div *ngIf="submitted && passwordsDontMatch" class="validation-error small alert alert-danger">
+                Lozinke nisu iste
+            </div>
+        </div>
+    </div>
+    <div class="row g-3 mb-3 justify-content-center">
+        <hr class="my-4">
+        <div class="col-md-4">
+            <input (click)="edit()" type="button" class="btn btn-primary form-control" value="Izmeni podatke" />
+        </div>
+        <div class="col-md-4">
+            <button (click)="save()" [disabled]="!this.isInEditMode" class="btn btn-primary form-control">Sačuvaj podatke</button>
+        </div>
+    </div>
+</form>
