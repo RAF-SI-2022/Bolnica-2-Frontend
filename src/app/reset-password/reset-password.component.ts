@@ -13,6 +13,7 @@ export class ResetPasswordComponent implements OnInit {
   resetPasswordForm: FormGroup;
 
   submitted = false;
+  passwordsDontMatch = false;
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
@@ -30,6 +31,11 @@ export class ResetPasswordComponent implements OnInit {
 
   onSubmit(): void {
     this.submitted = true;
+
+    if (this.resetPasswordForm.get('newPassword')?.value != this.resetPasswordForm.get('confirmPassword')?.value) {
+      this.passwordsDontMatch = true;
+      return;
+    }
 
     if (this.resetPasswordForm.invalid) {
       return;
