@@ -61,7 +61,7 @@ export class PersonalDataComponent implements OnInit {
       ]],
       novaLozinka: ['', [
         Validators.required,
-        Validators.pattern('[a-zA-Z0-9]+$')
+        Validators.pattern('[a-zA-Z0-9_.-]+')
       ]],
       ponovnaLozinka: ['', [
         Validators.required
@@ -73,7 +73,7 @@ export class PersonalDataComponent implements OnInit {
   ngOnInit(): void {
     this.employeesService.getEmployeeByLbz(localStorage.getItem('lbz')!).subscribe({
       next: (res) => {
-        console.log(res);
+        console.log('getEmployeeByLBZ', res);
         this.personalDataForm.get('ime')?.setValue(res.firstName);
         this.personalDataForm.get('prezime')?.setValue(res.lastName);
         this.personalDataForm.get('username')?.setValue(res.username);
@@ -116,6 +116,24 @@ export class PersonalDataComponent implements OnInit {
 
     const val = this.personalDataForm.value;
 
+    if (this.personalDataForm.get('staraLozinka')?.value == '' && this.personalDataForm.get('novaLozinka')?.value == '' && this.personalDataForm.get('ponovnaLozinka')?.value == '') {
+      console.log('before', this.personalDataForm.get('staraLozinka'));
+      this.personalDataForm.get('staraLozinka')?.setValue(null);
+      this.personalDataForm.get('novaLozinka')?.setValue(null);
+      this.personalDataForm.get('ponovnaLozinka')?.setValue(null);
+      this.personalDataForm.get('staraLozinka')?.setErrors(null);
+      this.personalDataForm.get('novaLozinka')?.setErrors(null);
+      this.personalDataForm.get('ponovnaLozinka')?.setErrors(null);
+      console.log('after', this.personalDataForm.get('staraLozinka'));
+
+      if (this.personalDataForm.invalid) {
+        return;
+      }
+
+      this.sendUpdateEmployeeRequest();
+      return;
+    }
+
     if (this.personalDataForm.invalid) {
       return;
     }
@@ -125,6 +143,10 @@ export class PersonalDataComponent implements OnInit {
       return;
     }
 
+    this.sendUpdateEmployeeRequest();
+  }
+
+  sendUpdateEmployeeRequest(): void {
     this.employeesService.updateEmployee(localStorage.getItem('lbz')!, {
       firstName: this.personalDataForm.get('ime')?.value,
       lastName: this.personalDataForm.get('prezime')?.value,
@@ -151,7 +173,7 @@ export class PersonalDataComponent implements OnInit {
       error: (e) => {
         this.toast.error(e.error.errorMessage);
       }
-    })
+    });
   }
 
 }

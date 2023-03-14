@@ -17,7 +17,7 @@ export class SearchEmployeesComponent implements OnInit {
   searchEmployeesForm: FormGroup;
 
   page = 1;
-  pageSize = 2;
+  pageSize = 5;
   collectionSize = 0;
 
   employees: SearchEmployeeResponse[] = [];
@@ -74,8 +74,8 @@ export class SearchEmployeesComponent implements OnInit {
     this.modalService.open(NgbdModalConfirm).result.then((data) => {
       this.employeesService.deleteEmployee(id).subscribe({
         next: (res) => {
-          console.log(res);
           this.toast.success('Korisnik uspešno obrisan');
+          this.refreshEmployees();
         },
         error: (e) => {
           console.log(e)

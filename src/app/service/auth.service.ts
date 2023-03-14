@@ -1,9 +1,10 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { LOGIN_ENDPOINT } from "../app.constants";
+import { LOGIN_ENDPOINT, RESET_PASSWORD_ENDPOINT, UPDATE_PASSWORD_ENDPOINT } from "../app.constants";
 import { LoginResponse } from "../dto/response/login.response";
 import jwt_decode,{ JwtPayload } from "jwt-decode";
+import { ResetPasswordResponse } from "../dto/request/employee.request";
 
 export interface CurrentUser {
     departmentName: string,
@@ -36,8 +37,20 @@ export class AuthService {
         return localStorage.getItem('token') !== null;
     }
 
-    forgotPassword(): void {
+    forgotPassword(email: string) {
+        return this.httpClient.post<ResetPasswordResponse>(RESET_PASSWORD_ENDPOINT, {email: email}, {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }
+        });
+    }
 
+    resetPassword(resetToken: string, newPassword: string) {
+        return this.httpClient.post<ResetPasswordResponse>(UPDATE_PASSWORD_ENDPOINT, {resetToken: resetToken, password: newPassword}, {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }
+        });
     }
 
     logout():void{

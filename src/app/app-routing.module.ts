@@ -10,6 +10,7 @@ import { PersonalDataComponent } from './personal-data/personal-data.component';
 import { SearchEmployeesComponent } from './search-employees/search-employees.component';
 import { AdminEditEmployeeComponent } from './admin-edit-employee/admin-edit-employee.component';
 import { PermissionGuard } from './guard/permission.guard';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 const routes: Routes = [
   {
@@ -50,6 +51,11 @@ const routes: Routes = [
     component: AdminEditEmployeeComponent,
     canActivate: [AuthGuard, PermissionGuard],
     data: { permission: 'ROLE_ADMIN' }
+  },
+  {
+    path: 'forgot-password/:reset-token',
+    component: ResetPasswordComponent,
+    canActivate: [AlreadyLoggedInGuard]
   }
 ];
 
