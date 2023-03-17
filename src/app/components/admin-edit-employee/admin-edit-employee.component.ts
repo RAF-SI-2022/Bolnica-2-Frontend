@@ -3,7 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
-import { EmployeesService } from '../service/employee.service';
+import { EmployeesService } from 'src/app/service/employee.service';
+
 
 @Component({
   selector: 'app-admin-edit-employee',

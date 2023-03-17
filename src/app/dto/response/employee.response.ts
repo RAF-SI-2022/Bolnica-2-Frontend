@@ -20,12 +20,12 @@ export interface EmployeeResponse {
     deleted: boolean
 }
 
-export interface SearchEmployeesResponseV2 {
-    userList: SearchEmployeeResponse[],
+export interface SearchEmployeesResponse {
+    userList: SearchedEmployee[],
     count: number
 }
 
-export interface SearchEmployeeResponse {
+export interface SearchedEmployee {
     id: number,
     lbz: string,
     firstName: string,

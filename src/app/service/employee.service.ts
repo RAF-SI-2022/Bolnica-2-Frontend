@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { EMPLOYEE_ENDPOINT } from "../app.constants";
 import { UpdateEmployeeRequest, NewEmployeeRequest } from "../dto/request/employee.request";
-import { EmployeeCountResponse, EmployeeResponse, SearchEmployeeResponse, SearchEmployeesResponseV2 } from "../dto/response/employee.response";
+import { EmployeeCountResponse, EmployeeResponse, SearchEmployeesResponse } from "../dto/response/employee.response";
 
 @Injectable({
     providedIn: 'root'
@@ -21,7 +21,7 @@ export class EmployeesService {
     }
 
     searchEmployees(query: any) {
-        return this.httpClient.get<SearchEmployeesResponseV2>(EMPLOYEE_ENDPOINT, {
+        return this.httpClient.get<SearchEmployeesResponse>(EMPLOYEE_ENDPOINT, {
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('token')
             },
