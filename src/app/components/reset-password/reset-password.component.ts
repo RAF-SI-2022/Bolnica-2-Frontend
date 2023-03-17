@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
-import { AuthService } from '../service/auth.service';
+import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'app-reset-password',

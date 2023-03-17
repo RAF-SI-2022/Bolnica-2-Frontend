@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { EmployeesService } from '../service/employee.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { HotToastService } from '@ngneat/hot-toast';
-import { AuthService } from '../service/auth.service';
-import { BooleanDaNePipe } from '../pipe/boolean.pipe';
+import { BooleanDaNePipe } from 'src/app/pipe/boolean.pipe';
+import { EmployeesService } from 'src/app/service/employee.service';
+import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'app-personal-data',

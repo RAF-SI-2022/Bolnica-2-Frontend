@@ -1,12 +1,10 @@
-import { DecimalPipe } from '@angular/common';
-import { Component, OnInit, PipeTransform } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HotToastService } from '@ngneat/hot-toast';
-import { Observable, startWith, map } from 'rxjs';
-import { SearchEmployeeResponse, SearchEmployeesResponseV2 } from '../dto/response/employee.response';
-import { EmployeesService } from '../service/employee.service';
+import { SearchedEmployee, SearchEmployeesResponse } from 'src/app/dto/response/employee.response';
+import { EmployeesService } from 'src/app/service/employee.service';
 
 @Component({
   selector: 'app-search-employees',
@@ -20,8 +18,8 @@ export class SearchEmployeesComponent implements OnInit {
   pageSize = 5;
   collectionSize = 0;
 
-  employees: SearchEmployeeResponse[] = [];
-  paginatedEmployees: SearchEmployeeResponse[] = [];
+  employees: SearchedEmployee[] = [];
+  paginatedEmployees: SearchedEmployee[] = [];
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
@@ -59,7 +57,7 @@ export class SearchEmployeesComponent implements OnInit {
       size: this.pageSize
     }).subscribe({
       next: (res) => {
-        const response = res as SearchEmployeesResponseV2;
+        const response = res as SearchEmployeesResponse;
         console.log(response);
         this.paginatedEmployees = response.userList;
         this.collectionSize = response.count;
