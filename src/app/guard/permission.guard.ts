@@ -15,7 +15,7 @@ export class PermissionGuard implements CanActivate {
       if (token === null) {
         return false;
       } else {
-        if (this.authService.hasPermission(route.data['permission'])) {
+        if (this.authService.hasEitherPermission(route.data['permissions'])) {
           return true;
         } else {
           this.toaster.error('Nemate pristup toj stranici.');
