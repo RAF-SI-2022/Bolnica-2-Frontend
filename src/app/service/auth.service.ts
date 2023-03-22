@@ -53,22 +53,25 @@ export class AuthService {
         });
     }
 
-    logout():void{
+    logout(): void {
         localStorage.clear();
         this.router.navigate(['login']);
     }
 
-    setSession(token: string) {
+    setSession(token: string): void {
         localStorage.setItem('token', token);
         const decodedToken = jwt_decode<CurrentUser>(token);
         localStorage.setItem('lbz', decodedToken.sub);
+        localStorage.setItem('permissions', JSON.stringify(decodedToken.permissions));
         console.log(decodedToken);
         this.router.navigate(['/']);
     }
 
     hasPermission(permission: string): boolean {
-        const token = localStorage.getItem('token');
-        const decodedToken = jwt_decode<CurrentUser>(token!);
-        return decodedToken.permissions.includes(permission);
+        return JSON.parse(localStorage.getItem('permissions')!).includes(permission);
+    }
+
+    hasEitherPermission(permissions: string[]): boolean {
+        return JSON.parse(localStorage.getItem('permissions')!).some((permission: string) => permissions.includes(permission));
     }
 }

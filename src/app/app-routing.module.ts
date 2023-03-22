@@ -38,19 +38,19 @@ const routes: Routes = [
     path: 'new-employee',
     component: NewEmployeeComponent,
     canActivate: [AuthGuard, PermissionGuard],
-    data: { permission: 'ROLE_ADMIN' }
+    data: { permissions: ['ROLE_ADMIN'] }
   },
   {
     path: 'search-employees',
     component: SearchEmployeesComponent,
     canActivate: [AuthGuard, PermissionGuard],
-    data: { permission: 'ROLE_ADMIN' }
+    data: { permissions: ['ROLE_ADMIN'] }
   },
   {
     path: 'admin-edit-employee/:lbz',
     component: AdminEditEmployeeComponent,
     canActivate: [AuthGuard, PermissionGuard],
-    data: { permission: 'ROLE_ADMIN' }
+    data: { permissions: ['ROLE_ADMIN'] }
   },
   {
     path: 'forgot-password/:reset-token',

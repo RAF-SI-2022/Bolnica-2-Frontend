@@ -43,5 +43,57 @@
         </div>
       </div>
     </div>
+    <div *ngIf="this.authService.hasEitherPermission(['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV', 'ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])" class="col-md-4">
+      <div class="card h-100">
+        <img
+          src="../../assets/images/calendar2-check.svg"
+          class="card-img-top w-75 mx-auto p-2"
+          alt="..."
+        />
+        <div class="card-body">
+          <h5 class="card-title">Zakazani pregledi</h5>
+          <p class="card-text">Tabela zakazanih pregleda.</p>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="this.authService.hasEitherPermission(['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV', 'ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])" class="col-md-4">
+      <div class="card h-100">
+        <img
+          src="../../assets/images/person-lines-fill.svg"
+          class="card-img-top w-75 mx-auto p-2"
+          alt="..."
+        />
+        <div class="card-body">
+          <h5 class="card-title">Pacijenti</h5>
+          <p class="card-text">Pretraži pacijente po imenu, prezimenu, JMBG-u, LBP-u.</p>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])" class="col-md-4">
+      <div class="card h-100">
+        <img
+          src="../../assets/images/calendar-plus.svg"
+          class="card-img-top w-75 mx-auto p-2"
+          alt="..."
+        />
+        <div class="card-body">
+          <h5 class="card-title">Zakazivanje pregleda</h5>
+          <p class="card-text">Zakaži pregled u slobodnom terminu za odabranog doktora.</p>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])" class="col-md-4">
+      <div class="card h-100">
+        <img
+          src="../../assets/images/person-plus-fill.svg"
+          class="card-img-top w-75 mx-auto p-2"
+          alt="..."
+        />
+        <div class="card-body">
+          <h5 class="card-title">Dodaj novog pacijenta</h5>
+          <p class="card-text">Stranica za dodavanje novog pacijenta.</p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

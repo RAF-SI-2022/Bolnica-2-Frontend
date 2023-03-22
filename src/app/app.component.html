@@ -10,6 +10,14 @@
           <a routerLink="/personal-data" class="nav-link active" aria-current="page" href="#">Moji podaci</a>
           <a *ngIf="this.authService.hasPermission('ROLE_ADMIN')" routerLink="/search-employees" class="nav-link active" href="#">Pretraži zaposlene</a>
           <a *ngIf="this.authService.hasPermission('ROLE_ADMIN')" routerLink="/new-employee" class="nav-link active" href="#">Dodaj novog zaposlenog</a>
+          <a *ngIf="this.authService.hasEitherPermission(['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV', 'ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])"
+              class="nav-link active" href="#">Zakazani pregledi</a>
+          <a *ngIf="this.authService.hasEitherPermission(['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV', 'ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])"
+              class="nav-link active" href="#">Pacijenti</a>
+          <a *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])"
+              class="nav-link active" href="#">Zakazivanje pregleda</a>
+              <a *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])"
+              class="nav-link active" href="#">Dodaj novog pacijenta</a>
         </div>
       </div>
       <img src="../assets/images/box-arrow-in-right.svg" style="filter: invert(25%) sepia(58%) saturate(3847%) hue-rotate(347deg) brightness(78%) contrast(91%); width: 1.5rem;">
