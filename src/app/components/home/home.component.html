@@ -70,7 +70,7 @@
       </div>
     </div>
     <div *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])" class="col-md-4">
-      <div class="card h-100">
+      <div routerLink="/new-appointment" class="card h-100">
         <img
           src="../../assets/images/calendar-plus.svg"
           class="card-img-top w-75 mx-auto p-2"

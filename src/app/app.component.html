@@ -14,7 +14,7 @@
               class="nav-link active" href="#">Zakazani pregledi</a>
           <a *ngIf="this.authService.hasEitherPermission(['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV', 'ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])"
               class="nav-link active" href="#">Pacijenti</a>
-          <a *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])"
+          <a routerLink="/new-appointment" *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])"
               class="nav-link active" href="#">Zakazivanje pregleda</a>
               <a *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])"
               class="nav-link active" href="#">Dodaj novog pacijenta</a>
