@@ -21,6 +21,8 @@ import { SearchEmployeesComponent } from './components/search-employees/search-e
 import { PersonalDataComponent } from './components/personal-data/personal-data.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { NewAppointmentComponent } from './components/new-appointment/new-appointment.component';
 
 
 @NgModule({
@@ -33,7 +35,8 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
     SearchEmployeesComponent,
     AdminEditEmployeeComponent,
     PersonalDataComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    NewAppointmentComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +49,8 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
     HotToastModule.forRoot({
       dismissible: true,
       position: 'top-right'
-    })
+    }),
+    FullCalendarModule
   ],
   providers: [
     DecimalPipe,
