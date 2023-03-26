@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
-import { SearchedPatient, SearchPatientsResponse } from 'src/app/dto/response/patient.response';
+import { PatientResponse, SearchPatientsResponse } from 'src/app/dto/response/patient.response';
 import { PatientService } from 'src/app/service/patient.service';
 
 @Component({
@@ -19,8 +19,8 @@ export class SearchPatientsComponent implements OnInit {
   pageSize = 5;
   collectionSize = 0;
 
-  patients: SearchedPatient[] = [];
-  paginatedPatients: SearchedPatient[] = [];
+  patients: PatientResponse[] = [];
+  paginatedPatients: PatientResponse[] = [];
   
   constructor(private formBuilder: FormBuilder,
     private router: Router,
@@ -60,7 +60,7 @@ export class SearchPatientsComponent implements OnInit {
       next: (res) => {
         const response = res as SearchPatientsResponse;
         console.log(response);
-        this.paginatedPatients = response.patientList;
+        this.paginatedPatients = response.patients;
         this.collectionSize = response.count;
       },
       error: (e) => {

@@ -1,21 +1,20 @@
-export interface HealthRecord {
+export interface HealthRecordResponse {
     id: number;
     registrationDate:Date;
-    bloodType: BloodType;
-    rhFactor:RHFactor;
-    allergies: Allergy[];
-    vaccinations: Vaccination[];
+    bloodType: string;
+    rhFactor: string;
+    allergies: AllergyResponse[];
+    vaccinations: VaccinationResponse[];
     operations: Operation[];
     medicalHistory: MedicalHistory;
     medicalExaminations: MedicalExamination[];
     patientLbp: string;
 }
 
-export interface Allergy {
+export interface AllergyResponse {
     id: number;
     allergen: Allergen;
-    healthRecord: HealthRecord;
-    deleted: boolean;
+    healthRecordId: number;
 }
 
 export interface Allergen {
@@ -23,10 +22,10 @@ export interface Allergen {
     name: string;
 }
 
-export interface Vaccination {
+export interface VaccinationResponse {
     id: number;
     vaccine: Vaccine;
-    healthRecord: HealthRecord;
+    healthRecordId: number;
     vaccinationDate: Date;
 }
 
@@ -42,6 +41,10 @@ export interface Operation {
     date: Date;
     description: string;
     pbo: string;
+}
+
+export interface MedicalExaminationListResponse {
+    examinations: MedicalExamination[];
 }
 
 export interface MedicalExamination {
@@ -72,30 +75,19 @@ export interface MedicalHistory {
     confidential: boolean;
     illnessStart: Date;
     illnessEnd: Date;
-    treatmentResult: TreatmentResult;
+    treatmentResult: string;
     currentStateDescription: string;
     validFrom: Date;
     validUntil: Date;
     valid: boolean;
-    diagnosis?: Diagnosis;
+    diagnosis: Diagnosis;
 }
 
 export interface LightHealthRecord {
     id: number;
-    rhFactor: RHFactor[];
-    allergies: Allergy[];
-    vaccinations: Vaccination[];
+    bloodType: string;
+    rhFactor: string;
+    allergies: AllergyResponse[];
+    vaccinations: VaccinationResponse[];
     patientLbp: string;
-}
-
-interface BloodType {
-    notation: string;
-}
-  
-interface RHFactor {
-    notation: string;
-}
-  
-interface TreatmentResult {
-   notation: string;
 }
