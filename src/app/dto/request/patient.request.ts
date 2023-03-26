@@ -21,4 +21,3 @@ export interface PatientRequest {
     education: string;
     profession: string;
   }
-  
