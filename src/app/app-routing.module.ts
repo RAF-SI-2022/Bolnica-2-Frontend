@@ -69,7 +69,7 @@ const routes: Routes = [
     path: 'search-patients',
     component: SearchPatientsComponent,
     canActivate: [AuthGuard, PermissionGuard],
-    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA','ROLE_DR_SPEC','ROLE_DR_SPEC_POV'] }
+    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA','ROLE_DR_SPEC','ROLE_DR_SPEC_POV','ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
   }
 ];
 

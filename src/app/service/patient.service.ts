@@ -17,8 +17,22 @@ export class PatientService {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         }
     });
-}
+  }
   searchPatients(query: any) {
+    return this.httpClient.get<SearchPatientsResponse>(PATIENT_ENDPOINT, {
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        params: {
+          jmbg: query.jmbg,
+          lbp: query.lbp,
+          firstName: query.firstName,
+          lastName: query.lastName,
+        }
+    });
+  }
+
+  getPatients(query: any) {
     return this.httpClient.get<SearchPatientsResponse>(PATIENT_ENDPOINT, {
         headers: {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
