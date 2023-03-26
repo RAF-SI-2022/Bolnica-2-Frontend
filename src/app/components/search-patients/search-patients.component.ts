@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
+import { AuthService } from 'src/app/service/auth.service';
 import { PatientResponse, SearchPatientsResponse } from 'src/app/dto/response/patient.response';
 import { PatientService } from 'src/app/service/patient.service';
 
@@ -22,7 +23,8 @@ export class SearchPatientsComponent implements OnInit {
   patients: PatientResponse[] = [];
   paginatedPatients: PatientResponse[] = [];
   
-  constructor(private formBuilder: FormBuilder,
+  constructor(protected authService: AuthService,
+    private formBuilder: FormBuilder,
     private router: Router,
     private patientsService: PatientService,
     private toast: HotToastService,
@@ -61,7 +63,6 @@ export class SearchPatientsComponent implements OnInit {
         const response = res as SearchPatientsResponse;
         console.log(response);
         this.paginatedPatients = response.patients;
-        this.collectionSize = response.count;
       },
       error: (e) => {
         this.toast.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');

@@ -8,7 +8,7 @@ export interface PatientResponse {
     gender: string;
     birthDate: Date;
     deathDate: Date;
-    birthplace: string;
+    birthPlace: string;
     citizenshipCountry: string;
     address: string;
     placeOfLiving: string;
@@ -22,7 +22,6 @@ export interface PatientResponse {
     childrenNum: number;
     education: string;
     profession: string;
-    deleted: boolean;
     healthRecordId: number;
 }
 

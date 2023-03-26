@@ -24,13 +24,30 @@ export class PatientService {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         },
         params: {
-            firstName: query.firstName,
-            lastName: query.lastName,
-            jmbg: query.jmbg,
-            lbp: query.lbp,
-            includeDeleted: query.includeDeleted,
-            page: query.page,
-            size: query.size
+          id: query.id,
+          jmbg: query.jmbg,
+          lbp: query.lbp,
+          firstName: query.firstName,
+          parentName: query.parentName,
+          lastName: query.lastName,
+          gender: query.gender,
+          birthDate: query.birthDate,
+          deathDate: query.deathDate,
+          birthPlace: query.birthPlace,
+          citizenshipCountry: query.citizenshipCountry,
+          address: query.address,
+          placeOfLiving: query.placeOfLiving,
+          countryOfLiving: query.countryOfLiving,
+          phoneNumber: query.phoneNumber,
+          email: query.email,
+          custodianJmbg: query.custodianJmbg,
+          custodianName: query.custodianName,
+          familyStatus: query.familyStatus,
+          maritalStatus: query.maritalStatus,
+          childrenNum: query.childrenNum,
+          education: query.education,
+          profession: query.profession,
+          healthRecordId: query.healthRecordId
         }
     });
   }
