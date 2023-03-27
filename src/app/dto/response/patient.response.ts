@@ -23,6 +23,7 @@ export interface PatientResponse {
     education: string;
     profession: string;
     healthRecordId: number;
+    deleted: boolean;
 }
 
 export interface SearchPatientsResponse {
