@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { PATIENT_ENDPOINT } from '../app.constants';
-import { PatientRequest } from '../dto/request/patient.request';
+import { CREATE_SCHEDULE_ENDPOINT, PATIENT_ENDPOINT } from '../app.constants';
+import { CreateScheduledAppointmentRequest, PatientRequest } from '../dto/request/patient.request';
 import { PatientResponse, SearchPatientsResponse } from '../dto/response/patient.response';
 
 @Injectable({
@@ -19,7 +19,7 @@ export class PatientService {
     });
   }
   searchPatients(query: any) {
-    return this.httpClient.get<SearchPatientsResponse>(PATIENT_ENDPOINT, {
+    return this.httpClient.get<any>(PATIENT_ENDPOINT, {
         headers: {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         },
@@ -97,4 +97,12 @@ export class PatientService {
         }
     })
   }
+
+  scheduleAppointment(appointment: CreateScheduledAppointmentRequest) {
+    return this.httpClient.post(CREATE_SCHEDULE_ENDPOINT, appointment, {
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        }
+    });
+}
 }

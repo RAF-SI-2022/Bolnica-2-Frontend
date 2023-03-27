@@ -21,3 +21,11 @@ export interface PatientRequest {
     education: string;
     profession: string;
   }
+
+  export interface CreateScheduledAppointmentRequest {
+    lbp: string,
+    lbzDoctor: string,
+    appointmentDate: string,
+    note: string,
+    lbzNurse: string
+}
