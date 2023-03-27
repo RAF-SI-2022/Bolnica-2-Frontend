@@ -6,6 +6,7 @@ import { AlreadyLoggedInGuard } from './guard/already-logged-in.guard';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { NewEmployeeComponent } from './components/new-employee/new-employee.component';
+import { NewPatientComponent } from "./components/new-patient/new-patient.component";
 import { PersonalDataComponent } from './components/personal-data/personal-data.component';
 import { SearchEmployeesComponent } from './components/search-employees/search-employees.component';
 import { AdminEditEmployeeComponent } from './components/admin-edit-employee/admin-edit-employee.component';
@@ -39,6 +40,12 @@ const routes: Routes = [
     component: NewEmployeeComponent,
     canActivate: [AuthGuard, PermissionGuard],
     data: { permissions: ['ROLE_ADMIN'] }
+  },
+  {
+    path: 'new-patient',
+    component: NewPatientComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: {permissions: ['ROLE_ADMIN']}
   },
   {
     path: 'search-employees',
