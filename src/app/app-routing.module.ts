@@ -12,6 +12,7 @@ import { AdminEditEmployeeComponent } from './components/admin-edit-employee/adm
 import { PermissionGuard } from './guard/permission.guard';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { NewAppointmentComponent } from './components/new-appointment/new-appointment.component';
+import { SearchPatientsComponent } from './components/search-patients/search-patients.component';
 
 const routes: Routes = [
   {
@@ -63,6 +64,12 @@ const routes: Routes = [
     component: NewAppointmentComponent,
     canActivate: [AuthGuard, PermissionGuard],
     data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+  },
+  {
+    path: 'search-patients',
+    component: SearchPatientsComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA','ROLE_DR_SPEC','ROLE_DR_SPEC_POV','ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
   }
 ];
 

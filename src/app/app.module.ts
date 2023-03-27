@@ -23,6 +23,7 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { NewAppointmentComponent } from './components/new-appointment/new-appointment.component';
+import { SearchPatientsComponent } from './components/search-patients/search-patients.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { NewAppointmentComponent } from './components/new-appointment/new-appoin
     AdminEditEmployeeComponent,
     PersonalDataComponent,
     ResetPasswordComponent,
-    NewAppointmentComponent
+    NewAppointmentComponent,
+    SearchPatientsComponent
   ],
   imports: [
     BrowserModule,
