@@ -18,7 +18,6 @@ export class SearchEmployeesComponent implements OnInit {
   pageSize = 5;
   collectionSize = 0;
 
-  employees: SearchedEmployee[] = [];
   paginatedEmployees: SearchedEmployee[] = [];
 
   constructor(private formBuilder: FormBuilder,
@@ -41,7 +40,6 @@ export class SearchEmployeesComponent implements OnInit {
   }
 
   search(): void {
-    const val = this.searchEmployeesForm.value;
     this.refreshEmployees();
   }
 

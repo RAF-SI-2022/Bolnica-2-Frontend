@@ -21,8 +21,10 @@ import { SearchEmployeesComponent } from './components/search-employees/search-e
 import { PersonalDataComponent } from './components/personal-data/personal-data.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
-import { NewPatientComponent } from './components/new-patient/new-patient.component';
-
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { NewAppointmentComponent } from './components/new-appointment/new-appointment.component';
+import { SearchPatientsComponent } from './components/search-patients/search-patients.component';
+import { NewPatientComponent } from "./components/new-patient/new-patient.component";
 
 @NgModule({
   declarations: [
@@ -35,6 +37,8 @@ import { NewPatientComponent } from './components/new-patient/new-patient.compon
     AdminEditEmployeeComponent,
     PersonalDataComponent,
     ResetPasswordComponent,
+    NewAppointmentComponent,
+    SearchPatientsComponent,
     NewPatientComponent
   ],
   imports: [
@@ -48,7 +52,8 @@ import { NewPatientComponent } from './components/new-patient/new-patient.compon
     HotToastModule.forRoot({
       dismissible: true,
       position: 'top-right'
-    })
+    }),
+    FullCalendarModule
   ],
   providers: [
     DecimalPipe,
