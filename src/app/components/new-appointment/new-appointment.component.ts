@@ -4,6 +4,10 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import {NgbOffcanvas} from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { PatientService } from 'src/app/service/patient.service';
+import { CreateScheduledAppointmentRequest } from 'src/app/dto/request/patient.request';
+import { HotToastService } from '@ngneat/hot-toast';
+import { debounceTime, distinctUntilChanged, Observable, OperatorFunction, map, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-new-appointment',
@@ -33,37 +37,81 @@ export class NewAppointmentComponent implements OnInit {
   currentEvents: EventApi[] = [];
   eventId = 0;
   newAppointmentForm: FormGroup;
+  model: any;
   offcanvasSelectedDate = '';
+  selectedPatientFullName = '';
 
-  @ViewChild('content')
-  content!: TemplateRef<any>;
+  @ViewChild('new_appointment_content')
+  newAppointmentContent!: TemplateRef<any>;
+
+  @ViewChild('view_appointment_content')
+  viewAppointmentContent!: TemplateRef<any>;
 
   constructor(private changeDetector: ChangeDetectorRef,
               private offcanvasService: NgbOffcanvas,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private patientService: PatientService,
+              private toaster: HotToastService) {
     this.newAppointmentForm = this.formBuilder.group({
-      patient: ['']
+      patient: [''],
+      note: ['']
     })
   }
 
   ngOnInit(): void {
   }
 
+	search = (text$: Observable<string>) =>
+    text$.pipe(
+			debounceTime(150),
+			distinctUntilChanged(),
+			switchMap((term) =>
+				this.patientService.searchPatients({
+          firstName: term,
+          lastName: '',
+          jmbg: '',
+          lbp: ''
+        }).pipe(map(response => response.patients))
+			)
+	  );
+
+  formatResultingPatient(value: any) {
+    return value.firstName + ' ' + value.lastName;
+  }
+
+  inputFormatResultingPatient(value: any) {
+    return value.firstName + ' ' + value.lastName;
+  }
+
   handleDateSelect(selectInfo: DateSelectArg) {
     this.offcanvasSelectedDate = selectInfo.startStr;
-    this.offcanvasService.open(this.content, {position: 'end'}).result.then(
+    this.offcanvasService.open(this.newAppointmentContent, {position: 'end'}).result.then(
       () => {
         const calendarApi = selectInfo.view.calendar;
+        calendarApi.unselect();
 
-        console.log(selectInfo);
+        const value = this.newAppointmentForm.value;
+        const appointment: CreateScheduledAppointmentRequest = {
+          lbp: value.patient.lbp,
+          lbzDoctor: '5a2e71bb-e4ee-43dd-a3ad-28e043f8b435',
+          appointmentDate: selectInfo.startStr,
+          note: value.note,
+          lbzNurse: localStorage.getItem('lbz')!
+        }
 
-        calendarApi.unselect(); // clear date selection
-
-        this.eventId++;
-        calendarApi.addEvent({
-          id: this.eventId.toString(),
-          title: this.newAppointmentForm.get('patient')?.value,
-          start: selectInfo.startStr
+        this.patientService.scheduleAppointment(appointment).subscribe({
+          next: (res) => {
+            this.eventId++;
+            calendarApi.addEvent({
+              id: this.eventId.toString(),
+              title: value.patient.firstName + ' ' + value.patient.lastName,
+              start: selectInfo.startStr
+            });
+            this.toaster.success('Uspešno ste zakazali pregled');
+          },
+          error: (e) => {
+            this.toaster.error(e.error.errorMessage);
+          }
         });
       },
       () => {
@@ -72,9 +120,9 @@ export class NewAppointmentComponent implements OnInit {
   }
 
   handleEventClick(clickInfo: EventClickArg) {
-    if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-      clickInfo.event.remove();
-    }
+    this.offcanvasSelectedDate = clickInfo.event.startStr;
+    this.selectedPatientFullName = clickInfo.event.title;
+    this.offcanvasService.open(this.viewAppointmentContent, {position: 'end'});
   }
 
   handleEvents(events: EventApi[]) {

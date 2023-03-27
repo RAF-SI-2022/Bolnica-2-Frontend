@@ -1,4 +1,4 @@
-<ng-template #content let-offcanvas>
+<ng-template #new_appointment_content let-offcanvas>
 	<div class="offcanvas-header">
 		<h4 class="offcanvas-title">Zakaži pregled</h4>
 		<button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss('Cross click')"></button>
@@ -8,16 +8,27 @@
         <p><i class="bi bi-clock" style="margin-right: 5px;"></i>{{ this.offcanvasSelectedDate | date: 'HH:mm'}}</p>
         <form [formGroup]="newAppointmentForm">
             <div class="form-group mb-3">
-                <select formControlName="patient" class="form-select" aria-label="Default select example">
-                    <option value="Dario Borovac">Dario Borovac</option>
-                </select>
+                <label for="typeaheadPatient">Pretraži pacijente:</label>
+                <input formControlName="patient" [(ngModel)]="model" [ngbTypeahead]="search" [resultFormatter]="formatResultingPatient" [inputFormatter]="inputFormatResultingPatient" type="text" id="typeaheadPatient" class="form-control">
             </div>
             <div class="form-group">
                 <label for="additionalComment">Dodaj komentar</label>
-                <textarea class="form-control" id="additionalComment" rows="4"></textarea>
+                <textarea formControlName="note" class="form-control" id="additionalComment" rows="4"></textarea>
             </div>
         </form>
 		<button type="button" class="btn btn-outline-success mt-4 w-100" (click)="offcanvas.close('Close click')">Zakaži</button>
+	</div>
+</ng-template>
+
+<ng-template #view_appointment_content let-offcanvas>
+    <div class="offcanvas-header">
+		<h4 class="offcanvas-title">Zakazani pregled</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss('Cross click')"></button>
+	</div>
+	<div class="offcanvas-body">
+        <p><i class="bi bi-calendar" style="margin-right: 5px;"></i>{{ this.offcanvasSelectedDate | date: 'dd.MM.yyyy'}}</p>
+        <p><i class="bi bi-clock" style="margin-right: 5px;"></i>{{ this.offcanvasSelectedDate | date: 'HH:mm'}}</p>
+        <p>Pacijent: {{ this.selectedPatientFullName }}</p>
 	</div>
 </ng-template>
 
