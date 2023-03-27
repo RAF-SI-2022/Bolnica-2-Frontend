@@ -24,7 +24,7 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { NewAppointmentComponent } from './components/new-appointment/new-appointment.component';
 import { SearchPatientsComponent } from './components/search-patients/search-patients.component';
-
+import { NewPatientComponent } from "./components/new-patient/new-patient.component";
 
 @NgModule({
   declarations: [
@@ -38,7 +38,8 @@ import { SearchPatientsComponent } from './components/search-patients/search-pat
     PersonalDataComponent,
     ResetPasswordComponent,
     NewAppointmentComponent,
-    SearchPatientsComponent
+    SearchPatientsComponent,
+    NewPatientComponent
   ],
   imports: [
     BrowserModule,
