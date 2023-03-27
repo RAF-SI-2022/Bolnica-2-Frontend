@@ -26,21 +26,21 @@ export class NewPatientComponent implements OnInit {
       lastName: ['', Validators.required],
       gender: ['', Validators.required],
       birthDate: ['', Validators.required],
-      deathDate: ['', Validators.required],
+      deathDate: [''],
       birthplace: ['', Validators.required],
       citizenshipCountry: ['', Validators.required],
-      address: ['', Validators.required],
-      placeOfLiving: ['', Validators.required],
+      address: [''],
+      placeOfLiving: [''],
       countryOfLiving: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
-      email: ['', Validators.required],
-      custodianJmbg: ['', Validators.required],
-      custodianName: ['', Validators.required],
-      familyStatus: ['', Validators.required],
-      maritalStatus: ['', Validators.required],
-      childrenNum: ['', Validators.required],
-      education: ['', Validators.required],
-      profession: ['', Validators.required]
+      phoneNumber: [''],
+      email: [''],
+      custodianJmbg: [''],
+      custodianName: [''],
+      familyStatus: [''],
+      maritalStatus: [''],
+      childrenNum: [''],
+      education: [''],
+      profession: ['']
     })
   }
 
@@ -51,7 +51,11 @@ export class NewPatientComponent implements OnInit {
   {
     this.submitted = true;
 
+    const val4 = this.newpatientForm.value;
+    console.log(val4);
+
     if (this.newpatientForm.invalid) {
+      console.log("Invalidan sam");
       return;
     }
 

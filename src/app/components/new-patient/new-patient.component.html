@@ -50,7 +50,7 @@
     </div>
   </div>
   <div class="row g-3 mb-3">
-    <div class="col-md-3 form-floating gx-1">
+    <div class="col-md-4 form-floating gx-1">
       <input formControlName="birthDate" type="date" class="form-control" id="floatingDatRodjenja"
              placeholder="Datum rodjenja" />
       <label for="floatingDatRodjenja">Datum rodjenja</label>
@@ -59,14 +59,7 @@
         Datum rođenja je obavezan
       </div>
     </div>
-    <div class="col-md-3 form-floating gx-1">
-      <input formControlName="deathDate" type="date" class="form-control" id="floatingDatumSmrti"
-             placeholder="Datum smrti" />
-      <label for="floatingDatumSmrti">Datum smrti
-        <div *ngIf="submitted && newpatientForm.get('deathDate')"></div>
-      </label>
-    </div>
-    <div class="col-md-3 form-floating gx-1">
+    <div class="col-md-4 form-floating gx-1">
       <input formControlName="birthplace" type="text" class="form-control" id="floatingMestoRodjenja"
              placeholder="Mesto rodjenja" />
       <label for="floatingMestoRodjenja">Mesto rodjenja</label>
@@ -75,70 +68,104 @@
         Mesto rodjenja je obavezno
       </div>
     </div>
-    <div class="col-md-3 form-floating gx-1">
-      <input formControlName="phoneNumber" type="text" class="form-control" id="floatingKontaktTel"
-             placeholder="Kontakt telefon" />
-      <label for="floatingDatRodjenja">Kontakt telefon
-        <div *ngIf="submitted && newpatientForm.get('phoneNumber')?.errors?.required"
-             class="validation-error small alert alert-danger">
-          Kontakt telefon je obavezan
-        </div>
-      </label>
-    </div>
   </div>
   <div class="row g-3 mb-3">
     <div class="col-md-3 form-floating gx-1">
-      <input formControlName="email" type="email" class="form-control" id="floatingEmail" placeholder="Email"
-             required />
+      <input formControlName="email" type="email" class="form-control" id="floatingEmail" placeholder="Email"/>
       <label for="floatingEmail">E-mail</label>
-      <div *ngIf="submitted && newpatientForm.get('email')?.errors?.required"
-           class="validation-error small alert alert-danger">
-        Email je obavezan
-      </div>
       <div *ngIf="submitted && newpatientForm.get('email')?.errors?.email"
            class="validation-error small alert alert-danger">
         Email nije validan
       </div>
     </div>
-    <div class="col-md-3 form-floating gx-1">
-      <input formControlName="citizenshipCountry" type="text" class="form-control" id="floatingZemljaDrzavljanstva"
-             placeholder="Zemlja Drzavljanstva" />
-      <label for="floatingZemljaDrzavljanstva">Zemlja Drzavljanstva
-        <div *ngIf="submitted && newpatientForm.get('citizenshipCountry')?.errors?.required"
-             class="validation-error small alert alert-danger">
-          Zemlja drzavljanstva je obavezna
-        </div>
-      </label>
+    <div class="col-md-3">
+      <select formControlName="citizenshipCountry" class="form-select" aria-label="Default select example">
+        <option disabled selected value>Zemlja Drzavljanstva</option>
+        <option value="AFG">Afghanistan</option>
+        <option value="ALA">Åland Islands</option>
+        <option value="ALB">Albania</option>
+        <option value="DZA">Algeria</option>
+
+        <option value="BHS">Bahamas</option>
+        <option value="BEL">Belgium</option>
+        <option value="BIH">Bosnia and Herzegovina</option>
+        <option value="BRA">Brazil</option>
+        <option value="BGR">Bulgaria</option>
+
+        <option value="CMR">Cameroon</option>
+        <option value="CAN">Canada</option>
+        <option value="CHL">Chile</option>
+        <option value="CHN">China</option>
+        <option value="HRV">Croatia</option>
+        <option value="CUB">Cuba</option>
+        <option value="DNK">Denmark</option>
+        <option value="EGY">Egypt</option>
+        <option value="FRA">France</option>
+
+        <option value="SRB">Serbia</option>
+        <option value="SVN">Slovenia</option>
+
+      </select>
+      <div *ngIf="submitted && newpatientForm.get('citizenshipCountry')?.errors?.required" class="validation-error small alert alert-danger">Zemlja Drzavljanstva je obavezna</div>
     </div>
-    <div class="col-md-3 form-floating gx-1">
-      <input formControlName="countryOfLiving" type="text" class="form-control" id="floatingZemljaStanovanja"
-             placeholder="Zemlja Stanovanja" />
-      <label for="floatingZemljaStanovanja">Zemlja Stanovanja
-        <div *ngIf="submitted && newpatientForm.get('countryOfLiving')?.errors?.required"
-             class="validation-error small alert alert-danger">
-          Zemlja stanovanja je obavezna
-        </div>
-      </label>
+<!--    <div class="col-md-3 form-floating gx-1">-->
+<!--      <input formControlName="countryOfLiving" type="text" class="form-control" id="floatingZemljaStanovanja"-->
+<!--             placeholder="Zemlja Stanovanja" />-->
+<!--      <label for="floatingZemljaStanovanja">Zemlja Stanovanja-->
+<!--        <div *ngIf="submitted && newpatientForm.get('countryOfLiving')?.errors?.required"-->
+<!--             class="validation-error small alert alert-danger">-->
+<!--          Zemlja stanovanja je obavezna-->
+<!--        </div>-->
+<!--      </label>-->
+<!--    </div>-->
+    <div class="col-md-3">
+      <select formControlName="countryOfLiving" class="form-select" aria-label="Default select example">
+        <option disabled selected value>Zemlja stanovanja</option>
+        <option value="AFG">Afghanistan</option>
+        <option value="ALA">Åland Islands</option>
+        <option value="ALB">Albania</option>
+        <option value="DZA">Algeria</option>
+
+        <option value="BHS">Bahamas</option>
+        <option value="BEL">Belgium</option>
+        <option value="BIH">Bosnia and Herzegovina</option>
+        <option value="BRA">Brazil</option>
+        <option value="BGR">Bulgaria</option>
+
+        <option value="CMR">Cameroon</option>
+        <option value="CAN">Canada</option>
+        <option value="CHL">Chile</option>
+        <option value="CHN">China</option>
+        <option value="HRV">Croatia</option>
+        <option value="CUB">Cuba</option>
+        <option value="DNK">Denmark</option>
+        <option value="EGY">Egypt</option>
+        <option value="FRA">France</option>
+
+        <option value="SRB">Serbia</option>
+        <option value="SVN">Slovenia</option>
+
+      </select>
+      <div *ngIf="submitted && newpatientForm.get('countryOfLiving')?.errors?.required" class="validation-error small alert alert-danger">Zemlja stanovanja je obavezna</div>
     </div>
     <div class="col-md-3 form-floating gx-1">
       <input formControlName="placeOfLiving" type="text" class="form-control" id="floatingPlaceOfLiving"
              placeholder="Mesto stanovanja" />
       <label for="floatingPlaceOfLiving">Mesto Stanovanja
-        <div *ngIf="submitted && newpatientForm.get('placeOfLiving')?.errors?.required"
-             class="validation-error small alert alert-danger">
-          Mesto stanovanja je obavezna
-        </div>
       </label>
     </div>
-    <div class="col-md-3 form-floating gx-1">
+  </div>
+  <div class="row g-3 mb-3">
+    <div class="col-md-6 form-floating gx-1">
       <input formControlName="address" type="text" class="form-control" id="floatingAdresa"
              placeholder="Adresa" />
       <label for="floatingAdresa">Adresa
-        <div *ngIf="submitted && newpatientForm.get('address')?.errors?.required"
-             class="validation-error small alert alert-danger">
-          Adresa je obavezna
-        </div>
       </label>
+    </div>
+    <div class="col-md-6 form-floating gx-1">
+      <input formControlName="phoneNumber" type="text" class="form-control" id="floatingKontaktTel"
+             placeholder="Kontakt telefon" />
+      <label for="floatingDatRodjenja">Kontakt telefon</label>
     </div>
   </div>
   <div class="row g-3 mb-3">
@@ -146,20 +173,12 @@
       <input formControlName="custodianJmbg" type="text" class="form-control" id="floatingJmbgStaratelja"
              placeholder="JMBG Staratelja (ako postoji)" />
       <label for="floatingJmbgStaratelja">JMBG Staratelja (ako postoji)
-        <div *ngIf="submitted && newpatientForm.get('custodianJmbg')?.errors?.required"
-             class="validation-error small alert alert-danger">
-          JMBG Staratelja je obavezno
-        </div>
       </label>
     </div>
     <div class="col-md-6 form-floating gx-1">
       <input formControlName="custodianName" type="text" class="form-control" id="floatingImeIPrezimeStaratelja"
              placeholder="Ime i prezime staratelja (ako postoji)" />
       <label for="floatingImeIPrezimeStaratelja">Ime i prezime staratelja (ako postoji)
-        <div *ngIf="submitted && newpatientForm.get('custodianName')?.errors?.required"
-             class="validation-error small alert alert-danger">
-          Ime staratelja je obavezno
-        </div>
       </label>
     </div>
   </div>
@@ -168,10 +187,6 @@
       <input formControlName="childrenNum" type="number" class="form-control" id="floatingBrojDece"
              placeholder="Broj Dece" />
       <label for="floatingBrojDece">Broj dece
-        <div *ngIf="submitted && newpatientForm.get('childrenNum')?.errors?.required"
-             class="validation-error small alert alert-danger">
-          Broj dece je obavezan
-        </div>
       </label>
     </div>
     <div class="col-md-3">
@@ -182,7 +197,6 @@
         <option value="Udovac">Udovac/Udovica</option>
         <option value="Samac">Samac/Samica</option>
       </select>
-      <div *ngIf="submitted && newpatientForm.get('maritalStatus')?.errors?.required" class="validation-error small alert alert-danger">Bracni status je obavezan</div>
     </div>
 
     <div class="col-md-3">
@@ -194,19 +208,13 @@
         <option value="Više obrazovanje">Vise</option>
         <option value="Visoko obrazovanje">Visoko</option>
       </select>
-      <div *ngIf="submitted && newpatientForm.get('education')?.errors?.required" class="validation-error small alert alert-danger">Stepen strucne spreme je obavezan</div>
     </div>
   </div>
   <div class="row g-3 mb-3">
     <div class="col-md-6 form-floating gx-1">
       <input formControlName="profession" type="text" class="form-control" id="floatingZanimanje"
              placeholder="Zanimanje" />
-      <label for="floatingZanimanje">Zanimanje
-        <div *ngIf="submitted && newpatientForm.get('profession')?.errors?.required"
-             class="validation-error small alert alert-danger">
-          Zanimanje je obavezno
-        </div>
-      </label>
+      <label for="floatingZanimanje">Zanimanje</label>
     </div>
     <div class="col-md-4">
       <select formControlName="familyStatus" class="form-select" aria-label="Default select example">
@@ -217,7 +225,6 @@
         <option value="Bez roditelja">Bez rodjitelja</option>
         <option value="Usvojen">Usvojen</option>
       </select>
-      <div *ngIf="submitted && newpatientForm.get('familyStatus')?.errors?.required" class="validation-error small alert alert-danger">Bracni status je obavezan</div>
     </div>
   </div>
   <hr class="my-4">
