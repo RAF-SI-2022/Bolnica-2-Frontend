@@ -21,8 +21,7 @@ export class SearchPatientsComponent implements OnInit {
   collectionSize = 0;
 
   patients: PatientResponse[] = [];
-  paginatedPatients: PatientResponse[] = [];
-  
+
   constructor(protected authService: AuthService,
     private formBuilder: FormBuilder,
     private router: Router,
@@ -60,7 +59,8 @@ export class SearchPatientsComponent implements OnInit {
       next: (res) => {
         const response = res as SearchPatientsResponse;
         console.log(response);
-        this.paginatedPatients = response.patients;
+        this.patients = response.patients;
+        this.collectionSize = response.count;
       },
       error: (e) => {
         this.toast.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
@@ -69,7 +69,7 @@ export class SearchPatientsComponent implements OnInit {
   }
 
   deletePatient(lbp: string) {
-    
+
     this.modalService.open(NgbdModalConfirm).result.then((data) => {
       this.patientsService.deletePatient(lbp).subscribe({
         next: (res) => {
@@ -87,7 +87,7 @@ export class SearchPatientsComponent implements OnInit {
 }
 
 @Component({
-  
+
 	selector: 'ngbd-modal-confirm',
 	standalone: true,
 	template: `

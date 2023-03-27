@@ -26,5 +26,6 @@ export interface PatientResponse {
 }
 
 export interface SearchPatientsResponse {
-    patients: PatientResponse[]
+    patients: PatientResponse[],
+    count: number
 }
