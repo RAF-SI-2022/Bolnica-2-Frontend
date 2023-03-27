@@ -14,6 +14,10 @@
 				<div class="mb-1">
 					<input formControlName="lbp" class="form-control" type="text" placeholder="LBP">
 				</div>
+				<div class="form-check">
+					<input formControlName="includeDeleted" class="form-check-input" id="deletedCheckbox" type="checkbox">
+					<label class="form-check-label" for="deletedCheckbox">Pretraži i pacijente koji su obrisani</label>
+				</div>
 				<hr class="my-4">
 				<button (click)="search()" class="btn btn-md btn-primary w-100" type="submit">Pretraži</button>
 			</form>
@@ -28,6 +32,11 @@
 						<th scope="col">JMBG</th>
 						<th scope="col">Email</th>
 						<th scope="col">Broj telefona</th>
+						<th scope="col"></th>
+						<th scope="col"></th>
+						<th scope="col"></th>
+						<th scope="col"></th>
+						<th scope="col"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -38,6 +47,7 @@
 						<td>{{patient.jmbg}}</td>
 						<td>{{patient.email}}</td>
 						<td>{{patient.phoneNumber}}</td>
+						<td><span *ngIf="patient.deleted" class="text-danger">Obrisan</span></td>
 						<td><button *ngIf="this.authService.hasEitherPermission(['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'])"
 							[routerLink]="['/new-appointment', patient.lbp]" class="btn btn-sm btn-primary">Zakaži pregled</button>
 						</td>

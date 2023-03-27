@@ -32,7 +32,8 @@ export class SearchPatientsComponent implements OnInit {
     firstName: [''],
     lastName: [''],
     jmbg: [''],
-    lbp: ['']
+    lbp: [''],
+    includeDeleted: [false]
   });
     this.refreshPatients();
   }
@@ -53,6 +54,7 @@ export class SearchPatientsComponent implements OnInit {
       lastName: val.lastName,
       jmbg: val.jmbg,
       lbp: val.lbp,
+      includeDeleted: val.includeDeleted,
       page: this.page - 1,
       size: this.pageSize
     }).subscribe({

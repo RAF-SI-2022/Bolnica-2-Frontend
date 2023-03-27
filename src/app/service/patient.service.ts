@@ -19,16 +19,19 @@ export class PatientService {
     });
   }
   searchPatients(query: any) {
+    const params: any = {};
+    if (query.firstName !== '') params.firstName = query.firstName;
+    if (query.lastName !== '') params.lastName = query.firstName;
+    if (query.jmbg !== '') params.jmbg = query.jmbg;
+    if (query.lbp !== '') params.lbp = query.lbp;
+    params.page = query.page;
+    params.size = query.size;
+    params.includeDeleted = query.includeDeleted
     return this.httpClient.get<any>(PATIENT_ENDPOINT, {
         headers: {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         },
-        params: {
-          jmbg: query.jmbg,
-          lbp: query.lbp,
-          firstName: query.firstName,
-          lastName: query.lastName,
-        }
+        params: params
     });
   }
 
