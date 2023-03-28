@@ -6,11 +6,14 @@ import { AlreadyLoggedInGuard } from './guard/already-logged-in.guard';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { NewEmployeeComponent } from './components/new-employee/new-employee.component';
+import { NewPatientComponent } from "./components/new-patient/new-patient.component";
 import { PersonalDataComponent } from './components/personal-data/personal-data.component';
 import { SearchEmployeesComponent } from './components/search-employees/search-employees.component';
 import { AdminEditEmployeeComponent } from './components/admin-edit-employee/admin-edit-employee.component';
 import { PermissionGuard } from './guard/permission.guard';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { NewAppointmentComponent } from './components/new-appointment/new-appointment.component';
+import { SearchPatientsComponent } from './components/search-patients/search-patients.component';
 import { ScheduledAppointmentsComponent } from './components/scheduled-appointments/scheduled-appointments.component';
 
 const routes: Routes = [
@@ -42,6 +45,12 @@ const routes: Routes = [
     data: { permissions: ['ROLE_ADMIN'] }
   },
   {
+    path: 'new-patient',
+    component: NewPatientComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: {permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA']}
+  },
+  {
     path: 'search-employees',
     component: SearchEmployeesComponent,
     canActivate: [AuthGuard, PermissionGuard],
@@ -57,6 +66,18 @@ const routes: Routes = [
     path: 'forgot-password/:reset-token',
     component: ResetPasswordComponent,
     canActivate: [AlreadyLoggedInGuard]
+  },
+  {
+    path: 'new-appointment',
+    component: NewAppointmentComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+  },
+  {
+    path: 'search-patients',
+    component: SearchPatientsComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA','ROLE_DR_SPEC','ROLE_DR_SPEC_POV','ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
   },
   {
     path:'scheduled-appointments',

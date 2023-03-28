@@ -1,63 +1,67 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
-import { SearchedEmployee, SearchEmployeesResponse } from 'src/app/dto/response/employee.response';
-import { EmployeesService } from 'src/app/service/employee.service';
+import { AuthService } from 'src/app/service/auth.service';
+import { PatientResponse, SearchPatientsResponse } from 'src/app/dto/response/patient.response';
+import { PatientService } from 'src/app/service/patient.service';
 
 @Component({
-  selector: 'app-search-employees',
-  templateUrl: './search-employees.component.html',
-  styleUrls: ['./search-employees.component.css']
+  selector: 'app-search-patients',
+  templateUrl: './search-patients.component.html',
+  styleUrls: ['./search-patients.component.css']
 })
-export class SearchEmployeesComponent implements OnInit {
-  searchEmployeesForm: FormGroup;
 
+export class SearchPatientsComponent implements OnInit {
+
+  searchPatientsForm: FormGroup;
   page = 1;
   pageSize = 5;
   collectionSize = 0;
 
-  paginatedEmployees: SearchedEmployee[] = [];
+  patients: PatientResponse[] = [];
 
-  constructor(private formBuilder: FormBuilder,
-              private router: Router,
-              private employeesService: EmployeesService,
-              private toast: HotToastService,
-              private modalService: NgbModal) {
-    this.searchEmployeesForm = this.formBuilder.group({
-      firstName: [''],
-      lastName: [''],
-      departmentName: [''],
-      hospitalName: [''],
-      includeDeleted: [false]
-    });
-    this.refreshEmployees();
+  constructor(protected authService: AuthService,
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private patientsService: PatientService,
+    private toast: HotToastService,
+    private modalService: NgbModal) {
+    this.searchPatientsForm = this.formBuilder.group({
+    firstName: [''],
+    lastName: [''],
+    jmbg: [''],
+    lbp: [''],
+    includeDeleted: [false]
+  });
+    this.refreshPatients();
   }
 
   ngOnInit(): void {
-
   }
 
   search(): void {
-    this.refreshEmployees();
+    const val = this.searchPatientsForm.value;
+    this.refreshPatients();
   }
 
-  refreshEmployees(): void {
-    const val = this.searchEmployeesForm.value;
-    this.employeesService.searchEmployees({
+  refreshPatients(): void {
+
+    const val = this.searchPatientsForm.value;
+    this.patientsService.searchPatients({
       firstName: val.firstName,
       lastName: val.lastName,
-      departmentName: val.departmentName,
-      hospitalName: val.hospitalName,
+      jmbg: val.jmbg,
+      lbp: val.lbp,
       includeDeleted: val.includeDeleted,
       page: this.page - 1,
       size: this.pageSize
     }).subscribe({
       next: (res) => {
-        const response = res as SearchEmployeesResponse;
+        const response = res as SearchPatientsResponse;
         console.log(response);
-        this.paginatedEmployees = response.userList;
+        this.patients = response.patients;
         this.collectionSize = response.count;
       },
       error: (e) => {
@@ -66,12 +70,13 @@ export class SearchEmployeesComponent implements OnInit {
     });
   }
 
-  deleteEmployee(id: number) {
+  deletePatient(lbp: string) {
+
     this.modalService.open(NgbdModalConfirm).result.then((data) => {
-      this.employeesService.deleteEmployee(id).subscribe({
+      this.patientsService.deletePatient(lbp).subscribe({
         next: (res) => {
-          this.toast.success('Korisnik uspešno obrisan');
-          this.refreshEmployees();
+          this.toast.success('Pacijent uspešno obrisan');
+          this.refreshPatients();
         },
         error: (e) => {
           console.log(e)
@@ -84,11 +89,12 @@ export class SearchEmployeesComponent implements OnInit {
 }
 
 @Component({
+
 	selector: 'ngbd-modal-confirm',
 	standalone: true,
 	template: `
 		<div class="modal-header">
-			<h4 class="modal-title" id="modal-title">Brisanje zaposlenog</h4>
+			<h4 class="modal-title" id="modal-title">Brisanje pacijenta</h4>
 			<button
 				type="button"
 				class="btn-close"
@@ -98,7 +104,7 @@ export class SearchEmployeesComponent implements OnInit {
 		</div>
 		<div class="modal-body">
 			<p>
-				<strong>Da li ste sigurni da želite da obrišete ovog zaposlenog?</strong>
+				<strong>Da li ste sigurni da želite da obrišete ovog pacijenta?</strong>
 			</p>
 		</div>
 		<div class="modal-footer">
@@ -107,6 +113,7 @@ export class SearchEmployeesComponent implements OnInit {
 		</div>
 	`,
 })
+
 export class NgbdModalConfirm {
 	constructor(public modal: NgbActiveModal) {}
 }

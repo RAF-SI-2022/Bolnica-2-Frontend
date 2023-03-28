@@ -1,0 +1,77 @@
+<div class="p-5">
+	<div class="row">
+		<div class="col-lg-3">
+			<form [formGroup]="searchPatientsForm" class="p-3 border rounded-3 bg-light">
+				<div class="mb-1">
+					<input formControlName="firstName" class="form-control" type="text" placeholder="Ime">
+				</div>
+				<div class="mb-1">
+					<input formControlName="lastName" class="form-control" type="text" placeholder="Prezime">
+				</div>
+				<div class="mb-1">
+					<input formControlName="jmbg" class="form-control" type="text" placeholder="JMBG">
+				</div>
+				<div class="mb-1">
+					<input formControlName="lbp" class="form-control" type="text" placeholder="LBP">
+				</div>
+				<div class="form-check">
+					<input formControlName="includeDeleted" class="form-check-input" id="deletedCheckbox" type="checkbox">
+					<label class="form-check-label" for="deletedCheckbox">Pretraži i pacijente koji su obrisani</label>
+				</div>
+				<hr class="my-4">
+				<button (click)="search()" class="btn btn-md btn-primary w-100" type="submit">Pretraži</button>
+			</form>
+		</div>
+		<div class="col-lg-9 table-responsive">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th scope="col">Ime</th>
+						<th scope="col">Prezime</th>
+						<th scope="col">Datum rođenja</th>
+						<th scope="col">JMBG</th>
+						<th scope="col">Email</th>
+						<th scope="col">Broj telefona</th>
+						<th scope="col"></th>
+						<th scope="col"></th>
+						<th scope="col"></th>
+						<th scope="col"></th>
+						<th scope="col"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let patient of patients">
+						<td>{{patient.firstName}}</td>
+						<td>{{patient.lastName}}</td>
+						<td>{{patient.birthDate | date: 'dd.MM.yyyy'}}</td>
+						<td>{{patient.jmbg}}</td>
+						<td>{{patient.email}}</td>
+						<td>{{patient.phoneNumber}}</td>
+						<td><span *ngIf="patient.deleted" class="text-danger">Obrisan</span></td>
+						<td><button *ngIf="this.authService.hasEitherPermission(['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'])"
+							[routerLink]="['/new-appointment', patient.lbp]" class="btn btn-sm btn-primary">Zakaži pregled</button>
+						</td>
+						<td><button *ngIf="this.authService.hasEitherPermission(['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'])"
+							[routerLink]="['/medical-record', patient.lbp]" class="btn btn-sm btn-danger">Pregled kartona</button>
+						</td>
+						<td><button *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])"
+							[routerLink]="['/edit-patient', patient.lbp]" class="btn btn-sm btn-primary">Ažuriraj</button>
+						</td>
+						<td><button *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])"
+							(click)="deletePatient(patient.lbp)" ngbAutofocus class="btn btn-sm btn-danger">Obriši</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="d-flex justify-content-center p-2">
+				<ngb-pagination
+					[collectionSize]="collectionSize"
+					[(page)]="page"
+					[pageSize]="pageSize"
+					(pageChange)="refreshPatients()"
+				>
+				</ngb-pagination>
+			</div>
+		</div>
+	</div>
+</div>

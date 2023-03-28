@@ -13,11 +13,11 @@
           <a *ngIf="this.authService.hasEitherPermission(['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV', 'ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])"
               class="nav-link active" href="#">Zakazani pregledi</a>
           <a *ngIf="this.authService.hasEitherPermission(['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV', 'ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])"
-              class="nav-link active" href="#">Pacijenti</a>
-          <a *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])"
+              routerLink="/search-patients" class="nav-link active" href="#">Pacijenti</a>
+          <a routerLink="/new-appointment" *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])"
               class="nav-link active" href="#">Zakazivanje pregleda</a>
               <a *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])"
-              class="nav-link active" href="#">Dodaj novog pacijenta</a>
+                 routerLink="/new-patient" class="nav-link active" href="#">Dodaj novog pacijenta</a>
         </div>
       </div>
       <img src="../assets/images/box-arrow-in-right.svg" style="filter: invert(25%) sepia(58%) saturate(3847%) hue-rotate(347deg) brightness(78%) contrast(91%); width: 1.5rem;">
