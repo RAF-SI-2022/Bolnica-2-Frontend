@@ -21,6 +21,7 @@ import { SearchEmployeesComponent } from './components/search-employees/search-e
 import { PersonalDataComponent } from './components/personal-data/personal-data.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ScheduledAppointmentsComponent } from './components/scheduled-appointments/scheduled-appointments.component'
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
     SearchEmployeesComponent,
     AdminEditEmployeeComponent,
     PersonalDataComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    ScheduledAppointmentsComponent
   ],
   imports: [
     BrowserModule,

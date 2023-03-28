@@ -11,6 +11,7 @@ import { SearchEmployeesComponent } from './components/search-employees/search-e
 import { AdminEditEmployeeComponent } from './components/admin-edit-employee/admin-edit-employee.component';
 import { PermissionGuard } from './guard/permission.guard';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { ScheduledAppointmentsComponent } from './components/scheduled-appointments/scheduled-appointments.component';
 
 const routes: Routes = [
   {
@@ -56,6 +57,12 @@ const routes: Routes = [
     path: 'forgot-password/:reset-token',
     component: ResetPasswordComponent,
     canActivate: [AlreadyLoggedInGuard]
+  },
+  {
+    path:'scheduled-appointments',
+    component:ScheduledAppointmentsComponent,
+    canActivate:[AuthGuard,PermissionGuard],
+    data:{permissions:['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV','ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA']}
   }
 ];
 
