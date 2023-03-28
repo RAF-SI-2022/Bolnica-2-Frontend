@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { PATIENT_BY_LBP_ENDPOINT, SCHEDULED_APPOINTMENTS_ENDPOINT } from '../app.constants';
+import { PATIENT_ENDPOINT, SCHEDULE_ENDPOINT } from '../app.constants';
 import { PatientResponse, SchedluedAppointmentsResponse } from '../dto/response/scheduled-appointment-response';
 
 @Injectable({
@@ -15,7 +15,7 @@ export class ScheduledAppointmentService {
         let lbz = localStorage.getItem('lbz')
         let token = localStorage.getItem('token')
         let authHeader = 'Bearer ' + token;
-        return this.httpClient.get<SchedluedAppointmentsResponse>(SCHEDULED_APPOINTMENTS_ENDPOINT+lbz, {
+        return this.httpClient.get<SchedluedAppointmentsResponse>(SCHEDULE_ENDPOINT+"/search?lbz="+lbz, {
           headers: {
               'Authorization': authHeader
           }
@@ -26,7 +26,7 @@ export class ScheduledAppointmentService {
         let lbz = localStorage.getItem('lbz')
         let token = localStorage.getItem('token')
         let authHeader = 'Bearer ' + token;
-        return this.httpClient.get<PatientResponse>(PATIENT_BY_LBP_ENDPOINT+patientLbp, {
+        return this.httpClient.get<PatientResponse>(PATIENT_ENDPOINT+"/"+patientLbp, {
           headers: {
               'Authorization': authHeader
           }
