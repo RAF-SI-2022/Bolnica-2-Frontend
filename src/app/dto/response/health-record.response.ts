@@ -3,8 +3,8 @@ export interface HealthRecordResponse {
     registrationDate:Date;
     bloodType: string;
     rhFactor: string;
-    allergies: AllergyResponse[];
-    vaccinations: VaccinationResponse[];
+    allergies: AllergyResponse;
+    vaccinations: VaccinationResponse;
     operations: Operation[];
     medicalHistory: MedicalHistory;
     medicalExaminations: MedicalExamination[];
@@ -12,17 +12,28 @@ export interface HealthRecordResponse {
 }
 
 export interface AllergyResponse {
+    allergies: Allergy[];
+    count: number;
+}
+
+export interface Allergy {
     id: number;
-    allergen: Allergen;
+    allergen : Allergen;
     healthRecordId: number;
 }
 
 export interface Allergen {
     id: number;
-    name: string;
+    name : string;
 }
 
+
 export interface VaccinationResponse {
+    vaccinations: Vaccinations[];
+    count: number;
+}
+
+export interface Vaccinations {
     id: number;
     vaccine: Vaccine;
     healthRecordId: number;
