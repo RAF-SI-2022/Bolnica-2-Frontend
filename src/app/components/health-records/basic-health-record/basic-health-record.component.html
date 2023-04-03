@@ -1,0 +1,112 @@
+<form [formGroup]="bloodtypeForm" class="container p-4 border rounded-3 bg-light mt-4">
+  <h4 class="mb-4">Krvna grupa</h4>
+  <div class="row g-3 mb-3">
+    <div class="col-md-6 form-floating gx-1">
+      <input formControlName="id" type="id" class="form-control" id="floatingid" placeholder="ID"/>
+      <label for="floatingid">ID Zdravstvenog kartona</label>
+    </div>
+    <div class="col-md-6 form-floating gx-1">
+      <input formControlName="lbp" type="text" class="form-control" id="floatinglbp" placeholder="Lbp" />
+      <label for="floatinglbp">Lbp</label>
+    </div>
+  </div>
+  <div class="row g-3 mb-3">
+    <div class="col-md-4 form-floating gx-1">
+      <input formControlName="datumRegistracijeKartona" type="date" class="form-control" id="floatingDatumRegistracijeKartona"
+             placeholder="Datum registracije kartona" />
+      <label for="floatingDatumRegistracijeKartona">Datum registracije kartona</label>
+    </div>
+    <div class="col-md-3">
+      <select formControlName="krvnaGrupa" class="form-select" aria-label="Default select example">
+        <option disabled selected value>Krvna Grupa</option>
+        <option value="A">A</option>
+        <option value="B">B</option>
+        <option value="O">O</option>
+        <option value="AB">AB</option>
+      </select>
+      <div *ngIf="submitted && bloodtypeForm.get('krvnaGrupa')?.errors?.required" class="validation-error small alert alert-danger">KrvnaGrupa je obavezna</div>
+    </div>
+    <div class="col-md-3">
+      <select formControlName="rhFaktor" class="form-select" aria-label="Default select example">
+        <option disabled selected value>Rh Faktor</option>
+        <option value="+">+</option>
+        <option value="-">-</option>
+      </select>
+      <div *ngIf="submitted && bloodtypeForm.get('rhFaktor')?.errors?.required" class="validation-error small alert alert-danger">rhFaktor je obavezan</div>
+    </div>
+  </div>
+  <hr class="my-4">
+  <div class="row g-3 mb-3 justify-content-center">
+    <hr class="my-4">
+    <div class="col-md-4">
+      <input (click)="edit()" type="button" class="btn btn-primary form-control" value="Izmeni podatke" />
+    </div>
+    <div class="col-md-4">
+      <button (click)="save()" [disabled]="!this.isInEditMode" class="btn btn-primary form-control">Sačuvaj podatke</button>
+    </div>
+  </div>
+</form>
+
+<form [formGroup]="allergiesForm" class="container p-4 border rounded-3 bg-light mt-4">
+  <h4 class="mb-4">Lista alergija</h4>
+  <div class="row g-3 mb-3">
+    <div class="col-md-6 form-floating gx-1">
+      <input formControlName="listaAlergija" type="text" class="form-control" id="floatingalergije" placeholder="Lista Alergija"/>
+    </div>
+  </div>
+  <h4 class="mb-4">Forma za dodavanje nove alergije</h4>
+  <div class="col-md-3">
+    <select formControlName="alergije" class="form-select" aria-label="Default select example">
+      <option disabled selected value>Alergeni</option>
+      <option value="mleko">Mleko</option>
+      <option value="jaja">Jaja</option>
+      <option value="orasasti plodovi">Orašasti plodovi</option>
+      <option value="plodovi mora">Plodovi mora</option>
+      <option value="psenica">Pšenica</option>
+      <option value="soja">Soja</option>
+      <option value="riba">Riba</option>
+      <option value="penicilin">Penicilin</option>
+    </select>
+    <div *ngIf="submitted && allergiesForm.get('alergije')?.errors?.required" class="validation-error small alert alert-danger">Alergija je obavezna</div>
+  </div>
+  <hr class="my-4">
+  <div class="row g-3 mb-3 justify-content-center">
+    <div class="col-md-4">
+      <button (click)="saveAllergies()" class="btn btn-primary form-control">Dodaj alergiju</button>
+    </div>
+  </div>
+</form>
+
+<form [formGroup]="vaccinationForm" class="container p-4 border rounded-3 bg-light mt-4">
+  <h4 class="mb-4">Lista primljenih vakcina</h4>
+  <div class="row g-3 mb-3">
+    <div class="col-md-6 form-floating gx-1">
+      <input formControlName="listaPrimljenihVakcina" type="text" class="form-control" id="floatingvakcine" placeholder="Lista Alergija"/>
+    </div>
+  </div>
+  <h4 class="mb-4">Forma za dodavanje nove vakcine</h4>
+  <div class="row g-3 mb-3">
+    <div class="col-md-3">
+      <select formControlName="vakcine" class="form-select" aria-label="Default select example">
+        <option disabled selected value>Vakcine</option>
+        <option value="PRIORIX">PRIORIX</option>
+        <option value="HIBERIX">HIBERIX</option>
+        <option value="INFLUVAC">INFLUVAC</option>
+        <option value="SYNFLORIX">SYNFLORIX</option>
+        <option value="BCG VAKCINA">BCG VAKCINA</option>
+      </select>
+      <div *ngIf="submitted && vaccinationForm.get('vakcine')?.errors?.required" class="validation-error small alert alert-danger">Vakcina je obavezna</div>
+    </div>
+    <div class="col-md-3 form-floating gx-1">
+      <input formControlName="datumPrijemaVakcine" type="date" class="form-control" id="floatingDatumPrijemaVakcine"
+             placeholder="Datum prijema vakcine" />
+      <label for="floatingDatumPrijemaVakcine">Datum prijema vakcine</label>
+    </div>
+  </div>
+  <hr class="my-4">
+  <div class="row g-3 mb-3 justify-content-center">
+    <div class="col-md-4">
+      <button (click)="saveVaccine()" class="btn btn-primary form-control">Dodaj vakcinu</button>
+    </div>
+  </div>
+</form>

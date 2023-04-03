@@ -25,7 +25,14 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { NewAppointmentComponent } from './components/new-appointment/new-appointment.component';
 import { SearchPatientsComponent } from './components/search-patients/search-patients.component';
 import { NewPatientComponent } from "./components/new-patient/new-patient.component";
-import { EditPatientComponent } from './components/edit-patient/edit-patient.component';
+import { HealthRecordComponent } from './components/health-records/health-record/health-record.component';
+import { BasicHealthRecordComponent } from './components/health-records/basic-health-record/basic-health-record.component';
+import { MedicalHistoryRecordComponent } from './components/health-records/medical-history-record/medical-history-record.component';
+import { FullMedicalHistoryComponent } from './components/health-records/full-medical-history/full-medical-history.component';
+import { IllnessHistoryRecordComponent } from './components/health-records/illness-history-record/illness-history-record.component';
+import { ScheduledAppointmentsComponent } from './components/scheduled-appointments/scheduled-appointments.component'
+
+import { SpecialistDoctorExaminationComponent } from './components/specialist-doctor-examination/specialist-doctor-examination.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +48,14 @@ import { EditPatientComponent } from './components/edit-patient/edit-patient.com
     NewAppointmentComponent,
     SearchPatientsComponent,
     NewPatientComponent,
-    EditPatientComponent
+    SpecialistDoctorExaminationComponent,
+    NewPatientComponent,
+    HealthRecordComponent,
+    BasicHealthRecordComponent,
+    MedicalHistoryRecordComponent,
+    FullMedicalHistoryComponent,
+    IllnessHistoryRecordComponent,
+    ScheduledAppointmentsComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +74,7 @@ import { EditPatientComponent } from './components/edit-patient/edit-patient.com
   providers: [
     DecimalPipe,
     DatePipe,
-    BooleanDaNePipe
+    BooleanDaNePipe,
   ],
   bootstrap: [AppComponent]
 })
