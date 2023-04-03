@@ -1,20 +1,15 @@
-<div
-  *ngIf="
+<div *ngIf="
     this.authService.hasEitherPermission([
       'ROLE_DR_SPEC_ODELJENJA',
       'ROLE_DR_SPEC',
       'ROLE_DR_SPEC_POV'
     ]);
     else medsestra
-  "
-  class="p-5"
->
+  " class="p-5">
   <div class="row d-flex justify-content-center">
     <div class="col-lg-9 table-responsive">
-      <table
-        id="tabelaPregleda"
-        class="table table-light table-hover border-success rounded overflow-hidden caption-top"
-      >
+      <table id="tabelaPregleda"
+        class="table table-light table-hover border-success rounded overflow-hidden caption-top">
         <caption class="h5">
           <div class="d-flex justify-content-between">
             <p>
@@ -22,10 +17,7 @@
               {{ this.currentDate }}
             </p>
             <div class="d-flex flex-column">
-              <div
-                *ngIf="this.ime; else odaberitePacijenta"
-                class="odabraniPacijent"
-              >
+              <div *ngIf="this.ime; else odaberitePacijenta" class="odabraniPacijent">
                 <p style="color: darkslateblue">
                   Odabrani pacijent: {{ this.ime }} {{ this.prezime }}
                 </p>
@@ -34,20 +26,8 @@
                 <p style="color: lightcoral">Odaberite pacijenta</p>
               </ng-template>
               <div class="d-flex">
-                <input
-                  id="karton"
-                  type="button"
-                  class="btn btn-primary m-2"
-                  value="Zdravstveni karton"
-                  disabled
-                />
-                <input
-                  id="pregled"
-                  type="button"
-                  class="btn btn-primary m-2"
-                  value="Zdravstveni pregled"
-                  disabled
-                />
+                <input id="karton" type="button" class="btn btn-primary m-2" (click)="onKartonClick()" value="Zdravstveni karton" disabled />
+                <input id="pregled" type="button" class="btn btn-primary m-2" (click)="onPregledClick()" value="Zdravstveni pregled" disabled />
               </div>
             </div>
           </div>
@@ -62,10 +42,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr
-            *ngFor="let patient of schedMedExamsList"
-            (click)="selectedPatient(patient[0], patient[1])"
-          >
+          <tr *ngFor="let patient of schedMedExamsList" (click)="selectedPatient(patient[0], patient[1], patient[5])">
             <td>{{ patient[0] }}</td>
             <td>{{ patient[1] }}</td>
             <td>{{ patient[2] }}</td>
@@ -75,12 +52,8 @@
         </tbody>
       </table>
       <div class="d-flex justify-content-center p-2">
-        <ngb-pagination
-          [collectionSize]="collectionSize"
-          [(page)]="page"
-          [pageSize]="pageSize"
-          (pageChange)="getScheduledAppointmentsForDoctor()"
-        >
+        <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
+          (pageChange)="getScheduledAppointmentsForDoctor()">
         </ngb-pagination>
       </div>
     </div>
@@ -91,21 +64,15 @@
     <div *ngIf="selectedValue != ''; else odabariteLekara" class="row">
       <div class="row d-flex justify-content-center m-3">
         <div class="col-lg-3">
-          <select
-            id="doctorChoose"
-            (ngModelChange)="doctorChoose($event)"
-            [(ngModel)]="selectedValue"
-            class="form-select"
-          >
+          <select id="doctorChoose" (ngModelChange)="doctorChoose($event)" [(ngModel)]="selectedValue"
+            class="form-select">
             <option *ngFor="let doctor of doctors" [ngValue]="doctor">
               {{ doctor.firstName }} {{ doctor.lastName }}
             </option>
           </select>
         </div>
         <div class="col-lg-9 table-responsive">
-          <table
-            class="table table-light table-hover border-success rounded overflow-hidden caption-top"
-          >
+          <table class="table table-light table-hover border-success rounded overflow-hidden caption-top">
             <caption class="h5">
               <div class="d-flex justify-content-between">
                 <p>
@@ -135,12 +102,8 @@
             </tbody>
           </table>
           <div class="d-flex justify-content-center p-2">
-            <ngb-pagination
-              [collectionSize]="collectionSize"
-              [(page)]="page"
-              [pageSize]="pageSize"
-              (pageChange)="getScheduledAppointmentsForNurse()"
-            >
+            <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
+              (pageChange)="getScheduledAppointmentsForNurse()">
             </ngb-pagination>
           </div>
         </div>
@@ -150,18 +113,14 @@
       <h4 style="color: darkslateblue">Odaberite lekara:</h4>
       <div class="p-5">
         <div class="col-lg-3">
-          <select
-            id="doctorChoose"
-            (ngModelChange)="doctorChoose($event)"
-            [(ngModel)]="selectedValue"
-            class="form-select"
-          >
+          <select id="doctorChoose" (ngModelChange)="doctorChoose($event)" [(ngModel)]="selectedValue"
+            class="form-select">
             <option *ngFor="let doctor of doctors" [ngValue]="doctor">
               {{ doctor.firstName }} {{ doctor.lastName }}
             </option>
           </select>
         </div>
-      </div></ng-template
-    >
+      </div>
+    </ng-template>
   </div>
 </ng-template>

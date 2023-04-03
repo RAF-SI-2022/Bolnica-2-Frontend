@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { CREATE_SCHEDULE_ENDPOINT, PATIENT_ENDPOINT } from '../app.constants';
-import { CreateScheduledAppointmentRequest, PatientRequest } from '../dto/request/patient.request';
+import { PATIENT_ENDPOINT } from '../app.constants';
+import { PatientRequest } from '../dto/request/patient.request';
 import { PatientResponse, SearchPatientsResponse } from '../dto/response/patient.response';
 
 @Injectable({
@@ -24,9 +24,9 @@ export class PatientService {
     if (query.lastName !== '') params.lastName = query.firstName;
     if (query.jmbg !== '') params.jmbg = query.jmbg;
     if (query.lbp !== '') params.lbp = query.lbp;
-    params.page = query.page;
-    params.size = query.size;
-    params.includeDeleted = query.includeDeleted
+    if (query.page !== undefined) params.page = query.page;
+    if (query.size !== undefined) params.size = query.size;
+    if (query.includeDeleted !== undefined) params.includeDeleted = query.includeDeleted;
     return this.httpClient.get<any>(PATIENT_ENDPOINT, {
         headers: {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
@@ -101,12 +101,5 @@ export class PatientService {
         }
     })
   }
+}
 
-  scheduleAppointment(appointment: CreateScheduledAppointmentRequest) {
-    return this.httpClient.post(CREATE_SCHEDULE_ENDPOINT, appointment, {
-        headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem('token')
-        }
-    });
-}
-}

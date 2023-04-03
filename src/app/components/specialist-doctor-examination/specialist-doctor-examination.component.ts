@@ -27,7 +27,8 @@ export class SpecialistDoctorExaminationComponent implements OnInit {
   modalBody: string;
   modalTitle: string;
   modalButton: string;
-  constructor(private router: Router,private toast: HotToastService,private modalService: NgbModal, private patientsService: PatientService, private route: ActivatedRoute, private formBuilder: FormBuilder, private healthRecordService: HealthRecordService, private authService: AuthService) {
+  dodajDijagnozuDugme: boolean;
+  constructor(private router: Router, private toast: HotToastService, private modalService: NgbModal, private patientsService: PatientService, private route: ActivatedRoute, private formBuilder: FormBuilder, private healthRecordService: HealthRecordService, private authService: AuthService) {
     this.specialistDoctorExaminationForm = formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -56,6 +57,7 @@ export class SpecialistDoctorExaminationComponent implements OnInit {
     this.modalBody = '';
     this.modalTitle = '';
     this.modalButton = '';
+    this.dodajDijagnozuDugme = true;
   }
 
 
@@ -111,18 +113,18 @@ export class SpecialistDoctorExaminationComponent implements OnInit {
 
   open(content: any) {
     if (this.specialistDoctorExaminationForm.invalid) {
-      this.modalBody = 'Molim Vas unesite objektivni nalaz';
-      this.modalTitle = 'GRESKA';
-      this.modalButton = 'OK'
+      this.modalBody = 'Unesite objektivni nalaz';
+      this.modalTitle = 'Greška';
+      this.modalButton = 'OK';
     }
     else {
-      this.modalBody = 'Molim Vas potvrdite svoju akciju';
-      this.modalTitle = 'SAČUVAJ';
-      this.modalButton = 'SAČUVAJ';
+      this.modalBody = 'Potvrdite čuvanje';
+      this.modalTitle = 'Sačuvaj';
+      this.modalButton = 'Sačuvaj';
     }
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
-      if (this.modalTitle == 'SAČUVAJ') {
+      if (this.modalTitle == 'Sačuvaj') {
         const lbp = this.route.snapshot.queryParamMap.get('lbp')?.toString();
         const lbz = localStorage.getItem('lbz');
         const values = this.specialistDoctorExaminationForm.value;
@@ -133,16 +135,13 @@ export class SpecialistDoctorExaminationComponent implements OnInit {
             console.log(res);
             this.router.navigate(['/search-patients']).then(() => {
               this.toast.success('Uspešno ste sačuvali pregled.');
-            })
-            
-
+            });
           },
           error: (e) => {
             console.log(e);
             this.toast.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
           }
-        });;
-
+        });
       }
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -163,6 +162,16 @@ export class SpecialistDoctorExaminationComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+  onTextChanged(): void {
+    if (this.specialistDoctorExaminationForm.value.objektivniNalaz == '') {
+      this.dodajDijagnozuDugme = true;
+    }
+    else {
+      this.dodajDijagnozuDugme = false;
+    }
+    console.log(this.dodajDijagnozuDugme);
   }
 
 }

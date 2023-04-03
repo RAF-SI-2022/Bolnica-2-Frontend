@@ -31,9 +31,9 @@ import { MedicalHistoryRecordComponent } from './components/health-records/medic
 import { FullMedicalHistoryComponent } from './components/health-records/full-medical-history/full-medical-history.component';
 import { IllnessHistoryRecordComponent } from './components/health-records/illness-history-record/illness-history-record.component';
 import { ScheduledAppointmentsComponent } from './components/scheduled-appointments/scheduled-appointments.component'
-
 import { SpecialistDoctorExaminationComponent } from './components/specialist-doctor-examination/specialist-doctor-examination.component';
 import { EditPatientComponent } from './components/edit-patient/edit-patient.component';
+import { GenderPipe } from './pipe/gender.pipe';
 
 @NgModule({
   declarations: [
@@ -57,7 +57,8 @@ import { EditPatientComponent } from './components/edit-patient/edit-patient.com
     FullMedicalHistoryComponent,
     IllnessHistoryRecordComponent,
     ScheduledAppointmentsComponent,
-    EditPatientComponent
+    EditPatientComponent,
+    GenderPipe
   ],
   imports: [
     BrowserModule,
@@ -77,6 +78,7 @@ import { EditPatientComponent } from './components/edit-patient/edit-patient.com
     DecimalPipe,
     DatePipe,
     BooleanDaNePipe,
+    GenderPipe
   ],
   bootstrap: [AppComponent]
 })

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { SCHEDULE_ENDPOINT, USER_URL } from '../app.constants';
+import { SCHED_MED_EXAM_ENDPOINT, USER_URL } from '../app.constants';
 import { DoctorsResponse, SchedluedAppointmentsResponse } from '../dto/response/scheduled-appointment-response';
 
 @Injectable({
@@ -24,7 +24,7 @@ export class ScheduledAppointmentService {
           let lbz = localStorage.getItem('lbz')
           let token = localStorage.getItem('token')
           let authHeader = 'Bearer ' + token;
-          return this.httpClient.get<SchedluedAppointmentsResponse>(SCHEDULE_ENDPOINT+"/search?lbz="+lbz+"&page="+page+"&size="+pageSize+"&appointmentDate="+timestamp, {
+          return this.httpClient.get<SchedluedAppointmentsResponse>(SCHED_MED_EXAM_ENDPOINT+"/search?lbz="+lbz+"&page="+page+"&size="+pageSize+"&appointmentDate="+timestamp, {
             headers: {
                 'Authorization': authHeader
             }
@@ -35,7 +35,7 @@ export class ScheduledAppointmentService {
         let lbz = doctorLbz
         let token = localStorage.getItem('token')
         let authHeader = 'Bearer ' + token;
-        return this.httpClient.get<SchedluedAppointmentsResponse>(SCHEDULE_ENDPOINT+"/search?lbz="+lbz+"&page="+page+"&size="+pageSize+"&appointmentDate="+timestamp, {
+        return this.httpClient.get<SchedluedAppointmentsResponse>(SCHED_MED_EXAM_ENDPOINT+"/search?lbz="+lbz+"&page="+page+"&size="+pageSize+"&appointmentDate="+timestamp, {
           headers: {
               'Authorization': authHeader
           }

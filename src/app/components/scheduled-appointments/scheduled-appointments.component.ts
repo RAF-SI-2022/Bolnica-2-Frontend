@@ -4,6 +4,7 @@ import { HotToastService } from '@ngneat/hot-toast';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/service/auth.service';
 import { DoctorsResponse, SchedluedAppointmentsResponse } from 'src/app/dto/response/scheduled-appointment-response';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-scheduled-appointments',
@@ -12,7 +13,7 @@ import { DoctorsResponse, SchedluedAppointmentsResponse } from 'src/app/dto/resp
 })
 export class ScheduledAppointmentsComponent implements OnInit {
     page = 1;
-    pageSize = 2;
+    pageSize = 5;
     collectionSize = 0;
     currentDate = new Date(Date.now()).toLocaleString().split(',')[0];
 
@@ -21,6 +22,7 @@ export class ScheduledAppointmentsComponent implements OnInit {
     selectedValue='';
     ime="";
     prezime="";
+    lbp = '';
 
     doctorName='';
     doctorLastName='';
@@ -31,7 +33,7 @@ export class ScheduledAppointmentsComponent implements OnInit {
     schedMedExams:Array<string[]> = [];
     schedMedEx:string[] = [];
 
-    constructor(private scheduledAppointmentService:ScheduledAppointmentService,private toast: HotToastService,protected authService: AuthService,private modalService: NgbModal) {
+    constructor(private scheduledAppointmentService:ScheduledAppointmentService,private toast: HotToastService,protected authService: AuthService,private modalService: NgbModal, private router: Router) {
       let permisions = this.authService.hasEitherPermission(['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV']);
       if(permisions) this.getScheduledAppointmentsForDoctor();
       else this.toast.info('Odaberite lekara');
@@ -68,10 +70,12 @@ export class ScheduledAppointmentsComponent implements OnInit {
             this.schedMedEx.push(patients[i][PATIENT_RESPONSE].lastName)
             this.schedMedEx.push(age)
             this.schedMedEx.push(patients[i][PATIENT_RESPONSE].gender.notation)
-            this.schedMedEx.push(patients[i][PATIENT_STATUS].patientArrivalStatus) 
+            this.schedMedEx.push(patients[i][PATIENT_STATUS].patientArrivalStatus)
+            this.schedMedEx.push(patients[i][PATIENT_RESPONSE].lbp)
             this.schedMedExams.push(this.schedMedEx);
           }
           this.schedMedExamsList = this.schedMedExams;
+          console.log(this.schedMedExamsList);
           this.collectionSize=response.count;
         },
         error: (e) => {
@@ -96,7 +100,7 @@ export class ScheduledAppointmentsComponent implements OnInit {
             this.schedMedEx.push(patients[i][PATIENT_RESPONSE].lastName)
             this.schedMedEx.push(age)
             this.schedMedEx.push(patients[i][PATIENT_RESPONSE].gender.notation)
-            this.schedMedEx.push(patients[i][PATIENT_STATUS].patientArrivalStatus) 
+            this.schedMedEx.push(patients[i][PATIENT_STATUS].patientArrivalStatus)
             this.schedMedExams.push(this.schedMedEx); // make an exam row and add to list
           }
           this.schedMedExamsList = this.schedMedExams;
@@ -115,11 +119,12 @@ export class ScheduledAppointmentsComponent implements OnInit {
       this.getScheduledAppointmentsForNurse()
     }
 
-    selectedPatient(ime:string,prezime:string){
+    selectedPatient(ime:string,prezime:string, lbp: string){
       this.modalService.open(NgbdModalConfirm).result.then((data) => {
         this.buttonManager(false);
         this.ime=ime;
         this.prezime=prezime;
+        this.lbp = lbp;
       }, (dismiss) => {
         this.buttonManager(true);
       });
@@ -146,10 +151,22 @@ export class ScheduledAppointmentsComponent implements OnInit {
         let birthDay =birthDateConverted[2];
 
         let age = parseInt(currentYear) - parseInt(birthYear)+1;
-        
+
         if(curentMonth>birthMonth && curentDay>birthDay) age++;
 
       return age.toString()+' godina';
+    }
+
+    onKartonClick(): void {
+      this.router.navigate(['/health-record', this.lbp]);
+    }
+
+    onPregledClick(): void {
+      this.router.navigate(['/specialist-doctor-examination'], {
+        queryParams: {
+          lbp: this.lbp
+        }
+      });
     }
 }
 

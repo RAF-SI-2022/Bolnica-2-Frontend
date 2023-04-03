@@ -1,39 +1,6 @@
 @import "~bootstrap-icons/font/bootstrap-icons.css";
 
-body {
-    background-color: #bedadb;
-}
-
-.btn-primary {
-    background-color: #4aaeb4;
-    border-color: #3aa0a5;
-}
-
-.btn-primary:hover {
-    background-color: #58cdd3;
-    border-color: #3aa0a5;
-}
-
-.btn-primary:disabled {
-    background-color: #5fcfd4;
-    border-color: #68a7aa;
-}
-
-.btn-primary:focus {
-  border-color: #1c4244;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px #1c4244;
-}
-
 .validation-error {
     padding: 0.3rem;
     margin-bottom: 0;
-}
-
-ngb-pagination ::ng-deep a {
-    color: black !important;
-}
-
-ngb-pagination ::ng-deep .page-item.active .page-link {
-    border-color: #236f74;
-    background-color: #4aaeb4;
 }

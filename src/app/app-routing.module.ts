@@ -44,8 +44,7 @@ const routes: Routes = [
     path: 'forgot-password',
     component: ForgotPasswordComponent,
     canActivate: [AlreadyLoggedInGuard]
-  }
-  ,
+  },
   {
     path: 'personal-data',
     component: PersonalDataComponent,

@@ -13,7 +13,7 @@ export interface PatientResponse{
     lastName:string,
     birthDate:Date,
     gender:GenderResponse
-
+    lbp: string
 }
 
 export interface DoctorsResponse{
