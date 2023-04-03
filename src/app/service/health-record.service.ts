@@ -99,8 +99,11 @@ export class HealthRecordService {
     });
   }
 
-  getMedicalExamination(medicalExamination: MedicalExamination) {
+  getMedicalExamination(medicalExamination: MedicalExamination, page: number, size: number) {
     let lbp = localStorage.getItem('patientLBP')!;
+    const body: any = {};
+    if (medicalExamination.startDate !== '') body.startDate = medicalExamination.startDate;
+    if (medicalExamination.endDate !== '') body.endDate = medicalExamination.endDate;
     return this.httpClient.post<MedicalExaminationListResponse>(HEALTH_RECORD_ENDPOINT + `/examinations/${lbp}`, medicalExamination,{
       headers: {
         'Authorization': 'Bearer ' + localStorage.getItem('token')

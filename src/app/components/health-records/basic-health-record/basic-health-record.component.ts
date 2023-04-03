@@ -19,7 +19,14 @@ export class BasicHealthRecordComponent implements OnInit {
   bloodtypeForm: FormGroup;
   allergiesForm: FormGroup;
   vaccinationForm: FormGroup;
-  submitted = false;
+
+  bloodTypeSubmitted = false;
+  allergiesSubmitted = false;
+  vaccinesSubmitted = false;
+
+  allergies: any[] = [];
+  vaccines: any[] = [];
+
   isInEditMode:boolean;
   constructor(private formBuilder: FormBuilder,
               private router: Router,
@@ -83,6 +90,7 @@ export class BasicHealthRecordComponent implements OnInit {
           }
         }
         this.allergiesForm.get('listaAlergija')?.setValue(listOfAllergies);
+        this.allergies = res.allergies.allergies.map(allergy => allergy.allergen.name);
         this.allergiesForm.get('alergije')?.setValue(res.allergies);
       }
     })
@@ -99,35 +107,26 @@ export class BasicHealthRecordComponent implements OnInit {
           }
         }
         this.vaccinationForm.get('listaPrimljenihVakcina')?.setValue(vaccineList);
+        this.vaccines = res.vaccinations.vaccinations.map(vaccine => vaccine.vaccine.name);
       }
     })
 
   }
 
   edit(): void {
-    if (this.authService.hasPermission('ROLE_ADMIN')) {
-      this.bloodtypeForm.enable();
-      this.isInEditMode = true;
-    } else {
-      this.bloodtypeForm.get('datumRegistracijeKartona')?.enable();
-      this.bloodtypeForm.get('krvnaGrupa')?.enable();
-      this.bloodtypeForm.get('rhFaktor')?.enable();
-      this.isInEditMode = true;
-    }
+    this.bloodtypeForm.get('krvnaGrupa')?.enable();
+    this.bloodtypeForm.get('rhFaktor')?.enable();
+    this.isInEditMode = true;
   }
 
   save(): void {
-    this.submitted = true;
-
-    const val = this.bloodtypeForm.value;
+    this.bloodTypeSubmitted = true;
 
     if(this.bloodtypeForm.invalid) {
       return;
     }
-    const bloodTypeValues = this.bloodtypeForm.value;
 
-    console.log('Krvna grupa: ' + bloodTypeValues.krvnaGrupa)
-    console.log('rhFaktor: ' + bloodTypeValues.rhFaktor)
+    const bloodTypeValues = this.bloodtypeForm.value;
 
     this.modalService.open(NgbdModalConfirm).result.then((data) => {
       this.healthRecordService.updateHealthRecord({
@@ -149,12 +148,12 @@ export class BasicHealthRecordComponent implements OnInit {
   }
 
   saveAllergies() {
-    this.submitted = true;
-    const val = this.allergiesForm.value;
-    console.log(val.alergije);
+    this.allergiesSubmitted = true;
+
     if(this.allergiesForm.invalid) {
       return;
     }
+
     this.modalService.open(NgbdModalConfirmAllergy).result.then((data) => {
       const allergyTypeValues = this.allergiesForm.value;
       this.healthRecordService.addAllergy({
@@ -172,19 +171,15 @@ export class BasicHealthRecordComponent implements OnInit {
       })
     }, (dismiss) => {
     });
-
   }
 
   saveVaccine() {
-    this.submitted = true;
-    console.log(this.vaccinationForm.get('vakcine'))
+    this.vaccinesSubmitted = true;
+
     if(this.vaccinationForm.invalid) {
       console.log('Ovde sam usao')
       return;
     }
-
-
-
 
     this.modalService.open(NgbdModalConfirmVaccine).result.then((data) => {
       const val = this.vaccinationForm.value;
@@ -206,9 +201,6 @@ export class BasicHealthRecordComponent implements OnInit {
     }, (dismiss) => {
     });
   }
-
-
-
 }
 
 @Component({

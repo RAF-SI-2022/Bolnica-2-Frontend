@@ -34,39 +34,11 @@ export class MedicalHistoryRecordComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // const val = this.searchHistoryRecordForm.value;
-    //
-    // this.healthRecordService.getMedicalHistory({
-    //   mkb10: val.MKB10,
-    //   page: this.page - 1,
-    //   size: this.pageSize
-    // }).subscribe({
-    //   next: (res) => {
-    //     for(let i = 0; i < res.count; i++) {
-    //       let dateModifier = this.datepipes.transform(res.history[i].illnessStart, 'yyyy-MM-dd')!;
-    //       this.startDate = dateModifier;
-    //       this.currentStateDescription = res.history[i].currentStateDescription;
-    //       this.id = res.history[i].id;
-    //       let elem = {
-    //         startDate: this.startDate,
-    //         currentStateDescription: this.currentStateDescription
-    //       }
-    //       this.loopClass.push(elem);
-    //     }
-    //   },
-    //   error: (e) => {
-    //     this.toast.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
-    //   }
-    // });
-  }
-
-  search() {
-    const val = this.searchHistoryRecordForm.value;
     this.loopClass = [];
     this.healthRecordService.getMedicalExamination({
-      startDate: val.startDate,
-      endDate: val.endDate
-    }).subscribe({
+      startDate: '',
+      endDate: ''
+    }, this.page - 1, this.pageSize).subscribe({
       next: (res) => {
         console.log(res);
         for(let i = 0; i < res.count; i++) {
@@ -80,6 +52,35 @@ export class MedicalHistoryRecordComponent implements OnInit {
           }
           this.loopClass.push(elem);
         }
+        this.collectionSize = res.count;
+      },
+      error: (e) => {
+        this.toast.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
+      }
+    });
+  }
+
+  search() {
+    const val = this.searchHistoryRecordForm.value;
+    this.loopClass = [];
+    this.healthRecordService.getMedicalExamination({
+      startDate: val.startDate,
+      endDate: val.endDate
+    }, this.page - 1, this.pageSize).subscribe({
+      next: (res) => {
+        console.log(res);
+        for(let i = 0; i < res.count; i++) {
+          let dateMod = this.datepipes.transform(res.examinations[i].date, 'yyyy-MM-dd')!;
+          this.startDate = dateMod;
+          this.objectiveFinding = res.examinations[i].objectiveFinding;
+          let elem = {
+            startDate: this.startDate,
+            objectiveFinding: this.objectiveFinding,
+            id: res.examinations[i].id
+          }
+          this.loopClass.push(elem);
+        }
+        this.collectionSize = res.count;
       },
       error: (e) => {
         this.toast.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');

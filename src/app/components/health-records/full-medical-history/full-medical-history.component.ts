@@ -41,18 +41,12 @@ export class FullMedicalHistoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(localStorage.getItem('medicalHistoryId'))
-    /*
-    * Ovde treba opet da uhvatim sve health recorde i da prodjem kroz njihove id-jeve i da uzmem onaj history
-    * cije se history poklapa sa ovim id-jem kojeg imam u lokalStorage-u
-    *
-    * */
     let val = this.fullRecordForm.value;
     let lbp = localStorage.getItem('patientLBP')!;
     this.healthRecordService.getMedicalExamination({
       startDate: '',
       endDate: ''
-    }).subscribe({
+    }, this.page - 1, this.pageSize).subscribe({
       next: (res) => {
         console.log(res);
         let medicalIdString = localStorage.getItem('medicalHistoryId');
@@ -64,7 +58,8 @@ export class FullMedicalHistoryComponent implements OnInit {
             this.fullRecordForm.get('currentIllness')?.setValue(res.examinations[i].currentIllness);
             let date = this.datepipes.transform(res.examinations[i].date, 'yyyy-MM-dd');
             this.fullRecordForm.get('date')?.setValue(date);
-            this.fullRecordForm.get('diagnosis')?.setValue(res.examinations[i].diagnosis.description);
+            if (res.examinations[i].diagnosis !== null)
+              this.fullRecordForm.get('diagnosis')?.setValue(res.examinations[i].diagnosis.description);
             this.fullRecordForm.get('familyAnamnesis')?.setValue(res.examinations[i].familyAnamnesis);
             this.fullRecordForm.get('id')?.setValue(res.examinations[i].id);
             this.fullRecordForm.get('lbz')?.setValue(res.examinations[i].lbz);
@@ -77,6 +72,7 @@ export class FullMedicalHistoryComponent implements OnInit {
         }
         this.fullRecordForm.disable();
         console.log('SelectedHistory: ' + this.selectedHealthRecord);
+
       },
       error: (e) => {
         this.toast.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');

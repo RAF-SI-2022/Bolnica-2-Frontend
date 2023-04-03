@@ -2,11 +2,13 @@
   <div class="row">
     <div class="col-lg-3">
       <form [formGroup]="searchHistoryRecordForm" class="p-3 border rounded-3 bg-light">
-        <div class="mb-1">
-          <input formControlName="startDate" class="form-control" type="date" placeholder="startDate">
+        <div class="mb-2">
+          <label for="od">Datum od</label>
+          <input formControlName="startDate" class="form-control" type="date" id="od" placeholder="startDate">
         </div>
         <div class="mb-1">
-          <input formControlName="endDate" class="form-control" type="date" placeholder="endDate">
+          <label for="do">Datum do</label>
+          <input formControlName="endDate" class="form-control" type="date" id="do" placeholder="endDate">
         </div>
         <hr class="my-4">
         <button (click)="search()" class="btn btn-md btn-primary w-100" type="submit">Pretraži</button>
@@ -17,7 +19,7 @@
         <thead>
         <tr>
           <th scope="col">Datum pregleda</th>
-          <th scope="col">Objektni nalaz</th>
+          <th scope="col">Objektivni nalaz</th>
           <th scope="col"></th>
           <th scope="col"></th>
           <th scope="col"></th>
