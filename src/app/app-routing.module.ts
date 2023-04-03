@@ -15,6 +15,7 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
 import { NewAppointmentComponent } from './components/new-appointment/new-appointment.component';
 import { SearchPatientsComponent } from './components/search-patients/search-patients.component';
 import { SpecialistDoctorExaminationComponent } from './components/specialist-doctor-examination/specialist-doctor-examination.component';
+import { ScheduledAppointmentsComponent } from './components/scheduled-appointments/scheduled-appointments.component';
 
 const routes: Routes = [
   {
@@ -84,6 +85,12 @@ const routes: Routes = [
     component: SpecialistDoctorExaminationComponent,
     canActivate: [AuthGuard, PermissionGuard],
     data: { permissions: ['ROLE_DR_SPEC_ODELJENJA','ROLE_DR_SPEC','ROLE_DR_SPEC_POV'] }
+  },
+  {
+    path:'scheduled-appointments',
+    component:ScheduledAppointmentsComponent,
+    canActivate:[AuthGuard,PermissionGuard],
+    data:{permissions:['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV','ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA']}
   }
 ];
 

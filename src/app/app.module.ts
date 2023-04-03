@@ -24,7 +24,8 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { NewAppointmentComponent } from './components/new-appointment/new-appointment.component';
 import { SearchPatientsComponent } from './components/search-patients/search-patients.component';
-import { NewPatientComponent } from "./components/new-patient/new-patient.component";
+import { NewPatientComponent } from "./components/new-patient/new-patient.component";import { ScheduledAppointmentsComponent } from './components/scheduled-appointments/scheduled-appointments.component'
+
 import { SpecialistDoctorExaminationComponent } from './components/specialist-doctor-examination/specialist-doctor-examination.component';
 
 @NgModule({
@@ -41,7 +42,8 @@ import { SpecialistDoctorExaminationComponent } from './components/specialist-do
     NewAppointmentComponent,
     SearchPatientsComponent,
     NewPatientComponent,
-    SpecialistDoctorExaminationComponent,
+    SpecialistDoctorExaminationComponent,,
+    ScheduledAppointmentsComponent
   ],
   imports: [
     BrowserModule,
