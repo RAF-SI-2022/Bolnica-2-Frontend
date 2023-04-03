@@ -25,6 +25,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { NewAppointmentComponent } from './components/new-appointment/new-appointment.component';
 import { SearchPatientsComponent } from './components/search-patients/search-patients.component';
 import { NewPatientComponent } from "./components/new-patient/new-patient.component";
+import { ReferralHistoryComponent } from './components/referral-history/referral-history.component';
 import { SpecialistDoctorExaminationComponent } from './components/specialist-doctor-examination/specialist-doctor-examination.component';
 
 @NgModule({
@@ -41,6 +42,7 @@ import { SpecialistDoctorExaminationComponent } from './components/specialist-do
     NewAppointmentComponent,
     SearchPatientsComponent,
     NewPatientComponent,
+    ReferralHistoryComponent,
     SpecialistDoctorExaminationComponent,
   ],
   imports: [
