@@ -1,60 +1,60 @@
 <form [formGroup]="fullRecordForm" class="container p-4 border rounded-3 bg-light mt-4">
   <h4 class="mb-4">Pregled kartona</h4>
   <div class="row g-3 mb-3">
-    <div class="col-md-2 form-floating gx-1">
+    <div class="col-md-1 form-floating gx-1">
       <input formControlName="id" type="text" class="form-control" id="floatingID" placeholder="ID" />
       <label for="floatingID">ID</label>
     </div>
     <div class="col-md-4 form-floating gx-1">
-      <input formControlName="advice" type="text" class="form-control" id="floatingAdvice" placeholder="Advice" />
-      <label for="floatingAdvice">Advice</label>
-    </div>
-    <div class="col-md-6 form-floating gx-1">
       <input formControlName="lbz" type="text" class="form-control" id="floatingLbz" placeholder="Lbz" />
       <label for="floatingLbz">Lbz</label>
     </div>
+    <div class="col-md-7 form-floating gx-1">
+      <input formControlName="advice" type="text" class="form-control" id="floatingAdvice" placeholder="Savet" />
+      <label for="floatingAdvice">Savet</label>
+    </div>
   </div>
   <div class="row g-3 mb-3">
-    <div class="col-md-3 form-floating gx-1">
-      <input formControlName="anamnesis" type="text" class="form-control" id="floatingAnamnesis" placeholder="Amnezije" />
-      <label for="floatingAnamnesis">Amnezije</label>
-    </div>
-    <div class="col-md-3 form-floating gx-1">
-      <input formControlName="currentIllness" type="text" class="form-control" id="floatingCurrentIllness" placeholder="Trenutna bolest" />
-      <label for="floatingCurrentIllness">Trenutna bolest</label>
-    </div>
-    <div class="col-md-4 form-floating gx-1">
+    <div class="col-md-2 form-floating gx-1">
       <input formControlName="date" type="date" class="form-control" id="floatingDate"
              placeholder="Datum" />
       <label for="floatingDate">Datum</label>
     </div>
+    <div class="col-md-4 form-floating gx-1">
+      <input formControlName="currentIllness" type="text" class="form-control" id="floatingCurrentIllness" placeholder="Trenutna bolest" />
+      <label for="floatingCurrentIllness">Trenutna bolest</label>
+    </div>
+    <div class="col-md-6 form-floating gx-1">
+      <input formControlName="anamnesis" type="text" class="form-control" id="floatingAnamnesis" placeholder="Amnezije" />
+      <label for="floatingAnamnesis">Amnezije</label>
+    </div>
   </div>
   <div class="row g-3 mb-3">
-    <div class="col-md-3 form-floating gx-1">
+    <div class="col-md-6 form-floating gx-1">
       <input formControlName="diagnosis" type="text" class="form-control" id="floatingDiagnosis" placeholder="Dijagnoza" />
       <label for="floatingDiagnosis">Dijagnoza</label>
     </div>
-    <div class="col-md-3 form-floating gx-1">
-      <input formControlName="familyAnamnesis" type="text" class="form-control" id="floatingFamily" placeholder="Porodicna Anamneza" />
-      <label for="floatingFamily">Porodicna Anamneza</label>
+    <div class="col-md-6 form-floating gx-1">
+      <input formControlName="familyAnamnesis" type="text" class="form-control" id="floatingFamily" placeholder="Porodična Anamneza" />
+      <label for="floatingFamily">Porodična Anamneza</label>
     </div>
-    <div class="col-md-3 form-floating gx-1">
+    <div class="col-md-6 form-floating gx-1">
       <input formControlName="mainSymptoms" type="text" class="form-control" id="floatingMain" placeholder="Simptomi" />
       <label for="floatingMain">Simptomi</label>
     </div>
-    <div class="col-md-3 form-floating gx-1">
+    <div class="col-md-6 form-floating gx-1">
       <input formControlName="objectiveFinding" type="text" class="form-control" id="floatingFinding" placeholder="Objektivni nalaz" />
       <label for="floatingFinding">Objektivni nalaz</label>
     </div>
   </div>
   <div class="row g-3 mb-3">
     <div class="col-md-6 form-floating gx-1">
-      <input formControlName="patientOpinion" type="text" class="form-control" id="floatingOpinion" placeholder="Misljenje pacijenta" />
-      <label for="floatingOpinion">Misljenje pacijenta</label>
+      <input formControlName="patientOpinion" type="text" class="form-control" id="floatingOpinion" placeholder="Mišljenje pacijenta" />
+      <label for="floatingOpinion">Mišljenje pacijenta</label>
     </div>
     <div class="col-md-6 form-floating gx-1">
-      <input formControlName="suggestedTherapy" type="text" class="form-control" id="floatingTherapy" placeholder="Predlozena terapija" />
-      <label for="floatingTherapy">Predlozena terapija</label>
+      <input formControlName="suggestedTherapy" type="text" class="form-control" id="floatingTherapy" placeholder="Predložena terapija" />
+      <label for="floatingTherapy">Predložena terapija</label>
     </div>
   </div>
   <hr class="my-4">

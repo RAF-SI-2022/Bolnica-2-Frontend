@@ -40,7 +40,7 @@ export class BasicHealthRecordComponent implements OnInit {
     this.bloodtypeForm.disable();
 
     this.allergiesForm = this.formBuilder.group({
-      listaAlergija: ['', Validators.required],
+      listaAlergija: [''],
       alergije: ['', Validators.required]
     });
     this.allergiesForm.get('listaAlergija')?.disable();
@@ -149,32 +149,29 @@ export class BasicHealthRecordComponent implements OnInit {
   }
 
   saveAllergies() {
+    this.submitted = true;
+    const val = this.allergiesForm.value;
+    console.log(val.alergije);
     if(this.allergiesForm.invalid) {
       return;
     }
-
-
-
-    const allergyTypeValues = this.allergiesForm.value;
-    this.healthRecordService.addAllergy({
-      allergen: allergyTypeValues.alergije
-    }).subscribe({
-      next: (res) => {
-        console.log(res);
-        this.router.navigate(['']).then(() => {
-          this.toast.success('Uspešno ste dodali novu alergiju');
-        })
-      },
-      error: (e) => {
-        this.toast.error(e.error.errorMessage);
-      }
-    })
-
-
-    // this.modalService.open(NgbdModalConfirmAllergy).result.then((data) => {
-    //   console.log('Kao dodata alergija')
-    // }, (dismiss) => {
-    // });
+    this.modalService.open(NgbdModalConfirmAllergy).result.then((data) => {
+      const allergyTypeValues = this.allergiesForm.value;
+      this.healthRecordService.addAllergy({
+        allergen: allergyTypeValues.alergije
+      }).subscribe({
+        next: (res) => {
+          console.log(res);
+          this.router.navigate(['']).then(() => {
+            this.toast.success('Uspešno ste dodali novu alergiju');
+          })
+        },
+        error: (e) => {
+          this.toast.error(e.error.errorMessage);
+        }
+      })
+    }, (dismiss) => {
+    });
 
   }
 
@@ -185,34 +182,29 @@ export class BasicHealthRecordComponent implements OnInit {
       console.log('Ovde sam usao')
       return;
     }
-      /*
-      * Ovde treba da napravim model Health-RecordRequest koji saljem da na servis da mi se updatuje na backu i vraca mi poruku da su mi
-      * uspesno updatovani podaci => U sustini treba mi samo dobar model da se napravi i da ga posaljem na back i to je to.
-      * A ovde je isti kod kao za novog pacijenta samo setujem da mi polja budu na one text field-ove i sibnem ih dalje u model, ovo sto
-      * sam gore napisao.*/
-
-    const val = this.vaccinationForm.value;
-
-    this.healthRecordService.addVaccine({
-      vaccine: val.vakcine,
-      date: val.datumPrijemaVakcine
-    }).subscribe({
-      next: (res) => {
-        console.log(res);
-        this.router.navigate(['']).then(() => {
-          this.toast.success('Uspešno ste dodali novu vakcinu');
-        })
-      },
-      error: (e) => {
-        this.toast.error(e.error.errorMessage);
-      }
-    })
 
 
-    // this.modalService.open(NgbdModalConfirmVaccine).result.then((data) => {
-    //   console.log('Kao dodata vakcina');
-    // }, (dismiss) => {
-    // });
+
+
+    this.modalService.open(NgbdModalConfirmVaccine).result.then((data) => {
+      const val = this.vaccinationForm.value;
+
+      this.healthRecordService.addVaccine({
+        vaccine: val.vakcine,
+        date: val.datumPrijemaVakcine
+      }).subscribe({
+        next: (res) => {
+          console.log(res);
+          this.router.navigate(['']).then(() => {
+            this.toast.success('Uspešno ste dodali novu vakcinu');
+          })
+        },
+        error: (e) => {
+          this.toast.error(e.error.errorMessage);
+        }
+      })
+    }, (dismiss) => {
+    });
   }
 
 

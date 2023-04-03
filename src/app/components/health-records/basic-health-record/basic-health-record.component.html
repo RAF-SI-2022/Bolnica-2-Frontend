@@ -6,8 +6,8 @@
       <label for="floatingid">ID Zdravstvenog kartona</label>
     </div>
     <div class="col-md-6 form-floating gx-1">
-      <input formControlName="lbp" type="text" class="form-control" id="floatinglbp" placeholder="LBP" />
-      <label for="floatinglbp">LBP</label>
+      <input formControlName="lbp" type="text" class="form-control" id="floatinglbp" placeholder="Lbp" />
+      <label for="floatinglbp">Lbp</label>
     </div>
   </div>
   <div class="row g-3 mb-3">
@@ -24,6 +24,7 @@
         <option value="O">O</option>
         <option value="AB">AB</option>
       </select>
+      <div *ngIf="submitted && bloodtypeForm.get('krvnaGrupa')?.errors?.required" class="validation-error small alert alert-danger">KrvnaGrupa je obavezna</div>
     </div>
     <div class="col-md-3">
       <select formControlName="rhFaktor" class="form-select" aria-label="Default select example">
@@ -31,6 +32,7 @@
         <option value="+">+</option>
         <option value="-">-</option>
       </select>
+      <div *ngIf="submitted && bloodtypeForm.get('rhFaktor')?.errors?.required" class="validation-error small alert alert-danger">rhFaktor je obavezan</div>
     </div>
   </div>
   <hr class="my-4">
@@ -65,6 +67,7 @@
       <option value="riba">Riba</option>
       <option value="penicilin">Penicilin</option>
     </select>
+    <div *ngIf="submitted && allergiesForm.get('alergije')?.errors?.required" class="validation-error small alert alert-danger">Alergija je obavezna</div>
   </div>
   <hr class="my-4">
   <div class="row g-3 mb-3 justify-content-center">

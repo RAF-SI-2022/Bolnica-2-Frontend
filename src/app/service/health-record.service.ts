@@ -14,6 +14,7 @@ import {
   Allergen,
   MedicalExamination
 } from "../dto/request/health-record.request";
+import {constrainPoint} from "@fullcalendar/core/internal";
 @Injectable({
   providedIn: 'root'
 })
@@ -52,6 +53,8 @@ export class HealthRecordService {
 
   updateHealthRecord(updateHealthRecordRequest: UpdateHealthRecordRequest) {
     const lbp = localStorage.getItem('patientLBP');
+    console.log(updateHealthRecordRequest.blodtype);
+    updateHealthRecordRequest.rhfactor = updateHealthRecordRequest.rhfactor[0];
     return this.httpClient.put<HealthRecordResponse>(HEALTH_RECORD_ENDPOINT + `/${lbp}`, updateHealthRecordRequest, {
       headers: {
         'Authorization': 'Bearer ' + localStorage.getItem('token')
