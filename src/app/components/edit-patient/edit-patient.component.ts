@@ -86,6 +86,7 @@ export class EditPatientComponent implements OnInit {
         }
       });
   }
+
   save():void{
     this.submitted=true;
     if (this.editPatient.invalid) 
@@ -135,6 +136,10 @@ export class EditPatientComponent implements OnInit {
       })
     }
 
+  }
+
+  cancelEdits():void{
+    this.router.navigate(['/search-patients']);
   }
 
 }
