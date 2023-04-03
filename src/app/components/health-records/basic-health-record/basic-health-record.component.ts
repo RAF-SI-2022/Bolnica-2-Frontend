@@ -63,7 +63,6 @@ export class BasicHealthRecordComponent implements OnInit {
   ngOnInit(): void {
     this.healthRecordService.getRecord(localStorage.getItem('patientLBP')!).subscribe({
       next:(res) => {
-        console.log('getPatientLbp', res);
         this.bloodtypeForm.get('id')?.setValue(res.id);
         this.bloodtypeForm.get('lbp')?.setValue(res.patientLbp);
         let latest_date = this.datepipes.transform(res.registrationDate, 'yyyy-MM-dd');

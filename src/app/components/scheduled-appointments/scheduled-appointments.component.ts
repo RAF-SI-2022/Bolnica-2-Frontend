@@ -124,6 +124,7 @@ export class ScheduledAppointmentsComponent implements OnInit {
         this.buttonManager(false);
         this.ime=ime;
         this.prezime=prezime;
+        console.log(lbp);
         this.lbp = lbp;
       }, (dismiss) => {
         this.buttonManager(true);
@@ -158,6 +159,7 @@ export class ScheduledAppointmentsComponent implements OnInit {
     }
 
     onKartonClick(): void {
+      localStorage.setItem('patientLBP', this.lbp);
       this.router.navigate(['/health-record', this.lbp]);
     }
 

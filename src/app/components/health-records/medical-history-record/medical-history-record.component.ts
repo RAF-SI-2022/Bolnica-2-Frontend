@@ -22,7 +22,8 @@ export class MedicalHistoryRecordComponent implements OnInit {
   collectionSize = 0;
   startDate: string = '';
   objectiveFinding: string = '';
-  loopClass: any[] = []
+  loopClass: any[] = [];
+  dateError: boolean = false;
   constructor(private formBuilder: FormBuilder,
               private healthRecordService: HealthRecordService,
               private toast: HotToastService,
@@ -61,6 +62,10 @@ export class MedicalHistoryRecordComponent implements OnInit {
   }
 
   search() {
+    if ((this.searchHistoryRecordForm.get('startDate')?.value === '' && this.searchHistoryRecordForm.get('endDate')?.value !== '') || (this.searchHistoryRecordForm.get('startDate')?.value !== '' && this.searchHistoryRecordForm.get('endDate')?.value === '')) {
+      this.dateError = true;
+      return;
+    }
     const val = this.searchHistoryRecordForm.value;
     this.loopClass = [];
     this.healthRecordService.getMedicalExamination({

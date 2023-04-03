@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {HealthRecordService} from "../../../service/health-record.service";
 import {HotToastService} from "@ngneat/hot-toast";
 import {DatePipe} from "@angular/common";
@@ -18,13 +18,14 @@ export class IllnessHistoryRecordComponent implements OnInit {
   startDate: string = '';
   endDateIllness: string = '';
   id: number = -1;
-  loopClass: any[] = []
+  loopClass: any[] = [];
+
   constructor(private formBuilder: FormBuilder,
               private healthRecordService: HealthRecordService,
               private toast: HotToastService,
               private datepipes: DatePipe) {
     this.searchHistoryRecordForm = this.formBuilder.group({
-      MKB10: ['']
+      MKB10: [''],
     })
   }
 
