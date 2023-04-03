@@ -5,10 +5,10 @@ export interface PatientResponse {
     firstName: string;
     parentName: string;
     lastName: string;
-    gender: string;
+    gender: PackedString;
     birthDate: Date;
     deathDate: Date;
-    birthPlace: string;
+    birthplace: string;
     citizenshipCountry: string;
     address: string;
     placeOfLiving: string;
@@ -17,10 +17,10 @@ export interface PatientResponse {
     email: string;
     custodianJmbg: string;
     custodianName: string;
-    familyStatus: string;
-    maritalStatus: string;
+    familyStatus: PackedString;
+    maritalStatus: PackedString;
     childrenNum: number;
-    education: string;
+    education: PackedString;
     profession: string;
     healthRecordId: number;
     deleted: boolean;
@@ -30,3 +30,7 @@ export interface SearchPatientsResponse {
     patients: PatientResponse[],
     count: number
 }
+
+interface PackedString {
+    notation: string
+  }
