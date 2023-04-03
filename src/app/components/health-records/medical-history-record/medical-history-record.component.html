@@ -10,6 +10,9 @@
           <label for="do">Datum do</label>
           <input formControlName="endDate" class="form-control" type="date" id="do" placeholder="endDate">
         </div>
+        <div *ngIf="dateError" class="validation-error small alert alert-danger">
+          Unesite ili oba datuma ili nijedan
+        </div>
         <hr class="my-4">
         <button (click)="search()" class="btn btn-md btn-primary w-100" type="submit">Pretraži</button>
       </form>

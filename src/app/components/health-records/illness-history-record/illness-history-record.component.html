@@ -3,7 +3,19 @@
     <div class="col-lg-3">
       <form [formGroup]="searchHistoryRecordForm" class="p-3 border rounded-3 bg-light">
         <div class="mb-1">
-          <input formControlName="MKB10" class="form-control" type="text" placeholder="MKB10">
+          <select formControlName="MKB10" class="form-select" id="sifra-bolesti" name="language">
+            <option disabled selected value>Šifra bolesti</option>
+            <option value="A15.3">A15.3</option>
+            <option value="D50">D50</option>
+            <option value="I10">I10</option>
+            <option value="I35.0">I35.0</option>
+            <option value="J11">J11</option>
+            <option value="J12.9">J12.9</option>
+            <option value="K35">K35</option>
+            <option value="K70.3">K70.3</option>
+            <option value="K71.0">K71.0</option>
+            <option value="N20.0">N20.0</option>
+        </select>
         </div>
         <hr class="my-4">
         <button (click)="search()" class="btn btn-md btn-primary w-100" type="submit">Pretraži</button>
