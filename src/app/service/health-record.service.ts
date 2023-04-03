@@ -42,8 +42,6 @@ export class HealthRecordService {
 
   addVaccine(vaccineRequest: AddVaccinationRequest) {
     const lbp = localStorage.getItem('patientLBP');
-    console.log('Vakcina: ' + vaccineRequest.vaccine)
-    console.log('Datum: ' + vaccineRequest.date);
     return this.httpClient.put<VaccinationResponse>(HEALTH_RECORD_ENDPOINT + `/add-vaccination/${lbp}`, vaccineRequest, {
       headers: {
         'Authorization': 'Bearer ' + localStorage.getItem('token')
@@ -83,11 +81,11 @@ export class HealthRecordService {
     params.page = query.page;
     params.size = query.size;
     let lbp = localStorage.getItem('patientLBP')!;
-    console.log(query.mkb10)
     return this.httpClient.get<MedicalHistory>(HEALTH_RECORD_ENDPOINT + `/history/${lbp}`, {
         headers: {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
-        }
+        },
+        params: params
     });
   }
 
@@ -114,21 +112,6 @@ export class HealthRecordService {
   createExaminationReport(lbp: string, lbz: string, confidential: boolean, mainSymptoms: string, currentIllness: string, anamnesis: string, familyAnamnesis: string,
                           patientOpinion: string, objectiveFinding: string, suggestedTherapy: string, advice: string, diagnosis: string, existingDiagnosis: string,
                           treatmentResult: string, currentStateDescription: string) {
-    console.log({
-      confidential,
-      mainSymptoms,
-      currentIllness,
-      anamnesis,
-      familyAnamnesis,
-      patientOpinion,
-      objectiveFinding,
-      suggestedTherapy,
-      advice,
-      diagnosis,
-      existingDiagnosis,
-      treatmentResult,
-      currentStateDescription
-    });
     return this.httpClient.post<any>(HEALTH_RECORD_ENDPOINT + `/create-examination-report/${lbp}?lbz=${lbz}`,
       {
         confidential,

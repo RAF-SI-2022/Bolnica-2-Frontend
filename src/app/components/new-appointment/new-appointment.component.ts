@@ -118,26 +118,24 @@ export class NewAppointmentComponent implements OnInit {
     this.currentDoctorLbz = event.target.value;
     this.calendarComponent.getApi().removeAllEvents();
     this.calendarEnabled = 'auto';
-    this.schedMedExamService.searchScheduledAppointments({lbz: this.currentDoctorLbz}).pipe(
-      switchMap(exams => {
-        const patientInfo = exams.schedMedExamResponseList.map(exam => {
-          return this.patientService.getPatientByLbp(exam.lbp);
+    this.schedMedExamService.searchScheduledAppointments({lbz: this.currentDoctorLbz}).subscribe({
+      next: (res) => {
+        res.schedMedExamResponseList.forEach(exam => {
+          this.calendarComponent.getApi().addEvent({
+            id: exam.id.toString(),
+            examId: exam.id,
+            title: exam.patientResponse.firstName + ' ' + exam.patientResponse.lastName,
+            start: exam.appointmentDate,
+            note: exam.note,
+            status: exam.examinationStatus.examinationStatus,
+            backgroundColor: this.getEventColorBasedOnExaminationStatus(exam.examinationStatus.examinationStatus)
+          });
         });
-        return forkJoin(patientInfo).pipe(mergeMap((joined) => of([exams.schedMedExamResponseList, joined])));
-      })
-    ).subscribe((finalArray) => {
-      finalArray[0].forEach((value, index) => {
-        this.calendarComponent.getApi().addEvent({
-          id: (value as SchedMedExamResponse).id.toString(),
-          examId: (value as SchedMedExamResponse).id,
-          title: (finalArray[1][index] as PatientResponse).firstName + ' ' + (finalArray[1][index] as PatientResponse).lastName,
-          start: (value as SchedMedExamResponse).appointmentDate,
-          note: (value as SchedMedExamResponse).note,
-          status: (value as SchedMedExamResponse).examinationStatus.examinationStatus,
-          backgroundColor: this.getEventColorBasedOnExaminationStatus((value as SchedMedExamResponse).examinationStatus.examinationStatus)
-        });
-      });
-    });
+      },
+      error: (e) => {
+        this.toaster.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
+      }
+    })
   }
 
   getEventColorBasedOnExaminationStatus(status: string): string {
@@ -197,7 +195,8 @@ export class NewAppointmentComponent implements OnInit {
               title: value.patient.firstName + ' ' + value.patient.lastName,
               start: selectInfo.startStr,
               note: res.note,
-              status: 'Zakazano'
+              status: 'Zakazano',
+              backgroundColor: this.getEventColorBasedOnExaminationStatus('Zakazano')
             });
             this.toaster.success('Uspešno ste zakazali pregled');
           },

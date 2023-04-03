@@ -1,3 +1,5 @@
+import { PatientResponse } from "./patient.response";
+
 export interface SchedMedExamResponse {
     id: number;
     lbp: string;
@@ -7,6 +9,7 @@ export interface SchedMedExamResponse {
     lbzNurse: string;
     examinationStatus: ExaminationStatus;
     patientArrivalStatus: PatientArrivalStatus;
+    patientResponse: PatientResponse
 }
 
 export interface ExaminationStatus {

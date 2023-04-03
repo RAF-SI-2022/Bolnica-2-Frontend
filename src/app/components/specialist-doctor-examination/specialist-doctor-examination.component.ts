@@ -122,7 +122,7 @@ export class SpecialistDoctorExaminationComponent implements OnInit {
     }
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
-      if (this.modalTitle == 'SAČUVAJ') {
+      if (this.modalTitle == 'Sačuvaj') {
         const lbp = this.route.snapshot.queryParamMap.get('lbp')?.toString();
         const lbz = localStorage.getItem('lbz');
         const values = this.specialistDoctorExaminationForm.value;
@@ -133,16 +133,13 @@ export class SpecialistDoctorExaminationComponent implements OnInit {
             console.log(res);
             this.router.navigate(['/search-patients']).then(() => {
               this.toast.success('Uspešno ste sačuvali pregled.');
-            })
-
-
+            });
           },
           error: (e) => {
             console.log(e);
             this.toast.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
           }
-        });;
-
+        });
       }
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;

@@ -41,7 +41,7 @@ export class IllnessHistoryRecordComponent implements OnInit {
           this.startDate = dateMod;
           let dateModEnd = this.datepipes.transform(res.history[i].illnessEnd, 'yyyy-MM-dd')!;
           if (res.history[i].illnessEnd === null) {
-            this.endDateIllness = 'Još uvek traje';
+            this.endDateIllness = '/';
           } else {
             this.endDateIllness = dateModEnd;
           }
