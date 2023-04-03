@@ -30,6 +30,8 @@ import { BasicHealthRecordComponent } from './components/health-records/basic-he
 import { MedicalHistoryRecordComponent } from './components/health-records/medical-history-record/medical-history-record.component';
 import { FullMedicalHistoryComponent } from './components/health-records/full-medical-history/full-medical-history.component';
 import { IllnessHistoryRecordComponent } from './components/health-records/illness-history-record/illness-history-record.component';
+import { ScheduledAppointmentsComponent } from './components/scheduled-appointments/scheduled-appointments.component'
+
 import { SpecialistDoctorExaminationComponent } from './components/specialist-doctor-examination/specialist-doctor-examination.component';
 
 @NgModule({
@@ -52,7 +54,8 @@ import { SpecialistDoctorExaminationComponent } from './components/specialist-do
     BasicHealthRecordComponent,
     MedicalHistoryRecordComponent,
     FullMedicalHistoryComponent,
-    IllnessHistoryRecordComponent
+    IllnessHistoryRecordComponent,
+    ScheduledAppointmentsComponent
   ],
   imports: [
     BrowserModule,
