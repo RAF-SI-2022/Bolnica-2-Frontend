@@ -1,0 +1,47 @@
+<div class="p-5">
+  <div class="row">
+    <div class="col-lg-3">
+      <form [formGroup]="searchHistoryRecordForm" class="p-3 border rounded-3 bg-light">
+        <div class="mb-1">
+          <input formControlName="startDate" class="form-control" type="date" placeholder="startDate">
+        </div>
+        <div class="mb-1">
+          <input formControlName="endDate" class="form-control" type="date" placeholder="endDate">
+        </div>
+        <hr class="my-4">
+        <button (click)="search()" class="btn btn-md btn-primary w-100" type="submit">Pretraži</button>
+      </form>
+    </div>
+    <div class="col-lg-9 table-responsive">
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th scope="col">Datum pregleda</th>
+          <th scope="col">Objektni nalaz</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tbody>
+        <tr *ngFor="let elem of loopClass" (click)="medicalId(elem.id)" style='cursor: pointer; cursor: hand;' routerLink="/full-medical-history">
+          <td>{{elem.startDate}}</td>
+          <td>{{elem.objectiveFinding}}</td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="d-flex justify-content-center p-2">
+        <ngb-pagination
+          [collectionSize]="collectionSize"
+          [(page)]="page"
+          [pageSize]="pageSize"
+          (pageChange)="ngOnInit()"
+        >
+        </ngb-pagination>
+      </div>
+    </div>
+  </div>
+</div>

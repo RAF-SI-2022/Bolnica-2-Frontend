@@ -14,6 +14,17 @@ import { PermissionGuard } from './guard/permission.guard';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { NewAppointmentComponent } from './components/new-appointment/new-appointment.component';
 import { SearchPatientsComponent } from './components/search-patients/search-patients.component';
+import { HealthRecordComponent } from "./components/health-records/health-record/health-record.component";
+import { BasicHealthRecordComponent } from "./components/health-records/basic-health-record/basic-health-record.component";
+import {
+  MedicalHistoryRecordComponent
+} from "./components/health-records/medical-history-record/medical-history-record.component";
+import {
+  FullMedicalHistoryComponent
+} from "./components/health-records/full-medical-history/full-medical-history.component";
+import {
+  IllnessHistoryRecordComponent
+} from "./components/health-records/illness-history-record/illness-history-record.component";
 
 const routes: Routes = [
   {
@@ -77,6 +88,36 @@ const routes: Routes = [
     component: SearchPatientsComponent,
     canActivate: [AuthGuard, PermissionGuard],
     data: { permissions: ['ROLE_DR_SPEC_ODELJENJA','ROLE_DR_SPEC','ROLE_DR_SPEC_POV','ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+  },
+  {
+    path: 'health-record/:lbp',
+    component: HealthRecordComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_ADMIN'] }
+  },
+  {
+    path: 'basic-health-record',
+    component: BasicHealthRecordComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: {permissions: ['ROLE_ADMIN']}
+  },
+  {
+    path: 'medical-history-record',
+    component: MedicalHistoryRecordComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: {permissions: ['ROLE_ADMIN']}
+  },
+  {
+    path: 'full-medical-history',
+    component: FullMedicalHistoryComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: {permissions: ['ROLE_ADMIN']}
+  },
+  {
+    path: 'illness-history',
+    component: IllnessHistoryRecordComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: {permissions: ['ROLE_ADMIN']}
   }
 ];
 

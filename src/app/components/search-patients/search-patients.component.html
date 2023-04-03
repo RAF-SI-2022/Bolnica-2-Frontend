@@ -52,7 +52,7 @@
 							[routerLink]="['/new-appointment', patient.lbp]" class="btn btn-sm btn-primary">Zakaži pregled</button>
 						</td>
 						<td><button *ngIf="this.authService.hasEitherPermission(['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'])"
-							[routerLink]="['/medical-record', patient.lbp]" class="btn btn-sm btn-danger">Pregled kartona</button>
+							(click)="addPatientLbp(patient.lbp)" [routerLink]="['/health-record', patient.lbp]" class="btn btn-sm btn-danger">Pregled kartona</button>
 						</td>
 						<td><button *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])"
 							[routerLink]="['/edit-patient', patient.lbp]" class="btn btn-sm btn-primary">Ažuriraj</button>

@@ -3,8 +3,8 @@ export interface HealthRecordResponse {
     registrationDate:Date;
     bloodType: string;
     rhFactor: string;
-    allergies: AllergyResponse[];
-    vaccinations: VaccinationResponse[];
+    allergies: AllergyResponse;
+    vaccinations: VaccineResponse;
     operations: Operation[];
     medicalHistory: MedicalHistory;
     medicalExaminations: MedicalExamination[];
@@ -13,20 +13,29 @@ export interface HealthRecordResponse {
 
 export interface AllergyResponse {
     id: number;
-    allergen: Allergen;
+    allergies: Allergen[];
     healthRecordId: number;
 }
 
 export interface Allergen {
     id: number;
-    name: string;
+    allergen: Allergy;
+    healthRecordId: number;
+}
+export interface Allergy {
+  id: number;
+  name: string;
+}
+export interface VaccineResponse {
+  vaccinations: VaccinationResponse[];
+  count: number;
 }
 
 export interface VaccinationResponse {
     id: number;
     vaccine: Vaccine;
     healthRecordId: number;
-    vaccinationDate: Date;
+    vaccinationDate: string;
 }
 
 export interface Vaccine {
@@ -34,13 +43,42 @@ export interface Vaccine {
     name: string;
     type: string;
     description: string;
+    producer: string;
 }
+
+// export interface VaccineSecond {
+//   id: number;
+//   name: string;
+//   type: string;
+//   description: string;
+// }
 
 export interface Operation {
     id: number;
     date: Date;
     description: string;
     pbo: string;
+}
+
+export interface MedicalExaminationListResponse2 {
+  examinations: MedicalExamination2[];
+  count: number;
+}
+
+export interface MedicalExamination2 {
+  advice: string;
+  anamnesis: string;
+  confidental: boolean;
+  currentIllness: string;
+  date: string;
+  diagnosis: Diagnosis;
+  familyAnamnesis: string;
+  id: number;
+  lbz: string;
+  mainSymptoms: string;
+  objectiveFinding: string;
+  patientOpinion: string;
+  suggestedTherapy: string;
 }
 
 export interface MedicalExaminationListResponse {
@@ -71,16 +109,25 @@ export interface Diagnosis {
 }
 
 export interface MedicalHistory {
-    id: number;
-    confidential: boolean;
-    illnessStart: Date;
-    illnessEnd: Date;
-    treatmentResult: string;
-    currentStateDescription: string;
-    validFrom: Date;
-    validUntil: Date;
-    valid: boolean;
-    diagnosis: Diagnosis;
+    count: number;
+    history: History[];
+}
+
+export interface History {
+  confidential: boolean;
+  currentStateDescription: string;
+  diagnosis: Diagnosis;
+  id: number;
+  illnessEnd: string;
+  illnessStart: string;
+  treatmentResult: TreatmentResult;
+  valid: boolean;
+  validFrom: string;
+  validUntil: string;
+}
+
+export interface TreatmentResult {
+  notation: string;
 }
 
 export interface LightHealthRecord {
@@ -90,4 +137,20 @@ export interface LightHealthRecord {
     allergies: AllergyResponse[];
     vaccinations: VaccinationResponse[];
     patientLbp: string;
+}
+
+export interface Allergenn {
+  allergyResponse: AllergyRes;
+  allergyCount: number;
+}
+
+export interface AllergyRes {
+  id: number;
+  allergen: Alle;
+  healthRecordId: number;
+}
+
+export interface Alle {
+  id: number;
+  name: string;
 }
