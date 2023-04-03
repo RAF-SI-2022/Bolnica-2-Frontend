@@ -111,14 +111,14 @@ export class SpecialistDoctorExaminationComponent implements OnInit {
 
   open(content: any) {
     if (this.specialistDoctorExaminationForm.invalid) {
-      this.modalBody = 'Molim Vas unesite objektivni nalaz';
-      this.modalTitle = 'GRESKA';
-      this.modalButton = 'OK'
+      this.modalBody = 'Unesite objektivni nalaz';
+      this.modalTitle = 'Greška';
+      this.modalButton = 'OK';
     }
     else {
-      this.modalBody = 'Molim Vas potvrdite svoju akciju';
-      this.modalTitle = 'SAČUVAJ';
-      this.modalButton = 'SAČUVAJ';
+      this.modalBody = 'Potvrdite čuvanje';
+      this.modalTitle = 'Sačuvaj';
+      this.modalButton = 'Sačuvaj';
     }
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -134,7 +134,7 @@ export class SpecialistDoctorExaminationComponent implements OnInit {
             this.router.navigate(['/search-patients']).then(() => {
               this.toast.success('Uspešno ste sačuvali pregled.');
             })
-            
+
 
           },
           error: (e) => {

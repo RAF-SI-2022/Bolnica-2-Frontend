@@ -4,8 +4,8 @@ export interface PatientRequest {
   parentName: string;
   lastName: string;
   gender: string;
-  birthDate: Date;
-  deathDate: Date;
+  birthDate: string;
+  deathDate: string;
   birthplace: string;
   citizenshipCountry: string;
   address: string;

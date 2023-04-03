@@ -1,7 +1,7 @@
 <div class="main container mx-auto">
   <div class="row g-5 justify-content-center">
     <div class="col-md-4">
-      <div routerLink="/personal-data" class="card h-100" id="personal-info-card">
+      <div routerLink="/personal-data" class="card border-secondary h-100" id="personal-info-card">
         <img
           src="../../assets/images/person-circle.svg"
           class="card-img-top w-75 mx-auto p-3"
@@ -16,7 +16,7 @@
       </div>
     </div>
     <div *ngIf="this.authService.hasPermission('ROLE_ADMIN')" class="col-md-4">
-      <div routerLink="/search-employees" class="card h-100">
+      <div routerLink="/search-employees" class="card border-secondary h-100">
         <img
           src="../../assets/images/search.svg"
           class="card-img-top w-75 mx-auto p-3"
@@ -31,7 +31,7 @@
       </div>
     </div>
     <div *ngIf="this.authService.hasPermission('ROLE_ADMIN')" class="col-md-4">
-      <div routerLink="/new-employee" class="card h-100">
+      <div routerLink="/new-employee" class="card border-secondary h-100">
         <img
           src="../../assets/images/person-plus-fill.svg"
           class="card-img-top w-75 mx-auto p-2"
@@ -44,7 +44,7 @@
       </div>
     </div>
     <div *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])" class="col-md-4">
-      <div routerLink="/new-appointment" class="card h-100">
+      <div routerLink="/new-appointment" class="card border-secondary h-100">
         <img
           src="../../assets/images/calendar-plus.svg"
           class="card-img-top w-75 mx-auto p-2"
@@ -57,7 +57,7 @@
       </div>
     </div>
     <div *ngIf="this.authService.hasEitherPermission(['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV', 'ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])" class="col-md-4">
-      <div routerLink="/scheduled-appointments" class="card h-100">
+      <div routerLink="/scheduled-appointments" class="card border-secondary h-100">
         <img
           src="../../assets/images/calendar2-check.svg"
           class="card-img-top w-75 mx-auto p-2"
@@ -70,7 +70,7 @@
       </div>
     </div>
     <div *ngIf="this.authService.hasEitherPermission(['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV','ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])" class="col-md-4">
-      <div routerLink="/search-patients" class="card h-100">
+      <div routerLink="/search-patients" class="card border-secondary h-100">
         <img
           src="../../assets/images/person-lines-fill.svg"
           class="card-img-top w-75 mx-auto p-2"
@@ -83,7 +83,7 @@
       </div>
     </div>
     <div *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])" class="col-md-4">
-      <div routerLink="/new-patient" class="card h-100">
+      <div routerLink="/new-patient" class="card border-secondary h-100">
         <img src="../../assets/images/person-plus-fill.svg"
           class="card-img-top w-75 mx-auto p-2"
           alt="..."
