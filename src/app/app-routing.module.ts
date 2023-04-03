@@ -25,6 +25,7 @@ import {
 import {
   IllnessHistoryRecordComponent
 } from "./components/health-records/illness-history-record/illness-history-record.component";
+import { SpecialistDoctorExaminationComponent } from './components/specialist-doctor-examination/specialist-doctor-examination.component';
 
 const routes: Routes = [
   {
@@ -118,6 +119,12 @@ const routes: Routes = [
     component: IllnessHistoryRecordComponent,
     canActivate: [AuthGuard, PermissionGuard],
     data: {permissions: ['ROLE_ADMIN']}
+  },
+  {
+    path: 'specialist-doctor-examination',
+    component: SpecialistDoctorExaminationComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA','ROLE_DR_SPEC','ROLE_DR_SPEC_POV'] }
   }
 ];
 

@@ -22,7 +22,7 @@
         </thead>
         <tbody>
         <tbody>
-        <tr *ngFor="let elem of loopClass" (click)="medicalId()" style='cursor: pointer; cursor: hand;' routerLink="/full-medical-history">
+        <tr *ngFor="let elem of loopClass" (click)="medicalId()">
           <td>{{elem.diagnosis}}</td>
           <td>{{elem.startDate}}</td>
           <td>{{elem.endDate}}</td>
@@ -36,7 +36,7 @@
           [collectionSize]="collectionSize"
           [(page)]="page"
           [pageSize]="pageSize"
-          (pageChange)="ngOnInit()"
+          (pageChange)="search()"
         >
         </ngb-pagination>
       </div>

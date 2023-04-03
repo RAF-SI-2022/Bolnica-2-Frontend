@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HEALTH_RECORD_ENDPOINT } from '../app.constants';
 import {
-  Allergenn,
+  AllergenResponse,
   HealthRecordResponse,
-  LightHealthRecord, MedicalExamination2, MedicalExaminationListResponse, MedicalExaminationListResponse2,
+  LightHealthRecord, MedicalExaminationListResponse,
   MedicalHistory,
-  VaccineResponse
+  VaccinationResponse
 } from '../dto/response/health-record.response';
 import {
   UpdateHealthRecordRequest,
@@ -29,9 +29,9 @@ export class HealthRecordService {
     });
   }
 
-  addAllergy(allergyRequest: Allergen) {
+  addAllergy(allergyRequest: AllergenResponse) {
     const lbp = localStorage.getItem('patientLBP');
-    return this.httpClient.put<Allergenn>(HEALTH_RECORD_ENDPOINT + `/add-alergy/${lbp}`, allergyRequest, {
+    return this.httpClient.put<AllergenResponse>(HEALTH_RECORD_ENDPOINT + `/add-alergy/${lbp}`, allergyRequest, {
       headers: {
         'Authorization': 'Bearer ' + localStorage.getItem('token')
       },
@@ -43,7 +43,7 @@ export class HealthRecordService {
     const lbp = localStorage.getItem('patientLBP');
     console.log('Vakcina: ' + vaccineRequest.vaccine)
     console.log('Datum: ' + vaccineRequest.date);
-    return this.httpClient.put<VaccineResponse>(HEALTH_RECORD_ENDPOINT + `/add-vaccination/${lbp}`, vaccineRequest, {
+    return this.httpClient.put<VaccinationResponse>(HEALTH_RECORD_ENDPOINT + `/add-vaccination/${lbp}`, vaccineRequest, {
       headers: {
         'Authorization': 'Bearer ' + localStorage.getItem('token')
       }
@@ -60,17 +60,17 @@ export class HealthRecordService {
   }
   getRecord(lbp: string) {
     return this.httpClient.get<HealthRecordResponse>(HEALTH_RECORD_ENDPOINT + `/${lbp}`, {
-        headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem('token')
-        }
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
     });
   }
 
   getLightHealthRecord(lbp: string) {
     return this.httpClient.get<LightHealthRecord>(HEALTH_RECORD_ENDPOINT + `/light/${lbp}`, {
-        headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem('token')
-        }
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
     });
   }
 
@@ -84,8 +84,7 @@ export class HealthRecordService {
     return this.httpClient.get<MedicalHistory>(HEALTH_RECORD_ENDPOINT + `/history/${lbp}`, {
         headers: {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
-        },
-        params: params
+        }
     });
   }
 
@@ -99,11 +98,51 @@ export class HealthRecordService {
 
   getMedicalExamination(medicalExamination: MedicalExamination) {
     let lbp = localStorage.getItem('patientLBP')!;
-    return this.httpClient.post<MedicalExaminationListResponse2>(HEALTH_RECORD_ENDPOINT + `/examinations/${lbp}`, medicalExamination,{
+    return this.httpClient.post<MedicalExaminationListResponse>(HEALTH_RECORD_ENDPOINT + `/examinations/${lbp}`, medicalExamination,{
       headers: {
         'Authorization': 'Bearer ' + localStorage.getItem('token')
       }
     });
   }
 
+  createExaminationReport(lbp: string, lbz: string, confidential: boolean, mainSymptoms: string, currentIllness: string, anamnesis: string, familyAnamnesis: string,
+                          patientOpinion: string, objectiveFinding: string, suggestedTherapy: string, advice: string, diagnosis: string, existingDiagnosis: string,
+                          treatmentResult: string, currentStateDescription: string) {
+    console.log({
+      confidential,
+      mainSymptoms,
+      currentIllness,
+      anamnesis,
+      familyAnamnesis,
+      patientOpinion,
+      objectiveFinding,
+      suggestedTherapy,
+      advice,
+      diagnosis,
+      existingDiagnosis,
+      treatmentResult,
+      currentStateDescription
+    });
+    return this.httpClient.post<any>(HEALTH_RECORD_ENDPOINT + `/create-examination-report/${lbp}?lbz=${lbz}`,
+      {
+        confidential,
+        mainSymptoms,
+        currentIllness,
+        anamnesis,
+        familyAnamnesis,
+        patientOpinion,
+        objectiveFinding,
+        suggestedTherapy,
+        advice,
+        diagnosis,
+        existingDiagnosis,
+        treatmentResult,
+        currentStateDescription
+      }
+      , {
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        }
+      });
+  }
 }

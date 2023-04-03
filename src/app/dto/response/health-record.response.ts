@@ -4,7 +4,7 @@ export interface HealthRecordResponse {
     bloodType: string;
     rhFactor: string;
     allergies: AllergyResponse;
-    vaccinations: VaccineResponse;
+    vaccinations: VaccinationResponse;
     operations: Operation[];
     medicalHistory: MedicalHistory;
     medicalExaminations: MedicalExamination[];
@@ -12,30 +12,35 @@ export interface HealthRecordResponse {
 }
 
 export interface AllergyResponse {
+    allergies: Allergy[];
+    count: number;
+}
+
+export interface Allergy {
     id: number;
-    allergies: Allergen[];
+    allergen : Allergen2;
     healthRecordId: number;
 }
 
-export interface Allergen {
-    id: number;
-    allergen: Allergy;
-    healthRecordId: number;
-}
-export interface Allergy {
-  id: number;
+export interface Allergen2 {
   name: string;
 }
-export interface VaccineResponse {
-  vaccinations: VaccinationResponse[];
-  count: number;
+
+export interface AllergenResponse {
+  allergen: string;
 }
 
+
 export interface VaccinationResponse {
+    vaccinations: Vaccinations[];
+    count: number;
+}
+
+export interface Vaccinations {
     id: number;
     vaccine: Vaccine;
     healthRecordId: number;
-    vaccinationDate: string;
+    vaccinationDate: Date;
 }
 
 export interface Vaccine {
@@ -43,15 +48,7 @@ export interface Vaccine {
     name: string;
     type: string;
     description: string;
-    producer: string;
 }
-
-// export interface VaccineSecond {
-//   id: number;
-//   name: string;
-//   type: string;
-//   description: string;
-// }
 
 export interface Operation {
     id: number;
@@ -60,29 +57,9 @@ export interface Operation {
     pbo: string;
 }
 
-export interface MedicalExaminationListResponse2 {
-  examinations: MedicalExamination2[];
-  count: number;
-}
-
-export interface MedicalExamination2 {
-  advice: string;
-  anamnesis: string;
-  confidental: boolean;
-  currentIllness: string;
-  date: string;
-  diagnosis: Diagnosis;
-  familyAnamnesis: string;
-  id: number;
-  lbz: string;
-  mainSymptoms: string;
-  objectiveFinding: string;
-  patientOpinion: string;
-  suggestedTherapy: string;
-}
-
 export interface MedicalExaminationListResponse {
     examinations: MedicalExamination[];
+    count: number;
 }
 
 export interface MedicalExamination {
@@ -108,26 +85,37 @@ export interface Diagnosis {
     latinDescription: string;
 }
 
-export interface MedicalHistory {
-    count: number;
-    history: History[];
-}
-
-export interface History {
-  confidential: boolean;
-  currentStateDescription: string;
-  diagnosis: Diagnosis;
-  id: number;
-  illnessEnd: string;
+export interface HistoryHealthRecord {
   illnessStart: string;
-  treatmentResult: TreatmentResult;
-  valid: boolean;
-  validFrom: string;
-  validUntil: string;
+  illnessEnd: string;
+  id: number;
+  diagnosis: DiagnosisHealthRecord;
+  treatmentResult: TreatmentResultHealthRecord;
+  currentStateDescription: string;
 }
 
-export interface TreatmentResult {
+export interface TreatmentResultHealthRecord {
   notation: string;
+}
+
+export interface DiagnosisHealthRecord {
+  description: string;
+  code: number;
+}
+
+export interface MedicalHistory {
+    id: number;
+    history: HistoryHealthRecord[];
+    confidential: boolean;
+    illnessStart: Date;
+    illnessEnd: Date;
+    treatmentResult: string;
+    currentStateDescription: string;
+    validFrom: Date;
+    validUntil: Date;
+    valid: boolean;
+    diagnosis: Diagnosis;
+    count: number;
 }
 
 export interface LightHealthRecord {
@@ -137,20 +125,4 @@ export interface LightHealthRecord {
     allergies: AllergyResponse[];
     vaccinations: VaccinationResponse[];
     patientLbp: string;
-}
-
-export interface Allergenn {
-  allergyResponse: AllergyRes;
-  allergyCount: number;
-}
-
-export interface AllergyRes {
-  id: number;
-  allergen: Alle;
-  healthRecordId: number;
-}
-
-export interface Alle {
-  id: number;
-  name: string;
 }

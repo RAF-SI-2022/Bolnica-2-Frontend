@@ -30,6 +30,7 @@ import { BasicHealthRecordComponent } from './components/health-records/basic-he
 import { MedicalHistoryRecordComponent } from './components/health-records/medical-history-record/medical-history-record.component';
 import { FullMedicalHistoryComponent } from './components/health-records/full-medical-history/full-medical-history.component';
 import { IllnessHistoryRecordComponent } from './components/health-records/illness-history-record/illness-history-record.component';
+import { SpecialistDoctorExaminationComponent } from './components/specialist-doctor-examination/specialist-doctor-examination.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,8 @@ import { IllnessHistoryRecordComponent } from './components/health-records/illne
     ResetPasswordComponent,
     NewAppointmentComponent,
     SearchPatientsComponent,
+    NewPatientComponent,
+    SpecialistDoctorExaminationComponent,
     NewPatientComponent,
     HealthRecordComponent,
     BasicHealthRecordComponent,
@@ -68,7 +71,7 @@ import { IllnessHistoryRecordComponent } from './components/health-records/illne
   providers: [
     DecimalPipe,
     DatePipe,
-    BooleanDaNePipe
+    BooleanDaNePipe,
   ],
   bootstrap: [AppComponent]
 })

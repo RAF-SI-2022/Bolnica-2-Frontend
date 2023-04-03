@@ -124,34 +124,28 @@ export class BasicHealthRecordComponent implements OnInit {
     if(this.bloodtypeForm.invalid) {
       return;
     }
-    /*
-    * Ovde treba da napravim model Health-RecordRequest koji saljem da na servis da mi se updatuje na backu i vraca mi poruku da su mi
-    * uspesno updatovani podaci => U sustini treba mi samo dobar model da se napravi i da ga posaljem na back i to je to.
-    * A ovde je isti kod kao za novog pacijenta samo setujem da mi polja budu na one text field-ove i sibnem ih dalje u model, ovo sto
-    * sam gore napisao.*/
     const bloodTypeValues = this.bloodtypeForm.value;
 
     console.log('Krvna grupa: ' + bloodTypeValues.krvnaGrupa)
     console.log('rhFaktor: ' + bloodTypeValues.rhFaktor)
-    this.healthRecordService.updateHealthRecord({
-      blodtype: bloodTypeValues.krvnaGrupa,
-      rhfactor: bloodTypeValues.rhFaktor
-    }).subscribe({
-      next: (res) => {
-        console.log(res);
-        this.router.navigate(['']).then(() => {
-          this.toast.success('Uspešno ste dodali novog zaposlenog');
-        })
-      },
-      error: (e) => {
-        this.toast.error(e.error.errorMessage);
-      }
-    })
 
-    // this.modalService.open(NgbdModalConfirm).result.then((data) => {
-    //   console.log('Kao sacuvano')
-    // }, (dismiss) => {
-    // });
+    this.modalService.open(NgbdModalConfirm).result.then((data) => {
+      this.healthRecordService.updateHealthRecord({
+        blodtype: bloodTypeValues.krvnaGrupa,
+        rhfactor: bloodTypeValues.rhFaktor
+      }).subscribe({
+        next: (res) => {
+          console.log(res);
+          this.router.navigate(['']).then(() => {
+            this.toast.success('Uspešno ste izmenili podatke');
+          })
+        },
+        error: (e) => {
+          this.toast.error(e.error.errorMessage);
+        }
+      })
+    }, (dismiss) => {
+    });
   }
 
   saveAllergies() {
