@@ -27,6 +27,7 @@ import {
 } from "./components/health-records/illness-history-record/illness-history-record.component";
 import { SpecialistDoctorExaminationComponent } from './components/specialist-doctor-examination/specialist-doctor-examination.component';
 import { ScheduledAppointmentsComponent } from './components/scheduled-appointments/scheduled-appointments.component';
+import { EditPatientComponent } from './components/edit-patient/edit-patient.component';
 
 const routes: Routes = [
   {
@@ -132,7 +133,13 @@ const routes: Routes = [
     component:ScheduledAppointmentsComponent,
     canActivate:[AuthGuard,PermissionGuard],
     data:{permissions:['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV','ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA']}
-  }
+  },
+  {
+  path: 'edit-patient/:lbp',
+component: EditPatientComponent,
+canActivate: [AuthGuard, PermissionGuard],
+data: {permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA']}
+},
 ];
 
 @NgModule({

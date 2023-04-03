@@ -94,6 +94,7 @@ export class PatientService {
   }
 
   updatePatientByLbp(lbp: string, updatePatientRequest: PatientRequest) {
+  
     return this.httpClient.put<PatientResponse>(PATIENT_ENDPOINT + `/update/${lbp}`, updatePatientRequest, {
         headers: {
             'Authorization': 'Bearer ' + localStorage.getItem('token')

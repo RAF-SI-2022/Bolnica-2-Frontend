@@ -175,6 +175,14 @@
         <div class="col-md-3 form-floating gx-1">
             <input formControlName="email" type="text" class="form-control" id="floatingEmail" placeholder="Email"/>
             <label for="floatingEmail">Imejl</label>
+            <div *ngIf="submitted && editPatient.get('email')?.errors?.required"
+            class="validation-error small alert alert-danger">
+            Email je obavezan
+          </div>
+          <div *ngIf="submitted && editPatient.get('email')?.errors?.email"
+            class="validation-error small alert alert-danger">
+            Email nije validan
+          </div>
 
         </div>
         <div class="col-md-3 form-floating gx-1">
@@ -223,19 +231,19 @@
         </div>
     
     
-    <div class="col-md-2 form-floating gx-1">
-        <input formControlName="childrenNum" type="number" class="form-control" id="floatingBrojDece"
-               placeholder="Broj Dece" />
-        <label for="floatingBrojDece">Broj dece
-        </label>
-      </div>
+        <div class="col-md-2 form-floating gx-1">
+            <input formControlName="childrenNum" type="number" class="form-control" id="floatingBrojDece"
+                placeholder="Broj Dece" />
+            <label for="floatingBrojDece">Broj dece
+            </label>
+        </div>
     </div>
 
-    <div class="row g-3 mb-3 justify-content-center">
-        <hr class="my-4">
+        <div class="row g-3 mb-3 justify-content-center">
+            <hr class="my-4">
 
-        <div class="col-md-4">
-            <button (click)="save()" class="btn btn-primary form-control">Sačuvaj podatke</button>
-        </div>
+            <div class="col-md-4">
+                <button (click)="save()" class="btn btn-primary form-control">Sačuvaj podatke</button>
+            </div>
     </div>
 </form>

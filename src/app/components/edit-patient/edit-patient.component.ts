@@ -50,7 +50,6 @@ export class EditPatientComponent implements OnInit {
      }
 
   ngOnInit(): void {
-    //this.patientService.getEmployeeByLbz(route)
     const lbp = this.route.snapshot.paramMap.get('lbp');
     if(lbp)
       this.patientService.getPatientByLbp(lbp).subscribe({
@@ -100,7 +99,6 @@ export class EditPatientComponent implements OnInit {
 
     
     if(lbp){
-
       this.patientService.updatePatientByLbp(lbp,{
         jmbg: val.jmbg,
         firstName: val.firstName,

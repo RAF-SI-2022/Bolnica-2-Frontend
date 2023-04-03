@@ -33,6 +33,7 @@ import { IllnessHistoryRecordComponent } from './components/health-records/illne
 import { ScheduledAppointmentsComponent } from './components/scheduled-appointments/scheduled-appointments.component'
 
 import { SpecialistDoctorExaminationComponent } from './components/specialist-doctor-examination/specialist-doctor-examination.component';
+import { EditPatientComponent } from './components/edit-patient/edit-patient.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { SpecialistDoctorExaminationComponent } from './components/specialist-do
     MedicalHistoryRecordComponent,
     FullMedicalHistoryComponent,
     IllnessHistoryRecordComponent,
-    ScheduledAppointmentsComponent
+    ScheduledAppointmentsComponent,
+    EditPatientComponent
   ],
   imports: [
     BrowserModule,
