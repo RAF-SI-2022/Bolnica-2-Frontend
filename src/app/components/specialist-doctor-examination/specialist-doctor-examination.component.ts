@@ -27,7 +27,8 @@ export class SpecialistDoctorExaminationComponent implements OnInit {
   modalBody: string;
   modalTitle: string;
   modalButton: string;
-  constructor(private router: Router,private toast: HotToastService,private modalService: NgbModal, private patientsService: PatientService, private route: ActivatedRoute, private formBuilder: FormBuilder, private healthRecordService: HealthRecordService, private authService: AuthService) {
+  dodajDijagnozuDugme: boolean;
+  constructor(private router: Router, private toast: HotToastService, private modalService: NgbModal, private patientsService: PatientService, private route: ActivatedRoute, private formBuilder: FormBuilder, private healthRecordService: HealthRecordService, private authService: AuthService) {
     this.specialistDoctorExaminationForm = formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -56,6 +57,7 @@ export class SpecialistDoctorExaminationComponent implements OnInit {
     this.modalBody = '';
     this.modalTitle = '';
     this.modalButton = '';
+    this.dodajDijagnozuDugme = true;
   }
 
 
@@ -160,6 +162,16 @@ export class SpecialistDoctorExaminationComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+  onTextChanged(): void {
+    if (this.specialistDoctorExaminationForm.value.objektivniNalaz == '') {
+      this.dodajDijagnozuDugme = true;
+    }
+    else {
+      this.dodajDijagnozuDugme = false;
+    }
+    console.log(this.dodajDijagnozuDugme);
   }
 
 }
