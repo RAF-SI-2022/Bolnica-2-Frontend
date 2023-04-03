@@ -3,7 +3,7 @@ import { ScheduledAppointmentService } from 'src/app/service/scheduled-appointme
 import { HotToastService } from '@ngneat/hot-toast';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/service/auth.service';
-import { PatientResponse, SchedluedAppointmentsResponse } from 'src/app/dto/response/scheduled-appointment-response';
+import { DoctorsResponse, SchedluedAppointmentsResponse } from 'src/app/dto/response/scheduled-appointment-response';
 
 @Component({
   selector: 'app-scheduled-appointments',
@@ -12,94 +12,107 @@ import { PatientResponse, SchedluedAppointmentsResponse } from 'src/app/dto/resp
 })
 export class ScheduledAppointmentsComponent implements OnInit {
     page = 1;
-    pageSize = 5;
+    pageSize = 2;
     collectionSize = 0;
     currentDate = new Date(Date.now()).toLocaleString().split(',')[0];
-    tests = ["1","2","Doktor Pera","4"]
-    selectedValue = "";
+
+    doctors:Array<DoctorsResponse> = []
+
+    selectedValue='';
     ime="";
     prezime="";
-    patientRows:Array<string[]> = [];
-    paginatedPatients:Array<string[]>=[];
 
-    constructor(private scheduledAppointmentService:ScheduledAppointmentService,private toast: HotToastService,protected authService: AuthService,private modalService: NgbModal) { }
+    doctorName='';
+    doctorLastName='';
+    doctorLbz = '';
+
+    schedMedExamsList:Array<string[]>=[];
+
+    schedMedExams:Array<string[]> = [];
+    schedMedEx:string[] = [];
+
+    constructor(private scheduledAppointmentService:ScheduledAppointmentService,private toast: HotToastService,protected authService: AuthService,private modalService: NgbModal) {
+      let permisions = this.authService.hasEitherPermission(['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV']);
+      if(permisions) this.getScheduledAppointmentsForDoctor();
+      else this.toast.info('Odaberite lekara');
+     }
 
     ngOnInit(): void {
-      let permisions = this.authService.hasEitherPermission(['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV']);
-      if(permisions) this.getScheduledAppointmentsForDoctor(this.currentDate);
-      else this.getScheduledAppointmentsForNurse(this.currentDate)
+      this.scheduledAppointmentService.getDoctors().subscribe({
+        next:(res)=>{
+          const response = res as DoctorsResponse
+            console.log(response)
+            this.doctors = Object.values(response)
+        },
+        error:(e)=>{
+          this.toast.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
+        }
+      });
+
     }
 
-    getScheduledAppointmentsForDoctor(currDate:string){
-      this.scheduledAppointmentService.getScheduledAppointments(currDate).subscribe({
+    getScheduledAppointmentsForDoctor(){
+      this.schedMedEx=[];
+      this.schedMedExams=[];
+      this.scheduledAppointmentService.getScheduledAppointments(this.currentDate,this.page-1,this.pageSize).subscribe({
         next: (res) => {
-          const response = res as SchedluedAppointmentsResponse;
-          console.log(response)
-          const PATIENT_STATUS = 'patientArrivalStatus'
-          const LBP = 'lbp'
-          let patientArivalsArray = Object.values(response)
-          for(let i=0;i<patientArivalsArray.length;i++)
-          {
-            let patientArivalProperty = patientArivalsArray[i][PATIENT_STATUS];
-            let patientLbp = patientArivalsArray[i][LBP]
-            this.scheduledAppointmentService.getPatientByLbp(patientLbp).subscribe({
-              next: (res) => {
-                const response = res as PatientResponse;
-                let singlePatientResponse:string[]=[];
-                let age = this.calculateAge(this.currentDate,response['birthDate'])
-                singlePatientResponse.push(response['firstName'],response['lastName'],age,response['gender'].notation)
-                singlePatientResponse.push(patientArivalProperty[PATIENT_STATUS])
-                this.patientRows.push(singlePatientResponse);
-              },
-              error: (e) => {
-                this.toast.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
-              }
-            });
+          const response = res as SchedluedAppointmentsResponse
+          const patientArivalsArray = Object.values(response['schedMedExamResponseList'])
+          const patients = Object.values(patientArivalsArray);
+          const PATIENT_STATUS = 'patientArrivalStatus';
+          const PATIENT_RESPONSE = 'patientResponse';
+
+          for(let i=0;i<patientArivalsArray.length;i++)  {
+            let age = this.calculateAge(this.currentDate,patients[i][PATIENT_RESPONSE].birthDate)
+            this.schedMedEx.push(patients[i][PATIENT_RESPONSE].firstName)
+            this.schedMedEx.push(patients[i][PATIENT_RESPONSE].lastName)
+            this.schedMedEx.push(age)
+            this.schedMedEx.push(patients[i][PATIENT_RESPONSE].gender.notation)
+            this.schedMedEx.push(patients[i][PATIENT_STATUS].patientArrivalStatus) 
+            this.schedMedExams.push(this.schedMedEx);
           }
+          this.schedMedExamsList = this.schedMedExams;
+          this.collectionSize=response.count;
         },
         error: (e) => {
           this.toast.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
         }
       });
-      this.paginatedPatients=this.patientRows;
-      this.collectionSize=this.patientRows.length
     }
-    getScheduledAppointmentsForNurse(currDate:string){
-      this.scheduledAppointmentService.getScheduledAppointments(currDate).subscribe({
+    getScheduledAppointmentsForNurse(){
+      this.schedMedEx=[]; // Single exam
+      this.schedMedExams=[]; // List of exams
+      this.scheduledAppointmentService.getScheduledAppointmentsByLbz(this.currentDate,this.doctorLbz,this.page-1,this.pageSize).subscribe({
         next: (res) => {
-          const response = res as SchedluedAppointmentsResponse;
-          const PATIENT_STATUS = 'patientArrivalStatus'
-          const LBP = 'lbp'
-          let patientArivalsArray = Object.values(response)
-          for(let i=0;i<patientArivalsArray.length;i++)
-          {
-            let patientArivalProperty = patientArivalsArray[i][PATIENT_STATUS];
-            let patientLbp = patientArivalsArray[i][LBP]
-            this.scheduledAppointmentService.getPatientByLbp(patientLbp).subscribe({
-              next: (res) => {
-                const response = res as PatientResponse;
-                let singlePatientResponse:string[]=[];
-                let age = this.calculateAge(this.currentDate,response['birthDate'])
-                singlePatientResponse.push(response['firstName'],response['lastName'],age,response['gender'].notation)
-                singlePatientResponse.push(patientArivalProperty[PATIENT_STATUS])
-                this.patientRows.push(singlePatientResponse);
-              },
-              error: (e) => {
-                this.toast.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
-              }
-            });
+          const response = res as SchedluedAppointmentsResponse
+          const patientArivalsArray = Object.values(response['schedMedExamResponseList'])
+          const patients = Object.values(patientArivalsArray);
+          const PATIENT_STATUS = 'patientArrivalStatus';
+          const PATIENT_RESPONSE = 'patientResponse';
+
+          for(let i=0;i<patientArivalsArray.length;i++)  {
+            let age = this.calculateAge(this.currentDate,patients[i][PATIENT_RESPONSE].birthDate)
+            this.schedMedEx.push(patients[i][PATIENT_RESPONSE].firstName)
+            this.schedMedEx.push(patients[i][PATIENT_RESPONSE].lastName)
+            this.schedMedEx.push(age)
+            this.schedMedEx.push(patients[i][PATIENT_RESPONSE].gender.notation)
+            this.schedMedEx.push(patients[i][PATIENT_STATUS].patientArrivalStatus) 
+            this.schedMedExams.push(this.schedMedEx); // make an exam row and add to list
           }
+          this.schedMedExamsList = this.schedMedExams;
+          this.collectionSize=response.count;
         },
         error: (e) => {
           this.toast.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
         }
       });
-      this.paginatedPatients=this.patientRows;
-      this.collectionSize=this.patientRows.length
     }
 
-    doctorChoose(event:Event){
-      console.log(event)
+    doctorChoose(doctor:DoctorsResponse){
+      this.doctorName=doctor.firstName;
+      this.doctorLastName=doctor.lastName;
+      this.doctorLbz = doctor.lbz;
+      this.getScheduledAppointmentsForNurse()
     }
 
     selectedPatient(ime:string,prezime:string){

@@ -1,39 +1,44 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { PATIENT_ENDPOINT, SCHEDULE_ENDPOINT } from '../app.constants';
-import { PatientResponse, SchedluedAppointmentsResponse } from '../dto/response/scheduled-appointment-response';
+import { SCHEDULE_ENDPOINT, USER_URL } from '../app.constants';
+import { DoctorsResponse, SchedluedAppointmentsResponse } from '../dto/response/scheduled-appointment-response';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ScheduledAppointmentService {
-
       constructor(private httpClient: HttpClient) {
       }
 
-      getScheduledAppointments(timestamp: string) {
-        let lbz = localStorage.getItem('lbz')
+      getDoctors() {
         let token = localStorage.getItem('token')
         let authHeader = 'Bearer ' + token;
-        return this.httpClient.get<SchedluedAppointmentsResponse>(SCHEDULE_ENDPOINT+"/search?lbz="+lbz, {
+        return this.httpClient.get<DoctorsResponse>(USER_URL+"/users/doctors", {
           headers: {
               'Authorization': authHeader
           }
       });
       }
 
-      getPatientByLbp(patientLbp: string) {
-        let lbz = localStorage.getItem('lbz')
+      getScheduledAppointments(timestamp: string,page:number,pageSize:number) {
+          let lbz = localStorage.getItem('lbz')
+          let token = localStorage.getItem('token')
+          let authHeader = 'Bearer ' + token;
+          return this.httpClient.get<SchedluedAppointmentsResponse>(SCHEDULE_ENDPOINT+"/search?lbz="+lbz+"&page="+page+"&size="+pageSize+"&appointmentDate="+timestamp, {
+            headers: {
+                'Authorization': authHeader
+            }
+        });
+      }
+
+      getScheduledAppointmentsByLbz(timestamp: string, doctorLbz: string, page: number, pageSize: number) {
+        let lbz = doctorLbz
         let token = localStorage.getItem('token')
         let authHeader = 'Bearer ' + token;
-        return this.httpClient.get<PatientResponse>(PATIENT_ENDPOINT+"/"+patientLbp, {
+        return this.httpClient.get<SchedluedAppointmentsResponse>(SCHEDULE_ENDPOINT+"/search?lbz="+lbz+"&page="+page+"&size="+pageSize+"&appointmentDate="+timestamp, {
           headers: {
               'Authorization': authHeader
           }
       });
-    }
-
-    getAppointmentsByDoctorAndDate(timestamp: Date) {
-      throw new Error('Method not implemented.');
-    }
+      }
 }

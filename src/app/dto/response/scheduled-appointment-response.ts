@@ -1,11 +1,11 @@
 export interface SchedluedAppointmentsResponse{
-    id:number,
-    lbp:string,
-    lbz:string,
+    count:number,
+    schedMedExamResponseList: Array<SchedMedAppointment>
+}
+export interface SchedMedAppointment{
     appointmentDate:Date,
-    note:string,
-    lbzNurse:string,
-    examinationStatus:ExaminatonStatusResponse
+    patientArrivalStatus:PatientArrivalStatus,
+    patientResponse:PatientResponse
 }
 
 export interface PatientResponse{
@@ -15,6 +15,13 @@ export interface PatientResponse{
     gender:GenderResponse
 
 }
+
+export interface DoctorsResponse{
+    lbz:string,
+    firstName:string,
+    lastName:string
+}
+
 export interface GenderResponse{
     notation:string;
 }

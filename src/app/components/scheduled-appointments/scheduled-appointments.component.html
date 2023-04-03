@@ -63,7 +63,7 @@
         </thead>
         <tbody>
           <tr
-            *ngFor="let patient of paginatedPatients"
+            *ngFor="let patient of schedMedExamsList"
             (click)="selectedPatient(patient[0], patient[1])"
           >
             <td>{{ patient[0] }}</td>
@@ -79,6 +79,7 @@
           [collectionSize]="collectionSize"
           [(page)]="page"
           [pageSize]="pageSize"
+          (pageChange)="getScheduledAppointmentsForDoctor()"
         >
         </ngb-pagination>
       </div>
@@ -96,8 +97,8 @@
             [(ngModel)]="selectedValue"
             class="form-select"
           >
-            <option *ngFor="let test of tests" [ngValue]="test">
-              {{ test }}
+            <option *ngFor="let doctor of doctors" [ngValue]="doctor">
+              {{ doctor.firstName }} {{ doctor.lastName }}
             </option>
           </select>
         </div>
@@ -110,7 +111,7 @@
                 <p>
                   Zakazani pregledi za dan :
                   {{ this.currentDate }}&nbsp;&nbsp;&nbsp;&nbsp;Lekar:
-                  {{ selectedValue }}
+                  {{ this.doctorName }} {{ this.doctorLastName }}
                 </p>
               </div>
             </caption>
@@ -124,7 +125,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let patient of paginatedPatients">
+              <tr *ngFor="let patient of schedMedExamsList">
                 <td>{{ patient[0] }}</td>
                 <td>{{ patient[1] }}</td>
                 <td>{{ patient[2] }}</td>
@@ -138,6 +139,7 @@
               [collectionSize]="collectionSize"
               [(page)]="page"
               [pageSize]="pageSize"
+              (pageChange)="getScheduledAppointmentsForNurse()"
             >
             </ngb-pagination>
           </div>
@@ -145,7 +147,7 @@
       </div>
     </div>
     <ng-template #odabariteLekara>
-      <h4 style="color: lightcoral">Odaberite lekara:</h4>
+      <h4 style="color: darkslateblue">Odaberite lekara:</h4>
       <div class="p-5">
         <div class="col-lg-3">
           <select
@@ -154,8 +156,8 @@
             [(ngModel)]="selectedValue"
             class="form-select"
           >
-            <option *ngFor="let test of tests" [ngValue]="test">
-              {{ test }}
+            <option *ngFor="let doctor of doctors" [ngValue]="doctor">
+              {{ doctor.firstName }} {{ doctor.lastName }}
             </option>
           </select>
         </div>
