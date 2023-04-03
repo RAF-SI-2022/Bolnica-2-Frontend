@@ -49,10 +49,10 @@
 						<td>{{patient.phoneNumber}}</td>
 						<td><span *ngIf="patient.deleted" class="text-danger">Obrisan</span></td>
 						<td><button *ngIf="this.authService.hasEitherPermission(['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'])"
-							[routerLink]="['/new-appointment', patient.lbp]" class="btn btn-sm btn-primary">Zakaži pregled</button>
+							[routerLink]="['/medical-record', patient.lbp]" class="btn btn-sm btn-danger">Pregled kartona</button>
 						</td>
 						<td><button *ngIf="this.authService.hasEitherPermission(['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'])"
-							[routerLink]="['/medical-record', patient.lbp]" class="btn btn-sm btn-danger">Pregled kartona</button>
+							[routerLink]="['/specialist-doctor-examination']" [queryParams]="{lbp: patient.lbp}" class="btn btn-sm btn-danger">Pregled</button>
 						</td>
 						<td><button *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])"
 							[routerLink]="['/edit-patient', patient.lbp]" class="btn btn-sm btn-primary">Ažuriraj</button>

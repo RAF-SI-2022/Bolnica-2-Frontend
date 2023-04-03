@@ -26,6 +26,7 @@ import { NewAppointmentComponent } from './components/new-appointment/new-appoin
 import { SearchPatientsComponent } from './components/search-patients/search-patients.component';
 import { NewPatientComponent } from "./components/new-patient/new-patient.component";import { ScheduledAppointmentsComponent } from './components/scheduled-appointments/scheduled-appointments.component'
 
+import { SpecialistDoctorExaminationComponent } from './components/specialist-doctor-examination/specialist-doctor-examination.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { NewPatientComponent } from "./components/new-patient/new-patient.compon
     NewAppointmentComponent,
     SearchPatientsComponent,
     NewPatientComponent,
+    SpecialistDoctorExaminationComponent,,
     ScheduledAppointmentsComponent
   ],
   imports: [
@@ -60,7 +62,7 @@ import { NewPatientComponent } from "./components/new-patient/new-patient.compon
   providers: [
     DecimalPipe,
     DatePipe,
-    BooleanDaNePipe
+    BooleanDaNePipe,
   ],
   bootstrap: [AppComponent]
 })
