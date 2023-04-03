@@ -15,7 +15,6 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
 import { NewAppointmentComponent } from './components/new-appointment/new-appointment.component';
 import { SearchPatientsComponent } from './components/search-patients/search-patients.component';
 import { ReferralHistoryComponent } from './components/referral-history/referral-history.component';
-
 import { SpecialistDoctorExaminationComponent } from './components/specialist-doctor-examination/specialist-doctor-examination.component';
 
 const routes: Routes = [
@@ -80,7 +79,19 @@ const routes: Routes = [
     component: SearchPatientsComponent,
     canActivate: [AuthGuard, PermissionGuard],
     data: { permissions: ['ROLE_DR_SPEC_ODELJENJA','ROLE_DR_SPEC','ROLE_DR_SPEC_POV','ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
-  }
+  },
+  {
+    path: 'specialist-doctor-examination',
+    component: SpecialistDoctorExaminationComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA','ROLE_DR_SPEC','ROLE_DR_SPEC_POV'] }
+  },
+  {
+    path: 'referral-history',
+    component: ReferralHistoryComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA','ROLE_DR_SPEC','ROLE_DR_SPEC_POV'] }
+  },
 ];
 
 @NgModule({

@@ -18,7 +18,7 @@
               class="nav-link active" href="#">Zakazivanje pregleda</a>
           <a *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])"
               routerLink="/new-patient" class="nav-link active" href="#">Dodaj novog pacijenta</a>
-          <a *ngIf="this.authService.hasEitherPermission(['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV', 'ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])"
+          <a *ngIf="this.authService.hasEitherPermission(['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'])"
               routerLink="/referral-history"  class="nav-link active" href="#">Istorija uputa</a>     
         </div>
       </div>
