@@ -1,0 +1,236 @@
+<form [formGroup]="editPatient" class="container p-4 border rounded-3 bg-light mt-4">
+    <h4 class="mb-4">Ažuriraj pacijenta</h4>
+
+
+
+    <div class="row g-3 mb-3">
+        <div class="col-md-3 form-floating gx-1">
+            <input formControlName="firstName" type="text" class="form-control" name="firstName" id="floatingFirstName" placeholder="Name"/>
+            <label for="floatingFirstName">Ime</label>
+            <div *ngIf="submitted && editPatient.get('firstName')?.errors?.required"
+                class="validation-error small alert alert-danger">
+                Ime je obavezno
+            </div>
+        </div>
+        <div class="col-md-3 form-floating gx-1">
+            <input formControlName="parentName" type="text" class="form-control" id="floatingParentName" placeholder="Parent Name"/>
+            <label for="floatingParentName">Ime roditelja</label>
+            <div *ngIf="submitted && editPatient.get('parentName')?.errors?.required"
+                class="validation-error small alert alert-danger">
+                Ime roditelja je obavezno
+            </div>
+        </div>
+        <div class="col-md-3 form-floating gx-1">
+            <input formControlName="lastName" type="text" class="form-control" id="floatingLastName" placeholder="Last Name"/>
+            <label for="floatingLastName">Prezime</label>
+            <div *ngIf="submitted && editPatient.get('lastName')?.errors?.required"
+                class="validation-error small alert alert-danger">
+                Prezime je obavezno
+            </div>
+
+        </div>
+        <div class="col-md-3 form-floating gx-1">
+            <input formControlName="jmbg" type="text" class="form-control" id="floatingJMBG" placeholder="JMBG" />
+            <label for="floatingJMBG">JMBG</label>
+            <div *ngIf="submitted && editPatient.get('JMBG')?.errors?.required"
+                class="validation-error small alert alert-danger">
+                JMBG je obavezan
+            </div>
+        </div>
+
+    </div>
+    <div class="row g-3 mb-3">
+        <div class="col-md-3 form-floating gx-1">
+            <input formControlName="birthDate" type="date" class="form-control" id="floatingDob" placeholder="Date of Birth"/>
+            <label for="floatingDob">Datum rođenja</label>
+            <div *ngIf="submitted && editPatient.get('birthDate')?.errors?.required"
+                class="validation-error small alert alert-danger">
+                Datum rođenja je obavezan
+            </div>
+
+        </div>
+
+        <div class="col-md-2 form-floating gx-1">
+            <input formControlName="deathDate" type="date" class="form-control" id="floatingDod" placeholder="Date of Death" id="meeting-time"
+            name="meeting-time"/>
+            <label for="floatingDod">Datum i vreme smrti</label>
+
+        </div>
+
+        <div class="col-md-1 form-floating gx-1">
+            <input formControlName="deathHour" type="text" class="form-control" id="floatingDeathHour" placeholder="Hour Of Death"/>
+            <label for="floatingDeathHour">Čas smrti</label>
+
+        </div>
+        <div class="col-md-2 form-floating gx-1">
+            <input formControlName="deathMinute" type="text" class="form-control" id="floatingDeathMinute" placeholder="Minute of Death"/>
+            <label for="floatingDeathMinute">Minut smrti</label>
+        </div>
+        
+
+        <div class="col-md-3 form-floating gx-1">
+            <input formControlName="birthplace" type="text" class="form-control" id="floatingBirthplace" placeholder="Birth Place"/>
+            <label for="floatingBirthplace">Mesto Rođenja</label>
+            <div *ngIf="submitted && editPatient.get('birthplace')?.errors?.required"
+                class="validation-error small alert alert-danger">
+                Mesto rođenja je obavezno
+            </div>
+        </div>
+
+        <div class="col-md-1 form-check gx-1">
+            <div class="form-check">
+                <input formControlName="gender" type="radio" value="Muški" class="form-check-input" id="floatingPolm"/>
+                <label class="form-check-label" for="floatingPolm">Muško</label>
+            </div>
+            <div class="form-check">
+                <input formControlName="gender" type="radio" value="Ženski" class="form-check-input" id="floatingPolz" />
+                <label class="form-check-label" for="floatingPolz">Žensko</label>
+            </div>
+            <div *ngIf="submitted && editPatient.get('gender')?.errors?.required"
+                class="validation-error small alert alert-danger">
+                Pol je obavezan
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-3 mb-3">
+        <div class="col-md-3 gx-1">
+            <select formControlName="citizenshipCountry" class="form-select" aria-label="Default select example">
+              <option disabled selected value>Zemlja Državljanstva</option>
+              <option value="AFG">Avganistan</option>
+              <option value="ALA">Olandska ostrva</option>
+              <option value="ALB">Albanija</option>
+              <option value="DZA">Alžir</option>
+
+              <option value="BHS">Bahami</option>
+              <option value="BEL">Belgija</option>
+              <option value="BIH">Bosna i Hercegovina</option>
+              <option value="BRA">Brazil</option>
+              <option value="BGR">Bugarska</option>
+      
+              <option value="CMR">Kamerun</option>
+              <option value="CAN">Kanada</option>
+              <option value="CHL">Čile</option>
+              <option value="CHN">Kina</option>
+              <option value="HRV">Hrvatska</option>
+              <option value="CUB">Kuba</option>
+              <option value="DNK">Danska</option>
+              <option value="EGY">Egipat</option>
+              <option value="FRA">Francuska</option>
+      
+              <option value="SRB">Srbija</option>
+              <option value="SVN">Slovenija</option>
+      
+            </select>
+        </div>
+
+        <div class="col-md-3 form-floating gx-1">
+            <input formControlName="address" type="text" class="form-control" id="floatingAddress" placeholder="Address"/>
+            <label for="floatingAddress">Adresa stanovanja </label>
+
+        </div>
+
+        <div class="col-md-3 form-floating gx-1">
+            <input formControlName="placeOfLiving" type="text" class="form-control" id="floatingPlaceOfLiving" placeholder="Place Of Living"/>
+            <label for="floatingPlaceOfLiving">Mesto stanovanja  </label>
+
+        </div>
+        <div class="col-md-3 gx-1">
+            <select formControlName="countryOfLiving" class="form-select" aria-label="Default select example">
+              <option disabled selected value>Zemlja stanovanja</option>
+                <option value="AFG">Avganistan</option>
+                <option value="ALA">Olandska ostrva</option>
+                <option value="ALB">Albanija</option>
+                <option value="DZA">Alžir</option>
+
+                <option value="BHS">Bahami</option>
+                <option value="BEL">Belgija</option>
+                <option value="BIH">Bosna i Hercegovina</option>
+                <option value="BRA">Brazil</option>
+                <option value="BGR">Bugarska</option>
+        
+                <option value="CMR">Kamerun</option>
+                <option value="CAN">Kanada</option>
+                <option value="CHL">Čile</option>
+                <option value="CHN">Kina</option>
+                <option value="HRV">Hrvatska</option>
+                <option value="CUB">Kuba</option>
+                <option value="DNK">Danska</option>
+                <option value="EGY">Egipat</option>
+                <option value="FRA">Francuska</option>
+        
+                <option value="SRB">Srbija</option>
+                <option value="SVN">Slovenija</option>
+      
+            </select>
+        </div>
+    </div>
+    <div class="row g-3 mb-3">
+        <div class="col-md-3 form-floating gx-1">
+            <input formControlName="phoneNumber" type="text" class="form-control" id="floatingPhoneNumber" placeholder="Phone Number"/>
+            <label for="floatingPhone Number">Kontakt telefon 
+            </label>
+
+        </div>
+        <div class="col-md-3 form-floating gx-1">
+            <input formControlName="email" type="text" class="form-control" id="floatingEmail" placeholder="Email"/>
+            <label for="floatingEmail">Imejl</label>
+
+        </div>
+        <div class="col-md-3 form-floating gx-1">
+            <input formControlName="custodianJmbg" type="text" class="form-control" id="floatingCustodianJmbg" placeholder="Custodian Jmbg"/>
+            <label for="floatingCustodianJmbg">JMBG staratelja </label>
+
+        </div>
+        <div class="col-md-3 form-floating gx-1">
+            <input formControlName="custodianName" type="text" class="form-control" id="floatingCustodianName" placeholder="CustodianName"/>
+            <label for="floatingCustodianName">Ime i prezime staratelja </label>
+        </div>
+    </div>
+    <div class="row g-3 mb-3 gx-1">
+        <div class="col-md-3 form-floating gx-1">
+            <input formControlName="profession" type="text" class="form-control" id="floatingProfession" placeholder="Profession"/>
+            <label for="floatingProfession">Zanimanje </label>
+        </div>
+        <div class="col-md-3 gx-1">
+            <select formControlName="familyStatus" class="form-select" aria-label="Default select example">
+                <option disabled selected value>Porodični status</option>
+                <option value=""></option>
+                <option value="Oba roditelja">Oba roditelja</option>
+                <option value="Jedan roditelj">Jedan roditelj</option>
+                <option value="Bez roditelja">Bez roditelja</option>
+                <option value="Roditelji razvedeni">Roditelji razdvojeni/razvedeni</option>
+                <option value="Usvojen">Usvojen</option>
+            </select>
+        </div>
+        <div class="col-md-2 gx-1">
+            <select formControlName="maritalStatus" class="form-select" aria-label="Default select example">
+                <option disabled selected value>Bračni status</option>
+                <option value=""></option>
+                <option value="U braku">U braku</option>
+                <option value="Razveden">Razvedeni</option>
+                <option value="Udovac">Udovac/udovica</option>
+                <option value="Samac">Samac/samica</option>
+            </select>
+        </div>
+        <div class="col-md-2 gx-1">
+            <select formControlName="education" class="form-select" aria-label="Default select example">
+                <option disabled selected value>Stepen stručne spreme</option>
+                <option value=""></option>
+                <option value="Bez osnovnog obrazovanja">Bez osnovnog obrazovanja</option>
+                <option value="Osnovno obrazovanje">Osnovno obrazovanje</option>
+                <option value="Srednje obrazovanje">Srednje obrazovanje</option>
+                <option value="Više obrazovanje">Više obrazovanje</option>
+                <option value="Visoko obrazovanje">Visoko obrazovanje</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row g-3 mb-3 justify-content-center">
+        <hr class="my-4">
+
+        <div class="col-md-4">
+            <button (click)="save()" class="btn btn-primary form-control">Sačuvaj podatke</button>
+        </div>
+    </div>
+</form>
