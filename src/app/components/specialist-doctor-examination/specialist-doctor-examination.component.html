@@ -46,14 +46,14 @@
     <h4 class="mb-3">Dijagnoza:</h4>
     <div class="row mb-3">
         <div class="col-md-12 form-floating gx-1">
-            <textarea formControlName="objektivniNalaz" class="h-100 form-control rounded mb-3"
+            <textarea (input)="onTextChanged()" formControlName="objektivniNalaz" class="h-100 form-control rounded mb-3"
                 placeholder="Objektivni nalaz" id="floatingObjektivniNalaz" rows="10"></textarea>
             <label for="floatingObjektivniNalaz">Objektivni nalaz</label>
         </div>
     </div>
     <div class="row mb-3">
         <div class="col">
-            <button *ngIf="showButton" (click)="onButtonClick()" type="button"
+            <button [disabled]="dodajDijagnozuDugme" *ngIf="showButton" (click)="onButtonClick()" type="button"
                 class="btn btn-secondary rounded-pill">Dodaj dijagnozu</button>
         </div>
     </div>
