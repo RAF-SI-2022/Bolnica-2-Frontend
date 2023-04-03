@@ -61,10 +61,10 @@ export class EditPatientComponent implements OnInit {
           this.editPatient.get('lastName')?.setValue(res.lastName);
           this.editPatient.get('gender')?.setValue(res.gender.notation);
           this.editPatient.get('birthDate')?.setValue(this.datePipe.transform(res.birthDate, 'yyyy-MM-dd'));
-          this.editPatient.get('deathDate')?.setValue(res.deathDate);
+          this.editPatient.get('deathDate')?.setValue(this.datePipe.transform(res.deathDate, 'yyyy-MM-dd'));
           if(res.deathDate){
-            this.editPatient.get('deathHour')?.setValue(res.deathDate.getHours());
-            this.editPatient.get('deathMinute')?.setValue(res.deathDate.getMinutes());
+            this.editPatient.get('deathHour')?.setValue((res.deathDate).toString().split("T")[1].split(":")[0]);
+            this.editPatient.get('deathMinute')?.setValue((res.deathDate).toString().split("T")[1].split(":")[1]);
           }
           this.editPatient.get('birthplace')?.setValue(res.birthplace);
           this.editPatient.get('citizenshipCountry')?.setValue(res.citizenshipCountry);
@@ -97,8 +97,10 @@ export class EditPatientComponent implements OnInit {
     let deathDate=new Date(val.deathDate);
     deathDate.setHours(val.deathHour);
     deathDate.setMinutes(val.deathMinute);
+
     
-    if(lbp)
+    if(lbp){
+
       this.patientService.updatePatientByLbp(lbp,{
         jmbg: val.jmbg,
         firstName: val.firstName,
@@ -120,7 +122,7 @@ export class EditPatientComponent implements OnInit {
         maritalStatus: val.maritalStatus,
         childrenNum: val.childrenNum,
         education: val.education,
-        profession: val.profession
+        profession: val.profession,
         }
         ).subscribe({
         next: (res) => {
@@ -133,6 +135,8 @@ export class EditPatientComponent implements OnInit {
           this.toast.error(e.error.errorMessage);
         }
       })
+    }
+
   }
 
 }

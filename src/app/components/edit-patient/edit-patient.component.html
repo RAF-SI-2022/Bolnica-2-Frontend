@@ -195,7 +195,6 @@
         <div class="col-md-3 gx-1">
             <select formControlName="familyStatus" class="form-select" aria-label="Default select example">
                 <option disabled selected value>Porodični status</option>
-                <option value=""></option>
                 <option value="Oba roditelja">Oba roditelja</option>
                 <option value="Jedan roditelj">Jedan roditelj</option>
                 <option value="Bez roditelja">Bez roditelja</option>
@@ -206,7 +205,6 @@
         <div class="col-md-2 gx-1">
             <select formControlName="maritalStatus" class="form-select" aria-label="Default select example">
                 <option disabled selected value>Bračni status</option>
-                <option value=""></option>
                 <option value="U braku">U braku</option>
                 <option value="Razveden">Razvedeni</option>
                 <option value="Udovac">Udovac/udovica</option>
@@ -216,7 +214,6 @@
         <div class="col-md-2 gx-1">
             <select formControlName="education" class="form-select" aria-label="Default select example">
                 <option disabled selected value>Stepen stručne spreme</option>
-                <option value=""></option>
                 <option value="Bez osnovnog obrazovanja">Bez osnovnog obrazovanja</option>
                 <option value="Osnovno obrazovanje">Osnovno obrazovanje</option>
                 <option value="Srednje obrazovanje">Srednje obrazovanje</option>
@@ -224,6 +221,14 @@
                 <option value="Visoko obrazovanje">Visoko obrazovanje</option>
             </select>
         </div>
+    
+    
+    <div class="col-md-2 form-floating gx-1">
+        <input formControlName="childrenNum" type="number" class="form-control" id="floatingBrojDece"
+               placeholder="Broj Dece" />
+        <label for="floatingBrojDece">Broj dece
+        </label>
+      </div>
     </div>
 
     <div class="row g-3 mb-3 justify-content-center">
