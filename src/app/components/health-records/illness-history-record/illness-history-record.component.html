@@ -1,0 +1,57 @@
+<div class="p-5">
+  <div class="row">
+    <div class="col-lg-3">
+      <form [formGroup]="searchHistoryRecordForm" class="p-3 border rounded-3 bg-light">
+        <div class="mb-1">
+          <select formControlName="MKB10" class="form-select" id="sifra-bolesti" name="language">
+            <option disabled selected value>Šifra bolesti</option>
+            <option value="A15.3">A15.3</option>
+            <option value="D50">D50</option>
+            <option value="I10">I10</option>
+            <option value="I35.0">I35.0</option>
+            <option value="J11">J11</option>
+            <option value="J12.9">J12.9</option>
+            <option value="K35">K35</option>
+            <option value="K70.3">K70.3</option>
+            <option value="K71.0">K71.0</option>
+            <option value="N20.0">N20.0</option>
+        </select>
+        </div>
+        <hr class="my-4">
+        <button (click)="search()" class="btn btn-md btn-primary w-100" type="submit">Pretraži</button>
+      </form>
+    </div>
+    <div class="col-lg-9 table-responsive">
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th scope="col">Dijagnoza(MKB10)</th>
+          <th scope="col">Datum početka bolesti</th>
+          <th scope="col">Datum završetka bolesti</th>
+          <th scope="col">Rezultat lečenja</th>
+          <th scope="col">Opis tekućeg stanja</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tbody>
+        <tr *ngFor="let elem of loopClass" (click)="medicalId()">
+          <td>{{elem.diagnosis}}</td>
+          <td>{{elem.startDate}}</td>
+          <td>{{elem.endDate}}</td>
+          <td>{{elem.treatmentResult}}</td>
+          <td>{{elem.currentStateDescription}}</td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="d-flex justify-content-center p-2">
+        <ngb-pagination
+          [collectionSize]="collectionSize"
+          [(page)]="page"
+          [pageSize]="pageSize"
+          (pageChange)="search()"
+        >
+        </ngb-pagination>
+      </div>
+    </div>
+  </div>
+</div>

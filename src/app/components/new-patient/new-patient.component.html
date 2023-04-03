@@ -1,0 +1,226 @@
+<form [formGroup]="newpatientForm" class="container p-4 border rounded-3 bg-light mt-4">
+  <h4 class="mb-4">Dodaj novog pacijenta</h4>
+  <div class="row g-3 mb-3">
+    <div class="col-md-6 form-floating gx-1">
+      <input formControlName="jmbg" type="text" class="form-control" id="floatingJMBG" placeholder="JMBG" />
+      <label for="floatingJMBG">JMBG</label>
+      <div *ngIf="submitted && newpatientForm.get('jmbg')?.errors?.required"
+           class="validation-error small alert alert-danger">
+        JMBG je obavezan
+      </div>
+    </div>
+    <div class="col-md-4 form-floating gx-1">
+      <input formControlName="firstName" type="text" class="form-control" id="floatingIme" placeholder="Ime" />
+      <label for="floatingIme">Ime</label>
+      <div *ngIf="submitted && newpatientForm.get('firstName')?.errors?.required"
+           class="validation-error small alert alert-danger">
+        Ime je obavezno
+      </div>
+    </div>
+  </div>
+  <div class="row g-3 mb-3">
+    <div class="col-md-2 form-floating gx-1">
+      <input formControlName="parentName" type="text" class="form-control" id="floatingImeRoditelja" placeholder="ImeRoditelja" />
+      <label for="floatingImeRoditelja">Ime roditelja</label>
+      <div *ngIf="submitted && newpatientForm.get('parentName')?.errors?.required"
+           class="validation-error small alert alert-danger">
+        Ime roditelja je obavezno
+      </div>
+    </div>
+    <div class="col-md-4 form-floating gx-1">
+      <input formControlName="lastName" type="text" class="form-control" id="floatingPrezime" placeholder="Prezime" />
+      <label for="floatingPrezime">Prezime</label>
+      <div *ngIf="submitted && newpatientForm.get('lastName')?.errors?.required"
+           class="validation-error small alert alert-danger">
+        Prezime je obavezno
+      </div>
+    </div>
+    <div class="col-md-2 form-check gx-1">
+      <div class="form-check">
+        <input formControlName="gender" type="radio" value="Muški" class="form-check-input" id="floatingPolm" />
+        <label class="form-check-label" for="floatingPolm">Muško</label>
+      </div>
+      <div class="form-check">
+        <input formControlName="gender" type="radio" value="Ženski" class="form-check-input" id="floatingPolz" />
+        <label class="form-check-label" for="floatingPolz">Žensko</label>
+      </div>
+      <div *ngIf="submitted && newpatientForm.get('gender')?.errors?.required" class="validation-error small alert alert-danger">
+        Pol je obavezan
+      </div>
+    </div>
+  </div>
+  <div class="row g-3 mb-3">
+    <div class="col-md-4 form-floating gx-1">
+      <input formControlName="birthDate" type="date" class="form-control" id="floatingDatRodjenja"
+             placeholder="Datum rođenja" />
+      <label for="floatingDatRodjenja">Datum rođenja</label>
+      <div *ngIf="submitted && newpatientForm.get('birthDate')?.errors?.required"
+           class="validation-error small alert alert-danger">
+        Datum rođenja je obavezan
+      </div>
+    </div>
+    <div class="col-md-4 form-floating gx-1">
+      <input formControlName="birthplace" type="text" class="form-control" id="floatingMestoRodjenja"
+             placeholder="Mesto rođenja" />
+      <label for="floatingMestoRodjenja">Mesto rođenja</label>
+      <div *ngIf="submitted && newpatientForm.get('birthplace')?.errors?.required"
+           class="validation-error small alert alert-danger">
+        Mesto rodjenja je obavezno
+      </div>
+    </div>
+  </div>
+  <div class="row g-3 mb-3">
+    <div class="col-md-3 form-floating gx-1">
+      <input formControlName="email" type="email" class="form-control" id="floatingEmail" placeholder="Email"/>
+      <label for="floatingEmail">E-mail</label>
+      <div *ngIf="submitted && newpatientForm.get('email')?.errors?.email"
+           class="validation-error small alert alert-danger">
+        Email nije validan
+      </div>
+    </div>
+    <div class="col-md-3">
+      <select formControlName="citizenshipCountry" class="form-select" aria-label="Default select example">
+        <option disabled selected value>Zemlja Državljanstva</option>
+        <option value="AFG">Avganistan</option>
+        <option value="ALA">Olandska ostrva</option>
+        <option value="ALB">Albanija</option>
+        <option value="DZA">Alžir</option>
+
+        <option value="BHS">Bahami</option>
+        <option value="BEL">Belgija</option>
+        <option value="BIH">Bosna i Hercegovina</option>
+        <option value="BRA">Brazil</option>
+        <option value="BGR">Bugarska</option>
+
+        <option value="CMR">Kamerun</option>
+        <option value="CAN">Kanada</option>
+        <option value="CHL">Čile</option>
+        <option value="CHN">Kina</option>
+        <option value="HRV">Hrvatska</option>
+        <option value="CUB">Kuba</option>
+        <option value="DNK">Danska</option>
+        <option value="EGY">Egipat</option>
+        <option value="FRA">Francuska</option>
+
+        <option value="SRB">Srbija</option>
+        <option value="SVN">Slovenija</option>
+
+      </select>
+      <div *ngIf="submitted && newpatientForm.get('citizenshipCountry')?.errors?.required" class="validation-error small alert alert-danger">Zemlja Drzavljanstva je obavezna</div>
+    </div>
+    <div class="col-md-3">
+      <select formControlName="countryOfLiving" class="form-select" aria-label="Default select example">
+        <option disabled selected value>Zemlja stanovanja</option>
+        <option value="AFG">Avganistan</option>
+        <option value="ALA">Olandska ostrva</option>
+        <option value="ALB">Albanija</option>
+        <option value="DZA">Alžir</option>
+
+        <option value="BHS">Bahami</option>
+        <option value="BEL">Belgija</option>
+        <option value="BIH">Bosna i Hercegovina</option>
+        <option value="BRA">Brazil</option>
+        <option value="BGR">Bugarska</option>
+
+        <option value="CMR">Kamerun</option>
+        <option value="CAN">Kanada</option>
+        <option value="CHL">Čile</option>
+        <option value="CHN">Kina</option>
+        <option value="HRV">Hrvatska</option>
+        <option value="CUB">Kuba</option>
+        <option value="DNK">Danska</option>
+        <option value="EGY">Egipat</option>
+        <option value="FRA">Francuska</option>
+
+        <option value="SRB">Srbija</option>
+        <option value="SVN">Slovenija</option>
+
+      </select>
+      <div *ngIf="submitted && newpatientForm.get('countryOfLiving')?.errors?.required" class="validation-error small alert alert-danger">Zemlja stanovanja je obavezna</div>
+    </div>
+    <div class="col-md-3 form-floating gx-1">
+      <input formControlName="placeOfLiving" type="text" class="form-control" id="floatingPlaceOfLiving"
+             placeholder="Mesto stanovanja" />
+      <label for="floatingPlaceOfLiving">Mesto Stanovanja
+      </label>
+    </div>
+  </div>
+  <div class="row g-3 mb-3">
+    <div class="col-md-6 form-floating gx-1">
+      <input formControlName="address" type="text" class="form-control" id="floatingAdresa"
+             placeholder="Adresa" />
+      <label for="floatingAdresa">Adresa
+      </label>
+    </div>
+    <div class="col-md-6 form-floating gx-1">
+      <input formControlName="phoneNumber" type="text" class="form-control" id="floatingKontaktTel"
+             placeholder="Kontakt telefon" />
+      <label for="floatingDatRodjenja">Kontakt telefon</label>
+    </div>
+  </div>
+  <div class="row g-3 mb-3">
+    <div class="col-md-6 form-floating gx-1">
+      <input formControlName="custodianJmbg" type="text" class="form-control" id="floatingJmbgStaratelja"
+             placeholder="JMBG Staratelja (ako postoji)" />
+      <label for="floatingJmbgStaratelja">JMBG Staratelja (ako postoji)
+      </label>
+    </div>
+    <div class="col-md-6 form-floating gx-1">
+      <input formControlName="custodianName" type="text" class="form-control" id="floatingImeIPrezimeStaratelja"
+             placeholder="Ime i prezime staratelja (ako postoji)" />
+      <label for="floatingImeIPrezimeStaratelja">Ime i prezime staratelja (ako postoji)
+      </label>
+    </div>
+  </div>
+  <div class="row g-3 mb-3">
+    <div class="col-md-2 form-floating gx-1">
+      <input formControlName="childrenNum" type="number" class="form-control" id="floatingBrojDece"
+             placeholder="Broj Dece" />
+      <label for="floatingBrojDece">Broj dece
+      </label>
+    </div>
+    <div class="col-md-3">
+      <select formControlName="maritalStatus" class="form-select" aria-label="Default select example">
+        <option disabled selected value>Bračni Status</option>
+        <option value="U braku">U braku</option>
+        <option value="Razveden">Razvedeni</option>
+        <option value="Udovac">Udovac/Udovica</option>
+        <option value="Samac">Samac/Samica</option>
+      </select>
+    </div>
+
+    <div class="col-md-3">
+      <select formControlName="education" class="form-select" aria-label="Default select example">
+        <option disabled selected value>Stepen stručne spreme</option>
+        <option value="Bez osnovnog obrazovanja">Bez osnovnog obrazovanja</option>
+        <option value="Osnovno obrazovanje">Osnovno obrazovanje</option>
+        <option value="Srednje obrazovanje">Srednje</option>
+        <option value="Više obrazovanje">Više</option>
+        <option value="Visoko obrazovanje">Visoko</option>
+      </select>
+    </div>
+  </div>
+  <div class="row g-3 mb-3">
+    <div class="col-md-6 form-floating gx-1">
+      <input formControlName="profession" type="text" class="form-control" id="floatingZanimanje"
+             placeholder="Zanimanje" />
+      <label for="floatingZanimanje">Zanimanje</label>
+    </div>
+    <div class="col-md-4">
+      <select formControlName="familyStatus" class="form-select" aria-label="Default select example">
+        <option disabled selected value>Ako je pacijent dete registrovati porodični status</option>
+        <option value="Oba roditelja">Oba roditelja</option>
+        <option value="Roditelji razvedeni">Roditelji Razvedeni/Razdvojeni</option>
+        <option value="Jedan roditelj">Jedan roditelj</option>
+        <option value="Bez roditelja">Bez rodjitelja</option>
+        <option value="Usvojen">Usvojen</option>
+      </select>
+    </div>
+  </div>
+  <hr class="my-4">
+  <div class="row g-3 mb-3 justify-content-center">
+    <div class="col-md-4">
+      <button type="submit" class="btn btn-primary form-control mb-2" (click)="newPatient()">Dodaj pacijenta</button>
+    </div>
+  </div>
+</form>

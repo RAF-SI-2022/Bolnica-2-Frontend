@@ -1,0 +1,49 @@
+<ng-template #new_appointment_content let-offcanvas>
+	<div class="offcanvas-header">
+		<h4 class="offcanvas-title">Zakaži pregled</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss('Cross click')"></button>
+	</div>
+	<div class="offcanvas-body">
+        <p><i class="bi bi-calendar" style="margin-right: 5px;"></i><strong>Datum: </strong>{{ this.examViewDate | date: 'dd.MM.yyyy'}}</p>
+        <p><i class="bi bi-clock" style="margin-right: 5px;"></i><strong>Vreme: </strong>{{ this.examViewDate | date: 'HH:mm'}}</p>
+        <form [formGroup]="newAppointmentForm">
+            <div class="form-group mb-3">
+                <label for="typeaheadPatient">Pretraži pacijente:</label>
+                <input formControlName="patient" [(ngModel)]="model" [ngbTypeahead]="search" [resultFormatter]="formatResultingPatient" [inputFormatter]="inputFormatResultingPatient" type="text" id="typeaheadPatient" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="additionalComment">Dodaj komentar</label>
+                <textarea formControlName="note" class="form-control" id="additionalComment" rows="4"></textarea>
+            </div>
+        </form>
+		<button type="button" class="btn btn-outline-success mt-4 w-100" (click)="offcanvas.close('Close click')">Zakaži</button>
+	</div>
+</ng-template>
+
+<ng-template #view_appointment_content let-offcanvas>
+    <div class="offcanvas-header">
+		<h4 class="offcanvas-title">Zakazani pregled</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss('Cross click')"></button>
+	</div>
+	<div class="offcanvas-body">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong>Status: </strong><span class="status-dot" [ngStyle]="{'background-color': this.examViewStatusColor}"></span>{{ this.examViewStatus }}</li>
+            <li class="list-group-item"><i class="bi bi-calendar" style="margin-right: 5px;"></i><strong>Datum: </strong>{{ this.examViewDate | date: 'dd.MM.yyyy'}}</li>
+            <li class="list-group-item"><i class="bi bi-clock" style="margin-right: 5px;"></i><strong>Vreme: </strong>{{ this.examViewDate | date: 'HH:mm'}}</li>
+            <li class="list-group-item"><strong>Pacijent: </strong>{{ this.examViewPatientFullName }}</li>
+            <li class="list-group-item"><strong>Beleška lekara: </strong>{{ this.examViewNote }}</li>
+        </ul>
+        <button type="button" class="btn btn-outline-danger mt-4 w-100" (click)="onDelete(this.examViewId)">Obriši</button>
+	</div>
+</ng-template>
+
+<div class="p-5">
+    <select (change)="onDoctorInputChange($event)" class="form-select w-25 mb-3">
+        <option disabled selected value>Izaberite lekara</option>
+        <option *ngFor="let doctor of doctors" [value]="doctor.lbz" (ngModel)="this.currentDoctorFullName">{{ doctor.fullName }}</option>
+    </select>
+
+    <div class="bg-light border rounded-3">
+        <full-calendar #calendar [ngStyle]="{'pointer-events': this.calendarEnabled}" class="p-3" [options]="calendarOptions"></full-calendar>
+    </div>
+</div>
