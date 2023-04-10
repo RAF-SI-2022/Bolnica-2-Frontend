@@ -1,0 +1,118 @@
+<div class="container p-4 border rounded-3 bg-light mt-4">
+    <h4 class="mb-4">Kreiraj uput</h4>
+    <h5 *ngIf="patient" class="mb-4"><i class="bi bi-person-circle" style="margin-right: 8px;"></i>{{patient.firstName + " " + patient.lastName}}<span class="badge bg-info" style="margin-left: 15px;">{{patient.gender.notation | genderPipe}}, {{patient.birthDate | dateOfBirthToAge}}</span></h5>
+    <div class="row g-3 mb-3">
+        <div class="col-md-4">
+            <select (change)="onReferralTypeChange($event)" class="form-select">
+                <option disabled selected value>Izaberite tip uputa</option>
+                <option value="Laboratorija">Laboratorija</option>
+                <option value="Dijagnostika">Dijagnostika</option>
+                <option value="Stacionar">Stacionar</option>
+            </select>
+        </div>
+    </div>
+
+    <hr *ngIf="referralType" class="my-4">
+
+    <form *ngIf="referralType === 'Laboratorija'" [formGroup]="labForm">
+        <h5 class="mb-4">Laboratorijski uput</h5>
+        <div class="row g-3 mb-4">
+            <div class="col-md-4">
+                <select formControlName="hospital" class="form-select">
+                    <option disabled selected value>Zdravstvena ustanova</option>
+                    <option>KBC Dragisa Misovic</option>
+                </select>
+                <div *ngIf="labFormSubmitted && labForm.get('hospital')?.errors?.required" class="validation-error small alert alert-danger">Odaberite zdravstvenu ustanovu</div>
+            </div>
+        </div>
+        <div class="row g-3 mb-4">
+            <div class="col-md-4">
+                <h6>Laboratorijske analize</h6>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" formArrayName="labAnalysis" (change)="onLabAnalysisCheckboxChange($event)" value="labAnalysis1" id="labAnalysis1">
+                    <label class="form-check-label" for="labAnalysis1">Lab. analiza 1</label>
+                </div>
+                <div *ngIf="labFormSubmitted && labForm.get('labAnalysis')?.errors?.required" class="validation-error small alert alert-danger">
+                    Odaberite bar jednu laboratorijsku analizu
+                </div>
+            </div>
+        </div>
+        <div class="row g-3 mb-4">
+            <div class="col-md-6 form-floating gx-1">
+                <textarea formControlName="labComment" class="h-100 form-control rounded" placeholder="Komentar" id="floatingLabKomentar" rows="10"></textarea>
+                <label for="floatingLabKomentar">Komentar</label>
+            </div>
+        </div>
+    </form>
+
+    <form *ngIf="referralType === 'Dijagnostika'" [formGroup]="diagForm">
+        <h5 class="mb-4">Dijagnostički uput</h5>
+        <div class="row g-3 mb-4">
+            <div class="col-md-4">
+                <select formControlName="hospital" class="form-select">
+                    <option disabled selected value>Zdravstvena ustanova</option>
+                    <option>KBC Dragisa Misovic</option>
+                </select>
+                <div *ngIf="diagFormSubmitted && diagForm.get('hospital')?.errors?.required" class="validation-error small alert alert-danger">Odaberite zdravstvenu ustanovu</div>
+            </div>
+        </div>
+        <div class="row g-3 mb-4">
+            <div class="col-md-4">
+                <select formControlName="mkb10" class="form-select">
+                    <option disabled selected value>Uputna dijagnoza (MKB-10)</option>
+                    <option value="A15.3">A15.3</option>
+                    <option value="D50">D50</option>
+                    <option value="I10">I10</option>
+                    <option value="I35.0">I35.0</option>
+                    <option value="J11">J11</option>
+                    <option value="J12.9">J12.9</option>
+                    <option value="K35">K35</option>
+                    <option value="K70.3">K70.3</option>
+                    <option value="K71.0">K71.0</option>
+                    <option value="N20.0">N20.0</option>
+                </select>
+                <div *ngIf="diagFormSubmitted && diagForm.get('mkb10')?.errors?.required" class="validation-error small alert alert-danger">Unesite uputnu dijagnozu</div>
+            </div>
+        </div>
+        <div class="row g-3 mb-4">
+            <div class="col-md-6 form-floating gx-1">
+                <textarea formControlName="reason" class="h-100 form-control rounded" placeholder="Razlog upućivanja" id="floatingRazlog" rows="10"></textarea>
+                <label for="floatingRazlog">Razlog upućivanja</label>
+                <div *ngIf="diagFormSubmitted && diagForm.get('reason')?.errors?.required" class="validation-error small alert alert-danger">Unesite razlog upućivanja</div>
+            </div>
+        </div>
+    </form>
+
+    <form *ngIf="referralType === 'Stacionar'" [formGroup]="stacionarForm">
+        <h5 class="mb-4">Stacionarni uput</h5>
+        <div class="row g-3 mb-4">
+            <div class="col-md-4">
+                <select formControlName="hospital" class="form-select">
+                    <option disabled selected value>Zdravstvena ustanova</option>
+                    <option>KBC Dragisa Misovic</option>
+                </select>
+                <div *ngIf="stacionarFormSubmitted && stacionarForm.get('hospital')?.errors?.required" class="validation-error small alert alert-danger">Odaberite zdravstvenu ustanovu</div>
+            </div>
+        </div>
+        <div class="row g-3 mb-4">
+            <div class="col-md-4">
+                <select formControlName="mkb10" class="form-select">
+                    <option disabled selected value>Uputna dijagnoza (MKB-10)</option>
+                    <option value="A15.3">A15.3</option>
+                    <option value="D50">D50</option>
+                    <option value="I10">I10</option>
+                    <option value="I35.0">I35.0</option>
+                    <option value="J11">J11</option>
+                    <option value="J12.9">J12.9</option>
+                    <option value="K35">K35</option>
+                    <option value="K70.3">K70.3</option>
+                    <option value="K71.0">K71.0</option>
+                    <option value="N20.0">N20.0</option>
+                </select>
+                <div *ngIf="stacionarFormSubmitted && stacionarForm.get('mkb10')?.errors?.required" class="validation-error small alert alert-danger">Unesite uputnu dijagnozu</div>
+            </div>
+        </div>
+    </form>
+
+    <button *ngIf="referralType" class="btn btn-primary" (click)="onSubmit()">Kreiraj uput</button>
+</div>
