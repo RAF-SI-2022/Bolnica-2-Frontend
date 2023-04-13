@@ -96,31 +96,31 @@ const routes: Routes = [
     path: 'health-record/:lbp',
     component: HealthRecordComponent,
     canActivate: [AuthGuard, PermissionGuard],
-    data: { permissions: ['ROLE_ADMIN'] }
+    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'] }
   },
   {
     path: 'basic-health-record',
     component: BasicHealthRecordComponent,
     canActivate: [AuthGuard, PermissionGuard],
-    data: { permissions: ['ROLE_ADMIN'] }
+    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'] }
   },
   {
     path: 'medical-history-record',
     component: MedicalHistoryRecordComponent,
     canActivate: [AuthGuard, PermissionGuard],
-    data: { permissions: ['ROLE_ADMIN'] }
+    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'] }
   },
   {
     path: 'full-medical-history',
     component: FullMedicalHistoryComponent,
     canActivate: [AuthGuard, PermissionGuard],
-    data: { permissions: ['ROLE_ADMIN'] }
+    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'] }
   },
   {
     path: 'illness-history',
     component: IllnessHistoryRecordComponent,
     canActivate: [AuthGuard, PermissionGuard],
-    data: { permissions: ['ROLE_ADMIN'] }
+    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'] }
   },
   {
     path: 'specialist-doctor-examination',
