@@ -14,6 +14,8 @@ import { EmployeesService } from 'src/app/service/employee.service';
 import { SchedMedExamResponse } from 'src/app/dto/response/sched-med-exam.response';
 import { PatientResponse } from 'src/app/dto/response/patient.response';
 import { FullCalendarComponent } from '@fullcalendar/angular';
+import { ScheduledAppointmentService } from 'src/app/service/scheduled-appointment.service';
+import { DoctorsResponse } from 'src/app/dto/response/scheduled-appointment-response';
 
 const DAY_NAMES: string[] = ['nedelja', 'ponedeljak', 'utorak', 'sreda', 'četvrtak', 'petak', 'subota'];
 @Component({
@@ -63,8 +65,7 @@ export class NewAppointmentComponent implements OnInit {
   examViewStatusColor = '';
   examViewId = -1;
 
-  doctors: any[] = [];
-  doctorProfessions = ['Spec. biohemičar', 'Spec. gastroenterolog', 'Spec. ginekolog', 'Spec. kardiolog', 'Spec. neurolog', 'Spec. nefrolog', 'Spec. psihijatar', 'Spec. pulmolog', 'Spec. urolog', 'Spec. hematolog', 'Spec. hirurg'];
+  doctors: Array<DoctorsResponse> = []
   currentDoctorLbz = '';
   currentDoctorFullName = '';
 
@@ -81,32 +82,16 @@ export class NewAppointmentComponent implements OnInit {
               private offcanvasService: NgbOffcanvas,
               private formBuilder: FormBuilder,
               private patientService: PatientService,
-              private employeeService: EmployeesService,
               private schedMedExamService: SchedMedExamService,
+              private scheduledAppointmentService: ScheduledAppointmentService,
               private toaster: HotToastService) {
     this.newAppointmentForm = this.formBuilder.group({
       patient: [''],
       note: ['']
     });
-    this.employeeService.searchEmployees({
-      firstName: '',
-      lastName: '',
-      departmentName: '',
-      hospitalName: '',
-      includeDeleted: false,
-      page: 0,
-      size: 100
-    }).subscribe({
+    this.scheduledAppointmentService.getDoctors().subscribe({
       next: (res) => {
-        res.userList.forEach(user => {
-          if (this.doctorProfessions.includes(user.profession.notation)) {
-            this.doctors.push({
-              fullName: user.firstName + ' ' + user.lastName,
-              departmentName: user.departmentName,
-              lbz: user.lbz
-            });
-          }
-        })
+        this.doctors = Object.values(res);
       },
       error: (e) => {
         this.toaster.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
