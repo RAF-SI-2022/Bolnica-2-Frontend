@@ -28,6 +28,7 @@ import {
 import { SpecialistDoctorExaminationComponent } from './components/specialist-doctor-examination/specialist-doctor-examination.component';
 import { ScheduledAppointmentsComponent } from './components/scheduled-appointments/scheduled-appointments.component';
 import { EditPatientComponent } from './components/edit-patient/edit-patient.component';
+import { NewReferralComponent } from './new-referral/new-referral.component';
 
 const routes: Routes = [
   {
@@ -60,7 +61,7 @@ const routes: Routes = [
     path: 'new-patient',
     component: NewPatientComponent,
     canActivate: [AuthGuard, PermissionGuard],
-    data: {permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA']}
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
   },
   {
     path: 'search-employees',
@@ -89,56 +90,62 @@ const routes: Routes = [
     path: 'search-patients',
     component: SearchPatientsComponent,
     canActivate: [AuthGuard, PermissionGuard],
-    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA','ROLE_DR_SPEC','ROLE_DR_SPEC_POV','ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV', 'ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
   },
   {
     path: 'health-record/:lbp',
     component: HealthRecordComponent,
     canActivate: [AuthGuard, PermissionGuard],
-    data: { permissions: ['ROLE_ADMIN'] }
+    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'] }
   },
   {
     path: 'basic-health-record',
     component: BasicHealthRecordComponent,
     canActivate: [AuthGuard, PermissionGuard],
-    data: {permissions: ['ROLE_ADMIN']}
+    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'] }
   },
   {
     path: 'medical-history-record',
     component: MedicalHistoryRecordComponent,
     canActivate: [AuthGuard, PermissionGuard],
-    data: {permissions: ['ROLE_ADMIN']}
+    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'] }
   },
   {
     path: 'full-medical-history',
     component: FullMedicalHistoryComponent,
     canActivate: [AuthGuard, PermissionGuard],
-    data: {permissions: ['ROLE_ADMIN']}
+    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'] }
   },
   {
     path: 'illness-history',
     component: IllnessHistoryRecordComponent,
     canActivate: [AuthGuard, PermissionGuard],
-    data: {permissions: ['ROLE_ADMIN']}
+    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'] }
   },
   {
     path: 'specialist-doctor-examination',
     component: SpecialistDoctorExaminationComponent,
     canActivate: [AuthGuard, PermissionGuard],
-    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA','ROLE_DR_SPEC','ROLE_DR_SPEC_POV'] }
+    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'] }
   },
   {
-    path:'scheduled-appointments',
-    component:ScheduledAppointmentsComponent,
-    canActivate:[AuthGuard,PermissionGuard],
-    data:{permissions:['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV','ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA']}
+    path: 'scheduled-appointments',
+    component: ScheduledAppointmentsComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV', 'ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
   },
   {
-  path: 'edit-patient/:lbp',
-component: EditPatientComponent,
-canActivate: [AuthGuard, PermissionGuard],
-data: {permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA']}
-},
+    path: 'edit-patient/:lbp',
+    component: EditPatientComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+  },
+  {
+    path: 'new-referral/:lbp',
+    component: NewReferralComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'] }
+  }
 ];
 
 @NgModule({

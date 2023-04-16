@@ -34,6 +34,8 @@ import { ScheduledAppointmentsComponent } from './components/scheduled-appointme
 import { SpecialistDoctorExaminationComponent } from './components/specialist-doctor-examination/specialist-doctor-examination.component';
 import { EditPatientComponent } from './components/edit-patient/edit-patient.component';
 import { GenderPipe } from './pipe/gender.pipe';
+import { NewReferralComponent } from './new-referral/new-referral.component';
+import { DateOfBirthToAgePipe } from './pipe/date-of-birth-to-age.pipe';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,9 @@ import { GenderPipe } from './pipe/gender.pipe';
     IllnessHistoryRecordComponent,
     ScheduledAppointmentsComponent,
     EditPatientComponent,
-    GenderPipe
+    GenderPipe,
+    NewReferralComponent,
+    DateOfBirthToAgePipe
   ],
   imports: [
     BrowserModule,

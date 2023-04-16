@@ -1,5 +1,5 @@
 <form [formGroup]="specialistDoctorExaminationForm" class="container p-4 border rounded-3 bg-light mt-4 mb-4">
-    <h3 class="mb-4"><i class="bi bi-person-circle" style="margin-right: 8px;"></i>{{patient.firstName + " " + patient.lastName}}<span class="badge bg-info" style="margin-left: 15px;">{{patient.gender.notation | genderPipe}}, 23</span></h3>
+    <h3 class="mb-4"><i class="bi bi-person-circle" style="margin-right: 8px;"></i>{{patient.firstName + " " + patient.lastName}}<span class="badge bg-info" style="margin-left: 15px;">{{patient.gender.notation | genderPipe}}, {{patient.birthDate | dateOfBirthToAge}}</span></h3>
     <h4>Vakcine:</h4>
     <span class="badge rounded-pill bg-danger" *ngFor="let item of vaccines"
         style="margin-left: 5px; font-size: 0.8rem;">{{item}}</span>

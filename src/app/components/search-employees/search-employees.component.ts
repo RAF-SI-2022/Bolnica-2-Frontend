@@ -74,7 +74,6 @@ export class SearchEmployeesComponent implements OnInit {
           this.refreshEmployees();
         },
         error: (e) => {
-          console.log(e)
           this.toast.error(e.error.errorMessage);
         }
       });
