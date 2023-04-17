@@ -29,6 +29,8 @@ import { SpecialistDoctorExaminationComponent } from './components/specialist-do
 import { ScheduledAppointmentsComponent } from './components/scheduled-appointments/scheduled-appointments.component';
 import { EditPatientComponent } from './components/edit-patient/edit-patient.component';
 import { NewReferralComponent } from './new-referral/new-referral.component';
+import { ScheduledPatientsComponent } from './components/scheduled-patients/scheduled-patients.component';
+import { NewWorkOrderComponent } from './components/new-work-order/new-work-order.component';
 
 const routes: Routes = [
   {
@@ -145,7 +147,19 @@ const routes: Routes = [
     component: NewReferralComponent,
     canActivate: [AuthGuard, PermissionGuard],
     data: { permissions: ['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'] }
-  }
+  },
+  {
+    path:'scheduled-patients',
+    component:ScheduledPatientsComponent,
+    canActivate:[AuthGuard,PermissionGuard],
+    data:{permissions:['ROLE_LAB_TEHNICAR', 'ROLE_VISI_LAB_TEHNICAR']}
+  },
+  {
+    path:'new-work-order',
+    component:NewWorkOrderComponent,
+    canActivate:[AuthGuard,PermissionGuard],
+    data:{permissions:['ROLE_LAB_TEHNICAR', 'ROLE_VISI_LAB_TEHNICAR']}
+  },
 ];
 
 @NgModule({

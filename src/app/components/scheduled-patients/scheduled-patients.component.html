@@ -1,0 +1,59 @@
+<div class="p-5">
+	<div class="row">
+		<div class="col-lg-3">
+			<form [formGroup]="LBPForm" class="p-3 border rounded-3 bg-light">
+				<div class="mb-1">
+					<input formControlName="LBP" class="form-control" type="text" placeholder="LBP">
+				</div>
+				<hr class="my-4">
+				<button (click)="search()" class="btn btn-md btn-primary w-100" type="submit">Pretraži</button>
+			</form>
+		</div>
+		<div class="col-lg-9 table-responsive">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th scope="col">Naziv atributa </th>
+						<th scope="col">ID lab pregleda </th>
+						<th scope="col">ID odeljenja</th>
+						<th scope="col">LBP</th>
+						<th scope="col">Zakazan datum </th>
+						<th scope="col">Status pregleda </th>
+						<th scope="col">Napomena </th>
+						<th scope="col">LBZ (tehničar koji je zakazao)</th>
+						<th scope="col"></th>
+						<th scope="col"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let schedule of paginatedSchedules">
+						<!--<td>{{schedule.attributeName}}</td>
+						<td>{{schedule.labExaminationId}}</td>
+						<td>{{schedule.departmentId }}</td>
+						<td>{{schedule.lbz}}</td>-->
+						<td>{{schedule.lbp}}</td>
+						<td>{{schedule.scheduledDate| date: 'dd.MM.yyyy'}}</td>
+						<td>{{schedule.examStatus.notation}}</td>
+						<td>{{schedule.note}}</td>
+
+						<td><button *ngIf="schedule.examStatus.notation=='ZAKAZANO' " 
+							(click)="changeExaminationStatus('OTKAZANO',schedule.lbp,schedule.scheduledDate)" 
+							ngbAutofocus class="btn btn-sm btn-danger">Otkaži</button></td>
+						<td><button (click)="makeWorkOrder('ZAVRSENO',schedule.lbp,schedule.scheduledDate)"
+							 class="btn btn-sm btn-primary">Napravi radni nalog</button></td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="d-flex justify-content-center p-2">
+				<ngb-pagination
+					[collectionSize]="collectionSize"
+					[(page)]="page"
+					[pageSize]="pageSize"
+					(pageChange)="refreshEmployees()"
+				>
+				</ngb-pagination>
+			</div>
+		</div>
+	</div>
+
+</div>

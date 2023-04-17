@@ -36,6 +36,9 @@ import { EditPatientComponent } from './components/edit-patient/edit-patient.com
 import { GenderPipe } from './pipe/gender.pipe';
 import { NewReferralComponent } from './new-referral/new-referral.component';
 import { DateOfBirthToAgePipe } from './pipe/date-of-birth-to-age.pipe';
+import { ScheduledPatientsComponent } from './components/scheduled-patients/scheduled-patients.component';
+import { NewWorkOrderComponent } from './components/new-work-order/new-work-order.component';
+
 
 @NgModule({
   declarations: [
@@ -61,6 +64,8 @@ import { DateOfBirthToAgePipe } from './pipe/date-of-birth-to-age.pipe';
     ScheduledAppointmentsComponent,
     EditPatientComponent,
     GenderPipe,
+    ScheduledPatientsComponent,
+    NewWorkOrderComponent,
     NewReferralComponent,
     DateOfBirthToAgePipe
   ],
