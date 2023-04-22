@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -31,6 +31,7 @@ export class NewReferralComponent implements OnInit {
   stacionarFormSubmitted: boolean = false;
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private patientService: PatientService,
               private labService: LabService,
               private toast: HotToastService,
@@ -137,11 +138,6 @@ export class NewReferralComponent implements OnInit {
       });
       mkb10 = stacionarFormValue.mkb10;
     }
-    console.log(labAnalysis);
-
-    console.log(labFormValue);
-    console.log(diagFormValue);
-    console.log(stacionarFormValue);
 
     const createReferralRequest: CreateReferralRequest = {
       type: this.referralType!,
@@ -159,7 +155,9 @@ export class NewReferralComponent implements OnInit {
     this.modalService.open(NgbdModalConfirm).result.then(data => {
       this.labService.createReferral(createReferralRequest).subscribe({
         next: (res) => {
-          console.log(res);
+          this.router.navigate(['/search-patients']).then(() => {
+            this.toast.success('Uspešno ste kreirali uput');
+          })
         },
         error: (e) => {
           this.toast.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
