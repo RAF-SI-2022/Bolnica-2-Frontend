@@ -28,7 +28,9 @@ import {
 import { SpecialistDoctorExaminationComponent } from './components/specialist-doctor-examination/specialist-doctor-examination.component';
 import { ScheduledAppointmentsComponent } from './components/scheduled-appointments/scheduled-appointments.component';
 import { EditPatientComponent } from './components/edit-patient/edit-patient.component';
-import { NewReferralComponent } from './new-referral/new-referral.component';
+import { NewLabVisitComponent } from './components/lab-visits/new-lab-visit/new-lab-visit.component';
+import { LabVisitsComponent } from './components/lab-visits/lab-visits.component';
+import { NewReferralComponent } from './components/new-referral/new-referral.component';
 
 const routes: Routes = [
   {
@@ -145,6 +147,18 @@ const routes: Routes = [
     component: NewReferralComponent,
     canActivate: [AuthGuard, PermissionGuard],
     data: { permissions: ['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'] }
+  },
+  {
+    path: 'lab-visits',
+    component: LabVisitsComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_VISI_LAB_TEHNICAR', 'ROLE_LAB_TEHNICAR'] }
+  },
+  {
+    path: 'new-lab-visit',
+    component: NewLabVisitComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_VISI_LAB_TEHNICAR', 'ROLE_LAB_TEHNICAR'] }
   }
 ];
 

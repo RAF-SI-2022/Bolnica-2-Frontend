@@ -9,3 +9,9 @@ export interface HospitalResponse {
     activity: string,
     deleted: boolean
 }
+
+export interface HospitalsByDepartmentResponse {
+    pbo: string,
+    name: string,
+    hospitalResponse: HospitalResponse
+}
