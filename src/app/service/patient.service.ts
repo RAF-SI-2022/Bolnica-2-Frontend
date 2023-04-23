@@ -4,6 +4,7 @@ import { PATIENT_ENDPOINT, USER_URL } from '../app.constants';
 import { PatientRequest } from '../dto/request/patient.request';
 import { PatientResponse, SearchPatientsResponse } from '../dto/response/patient.response';
 import { HospitalResponse, HospitalsByDepartmentResponse } from '../dto/response/hospital.response';
+import { DepartmentResponse } from '../dto/response/department.response';
 
 @Injectable({
   providedIn: 'root'
@@ -112,6 +113,14 @@ export class PatientService {
 
   getHospitalsWithDepartment(departmentName: string) {
     return this.httpClient.get<HospitalsByDepartmentResponse[]>(USER_URL + `/departments/name/${departmentName}`, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    })
+  }
+
+  getAllDepartments() {
+    return this.httpClient.get<DepartmentResponse[]>(USER_URL + '/departments', {
       headers: {
         'Authorization': 'Bearer ' + localStorage.getItem('token')
       }
