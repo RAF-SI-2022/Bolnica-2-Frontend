@@ -48,4 +48,31 @@ export class LabService {
             }
         })
     }
+
+    getReferralHistory(lbp: string, startDate: string, endDate: string, page: number, size: number) {
+        const params: any = {};
+        params.lbp = lbp;
+        if (startDate === '') params.startDate = '1970-01-01T23:59:20.253Z'; else params.startDate = startDate + 'T00:00:00.253Z';
+        if (endDate === '') params.endDate = '2500-04-23T11:16:20.253Z'; else params.endDate = endDate + 'T00:00:00.253Z';
+        return this.httpClient.get<ReferralResponseList>(LAB_URL + '/referral/history', {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            params: {
+                lbp: params.lbp,
+                dateFrom: params.startDate,
+                dateTo: params.endDate,
+                page: page,
+                size: size
+            }
+        })
+    }
+
+    deleteReferral(id: number) {
+        return this.httpClient.delete<ReferralResponse>(LAB_URL + `/referral/delete/${id}`, {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }
+        })
+    }
 }

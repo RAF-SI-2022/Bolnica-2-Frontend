@@ -11,6 +11,7 @@ export interface ReferralResponseList {
 }
 
 export interface ReferralResponse {
+    id: number,
     type: { notation: string },
     lbz: string,
     pboReferredFrom: string,
