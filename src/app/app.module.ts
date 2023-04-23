@@ -25,8 +25,20 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { NewAppointmentComponent } from './components/new-appointment/new-appointment.component';
 import { SearchPatientsComponent } from './components/search-patients/search-patients.component';
 import { NewPatientComponent } from "./components/new-patient/new-patient.component";
+import { HealthRecordComponent } from './components/health-records/health-record/health-record.component';
+import { BasicHealthRecordComponent } from './components/health-records/basic-health-record/basic-health-record.component';
+import { MedicalHistoryRecordComponent } from './components/health-records/medical-history-record/medical-history-record.component';
+import { FullMedicalHistoryComponent } from './components/health-records/full-medical-history/full-medical-history.component';
+import { IllnessHistoryRecordComponent } from './components/health-records/illness-history-record/illness-history-record.component';
+import { ScheduledAppointmentsComponent } from './components/scheduled-appointments/scheduled-appointments.component'
 import { ReferralHistoryComponent } from './components/referral-history/referral-history.component';
 import { SpecialistDoctorExaminationComponent } from './components/specialist-doctor-examination/specialist-doctor-examination.component';
+import { EditPatientComponent } from './components/edit-patient/edit-patient.component';
+import { GenderPipe } from './pipe/gender.pipe';
+import { DateOfBirthToAgePipe } from './pipe/date-of-birth-to-age.pipe';
+import { NewLabVisitComponent } from './components/lab-visits/new-lab-visit/new-lab-visit.component';
+import { LabVisitsComponent } from './components/lab-visits/lab-visits.component';
+import { NewReferralComponent } from './components/new-referral/new-referral.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +56,19 @@ import { SpecialistDoctorExaminationComponent } from './components/specialist-do
     NewPatientComponent,
     ReferralHistoryComponent,
     SpecialistDoctorExaminationComponent,
+    NewPatientComponent,
+    HealthRecordComponent,
+    BasicHealthRecordComponent,
+    MedicalHistoryRecordComponent,
+    FullMedicalHistoryComponent,
+    IllnessHistoryRecordComponent,
+    ScheduledAppointmentsComponent,
+    EditPatientComponent,
+    GenderPipe,
+    NewReferralComponent,
+    DateOfBirthToAgePipe,
+    NewLabVisitComponent,
+    LabVisitsComponent
   ],
   imports: [
     BrowserModule,
@@ -63,6 +88,7 @@ import { SpecialistDoctorExaminationComponent } from './components/specialist-do
     DecimalPipe,
     DatePipe,
     BooleanDaNePipe,
+    GenderPipe
   ],
   bootstrap: [AppComponent]
 })

@@ -49,11 +49,12 @@
 						<td>{{patient.phoneNumber}}</td>
 						<td><span *ngIf="patient.deleted" class="text-danger">Obrisan</span></td>
 						<td><button *ngIf="this.authService.hasEitherPermission(['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'])"
-							[routerLink]="['/medical-record', patient.lbp]" class="btn btn-sm btn-danger">Pregled kartona</button>
+							[routerLink]="['/health-record', patient.lbp]" (click)="addPatientLbp(patient.lbp)" class="btn btn-sm btn-primary">Pregled kartona</button>
 						</td>
 						<td><button *ngIf="this.authService.hasEitherPermission(['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'])"
-							[routerLink]="['/specialist-doctor-examination']" [queryParams]="{lbp: patient.lbp}" class="btn btn-sm btn-danger">Pregled</button>
+							[routerLink]="['/specialist-doctor-examination']" [queryParams]="{lbp: patient.lbp}" class="btn btn-sm btn-primary">Pregled</button>
 						</td>
+						<td><button *ngIf="this.authService.hasEitherPermission(['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'])" [routerLink]="['/new-referral', patient.lbp]" class="btn btn-sm btn-primary">Uput</button></td>
 						<td><button *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])"
 							[routerLink]="['/edit-patient', patient.lbp]" class="btn btn-sm btn-primary">Ažuriraj</button>
 						</td>

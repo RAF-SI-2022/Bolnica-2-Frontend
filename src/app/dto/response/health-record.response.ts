@@ -18,13 +18,16 @@ export interface AllergyResponse {
 
 export interface Allergy {
     id: number;
-    allergen : Allergen;
+    allergen : Allergen2;
     healthRecordId: number;
 }
 
-export interface Allergen {
-    id: number;
-    name : string;
+export interface Allergen2 {
+  name: string;
+}
+
+export interface AllergenResponse {
+  allergen: string;
 }
 
 
@@ -56,6 +59,7 @@ export interface Operation {
 
 export interface MedicalExaminationListResponse {
     examinations: MedicalExamination[];
+    count: number;
 }
 
 export interface MedicalExamination {
@@ -81,8 +85,27 @@ export interface Diagnosis {
     latinDescription: string;
 }
 
+export interface HistoryHealthRecord {
+  illnessStart: string;
+  illnessEnd: string;
+  id: number;
+  diagnosis: DiagnosisHealthRecord;
+  treatmentResult: TreatmentResultHealthRecord;
+  currentStateDescription: string;
+}
+
+export interface TreatmentResultHealthRecord {
+  notation: string;
+}
+
+export interface DiagnosisHealthRecord {
+  description: string;
+  code: number;
+}
+
 export interface MedicalHistory {
     id: number;
+    history: HistoryHealthRecord[];
     confidential: boolean;
     illnessStart: Date;
     illnessEnd: Date;
@@ -92,6 +115,7 @@ export interface MedicalHistory {
     validUntil: Date;
     valid: boolean;
     diagnosis: Diagnosis;
+    count: number;
 }
 
 export interface LightHealthRecord {

@@ -86,6 +86,11 @@ export class SearchPatientsComponent implements OnInit {
     }, (dismiss) => {
     });
   }
+
+  addPatientLbp(lbp: string) {
+    localStorage.setItem('patientLBP', lbp);
+  }
+
 }
 
 @Component({

@@ -1,122 +1,153 @@
-<form [formGroup]="specialistDoctorExaminationForm" class="container p-4 border rounded-3 bg-light mt-4">
-    <h1>{{patient.firstName + " " + patient.lastName}}</h1>
-    <br>
+<form [formGroup]="specialistDoctorExaminationForm" class="container p-4 border rounded-3 bg-light mt-4 mb-4">
+    <h3 class="mb-4"><i class="bi bi-person-circle" style="margin-right: 8px;"></i>{{patient.firstName + " " + patient.lastName}}<span class="badge bg-info" style="margin-left: 15px;">{{patient.gender.notation | genderPipe}}, {{patient.birthDate | dateOfBirthToAge}}</span></h3>
     <h4>Vakcine:</h4>
-    <label class="label label-primary" *ngFor="let item of vaccines; let isLast=last">{{item}}<span *ngIf="!isLast">, </span></label>
-    <br>
-    <h4>Alergije:</h4>
-    <label class="label label-primary" *ngFor="let item of alergies; let isLast=last">{{item}}<span *ngIf="!isLast">, </span></label>
-    <br>
-    <br>
+    <span class="badge rounded-pill bg-danger" *ngFor="let item of vaccines"
+        style="margin-left: 5px; font-size: 0.8rem;">{{item}}</span>
+    <h4 class="mt-3">Alergije:</h4>
+    <span class="badge rounded-pill bg-warning" *ngFor="let item of alergies"
+        style="margin-left: 5px; font-size: 0.8rem;">{{item}}</span>
+    <hr class="my-4">
+    <h4 class="mb-3">Anamneza:</h4>
 
-    <h3>Anamneza:</h3>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <textarea formControlName="glavneTegobe" class="m-3 p-2 form-control-lg rounded shadow" placeholder="Glavne tegobe" name="" id="glavne-tegobe" cols="50" rows="10"></textarea>
+    <div class="row mb-3">
+        <div class="col-md-6 form-floating gx-1">
+            <textarea formControlName="glavneTegobe" class="h-100 form-control rounded" placeholder="Glavne tegobe"
+                id="floatingGlavneTegobe" rows="10"></textarea>
+            <label for="floatingGlavneTegobe">Glavne tegobe</label>
+        </div>
+        <div class="col-md-6 form-floating gx-1">
+            <textarea formControlName="sadasnjaBolest" class="h-100 form-control rounded" placeholder="Sadašnja bolest"
+                id="floatingSadasnjaBolest" rows="10"></textarea>
+            <label for="floatingSadasnjaBolest">Sadašnja bolest</label>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-6 form-floating gx-1">
+            <textarea formControlName="licnaAnamneza" class="h-100 form-control rounded" placeholder="Lična anamneza"
+                id="floatingLicnaAnamneza" rows="10"></textarea>
+            <label for="floatingLicnaAnamneza">Lična anamneza</label>
+        </div>
+        <div class="col-md-6 form-floating gx-1">
+            <textarea formControlName="porodicnaAnamneza" class="h-100 form-control rounded"
+                placeholder="Porodična anamneza" id="floatingPorodicnaAnamneza" rows="10"></textarea>
+            <label for="floatingPorodicnaAnamneza">Porodična anamneza</label>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-12 form-floating gx-1">
+            <textarea formControlName="misljenjePacijenta" class="h-100 form-control rounded"
+                placeholder="Mišljenje pacijenta" name="" id="floatingMisljenjePacijenta" rows="10"></textarea>
+            <label for="floatingMisljenjePacijenta">Mišljenje pacijenta</label>
+        </div>
+    </div>
+
+    <hr class="my-4">
+
+    <h4 class="mb-3">Dijagnoza:</h4>
+    <div class="row mb-3">
+        <div class="col-md-12 form-floating gx-1">
+            <textarea (input)="onTextChanged()" formControlName="objektivniNalaz" class="h-100 form-control rounded mb-3"
+                placeholder="Objektivni nalaz" id="floatingObjektivniNalaz" rows="10"></textarea>
+            <label for="floatingObjektivniNalaz">Objektivni nalaz</label>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            <button [disabled]="dodajDijagnozuDugme" *ngIf="showButton" (click)="onButtonClick()" type="button"
+                class="btn btn-secondary rounded-pill">Dodaj dijagnozu</button>
+        </div>
+    </div>
+    <div *ngIf="expand" class="row mb-3">
+        <div class="col-md-2">
+            <select formControlName="sifraBolesti" class="form-select" id="sifra-bolesti" name="language">
+                <option disabled selected value>Šifra bolesti</option>
+                <option value="A15.3">A15.3</option>
+                <option value="D50">D50</option>
+                <option value="I10">I10</option>
+                <option value="I35.0">I35.0</option>
+                <option value="J11">J11</option>
+                <option value="J12.9">J12.9</option>
+                <option value="K35">K35</option>
+                <option value="K70.3">K70.3</option>
+                <option value="K71.0">K71.0</option>
+                <option value="N20.0">N20.0</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <select formControlName="rezultatLecenja" class="form-select" id="rezultat-lecenja" name="language">
+                <option disabled selected value>Rezultat lečenja</option>
+                <option value="U toku">U toku</option>
+                <option value="Oporavljen">Oporavljen</option>
+                <option value="Preminuo">Preminuo</option>
+                <option value="Stalne posledice">Stalne posledice</option>
+            </select>
+        </div>
+        <div class="col-md-8">
+            <div class="form-floating gx-1"><textarea formControlName="opisStanja" class="h-100 form-control rounded"
+                    placeholder="Opis tekućeg stanja" id="floatingOpisStanja" cols="50" rows="10"></textarea>
+                <label for="floatingOpisStanja">Opis stanja</label>
             </div>
-            <div class="col-md-6">
-                <textarea formControlName="sadasnjaBolest" class="m-3 p-2 form-control-lg rounded shadow" placeholder="Sadašnja bolest" name="" id="sadasnja-bolest" cols="50" rows="10"></textarea>
-            </div>
-            <div class="col-md-6">
-                <textarea formControlName="licnaAnamneza" class="m-3 p-2 form-control-lg rounded shadow" placeholder="Lična anamneza" name="" id="licna-anamneza" cols="50" rows="10"></textarea>
-            </div>
-            <div class="col-md-6">
-                <textarea formControlName="porodicnaAnamneza" class="m-3 p-2 form-control-lg rounded shadow" placeholder="Porodična anamneza" name="" id="porodicna-anamneza" cols="50" rows="10"></textarea>
-            </div>
-            <div class="col-md-6">
-                <textarea formControlName="misljenjePacijenta" class="m-3 p-2 form-control-lg rounded shadow" placeholder="Mišljenje pacijenta" name="" id="misljenje-pacijenta" cols="50" rows="10"></textarea>
+            <div class="form-check mt-2">
+                <input formControlName="postojecaDijagnoza" class="form-check-input" type="checkbox"
+                    id="exampleCheckbox">
+                <label class="form-check-label" for="exampleCheckbox">Postojeća dijagnoza</label>
             </div>
         </div>
     </div>
 
-    <h3>Dijagnoza:</h3>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-5 form-floating ">
-                <textarea formControlName="objektivniNalaz"class="m-3 p-2 form-control-lg rounded shadow" placeholder="Objektivni nalaz" name="" id="objektivni-nalaz" cols="50" rows="10"></textarea>
-                
-                <button *ngIf="showButton" (click)="onButtonClick()" type="button" class="btn btn-secondary rounded-pill">Dodati dijagnoze</button>
-        
-            </div>
-            <div *ngIf="expand" class="col-md-2">
-                <label>Dijagnoza-sifra bolesti:</label>
-                <select formControlName="sifraBolesti" class="form-select" id="sifra-bolesti" name="language">
-                    <option value="A15.3">A15.3</option>
-                    <option value="D50">D50</option>
-                    <option value="I10">I10</option>
-                    <option value="I35.0">I35.0</option>
-                    <option value="J11">J11</option>
-                    <option value="J12.9">J12.9</option>
-                    <option value="K35">K35</option>
-                    <option value="K70.3">K70.3</option>
-                    <option value="K71.0">K71.0</option>
-                    <option value="N20.0">N20.0</option>
-                </select>
-                <br>
-                <label >Rezultat lečenja:</label>
-                <select formControlName="rezultatLecenja" class="form-select" id="rezultat-lecenja" name="language">
-                    <option value="U toku">U toku</option>
-                    <option value="Oporavljen">Oporavljen</option>
-                    <option value="Preminuo">Preminuo</option>
-                    <option value="Stalne posledice">Stalne posledice</option>
-                </select>
+    <hr class="my-4">
+
+    <h4 class="mb-3">Predlaganje terapije:</h4>
+    <div class="row mb-3">
+        <div class="col-md-6 form-floating gx-1">
+            <textarea formControlName="predlaganjeTerapije" class="h-100 form-control rounded" placeholder="Terapija"
+                id="formFloatingTerapija" rows="10"></textarea>
+            <label for="formFloatingTerapija">Terapija</label>
+        </div>
+        <div class="col-md-6 form-floating gx-1">
+            <textarea formControlName="savet" class="h-100 form-control rounded" placeholder="Savet"
+                id="formFloatingSavet" rows="10"></textarea>
+            <label for="formFloatingSavet">Savet</label>
+        </div>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col form-floating">
+            <div *ngIf="isSpecial" class="form-check">
+                <input formControlName="izvestajPoveljiv" class="form-check-input" type="checkbox" value=""
+                    id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">
+                    Izveštaj pregleda poverljiv
+                </label>
             </div>
 
-            <div *ngIf="expand" class="col-md-5">
-                <textarea formControlName="opisStanja" class="p-2 m-3 form-control-lg rounded shadow" placeholder="Opis tekućeg stanja" name="" id="" cols="50" rows="10"></textarea>
-                <div class="p-2 m-3 form-check">
-                    <input formControlName="postojecaDijagnoza" class="form-check-input" type="checkbox" id="exampleCheckbox">
-                    <label class="form-check-label" for="exampleCheckbox">Postojeća dijagnoza</label>
-                </div>
-            </div>
         </div>
-      </div>
-      <br>
-      <h3>Predlaganje terapije:</h3>
-      <div class="container">
-        <div class="row">
-            <div class="col-md-6 form-floating">
-                <textarea formControlName="predlaganjeTerapije" class="m-3 p-2 form-control-lg rounded shadow" placeholder="Predlaganje terapije" name="" id="" cols="50" rows="10"></textarea>
-            </div>
-            <div class="col-md-6 form-floating">
-                <textarea formControlName="savet" class="m-3 p-2 form-control-lg rounded shadow" placeholder="Savet" name="" id="" cols="50" rows="10"></textarea>
-            </div> 
-        </div>
-      </div>
-      <br>
-      <div class="container">
-        <div class="row">
-            <div class="col-md-11 form-floating">
-                <div *ngIf="isSpecial" class="form-check">
-                    <input formControlName="izvestajPoveljiv" class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                    <label class="form-check-label" for="defaultCheck1">
-                        Izveštaj pregleda poverljiv
-                    </label>
-                  </div>
-                  
-            </div>
-            <div class="col-md-1 form-floating">
-                <button class="btn btn-danger" type="button" (click)="open(mymodal)">SAČUVAJ</button>
-            </div>
-        </div>
-      </div>
+    </div>
 
-   
+    <div class="row">
+        <div class="col">
+            <button class="btn btn-lg btn-block btn-primary w-100" type="button"
+                (click)="open(mymodal)">SAČUVAJ</button>
+        </div>
+    </div>
+
+
+
     <ng-template #mymodal let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">{{modalTitle}}</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">×</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        {{modalBody}}
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">{{modalButton}}</button>
-    </div>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-title">{{modalTitle}}</h4>
+            <button type="button" class="btn-close" aria-describedby="modal-title"
+                (click)="modal.dismiss('Cross click')">
+            </button>
+        </div>
+        <div class="modal-body">
+            <p>
+                <strong>{{modalBody}}</strong>
+            </p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-primary"
+                (click)="modal.close('Save click')">{{modalButton}}</button>
+        </div>
     </ng-template>
-    
-    
 </form>

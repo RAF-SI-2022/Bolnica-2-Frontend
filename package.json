@@ -30,6 +30,7 @@
     "@popperjs/core": "^2.10.2",
     "bootstrap": "^5.2.0",
     "bootstrap-icons": "^1.10.3",
+    "bootswatch": "^5.2.3",
     "jquery": "^3.6.3",
     "jwt-decode": "^3.1.2",
     "ngx-smart-modal": "^7.4.1",

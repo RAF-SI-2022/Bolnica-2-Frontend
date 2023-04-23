@@ -1,7 +1,7 @@
-export interface SchedMedExamRequest {
+export interface CreateSchedMedExamRequest {
     lbp: string;
     lbzDoctor: string;
-    appointmentDate: Date;
+    appointmentDate: string;
     note: string;
     lbzNurse: string;
 }

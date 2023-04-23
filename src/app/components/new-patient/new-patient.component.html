@@ -21,7 +21,7 @@
   <div class="row g-3 mb-3">
     <div class="col-md-2 form-floating gx-1">
       <input formControlName="parentName" type="text" class="form-control" id="floatingImeRoditelja" placeholder="ImeRoditelja" />
-      <label for="floatingImeRoditelja">ImeRoditelja</label>
+      <label for="floatingImeRoditelja">Ime roditelja</label>
       <div *ngIf="submitted && newpatientForm.get('parentName')?.errors?.required"
            class="validation-error small alert alert-danger">
         Ime roditelja je obavezno
@@ -81,29 +81,29 @@
     <div class="col-md-3">
       <select formControlName="citizenshipCountry" class="form-select" aria-label="Default select example">
         <option disabled selected value>Zemlja Državljanstva</option>
-        <option value="AFG">Afghanistan</option>
-        <option value="ALA">Åland Islands</option>
-        <option value="ALB">Albania</option>
-        <option value="DZA">Algeria</option>
+        <option value="AFG">Avganistan</option>
+        <option value="ALA">Olandska ostrva</option>
+        <option value="ALB">Albanija</option>
+        <option value="DZA">Alžir</option>
 
-        <option value="BHS">Bahamas</option>
-        <option value="BEL">Belgium</option>
-        <option value="BIH">Bosnia and Herzegovina</option>
+        <option value="BHS">Bahami</option>
+        <option value="BEL">Belgija</option>
+        <option value="BIH">Bosna i Hercegovina</option>
         <option value="BRA">Brazil</option>
-        <option value="BGR">Bulgaria</option>
+        <option value="BGR">Bugarska</option>
 
-        <option value="CMR">Cameroon</option>
-        <option value="CAN">Canada</option>
-        <option value="CHL">Chile</option>
-        <option value="CHN">China</option>
-        <option value="HRV">Croatia</option>
-        <option value="CUB">Cuba</option>
-        <option value="DNK">Denmark</option>
-        <option value="EGY">Egypt</option>
-        <option value="FRA">France</option>
+        <option value="CMR">Kamerun</option>
+        <option value="CAN">Kanada</option>
+        <option value="CHL">Čile</option>
+        <option value="CHN">Kina</option>
+        <option value="HRV">Hrvatska</option>
+        <option value="CUB">Kuba</option>
+        <option value="DNK">Danska</option>
+        <option value="EGY">Egipat</option>
+        <option value="FRA">Francuska</option>
 
-        <option value="SRB">Serbia</option>
-        <option value="SVN">Slovenia</option>
+        <option value="SRB">Srbija</option>
+        <option value="SVN">Slovenija</option>
 
       </select>
       <div *ngIf="submitted && newpatientForm.get('citizenshipCountry')?.errors?.required" class="validation-error small alert alert-danger">Zemlja Drzavljanstva je obavezna</div>
@@ -111,29 +111,29 @@
     <div class="col-md-3">
       <select formControlName="countryOfLiving" class="form-select" aria-label="Default select example">
         <option disabled selected value>Zemlja stanovanja</option>
-        <option value="AFG">Afghanistan</option>
-        <option value="ALA">Åland Islands</option>
-        <option value="ALB">Albania</option>
-        <option value="DZA">Algeria</option>
+        <option value="AFG">Avganistan</option>
+        <option value="ALA">Olandska ostrva</option>
+        <option value="ALB">Albanija</option>
+        <option value="DZA">Alžir</option>
 
-        <option value="BHS">Bahamas</option>
-        <option value="BEL">Belgium</option>
-        <option value="BIH">Bosnia and Herzegovina</option>
+        <option value="BHS">Bahami</option>
+        <option value="BEL">Belgija</option>
+        <option value="BIH">Bosna i Hercegovina</option>
         <option value="BRA">Brazil</option>
-        <option value="BGR">Bulgaria</option>
+        <option value="BGR">Bugarska</option>
 
-        <option value="CMR">Cameroon</option>
-        <option value="CAN">Canada</option>
-        <option value="CHL">Chile</option>
-        <option value="CHN">China</option>
-        <option value="HRV">Croatia</option>
-        <option value="CUB">Cuba</option>
-        <option value="DNK">Denmark</option>
-        <option value="EGY">Egypt</option>
-        <option value="FRA">France</option>
+        <option value="CMR">Kamerun</option>
+        <option value="CAN">Kanada</option>
+        <option value="CHL">Čile</option>
+        <option value="CHN">Kina</option>
+        <option value="HRV">Hrvatska</option>
+        <option value="CUB">Kuba</option>
+        <option value="DNK">Danska</option>
+        <option value="EGY">Egipat</option>
+        <option value="FRA">Francuska</option>
 
-        <option value="SRB">Serbia</option>
-        <option value="SVN">Slovenia</option>
+        <option value="SRB">Srbija</option>
+        <option value="SVN">Slovenija</option>
 
       </select>
       <div *ngIf="submitted && newpatientForm.get('countryOfLiving')?.errors?.required" class="validation-error small alert alert-danger">Zemlja stanovanja je obavezna</div>
