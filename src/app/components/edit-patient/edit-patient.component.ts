@@ -127,7 +127,7 @@ export class EditPatientComponent implements OnInit {
         next: (res) => {
           console.log(res);
           this.router.navigate(['/search-patients']).then(() => {
-            this.toast.success('Uspešno ste ažurirali zaposlenog');
+            this.toast.success('Uspešno ste ažurirali pacijenta');
           })
         },
         error: (e) => {

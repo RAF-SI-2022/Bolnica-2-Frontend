@@ -31,13 +31,16 @@ import { MedicalHistoryRecordComponent } from './components/health-records/medic
 import { FullMedicalHistoryComponent } from './components/health-records/full-medical-history/full-medical-history.component';
 import { IllnessHistoryRecordComponent } from './components/health-records/illness-history-record/illness-history-record.component';
 import { ScheduledAppointmentsComponent } from './components/scheduled-appointments/scheduled-appointments.component'
+import { ReferralHistoryComponent } from './components/referral-history/referral-history.component';
 import { SpecialistDoctorExaminationComponent } from './components/specialist-doctor-examination/specialist-doctor-examination.component';
 import { EditPatientComponent } from './components/edit-patient/edit-patient.component';
 import { GenderPipe } from './pipe/gender.pipe';
-import { NewReferralComponent } from './new-referral/new-referral.component';
 import { DateOfBirthToAgePipe } from './pipe/date-of-birth-to-age.pipe';
 import { ScheduledPatientsComponent } from './components/scheduled-patients/scheduled-patients.component';
 import { NewWorkOrderComponent } from './components/new-work-order/new-work-order.component';
+import { NewLabVisitComponent } from './components/lab-visits/new-lab-visit/new-lab-visit.component';
+import { LabVisitsComponent } from './components/lab-visits/lab-visits.component';
+import { NewReferralComponent } from './components/new-referral/new-referral.component';
 
 
 @NgModule({
@@ -54,6 +57,7 @@ import { NewWorkOrderComponent } from './components/new-work-order/new-work-orde
     NewAppointmentComponent,
     SearchPatientsComponent,
     NewPatientComponent,
+    ReferralHistoryComponent,
     SpecialistDoctorExaminationComponent,
     NewPatientComponent,
     HealthRecordComponent,
@@ -67,7 +71,9 @@ import { NewWorkOrderComponent } from './components/new-work-order/new-work-orde
     ScheduledPatientsComponent,
     NewWorkOrderComponent,
     NewReferralComponent,
-    DateOfBirthToAgePipe
+    DateOfBirthToAgePipe,
+    NewLabVisitComponent,
+    LabVisitsComponent
   ],
   imports: [
     BrowserModule,

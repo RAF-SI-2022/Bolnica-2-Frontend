@@ -20,7 +20,7 @@
             <div class="col-md-4">
                 <select formControlName="hospital" class="form-select">
                     <option disabled selected value>Zdravstvena ustanova</option>
-                    <option>KBC Dragisa Misovic</option>
+                    <option *ngFor="let hospital of hospitalsWithLab">{{ hospital.hospitalResponse.fullName }}</option>
                 </select>
                 <div *ngIf="labFormSubmitted && labForm.get('hospital')?.errors?.required" class="validation-error small alert alert-danger">Odaberite zdravstvenu ustanovu</div>
             </div>
@@ -29,8 +29,20 @@
             <div class="col-md-4">
                 <h6>Laboratorijske analize</h6>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" formArrayName="labAnalysis" (change)="onLabAnalysisCheckboxChange($event)" value="labAnalysis1" id="labAnalysis1">
-                    <label class="form-check-label" for="labAnalysis1">Lab. analiza 1</label>
+                    <input class="form-check-input" type="checkbox" formArrayName="labAnalysis" (change)="onLabAnalysisCheckboxChange($event)" value="Glukoza" id="labAnalysis1">
+                    <label class="form-check-label" for="labAnalysis1">Glukoza</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" formArrayName="labAnalysis" (change)="onLabAnalysisCheckboxChange($event)" value="Gvožđe" id="labAnalysis2">
+                    <label class="form-check-label" for="labAnalysis2">Gvožđe</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" formArrayName="labAnalysis" (change)="onLabAnalysisCheckboxChange($event)" value="Lipidni status" id="labAnalysis3">
+                    <label class="form-check-label" for="labAnalysis3">Lipidni status</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" formArrayName="labAnalysis" (change)="onLabAnalysisCheckboxChange($event)" value="Enzimi" id="labAnalysis4">
+                    <label class="form-check-label" for="labAnalysis4">Enzimi</label>
                 </div>
                 <div *ngIf="labFormSubmitted && labForm.get('labAnalysis')?.errors?.required" class="validation-error small alert alert-danger">
                     Odaberite bar jednu laboratorijsku analizu
@@ -51,7 +63,7 @@
             <div class="col-md-4">
                 <select formControlName="hospital" class="form-select">
                     <option disabled selected value>Zdravstvena ustanova</option>
-                    <option>KBC Dragisa Misovic</option>
+                    <option *ngFor="let hospital of hospitalsWithDiag">{{ hospital.hospitalResponse.fullName }}</option>
                 </select>
                 <div *ngIf="diagFormSubmitted && diagForm.get('hospital')?.errors?.required" class="validation-error small alert alert-danger">Odaberite zdravstvenu ustanovu</div>
             </div>
@@ -89,7 +101,7 @@
             <div class="col-md-4">
                 <select formControlName="hospital" class="form-select">
                     <option disabled selected value>Zdravstvena ustanova</option>
-                    <option>KBC Dragisa Misovic</option>
+                    <option *ngFor="let hospital of hospitalsWithStacionar">{{ hospital.hospitalResponse.fullName }}</option>
                 </select>
                 <div *ngIf="stacionarFormSubmitted && stacionarForm.get('hospital')?.errors?.required" class="validation-error small alert alert-danger">Odaberite zdravstvenu ustanovu</div>
             </div>

@@ -1,0 +1,114 @@
+<div class="p-5">
+	<h3>Istorija uputa</h3>
+	<h3 *ngIf="patient !== undefined" class="mb-4">
+		<i class="bi bi-person-circle" style="margin-right: 8px;"></i>
+		{{patient.firstName + " " + patient.lastName}}
+		<span class="badge bg-info" style="margin-left: 15px;">
+			{{patient.gender.notation | genderPipe}}, {{patient.birthDate | dateOfBirthToAge}}
+		</span>
+	</h3>
+	<div class="row">
+		<div class="col-lg-3">
+			<form [formGroup]="searchReferralForm" class="p-3 border rounded-3 bg-light">
+				<div class="mb-2">
+					<label for="od">Datum od</label>
+					<input formControlName="startDate" class="form-control" type="date" placeholder="startDate">
+				</div>
+				<div class="mb-2">
+					<label for="do">Datum do</label>
+					<input formControlName="endDate" class="form-control" type="date" placeholder="endDate">
+				</div>
+				<div *ngIf="dateError" class="validation-error small alert alert-danger">
+					Unesite ili oba datuma ili nijedan
+				</div>
+				<hr class="my-4">
+				<button (click)="search()" class="btn btn-md btn-primary w-100" type="submit">Pretraži</button>
+			</form>
+		</div>
+		<div class="col-lg-9 table-responsive">
+			<table class="table table-light table-hover">
+				<thead>
+					<tr>
+						<th scope="col">ID</th>
+						<th scope="col">Tip</th>
+						<th scope="col">Lekar</th>
+						<th scope="col">Datum</th>
+						<th scope="col">Iz odeljenja</th>
+						<th scope="col">U odeljenje</th>
+						<th scope="col">Status</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr (click)="selectCurrentReferral(referral)" *ngFor="let referral of referrals">
+						<td>{{referral.id}}</td>
+						<td>{{referral.type.notation}}</td>
+                        <td>{{getDoctorByLbz(referral.lbz)}}</td>
+						<td>{{referral.creationTime | date: 'dd.MM.yyyy, HH:mm'}}</td>
+						<td>{{getDepartmentByPbo(referral.pboReferredFrom)}}</td>
+						<td>{{getDepartmentByPbo(referral.pboReferredTo)}}</td>
+						<td>{{referral.status.notation}}</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="d-flex justify-content-center p-2">
+				<ngb-pagination
+					[collectionSize]="collectionSize"
+					[(page)]="page"
+					[pageSize]="pageSize"
+					(pageChange)="search()"
+				>
+				</ngb-pagination>
+			</div>
+		</div>
+	</div>
+	<div *ngIf="currentReferral !== undefined" class="container p-4 border rounded-3 bg-light mt-4 mb-4" id="printable">
+		<div class="row mb-3">
+			<div class="col-md-3 form-floating gx-1">
+				<input [value]="currentReferral.status.notation" disabled type="text" class="form-control" id="floatingBrojPoseta" placeholder="Broj poseta" readonly>
+                <label for="floatingBrojPoseta">Status</label>
+			</div>
+			<div class="col-md-3 form-floating gx-1">
+				<input [value]="currentReferral.type.notation" disabled type="text" class="form-control" id="floatingBrojPoseta" placeholder="Broj poseta" readonly>
+                <label for="floatingBrojPoseta">Tip</label>
+			</div>
+		</div>
+		<div class="row mb-3">
+			<div class="col-md-3 form-floating gx-1">
+				<input [value]="currentReferral.creationTime | date: 'dd.MM.yyyy, HH:mm'" disabled type="text" class="form-control" id="floatingBrojPoseta" placeholder="Broj poseta" readonly>
+                <label for="floatingBrojPoseta">Datum i vreme kreiranja</label>
+			</div>
+			<div class="col-md-3 form-floating gx-1">
+				<input [value]="getDoctorByLbz(currentReferral.lbz)" disabled type="text" class="form-control" id="floatingBrojPoseta" placeholder="Broj poseta" readonly>
+                <label for="floatingBrojPoseta">Lekar</label>
+			</div>
+			<div class="col-md-3 form-floating gx-1">
+				<input [value]="getDepartmentByPbo(currentReferral.pboReferredFrom)" disabled type="text" class="form-control" id="floatingBrojPoseta" placeholder="Broj poseta" readonly>
+                <label for="floatingBrojPoseta">Iz odeljenja</label>
+			</div>
+			<div class="col-md-3 form-floating gx-1">
+				<input [value]="getDepartmentByPbo(currentReferral.pboReferredTo)" disabled type="text" class="form-control" id="floatingBrojPoseta" placeholder="Broj poseta" readonly>
+                <label for="floatingBrojPoseta">U odeljenje</label>
+			</div>
+		</div>
+		<div class="row mb-3">
+			<div class="col-md-3 form-floating gx-1">
+				<input [value]="currentReferral.comment" disabled type="text" class="form-control" id="floatingBrojPoseta" placeholder="Broj poseta" readonly>
+                <label for="floatingBrojPoseta">Komentar</label>
+			</div>
+			<div class="col-md-3 form-floating gx-1">
+				<input [value]="currentReferral.referralReason" disabled type="text" class="form-control" id="floatingBrojPoseta" placeholder="Broj poseta" readonly>
+                <label for="floatingBrojPoseta">Uputni razlog</label>
+			</div>
+			<div class="col-md-3 form-floating gx-1">
+				<input [value]="currentReferral.referralDiagnosis" disabled type="text" class="form-control" id="floatingBrojPoseta" placeholder="Broj poseta" readonly>
+                <label for="floatingBrojPoseta">Uputna dijagnoza</label>
+			</div>
+			<div class="col-md-3 form-floating gx-1">
+				<input [value]="currentReferral.requiredAnalysis" disabled type="text" class="form-control" id="floatingBrojPoseta" placeholder="Broj poseta" readonly>
+                <label for="floatingBrojPoseta">Zahtevana analiza (za laboratoriju)</label>
+			</div>
+		</div>
+		<button (click)="print()" class="btn btn-primary">Odštampaj</button>
+		<button (click)="deleteReferral(currentReferral.id)" [disabled]="isReferralDeleteable(currentReferral.lbz)" class="btn btn-danger ms-3">Obriši uput</button>
+	</div>
+</div>
