@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AppointedPatient, AppointedPatients } from 'src/app/dto/response/appointed.patient';
+import { AppointedPatient } from 'src/app/dto/response/appointed.patient';
 import { EmployeesService } from 'src/app/service/employee.service';
 import { HotToastService } from '@ngneat/hot-toast';
 import { ScheduledAppointmentService } from 'src/app/service/scheduled-appointment.service';
@@ -33,18 +33,20 @@ export class ScheduledPatientsComponent implements OnInit {
     this.refreshEmployees();
   }
 
-  changeExaminationStatus(status:string,lbp :  string,appointmentDate : Date):void{
+  changeExaminationStatus(id:number,status:string):void{
 
-    //promeni
-    /*const year= appointmentDate.getFullYear().toString();
-    const month= appointmentDate.getMonth().toString();
-    const day=appointmentDate.getDate().toString();*/
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    const currentDate = `${year}-${month}-${day}`;
 
-    this.scheduledAppointmentService.changeExaminationStatus(status,
-      lbp,''/*+year+"-"+month+"-"+day*/
+    this.scheduledAppointmentService.changeExaminationStatus(id,status,
+      
     ).subscribe({
       next: (res) => {
         this.toast.success('Uspešno ste otkazali pregled');
+        this.refreshEmployees();
       },
       error: (e) => {
         this.toast.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
@@ -58,34 +60,44 @@ export class ScheduledPatientsComponent implements OnInit {
 
   refreshEmployees(): void {
     const val = this.LBPForm.value;
-    /*const year= new Date().getFullYear().toString();
-    const month= new Date().getMonth().toString();
-    const day=new Date().getDate().toString();
+
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    const currentDate = `${year}-${month}-${day}`;
     
-    console.log("DATUM"+ year+"-"+month+"-"+day)*/
     let lbp 
     if(!val.LBP)
       lbp= localStorage.getItem('patientLBP')
     else
       lbp=val.LBP
-
+    if(!lbp)
+      lbp=''
+    
+    
     this.scheduledAppointmentService.getScheduledLabAppointments(
-      lbp,''/*year+"-"+month+"-"+day*/
+      lbp,currentDate
     ).subscribe({
       next: (res) => {
-        const response = res as AppointedPatients;
-        this.paginatedSchedules = response.userList;
-        this.collectionSize = response.count;
+        
+        const response :AppointedPatient[] = res;
+        if (response.length) 
+          this.paginatedSchedules = response;
+        else{
+          this.toast.error('Nema zakazanih pregleda');
+        }
       },
       error: (e) => {
         this.toast.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
+        this.paginatedSchedules=[];
       }
     });
   }
 
-  makeWorkOrder(status:string,lbp :  string,appointmentDate : Date){
-    this.scheduledAppointmentService.changeExaminationStatus(status,
-      lbp,''/*+year+"-"+month+"-"+day*/
+  makeWorkOrder(id:number,status:string,lbp :  string){
+
+    this.scheduledAppointmentService.changeExaminationStatus(id,status,
     ).subscribe({
       next: (res) => {
         this.router.navigate(['/new-work-order'], { queryParams: { lbp } });
@@ -95,5 +107,4 @@ export class ScheduledPatientsComponent implements OnInit {
       }
     });
   }
-
 }

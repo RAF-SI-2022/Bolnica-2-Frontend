@@ -1,1 +1,51 @@
-<p>new-work-order works!</p>
+<div class="p-5">
+	<div class="row">
+		<div class="col-lg-3">
+			<form [formGroup]="LBPForm" class="p-3 border rounded-3 bg-light">
+				<div class="mb-1">
+					<input formControlName="LBP" class="form-control" type="text" placeholder="LBP">
+				</div>
+				<hr class="my-4">
+				<button (click)="search()" class="btn btn-md btn-primary w-100" type="submit">Pretraži</button>
+			</form>
+		</div>
+		<div class="col-lg-9 table-responsive">
+			<table class="table table-striped">
+                <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Ime</th>
+                      <th>Strings</th>
+					  <th>Datum</th>
+                    </tr>
+                  </thead>
+				<tbody>
+					<tr *ngFor="let item of data">
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.name }}</td>
+						<td>{{ item.date }}</td>
+                        <td>
+                          <ul>
+                            <li *ngFor="let string of item.strings">{{ string }}</li>
+                          </ul>
+                        </td>
+
+						<td><button *ngIf="checkIfValidDate(item.date)"
+							ngbAutofocus class="btn btn-sm btn-primary">Napravi nalog</button></td>
+
+					</tr>
+				</tbody>
+			</table>
+			<div class="d-flex justify-content-center p-2">
+				<!--<ngb-pagination
+					[collectionSize]="collectionSize"
+					[(page)]="page"
+					[pageSize]="pageSize"
+					(pageChange)="refreshEmployees()"
+				>
+				</ngb-pagination>-->
+			</div>
+		</div>
+	</div>
+
+</div>

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SCHED_MED_EXAM_ENDPOINT,SCHED_LAB_EXAM_ENDPOINT, USER_URL } from '../app.constants';
 import { DoctorsResponse, SchedluedAppointmentsResponse } from '../dto/response/scheduled-appointment-response';
-import { AppointedPatients } from '../dto/response/appointed.patient';
+import { AppointedPatient } from '../dto/response/appointed.patient';
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +37,7 @@ export class ScheduledAppointmentService {
           let token = localStorage.getItem('token')
           let authHeader = 'Bearer ' + token;
 
-          return this.httpClient.get<AppointedPatients>(SCHED_LAB_EXAM_ENDPOINT+"?lbp="+lbp+"&date="+date, {
+          return this.httpClient.get<AppointedPatient[]>(SCHED_LAB_EXAM_ENDPOINT+'/scheduled'+"?lbp="+lbp+"&date="+date, {
             headers: {
                 'Authorization': authHeader
             }
@@ -45,16 +45,19 @@ export class ScheduledAppointmentService {
       }
     }
 
-    //promeni dodaj promeni statusa
-    changeExaminationStatus(status:string,lbp:string,date:string){
+    changeExaminationStatus(id:number,status:string){
       {
         let token = localStorage.getItem('token')
         let authHeader = 'Bearer ' + token;
 
-        return this.httpClient.put<AppointedPatients>(SCHED_LAB_EXAM_ENDPOINT+"?lbp="+lbp+"date="+date, {
+        return this.httpClient.put<AppointedPatient>(SCHED_LAB_EXAM_ENDPOINT+'/status',{
+          id:id,
+          status:status
+        }, {
           headers: {
               'Authorization': authHeader
-          }
+          },
+          
       });
     }
   }
@@ -68,5 +71,7 @@ export class ScheduledAppointmentService {
               'Authorization': authHeader
           }
       });
-      }
+    }
+
+    
 }
