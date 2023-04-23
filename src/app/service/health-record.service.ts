@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { HEALTH_RECORD_ENDPOINT, SCHED_MED_EXAM_ENDPOINT } from '../app.constants';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HEALTH_RECORD_ENDPOINT, ORDER_ENDPOINT, SCHED_MED_EXAM_ENDPOINT } from '../app.constants';
 import {
   AllergenResponse,
   HealthRecordResponse,
@@ -16,6 +16,7 @@ import {
 } from "../dto/request/health-record.request";
 import {constrainPoint} from "@fullcalendar/core/internal";
 import { UnprocessedReferral } from '../dto/response/unprocessed.refferal';
+import { map, pipe } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -145,4 +146,19 @@ export class HealthRecordService {
           }
       });
   }
+
+  createWorkOrder(orderId:string){
+
+    let token = localStorage.getItem('token')
+    let authHeader = 'Bearer ' + token;
+    return this.httpClient.post<any>(ORDER_ENDPOINT+"/verify/"+orderId, {
+      headers: {
+          'Authorization': authHeader
+      }
+  }).pipe(
+    map((response: HttpResponse<any>) => {
+      return response.status;
+    })
+  );
+}
 }

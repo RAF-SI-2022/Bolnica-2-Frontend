@@ -30,7 +30,7 @@
                           </ul>
                         </td>
 
-						<td><button *ngIf="checkIfValidDate(item.date)"
+						<td><button *ngIf="checkIfValidDate(item.date)" (click)="makeWorkOrder(item.date)"
 							ngbAutofocus class="btn btn-sm btn-primary">Napravi nalog</button></td>
 
 					</tr>

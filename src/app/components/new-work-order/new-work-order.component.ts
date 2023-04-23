@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HotToastService } from '@ngneat/hot-toast';
 import { UnprocessedReferral } from 'src/app/dto/response/unprocessed.refferal';
 import { EmployeesService } from 'src/app/service/employee.service';
@@ -23,7 +24,8 @@ export class NewWorkOrderComponent implements OnInit {
     private employeesService: EmployeesService,
     private toast: HotToastService,
     private route: ActivatedRoute,
-    private healthService: HealthRecordService) {
+    private healthService: HealthRecordService,
+    private modalService: NgbModal) {
     let routeParam=this.route.snapshot.queryParamMap.get('lbp');
     
     this.LBPForm = this.formBuilder.group({
@@ -82,7 +84,7 @@ export class NewWorkOrderComponent implements OnInit {
         if (response.length) 
           this.paginatedRefferals = response;
         else
-          this.toast.error('Nema laboratorijskih uputa');//promeni
+          this.toast.error('Nema laboratorijskih uputa');
       },
       error: (e) => {
         this.toast.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
@@ -100,8 +102,50 @@ export class NewWorkOrderComponent implements OnInit {
     else
       return false;
   }
-  makeWorkOrder(date:Date){
-
+  makeWorkOrder(orderId:string){
+    this.modalService.open(NgbdModalConfirm).result.then((data) => {
+      this.healthService.createWorkOrder(orderId).subscribe(
+        status => {
+          if(status>=400 && status<600)
+            this.toast.success('Pravljenje naloga nije uspelo');
+          else
+            this.toast.error('Pravljenje naloga nije uspelo');
+        },
+        error => {
+          this.toast.error('Pravljenje naloga nije uspelo');
+        }
+      );
+    }, (dismiss) => {
+      
+    });
   }
 
+}
+@Component({
+	selector: 'ngbd-modal-confirm',
+	standalone: true,
+	template: `
+		<div class="modal-header">
+			<h4 class="modal-title" id="modal-title">Pravljenje radnog naloga</h4>
+			<button
+				type="button"
+				class="btn-close"
+				aria-describedby="modal-title"
+				(click)="modal.dismiss('Cross click')"
+			></button>
+		</div>
+		<div class="modal-body">
+			<p>
+				<strong>Da li ste sigurni da želite da napravite radni nalog </strong>
+			</p>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Otkaži</button>
+			<button type="button" class="btn btn-primary" (click)="modal.close('Ok click')">Napravi</button>
+		</div>
+	`,
+})
+export class NgbdModalConfirm {
+    constructor(public modal: NgbActiveModal) {
+    }
 }

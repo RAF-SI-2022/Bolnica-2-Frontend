@@ -30,7 +30,6 @@ import { ReferralHistoryComponent } from './components/referral-history/referral
 import { SpecialistDoctorExaminationComponent } from './components/specialist-doctor-examination/specialist-doctor-examination.component';
 import { ScheduledAppointmentsComponent } from './components/scheduled-appointments/scheduled-appointments.component';
 import { EditPatientComponent } from './components/edit-patient/edit-patient.component';
-import { NewReferralComponent } from './new-referral/new-referral.component';
 import { ScheduledPatientsComponent } from './components/scheduled-patients/scheduled-patients.component';
 import { NewWorkOrderComponent } from './components/new-work-order/new-work-order.component';
 import { NewLabVisitComponent } from './components/lab-visits/new-lab-visit/new-lab-visit.component';
@@ -165,6 +164,7 @@ const routes: Routes = [
     canActivate:[AuthGuard,PermissionGuard],
     data:{permissions:['ROLE_LAB_TEHNICAR', 'ROLE_VISI_LAB_TEHNICAR']}
   },
+  {
     path: 'lab-visits',
     component: LabVisitsComponent,
     canActivate: [AuthGuard, PermissionGuard],
