@@ -25,6 +25,8 @@ import {
 import {
   IllnessHistoryRecordComponent
 } from "./components/health-records/illness-history-record/illness-history-record.component";
+import { ReferralHistoryComponent } from './components/referral-history/referral-history.component';
+
 import { SpecialistDoctorExaminationComponent } from './components/specialist-doctor-examination/specialist-doctor-examination.component';
 import { ScheduledAppointmentsComponent } from './components/scheduled-appointments/scheduled-appointments.component';
 import { EditPatientComponent } from './components/edit-patient/edit-patient.component';
@@ -159,6 +161,12 @@ const routes: Routes = [
     component: NewLabVisitComponent,
     canActivate: [AuthGuard, PermissionGuard],
     data: { permissions: ['ROLE_VISI_LAB_TEHNICAR', 'ROLE_LAB_TEHNICAR'] }
+  },
+  {
+    path: 'referral-history/:lbp',
+    component: ReferralHistoryComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA','ROLE_DR_SPEC','ROLE_DR_SPEC_POV'] }
   }
 ];
 
