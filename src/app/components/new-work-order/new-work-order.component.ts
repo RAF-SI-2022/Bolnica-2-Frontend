@@ -14,11 +14,11 @@ import { HealthRecordService } from 'src/app/service/health-record.service';
   styleUrls: ['./new-work-order.component.css']
 })
 export class NewWorkOrderComponent implements OnInit {
-
-  data:any = [];
   LBPForm: FormGroup;
-  paginatedRefferals: UnprocessedReferral[] = [];
 
+  lbp: string = '';
+
+  referrals: any;
 
   constructor(private formBuilder: FormBuilder,
     private router: Router,
@@ -28,11 +28,15 @@ export class NewWorkOrderComponent implements OnInit {
     private healthService: HealthRecordService,
     private modalService: NgbModal) {
     let routeParam=this.route.snapshot.queryParamMap.get('lbp');
-    
+
     this.LBPForm = this.formBuilder.group({
       LBP: [routeParam,Validators.required],
     });
 
+    this.route.params.subscribe(param => {
+      this.lbp = param.lbp;
+      this.LBPForm.get('LBP')?.setValue(this.lbp);
+    })
    }
 
   ngOnInit(): void {
@@ -43,24 +47,27 @@ export class NewWorkOrderComponent implements OnInit {
   }
 
   refreshEmployees(): void {
-    
+
     const val = this.LBPForm.value;
     let lbp=val.LBP;
+
 
     if(!lbp){
       this.toast.error('LBP nije ispravan');
       return;
     }
   
+
     this.healthService.getUnprocessedReferrals(
       lbp
     ).subscribe({
       next: (res) => {
-        
+
         const response :UnprocessedReferral[] = res;
         
         if (response.length) 
           this.paginatedRefferals = response;
+
         else
           this.toast.error('Nema laboratorijskih uputa');
       },
@@ -70,6 +77,7 @@ export class NewWorkOrderComponent implements OnInit {
     });
     
   }
+
 
   checkIfValidDate(dateCreated: Date):boolean{
     const thirtyDaysInMilliseconds = 2592000000;
@@ -93,10 +101,11 @@ export class NewWorkOrderComponent implements OnInit {
         },
         error => {
           this.toast.error('Pravljenje radnog naloga nije uspelo');
+
         }
-      );
+      })
     }, (dismiss) => {
-      
+
     });
   }
 
@@ -116,7 +125,7 @@ export class NewWorkOrderComponent implements OnInit {
 		</div>
 		<div class="modal-body">
 			<p>
-				<strong>Da li ste sigurni da želite da napravite radni nalog </strong>
+				<strong>Da li ste sigurni da želite da napravite radni nalog?</strong>
 			</p>
 		</div>
 		<div class="modal-footer">

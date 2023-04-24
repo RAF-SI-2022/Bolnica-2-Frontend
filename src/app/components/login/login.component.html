@@ -6,16 +6,16 @@
         <div class="col-md-10 mx-auto col-lg-5">
             <form [formGroup]="loginForm" class="p-4 p-md-5 border rounded-3 bg-light">
                 <div class="form-floating mb-3">
-                    <input formControlName="username" type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+                    <input formControlName="username" type="text" class="form-control" id="floatingInput" placeholder="name@example.com" data-testid="username">
                     <label for="floatingInput">Korisničko ime</label>
                     <div *ngIf="submitted && loginForm.get('username')?.errors?.required" class="validation-error small alert alert-danger">Korisničko ime je obavezno</div>
                 </div>
                 <div class="form-floating mb-3">
-                    <input formControlName="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                    <input formControlName="password" type="password" class="form-control" id="floatingPassword" placeholder="Password" data-testid="password">
                     <label for="floatingPassword">Lozinka</label>
                     <div *ngIf="submitted && loginForm.get('password')?.errors?.required" class="validation-error small alert alert-danger">Lozinka je obavezna</div>
                 </div>
-                <button (click)="login()" class="w-100 btn btn-lg btn-primary" type="submit">Uloguj se</button>
+                <button (click)="login()" class="w-100 btn btn-lg btn-primary" type="submit" data-testid="login-button">Uloguj se</button>
                 <hr class="my-4">
                 <a routerLink="/forgot-password" href="#" class="text-decoration-none">Zaboravili ste lozinku?</a>
             </form>

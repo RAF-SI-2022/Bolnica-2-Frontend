@@ -41,8 +41,12 @@ import { NewWorkOrderComponent } from './components/new-work-order/new-work-orde
 import { NewLabVisitComponent } from './components/lab-visits/new-lab-visit/new-lab-visit.component';
 import { LabVisitsComponent } from './components/lab-visits/lab-visits.component';
 import { NewReferralComponent } from './components/new-referral/new-referral.component';
+import { SearchScheduledLabVisitsComponent } from './components/lab-visits/search-scheduled-lab-visits/search-scheduled-lab-visits.component';
+import { DocLabWorkOrderHistoryComponent } from './doc-lab-work-order-history/doc-lab-work-order-history.component';
 import { SearchBiochemAccComponent } from './components/search-biochem-acc/search-biochem-acc.component';
 
+import { IssuingResultsComponent } from "./components/issuing-results/issuing-results.component";
+import { FullIssuingResultsComponent } from './components/full-issuing-results/full-issuing-results.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +79,11 @@ import { SearchBiochemAccComponent } from './components/search-biochem-acc/searc
     DateOfBirthToAgePipe,
     NewLabVisitComponent,
     LabVisitsComponent,
-    SearchBiochemAccComponent
+    SearchScheduledLabVisitsComponent,
+    DocLabWorkOrderHistoryComponent,
+    SearchBiochemAccComponent,
+    IssuingResultsComponent,
+    FullIssuingResultsComponent
   ],
   imports: [
     BrowserModule,

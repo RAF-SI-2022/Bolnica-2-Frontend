@@ -82,11 +82,11 @@
                 <label for="floatingBrojPoseta">Lekar</label>
 			</div>
 			<div class="col-md-3 form-floating gx-1">
-				<input [value]="getDepartmentByPbo(currentReferral.pboReferredFrom)" disabled type="text" class="form-control" id="floatingBrojPoseta" placeholder="Broj poseta" readonly>
+				<input [value]="getDepartmentByPbo(currentReferral.pboReferredFrom) || ''" disabled type="text" class="form-control" id="floatingBrojPoseta" placeholder="Broj poseta" readonly>
                 <label for="floatingBrojPoseta">Iz odeljenja</label>
 			</div>
 			<div class="col-md-3 form-floating gx-1">
-				<input [value]="getDepartmentByPbo(currentReferral.pboReferredTo)" disabled type="text" class="form-control" id="floatingBrojPoseta" placeholder="Broj poseta" readonly>
+				<input [value]="getDepartmentByPbo(currentReferral.pboReferredTo) || ''" disabled type="text" class="form-control" id="floatingBrojPoseta" placeholder="Broj poseta" readonly>
                 <label for="floatingBrojPoseta">U odeljenje</label>
 			</div>
 		</div>

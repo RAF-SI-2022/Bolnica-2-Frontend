@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { HEALTH_RECORD_ENDPOINT, ORDER_ENDPOINT, REFERRAL_ENDPOINT, SCHED_MED_EXAM_ENDPOINT } from '../app.constants';
+import { HEALTH_RECORD_ENDPOINT, LAB_URL, ORDER_ENDPOINT, REFERRAL_ENDPOINT, SCHED_MED_EXAM_ENDPOINT } from '../app.constants';
 import {
   AllergenResponse,
   HealthRecordResponse,
@@ -149,6 +149,7 @@ export class HealthRecordService {
   }
 
   createWorkOrder(orderId:number){
+
 
     let token = localStorage.getItem('token')
     let authHeader = 'Bearer ' + token;

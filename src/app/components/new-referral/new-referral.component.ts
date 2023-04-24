@@ -139,13 +139,16 @@ export class NewReferralComponent implements OnInit {
       mkb10 = stacionarFormValue.mkb10;
     }
 
+    const date = new Date();
+    date.setTime(date.getTime() + 10 + 60 * 60 * 1000);
+
     const createReferralRequest: CreateReferralRequest = {
       type: this.referralType!,
       lbz: localStorage.getItem('lbz')!,
       pboReferredFrom: localStorage.getItem('pbo')!,
       pboReferredTo: pboReferredTo,
       lbp: this.patient.lbp,
-      creationTime: new Date().toISOString(),
+      creationTime: date.toISOString(),
       requiredAnalysis: labAnalysis.toString(),
       comment: comment,
       referralDiagnosis: mkb10,

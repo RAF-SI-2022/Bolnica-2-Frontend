@@ -1,29 +1,18 @@
 <div class="main container mx-auto">
   <div class="row g-5 justify-content-center">
     <div class="col-md-4">
-      <div
-        routerLink="/personal-data"
-        class="card border-secondary h-100"
-        id="personal-info-card"
-      >
-        <img
-          src="../../assets/images/person-circle.svg"
-          class="card-img-top w-75 mx-auto p-3"
-          alt="..."
-        />
+      <div routerLink="/personal-data" class="card border-secondary h-100" id="personal-info-card">
+        <img src="../../assets/images/person-circle.svg" class="card-img-top w-75 mx-auto p-2" alt="..." />
         <div class="card-body">
           <h5 class="card-title">Moji podaci</h5>
           <p class="card-text">Prikaži i izmeni moje podatke.</p>
         </div>
       </div>
     </div>
+
     <div *ngIf="this.authService.hasPermission('ROLE_ADMIN')" class="col-md-4">
       <div routerLink="/search-employees" class="card border-secondary h-100">
-        <img
-          src="../../assets/images/search.svg"
-          class="card-img-top w-75 mx-auto p-3"
-          alt="..."
-        />
+        <img src="../../assets/images/search.svg" class="card-img-top w-75 mx-auto p-2" alt="..." />
         <div class="card-body">
           <h5 class="card-title">Pretraži zaposlene</h5>
           <p class="card-text">
@@ -32,131 +21,61 @@
         </div>
       </div>
     </div>
+
     <div *ngIf="this.authService.hasPermission('ROLE_ADMIN')" class="col-md-4">
       <div routerLink="/new-employee" class="card border-secondary h-100">
-        <img
-          src="../../assets/images/person-plus-fill.svg"
-          class="card-img-top w-75 mx-auto p-2"
-          alt="New employee - person with a plus"
-        />
+        <img src="../../assets/images/person-plus-fill.svg" class="card-img-top w-75 mx-auto p-2"
+          alt="New employee - person with a plus" />
         <div class="card-body">
           <h5 class="card-title">Dodaj novog zaposlenog</h5>
           <p class="card-text">Stranica za dodavanje novog zaposlenog.</p>
         </div>
       </div>
     </div>
-    <div
-      *ngIf="
-        this.authService.hasEitherPermission([
-          'ROLE_MED_SESTRA',
-          'ROLE_VISA_MED_SESTRA'
-        ])
-      "
-      class="col-md-4"
-    >
+
+    <div *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA', 'ROLE_RECEPCIONER'])" class="col-md-4">
       <div routerLink="/new-appointment" class="card border-secondary h-100">
-        <img
-          src="../../assets/images/calendar-plus.svg"
-          class="card-img-top w-75 mx-auto p-2"
-          alt="..."
-        />
+        <img src="../../assets/images/calendar-plus.svg" class="card-img-top w-75 mx-auto p-2" alt="..." />
         <div class="card-body">
           <h5 class="card-title">Zakazivanje pregleda</h5>
-          <p class="card-text">
-            Zakaži pregled u slobodnom terminu za odabranog doktora.
-          </p>
+          <p class="card-text">Zakaži pregled u slobodnom terminu za odabranog doktora.</p>
         </div>
       </div>
     </div>
-    <div
-      *ngIf="
-        this.authService.hasEitherPermission([
-          'ROLE_DR_SPEC_ODELJENJA',
-          'ROLE_DR_SPEC',
-          'ROLE_DR_SPEC_POV',
-          'ROLE_MED_SESTRA',
-          'ROLE_VISA_MED_SESTRA'
-        ])
-      "
-      class="col-md-4"
-    >
-      <div
-        routerLink="/scheduled-appointments"
-        class="card border-secondary h-100"
-      >
-        <img
-          src="../../assets/images/calendar2-check.svg"
-          class="card-img-top w-75 mx-auto p-2"
-          alt="..."
-        />
+
+    <div *ngIf="this.authService.hasEitherPermission(['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV', 'ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])" class="col-md-4">
+      <div routerLink="/scheduled-appointments" class="card border-secondary h-100">
+        <img src="../../assets/images/calendar2-check.svg" class="card-img-top w-75 mx-auto p-2" alt="..." />
         <div class="card-body">
           <h5 class="card-title">Zakazani pregledi</h5>
           <p class="card-text">Tabela zakazanih pregleda.</p>
         </div>
       </div>
     </div>
-    <div
-      *ngIf="
-        this.authService.hasEitherPermission([
-          'ROLE_DR_SPEC_ODELJENJA',
-          'ROLE_DR_SPEC',
-          'ROLE_DR_SPEC_POV',
-          'ROLE_MED_SESTRA',
-          'ROLE_VISA_MED_SESTRA'
-        ])
-      "
-      class="col-md-4"
-    >
+
+    <div *ngIf="this.authService.hasEitherPermission(['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV','ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA', 'ROLE_RECEPCIONER'])" class="col-md-4">
       <div routerLink="/search-patients" class="card border-secondary h-100">
-        <img
-          src="../../assets/images/person-lines-fill.svg"
-          class="card-img-top w-75 mx-auto p-2"
-          alt="..."
-        />
+        <img src="../../assets/images/person-lines-fill.svg" class="card-img-top w-75 mx-auto p-2" alt="..." />
         <div class="card-body">
           <h5 class="card-title">Pacijenti</h5>
-          <p class="card-text">
-            Pretraži pacijente po imenu, prezimenu, JMBG-u, LBP-u.
-          </p>
+          <p class="card-text">Pretraži pacijente po imenu, prezimenu, JMBG-u, LBP-u.</p>
         </div>
       </div>
     </div>
-    <div
-      *ngIf="
-        this.authService.hasEitherPermission([
-          'ROLE_MED_SESTRA',
-          'ROLE_VISA_MED_SESTRA'
-        ])
-      "
-      class="col-md-4"
-    >
+
+    <div *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA', 'ROLE_RECEPCIONER'])" class="col-md-4">
       <div routerLink="/new-patient" class="card border-secondary h-100">
-        <img
-          src="../../assets/images/person-plus-fill.svg"
-          class="card-img-top w-75 mx-auto p-2"
-          alt="..."
-        />
+        <img src="../../assets/images/person-plus-fill.svg" class="card-img-top w-75 mx-auto p-2" alt="..." />
         <div class="card-body">
           <h5 class="card-title">Dodaj novog pacijenta</h5>
           <p class="card-text">Stranica za dodavanje novog pacijenta.</p>
         </div>
       </div>
     </div>
-    <div
-      *ngIf="
-        this.authService.hasEitherPermission([
-          'ROLE_MED_BIOHEMICAR',
-          'ROLE_SPEC_MED_BIOHEMIJE'
-        ])
-      "
-      class="col-md-4"
-    >
+
+    <div *ngIf="this.authService.hasEitherPermission(['ROLE_MED_BIOHEMICAR','ROLE_SPEC_MED_BIOHEMIJE'])" class="col-md-4">
       <div routerLink="/search-biochem-acc" class="card border-secondary h-100">
-        <img
-          src="../../assets/images/eyedropper.svg"
-          class="card-img-top w-75 mx-auto p-2"
-          alt="..."
-        />
+        <img src="../../assets/images/eyedropper.svg" class="card-img-top w-75 mx-auto p-2" alt="..." />
         <div class="card-body">
           <h5 class="card-title">Pretraga radnih naloga</h5>
           <p class="card-text">
@@ -165,52 +84,46 @@
         </div>
       </div>
     </div>
-    <div
-      *ngIf="
-        this.authService.hasEitherPermission([
-          'ROLE_VISI_LAB_TEHNICAR',
-          'ROLE_LAB_TEHNICAR'
-        ])
-      "
-      class="col-md-4"
-    >
-      <div routerLink="/lab-visits" class="card border-secondary h-100">
-        <img
-          src="../../assets/images/hospital.svg"
-          class="card-img-top w-75 mx-auto p-2"
-          alt="..."
-        />
+
+    <div *ngIf="this.authService.hasEitherPermission(['ROLE_VISI_LAB_TEHNICAR', 'ROLE_LAB_TEHNICAR'])" class="col-md-4">
+      <div routerLink="/issuing-results" class="card border-secondary h-100">
+        <img src="../../assets/images/box-arrow-in-right.svg" class="card-img-top w-75 mx-auto p-2" alt="..." />
         <div class="card-body">
-          <h5 class="card-title">Laboratorijske posete</h5>
-          <p class="card-text">
-            Zakaži posetu laboratoriji ili pregledaj već zakazane posete.
-          </p>
+          <h5 class="card-title">Izdavanje rezultata</h5>
+          <p class="card-text">Izdavanje rezultata izvršenih laboratorijskih analiza.</p>
         </div>
       </div>
     </div>
+
+    <div *ngIf="this.authService.hasEitherPermission(['ROLE_VISI_LAB_TEHNICAR', 'ROLE_LAB_TEHNICAR'])" class="col-md-4">
+      <div routerLink="/new-lab-visit" class="card border-secondary h-100">
+        <img src="../../assets/images/calendar-plus.svg" class="card-img-top w-75 mx-auto p-2" alt="..." />
+        <div class="card-body">
+          <h5 class="card-title">Zakaži posetu</h5>
+          <p class="card-text">Zakaži novu posetu laboratoriji.</p>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="this.authService.hasEitherPermission(['ROLE_VISI_LAB_TEHNICAR', 'ROLE_LAB_TEHNICAR'])" class="col-md-4">
+      <div routerLink="/search-scheduled-lab-visits" class="card border-secondary h-100">
+        <img src="../../assets/images/calendar2-check.svg" class="card-img-top w-75 mx-auto p-2" alt="..." />
+        <div class="card-body">
+          <h5 class="card-title">Pregled zakazanih poseta</h5>
+          <p class="card-text">Pregledaj zakazane posete za određenog pacijenta određenog datuma.</p>
+        </div>
+      </div>
+    </div>
+
     <div *ngIf="this.authService.hasEitherPermission(['ROLE_VISI_LAB_TEHNICAR', 'ROLE_LAB_TEHNICAR'])" class="col-md-4">
       <div routerLink="/new-work-order" class="card border-secondary h-100">
-        <img src="../../assets/images/bi-file-text.svg"
-          class="card-img-top w-75 mx-auto p-2"
-          alt="..."
-        />
+        <img src="../../assets/images/bi-file-text.svg" class="card-img-top w-75 mx-auto p-2" alt="..." />
         <div class="card-body">
           <h5 class="card-title">Napravi novi radni nalog</h5>
           <p class="card-text">Stranica za pravljenje novog radnog naloga.</p>
         </div>
       </div>
     </div>
-    <div *ngIf="this.authService.hasEitherPermission(['ROLE_VISI_LAB_TEHNICAR', 'ROLE_LAB_TEHNICAR'])" class="col-md-4">
-      <div routerLink="/scheduled-patients" class="card border-secondary h-100">
-        <img src="../../assets/images/bi-layout-text-sidebar-reverse.svg"
-          class="card-img-top w-75 mx-auto p-2"
-          alt="..."
-        />
-        <div class="card-body">
-          <h5 class="card-title">Zakaži pacijente</h5>
-          <p class="card-text">Stranica za zakazivanje pacijenata.</p>
-        </div>
-      </div>
-    </div>
+
   </div>
 </div>

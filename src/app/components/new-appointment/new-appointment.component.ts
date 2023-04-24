@@ -16,6 +16,7 @@ import { PatientResponse } from 'src/app/dto/response/patient.response';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { ScheduledAppointmentService } from 'src/app/service/scheduled-appointment.service';
 import { DoctorsResponse } from 'src/app/dto/response/scheduled-appointment-response';
+import { AuthService } from 'src/app/service/auth.service';
 
 const DAY_NAMES: string[] = ['nedelja', 'ponedeljak', 'utorak', 'sreda', 'četvrtak', 'petak', 'subota'];
 @Component({
@@ -78,7 +79,8 @@ export class NewAppointmentComponent implements OnInit {
   @ViewChild('calendar')
   calendarComponent!: FullCalendarComponent;
 
-  constructor(private changeDetector: ChangeDetectorRef,
+  constructor(protected authService: AuthService,
+              private changeDetector: ChangeDetectorRef,
               private offcanvasService: NgbOffcanvas,
               private formBuilder: FormBuilder,
               private patientService: PatientService,
@@ -121,6 +123,10 @@ export class NewAppointmentComponent implements OnInit {
         this.toaster.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
       }
     })
+  }
+
+  onOdeljenjeInputChange(event: any) {
+
   }
 
   getEventColorBasedOnExaminationStatus(status: string): string {
