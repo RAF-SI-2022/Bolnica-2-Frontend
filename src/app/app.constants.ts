@@ -12,4 +12,5 @@ export const HEALTH_RECORD_ENDPOINT = PATIENT_URL + "/record";
 export const SCHED_LAB_EXAM_ENDPOINT = LAB_URL + "/examination";
 export const SCHEDULE_ENDPOINT = PATIENT_URL + '/sched-med-exam';
 export const ORDER_ENDPOINT = LAB_URL+"/order";
+export const REFERRAL_ENDPOINT = LAB_URL+"/referral"
 export const CREATE_SCHEDULE_ENDPOINT = SCHEDULE_ENDPOINT + '/create';
