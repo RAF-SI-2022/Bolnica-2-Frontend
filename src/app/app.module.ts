@@ -36,9 +36,12 @@ import { SpecialistDoctorExaminationComponent } from './components/specialist-do
 import { EditPatientComponent } from './components/edit-patient/edit-patient.component';
 import { GenderPipe } from './pipe/gender.pipe';
 import { DateOfBirthToAgePipe } from './pipe/date-of-birth-to-age.pipe';
+import { ScheduledPatientsComponent } from './components/scheduled-patients/scheduled-patients.component';
+import { NewWorkOrderComponent } from './components/new-work-order/new-work-order.component';
 import { NewLabVisitComponent } from './components/lab-visits/new-lab-visit/new-lab-visit.component';
 import { LabVisitsComponent } from './components/lab-visits/lab-visits.component';
 import { NewReferralComponent } from './components/new-referral/new-referral.component';
+
 
 @NgModule({
   declarations: [
@@ -65,6 +68,8 @@ import { NewReferralComponent } from './components/new-referral/new-referral.com
     ScheduledAppointmentsComponent,
     EditPatientComponent,
     GenderPipe,
+    ScheduledPatientsComponent,
+    NewWorkOrderComponent,
     NewReferralComponent,
     DateOfBirthToAgePipe,
     NewLabVisitComponent,

@@ -106,5 +106,29 @@
         </div>
       </div>
     </div>
+    <div *ngIf="this.authService.hasEitherPermission(['ROLE_VISI_LAB_TEHNICAR', 'ROLE_LAB_TEHNICAR'])" class="col-md-4">
+      <div routerLink="/new-work-order" class="card border-secondary h-100">
+        <img src="../../assets/images/bi-file-text.svg"
+          class="card-img-top w-75 mx-auto p-2"
+          alt="..."
+        />
+        <div class="card-body">
+          <h5 class="card-title">Napravi novi radni nalog</h5>
+          <p class="card-text">Stranica za pravljenje novog radnog naloga.</p>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="this.authService.hasEitherPermission(['ROLE_VISI_LAB_TEHNICAR', 'ROLE_LAB_TEHNICAR'])" class="col-md-4">
+      <div routerLink="/scheduled-patients" class="card border-secondary h-100">
+        <img src="../../assets/images/bi-layout-text-sidebar-reverse.svg"
+          class="card-img-top w-75 mx-auto p-2"
+          alt="..."
+        />
+        <div class="card-body">
+          <h5 class="card-title">Zakaži pacijente</h5>
+          <p class="card-text">Stranica za zakazivanje pacijenata.</p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

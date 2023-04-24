@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { SCHED_MED_EXAM_ENDPOINT, USER_URL } from '../app.constants';
+import { SCHED_MED_EXAM_ENDPOINT,SCHED_LAB_EXAM_ENDPOINT, USER_URL } from '../app.constants';
 import { DoctorsResponse, SchedluedAppointmentsResponse } from '../dto/response/scheduled-appointment-response';
+import { AppointedPatient } from '../dto/response/appointed.patient';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,40 @@ export class ScheduledAppointmentService {
         });
       }
 
+      getScheduledLabAppointments(lbp:string,date:string){
+        {
+          let token = localStorage.getItem('token')
+          let authHeader = 'Bearer ' + token;
+
+          let lbpParameter=''
+          if(lbp)
+            lbpParameter='&lbp='+lbp;
+            
+          return this.httpClient.get<AppointedPatient[]>(SCHED_LAB_EXAM_ENDPOINT+'/scheduled'+"?"+"date="+date+lbpParameter, {
+            headers: {
+                'Authorization': authHeader
+            }
+        });
+      }
+    }
+
+    changeExaminationStatus(id:number,status:string){
+      {
+        let token = localStorage.getItem('token')
+        let authHeader = 'Bearer ' + token;
+
+        return this.httpClient.put<AppointedPatient>(SCHED_LAB_EXAM_ENDPOINT+'/status',{
+          id:id,
+          status:status
+        }, {
+          headers: {
+              'Authorization': authHeader
+          },
+          
+      });
+    }
+  }
+
       getScheduledAppointmentsByLbz(timestamp: string, doctorLbz: string, page: number, pageSize: number) {
         let lbz = doctorLbz
         let token = localStorage.getItem('token')
@@ -40,5 +75,7 @@ export class ScheduledAppointmentService {
               'Authorization': authHeader
           }
       });
-      }
+    }
+
+    
 }

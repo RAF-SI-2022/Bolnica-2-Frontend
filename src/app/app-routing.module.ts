@@ -30,6 +30,8 @@ import { ReferralHistoryComponent } from './components/referral-history/referral
 import { SpecialistDoctorExaminationComponent } from './components/specialist-doctor-examination/specialist-doctor-examination.component';
 import { ScheduledAppointmentsComponent } from './components/scheduled-appointments/scheduled-appointments.component';
 import { EditPatientComponent } from './components/edit-patient/edit-patient.component';
+import { ScheduledPatientsComponent } from './components/scheduled-patients/scheduled-patients.component';
+import { NewWorkOrderComponent } from './components/new-work-order/new-work-order.component';
 import { NewLabVisitComponent } from './components/lab-visits/new-lab-visit/new-lab-visit.component';
 import { LabVisitsComponent } from './components/lab-visits/lab-visits.component';
 import { NewReferralComponent } from './components/new-referral/new-referral.component';
@@ -149,6 +151,18 @@ const routes: Routes = [
     component: NewReferralComponent,
     canActivate: [AuthGuard, PermissionGuard],
     data: { permissions: ['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'] }
+  },
+  {
+    path:'scheduled-patients',
+    component:ScheduledPatientsComponent,
+    canActivate:[AuthGuard,PermissionGuard],
+    data:{permissions:['ROLE_LAB_TEHNICAR', 'ROLE_VISI_LAB_TEHNICAR']}
+  },
+  {
+    path:'new-work-order',
+    component:NewWorkOrderComponent,
+    canActivate:[AuthGuard,PermissionGuard],
+    data:{permissions:['ROLE_LAB_TEHNICAR', 'ROLE_VISI_LAB_TEHNICAR']}
   },
   {
     path: 'lab-visits',
