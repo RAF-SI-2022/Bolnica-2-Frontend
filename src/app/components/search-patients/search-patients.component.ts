@@ -114,7 +114,7 @@ export class SearchPatientsComponent implements OnInit {
 		</div>
 		<div class="modal-footer">
 			<button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Otkaži</button>
-			<button type="button" class="btn btn-danger" (click)="modal.close('Ok click')">Obriši</button>
+			<button type="button" class="btn btn-danger" (click)="modal.close('Ok click')" data-testid="confirm-delete">Obriši</button>
 		</div>
 	`,
 })

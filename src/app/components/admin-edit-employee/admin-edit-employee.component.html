@@ -22,7 +22,7 @@
   </div>
   <div class="row g-3 mb-3">
     <div class="col-md-6 form-floating gx-1">
-      <input formControlName="ime" type="text" class="form-control" id="floatingIme" placeholder="Ime" />
+      <input formControlName="ime" type="text" class="form-control" id="floatingIme" placeholder="Ime" data-testid="name"/>
       <label for="floatingIme">Ime</label>
       <div *ngIf="submitted && adminEditEmployeeForm.get('ime')?.errors?.required"
         class="validation-error small alert alert-danger">
@@ -163,7 +163,7 @@
   <hr class="my-4">
   <div class="row g-3 mb-3 justify-content-center">
     <div class="col-md-4">
-      <button type="submit" class="btn btn-primary form-control mb-2" (click)="editEmployee()">Ažuriraj zaposlenog</button>
+      <button type="submit" class="btn btn-primary form-control mb-2" (click)="editEmployee()" data-testid="edit-employee-button">Ažuriraj zaposlenog</button>
     </div>
   </div>
 </form>

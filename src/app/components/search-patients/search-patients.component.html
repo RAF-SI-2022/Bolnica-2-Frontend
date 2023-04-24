@@ -56,10 +56,10 @@
 						</td>
 						<td><button *ngIf="this.authService.hasEitherPermission(['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'])" [routerLink]="['/new-referral', patient.lbp]" class="btn btn-sm btn-primary">Uput</button></td>
 						<td><button *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])"
-							[routerLink]="['/edit-patient', patient.lbp]" class="btn btn-sm btn-primary">Ažuriraj</button>
+							[routerLink]="['/edit-patient', patient.lbp]" class="btn btn-sm btn-primary" data-testid="edit">Ažuriraj</button>
 						</td>
 						<td><button *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])"
-							(click)="deletePatient(patient.lbp)" ngbAutofocus class="btn btn-sm btn-danger">Obriši</button>
+							(click)="deletePatient(patient.lbp)" ngbAutofocus class="btn btn-sm btn-danger" data-testid="delete">Obriši</button>
 						</td>
 					</tr>
 				</tbody>
