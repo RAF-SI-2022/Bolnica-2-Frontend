@@ -43,6 +43,8 @@ import { LabVisitsComponent } from './components/lab-visits/lab-visits.component
 import { NewReferralComponent } from './components/new-referral/new-referral.component';
 import { SearchBiochemAccComponent } from './components/search-biochem-acc/search-biochem-acc.component';
 
+import { IssuingResultsComponent } from "./components/issuing-results/issuing-results.component";
+import { FullIssuingResultsComponent } from './components/full-issuing-results/full-issuing-results.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +77,9 @@ import { SearchBiochemAccComponent } from './components/search-biochem-acc/searc
     DateOfBirthToAgePipe,
     NewLabVisitComponent,
     LabVisitsComponent,
-    SearchBiochemAccComponent
+    SearchBiochemAccComponent,
+    IssuingResultsComponent,
+    FullIssuingResultsComponent
   ],
   imports: [
     BrowserModule,

@@ -35,6 +35,8 @@ import { NewWorkOrderComponent } from './components/new-work-order/new-work-orde
 import { NewLabVisitComponent } from './components/lab-visits/new-lab-visit/new-lab-visit.component';
 import { LabVisitsComponent } from './components/lab-visits/lab-visits.component';
 import { NewReferralComponent } from './components/new-referral/new-referral.component';
+import {IssuingResultsComponent} from "./components/issuing-results/issuing-results.component";
+import {FullIssuingResultsComponent} from "./components/full-issuing-results/full-issuing-results.component";
 import { SearchBiochemAccComponent } from './components/search-biochem-acc/search-biochem-acc.component';
 
 const routes: Routes = [
@@ -188,8 +190,19 @@ const routes: Routes = [
     component:SearchBiochemAccComponent,
     canActivate:[AuthGuard,PermissionGuard],
     data:{permissions:['ROLE_MED_BIOHEMICAR','ROLE_SPEC_MED_BIOHEMIJE']}
+  },
+  {
+    path: 'issuing-results',
+    component: IssuingResultsComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: {permissions: ['ROLE_VISI_LAB_TEHNICAR', 'ROLE_LAB_TEHNICAR']}
+  },
+  {
+    path: 'full-issuing-results',
+    component: FullIssuingResultsComponent,
+    data: {permissions: ['ROLE_VISI_LAB_TEHNICAR', 'ROLE_LAB_TEHNICAR']}
   }
-]
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
