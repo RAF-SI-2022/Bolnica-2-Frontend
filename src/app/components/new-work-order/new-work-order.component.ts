@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HotToastService } from '@ngneat/hot-toast';
+import { REFERRAL_ENDPOINT } from 'src/app/app.constants';
 import { UnprocessedReferral } from 'src/app/dto/response/unprocessed.refferal';
 import { EmployeesService } from 'src/app/service/employee.service';
 import { HealthRecordService } from 'src/app/service/health-record.service';
@@ -35,7 +36,6 @@ export class NewWorkOrderComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.refreshEmployees();
   }
 
   search(): void {
@@ -45,27 +45,20 @@ export class NewWorkOrderComponent implements OnInit {
   refreshEmployees(): void {
     
     const val = this.LBPForm.value;
+    let lbp=val.LBP;
 
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0');
-    const day = String(today.getDate()).padStart(2, '0');
-    const currentDate = `${year}-${month}-${day}`;
-    
-    let lbp 
-    if(!val.LBP)
-      lbp= localStorage.getItem('patientLBP')
-    else
-      lbp=val.LBP
-    if(!lbp)
-      lbp=''
-    
+    if(!lbp){
+      this.toast.error('LBP nije ispravan');
+      return;
+    }
+  
     this.healthService.getUnprocessedReferrals(
       lbp
     ).subscribe({
       next: (res) => {
         
         const response :UnprocessedReferral[] = res;
+        
         if (response.length) 
           this.paginatedRefferals = response;
         else
@@ -74,15 +67,17 @@ export class NewWorkOrderComponent implements OnInit {
       error: (e) => {
         this.toast.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
       }
-    })
+    });
+    
   }
 
   checkIfValidDate(dateCreated: Date):boolean{
     const thirtyDaysInMilliseconds = 2592000000;
     const currentDate = new Date(); 
+    
+    let dateMade=new Date(dateCreated)
 
-    console.log(currentDate.getTime() - dateCreated.getTime())
-    if ((currentDate.getTime() - dateCreated.getTime()) > thirtyDaysInMilliseconds)
+    if ((currentDate.getTime() - dateMade.getTime()) < thirtyDaysInMilliseconds)
       return true;
     else
       return false;
@@ -92,13 +87,12 @@ export class NewWorkOrderComponent implements OnInit {
       this.healthService.createWorkOrder(orderId).subscribe(
         status => {
           if(status==200)
-            
-            this.toast.success('Pravljenje naloga je uspelo');
+            this.toast.success('Pravljenje radnog naloga je uspelo');
           else
-           this.toast.error('Pravljenje naloga nijeje uspelo');
+           this.toast.error('Pravljenje radnog naloga nije uspelo');
         },
         error => {
-          this.toast.error('Pravljenje naloga nije uspelo');
+          this.toast.error('Pravljenje radnog naloga nije uspelo');
         }
       );
     }, (dismiss) => {
@@ -134,4 +128,6 @@ export class NewWorkOrderComponent implements OnInit {
 export class NgbdModalConfirm {
     constructor(public modal: NgbActiveModal) {
     }
+
+
 }

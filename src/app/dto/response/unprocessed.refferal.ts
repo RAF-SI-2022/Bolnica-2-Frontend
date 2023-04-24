@@ -5,5 +5,5 @@ export interface UnprocessedReferral{
     departmentName:string,
     creationDate: Date,
     comment: string,
-    requiredAnalysis: string,
+    requiredAnalysis: [],
 }

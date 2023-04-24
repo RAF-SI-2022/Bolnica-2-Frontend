@@ -16,7 +16,7 @@ import {
 } from "../dto/request/health-record.request";
 import {constrainPoint} from "@fullcalendar/core/internal";
 import { UnprocessedReferral } from '../dto/response/unprocessed.refferal';
-import { map, pipe } from 'rxjs';
+import { catchError, map, of, pipe } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -137,7 +137,7 @@ export class HealthRecordService {
       });
   }
   getUnprocessedReferrals(lbp:string){
-
+        
         let token = localStorage.getItem('token')
         let authHeader = 'Bearer ' + token;
         return this.httpClient.get<UnprocessedReferral[]>(REFERRAL_ENDPOINT+"/unprocessed?lbp="+lbp, {
@@ -145,20 +145,25 @@ export class HealthRecordService {
               'Authorization': authHeader
           }
       });
+      
   }
 
   createWorkOrder(orderId:number){
 
     let token = localStorage.getItem('token')
     let authHeader = 'Bearer ' + token;
-    return this.httpClient.post<any>(ORDER_ENDPOINT+"/verify/"+orderId, {
+    return this.httpClient.post(ORDER_ENDPOINT + "/create/" + orderId, {}, {
       headers: {
-          'Authorization': authHeader
-      }
-  }).pipe(
-    map((response: HttpResponse<any>) => {
-      return response.status;
-    })
-  );
+        'Authorization': authHeader
+      },
+      observe: 'response'
+    }).pipe(
+      map(response => response.status),
+      catchError(error => {
+        console.error(error);
+        return of(error.status || 500);
+      })
+    );
 }
+
 }
