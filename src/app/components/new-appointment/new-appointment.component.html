@@ -38,7 +38,18 @@
 </ng-template>
 
 <div class="p-5">
-    <select (change)="onDoctorInputChange($event)" class="form-select w-25 mb-3">
+    <div *ngIf="authService.hasPermission('ROLE_RECEPCIONER')">
+        <select (change)="onOdeljenjeInputChange($event)" class="form-select w-25 mb-3">
+            <option disabled selected value>Izaberite odeljenje</option>
+            <option *ngFor="let doctor of doctors" [value]="doctor.lbz" (ngModel)="this.currentDoctorFullName">{{ doctor.firstName + ' ' + doctor.lastName }}</option>
+        </select>
+        <select (change)="onDoctorInputChange($event)" class="form-select w-25 mb-3">
+            <option disabled selected value>Izaberite lekara</option>
+            <option *ngFor="let doctor of doctors" [value]="doctor.lbz" (ngModel)="this.currentDoctorFullName">{{ doctor.firstName + ' ' + doctor.lastName }}</option>
+        </select>
+    </div>
+
+    <select *ngIf="!authService.hasPermission('ROLE_RECEPCIONER')" (change)="onDoctorInputChange($event)" class="form-select w-25 mb-3" #notRecepcioner>
         <option disabled selected value>Izaberite lekara</option>
         <option *ngFor="let doctor of doctors" [value]="doctor.lbz" (ngModel)="this.currentDoctorFullName">{{ doctor.firstName + ' ' + doctor.lastName }}</option>
     </select>

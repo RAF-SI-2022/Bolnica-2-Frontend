@@ -43,6 +43,17 @@ export class LabService {
         })
     }
 
+    getUnprocessedReferralsV2(lbp: string) {
+        return this.httpClient.get(LAB_URL + '/referral/unprocessed', {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            params: {
+                lbp: lbp
+            }
+        })
+    }
+
     createReferral(createReferralRequest: CreateReferralRequest) {
         return this.httpClient.post<ReferralResponse>(LAB_URL + '/referral/create', createReferralRequest, {
             headers: {
@@ -74,6 +85,47 @@ export class LabService {
         return this.httpClient.delete<ReferralResponse>(LAB_URL + `/referral/delete/${id}`, {
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }
+        })
+    }
+
+    getSchedLabExaminations(lbp: string, date: string) {
+        const params: any = {};
+        if (lbp === '') params.lbp = ''; else params.lbp = lbp;
+        if (date === '') params.date = ''; else params.date = date;
+        return this.httpClient.get(LAB_URL + '/examination/scheduled', {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            params: {
+                lbp: params.lbp,
+                date: params.date
+            }
+        })
+    }
+
+    getWorkOrderHistoryDoc(lbp: string, dateFrom: string, dateTo: string) {
+        if (dateFrom === '') dateFrom = '1970-01-01'
+        if (dateTo === '') dateTo = '2500-01-01'
+        return this.httpClient.post(LAB_URL + '/order/history', { lbp: lbp, startDate: dateFrom, endDate: dateTo }, {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }
+        })
+    }
+
+    updateLabExamStatus(id: number, status: string) {
+        return this.httpClient.put(LAB_URL + '/examination/status', { id: id, status: status }, {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }
+        })
+    }
+
+    createWorkOrder(id: number) {
+        return this.httpClient.post(LAB_URL + `/order/create/${id}`, undefined, {
+            headers: {
+                'Authorization': 'Beare'
             }
         })
     }

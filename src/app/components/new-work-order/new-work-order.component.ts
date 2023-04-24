@@ -13,11 +13,11 @@ import { HealthRecordService } from 'src/app/service/health-record.service';
   styleUrls: ['./new-work-order.component.css']
 })
 export class NewWorkOrderComponent implements OnInit {
-
-  data:any = [];
   LBPForm: FormGroup;
-  paginatedRefferals: UnprocessedReferral[] = [];
 
+  lbp: string = '';
+
+  referrals: any;
 
   constructor(private formBuilder: FormBuilder,
     private router: Router,
@@ -27,15 +27,19 @@ export class NewWorkOrderComponent implements OnInit {
     private healthService: HealthRecordService,
     private modalService: NgbModal) {
     let routeParam=this.route.snapshot.queryParamMap.get('lbp');
-    
+
     this.LBPForm = this.formBuilder.group({
       LBP: [routeParam,Validators.required],
     });
 
+    this.route.params.subscribe(param => {
+      this.lbp = param.lbp;
+      this.LBPForm.get('LBP')?.setValue(this.lbp);
+    })
    }
 
   ngOnInit(): void {
-    this.refreshEmployees();
+    if (this.lbp !== '' && this.lbp !== undefined) this.refreshEmployees();
   }
 
   search(): void {
@@ -43,7 +47,7 @@ export class NewWorkOrderComponent implements OnInit {
   }
 
   refreshEmployees(): void {
-    
+
     const val = this.LBPForm.value;
 
     const today = new Date();
@@ -51,23 +55,23 @@ export class NewWorkOrderComponent implements OnInit {
     const month = String(today.getMonth() + 1).padStart(2, '0');
     const day = String(today.getDate()).padStart(2, '0');
     const currentDate = `${year}-${month}-${day}`;
-    
-    let lbp 
+
+    let lbp
     if(!val.LBP)
       lbp= localStorage.getItem('patientLBP')
     else
       lbp=val.LBP
     if(!lbp)
       lbp=''
-    
+
     this.healthService.getUnprocessedReferrals(
       lbp
     ).subscribe({
       next: (res) => {
-        
+
         const response :UnprocessedReferral[] = res;
-        if (response.length) 
-          this.paginatedRefferals = response;
+        if (response.length)
+          this.referrals = res;
         else
           this.toast.error('Nema laboratorijskih uputa');
       },
@@ -77,32 +81,18 @@ export class NewWorkOrderComponent implements OnInit {
     })
   }
 
-  checkIfValidDate(dateCreated: Date):boolean{
-    const thirtyDaysInMilliseconds = 2592000000;
-    const currentDate = new Date(); 
-
-    console.log(currentDate.getTime() - dateCreated.getTime())
-    if ((currentDate.getTime() - dateCreated.getTime()) > thirtyDaysInMilliseconds)
-      return true;
-    else
-      return false;
-  }
   makeWorkOrder(orderId:number){
     this.modalService.open(NgbdModalConfirm).result.then((data) => {
-      this.healthService.createWorkOrder(orderId).subscribe(
-        status => {
-          if(status==200)
-            
-            this.toast.success('Pravljenje naloga je uspelo');
-          else
-           this.toast.error('Pravljenje naloga nijeje uspelo');
+      this.healthService.createWorkOrder(orderId).subscribe({
+        next: () => {
+          this.toast.success('Uspešno ste kreirali radni nalog');
         },
-        error => {
-          this.toast.error('Pravljenje naloga nije uspelo');
+        error: (e) => {
+          this.toast.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
         }
-      );
+      })
     }, (dismiss) => {
-      
+
     });
   }
 
@@ -122,7 +112,7 @@ export class NewWorkOrderComponent implements OnInit {
 		</div>
 		<div class="modal-body">
 			<p>
-				<strong>Da li ste sigurni da želite da napravite radni nalog </strong>
+				<strong>Da li ste sigurni da želite da napravite radni nalog?</strong>
 			</p>
 		</div>
 		<div class="modal-footer">

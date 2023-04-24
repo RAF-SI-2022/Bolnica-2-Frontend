@@ -42,7 +42,7 @@ export class ScheduledPatientsComponent implements OnInit {
     const currentDate = `${year}-${month}-${day}`;
 
     this.scheduledAppointmentService.changeExaminationStatus(id,status,
-      
+
     ).subscribe({
       next: (res) => {
         this.toast.success('Uspešno ste otkazali pregled');
@@ -66,23 +66,14 @@ export class ScheduledPatientsComponent implements OnInit {
     const month = String(today.getMonth() + 1).padStart(2, '0');
     const day = String(today.getDate()).padStart(2, '0');
     const currentDate = `${year}-${month}-${day}`;
-    
-    let lbp 
-    if(!val.LBP)
-      lbp= localStorage.getItem('patientLBP')
-    else
-      lbp=val.LBP
-    if(!lbp)
-      lbp=''
-    
-    
-    this.scheduledAppointmentService.getScheduledLabAppointments(
-      lbp,currentDate
-    ).subscribe({
+
+    let lbp: string = '';
+    if (val.LBP !== '') lbp = val.lbp;
+
+    this.scheduledAppointmentService.getScheduledLabAppointments(lbp, currentDate).subscribe({
       next: (res) => {
-        
         const response :AppointedPatient[] = res;
-        if (response.length) 
+        if (response.length)
           this.paginatedSchedules = response;
         else{
           this.toast.error('Nema zakazanih pregleda');

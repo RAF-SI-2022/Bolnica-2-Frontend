@@ -1,0 +1,90 @@
+<div class="p-5">
+    <div class="row">
+        <div class="col-lg-3">
+            <form [formGroup]="workOrderHistoryForm" class="p-3 border rounded-3 bg-light">
+                <div class="mb-2 form-floating gx-1">
+                    <input formControlName="dateFrom" class="form-control" type="date" placeholder="placeholder" id="floatingDate">
+                    <label for="floatingDate">Datum od</label>
+                </div>
+                <div class="mb-2 form-floating gx-1">
+                    <input formControlName="dateTo" class="form-control" type="date" placeholder="placeholder" id="floatingDate">
+                    <label for="floatingDate">Datum do</label>
+                </div>
+                <div *ngIf="dateError" class="validation-error small alert alert-danger">
+                    Unesite ili oba datuma ili nijedan
+                  </div>
+                <hr class="my-4">
+                <button (click)="onSubmit()" class="btn btn-md btn-primary w-100" type="submit">Pretraži</button>
+            </form>
+        </div>
+        <div class="col-lg-9 table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">ID radnog naloga</th>
+                        <th scope="col">ID uputa</th>
+                        <th scope="col">Datum i vreme kreiranja</th>
+                        <th scope="col">Status obrade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr (click)="selectOrder(order)" *ngFor="let order of orders">
+                        <td>{{ order.id }}</td>
+                        <td>{{ order.referralId }}</td>
+                        <td>{{ order.creationTime | date: 'dd.MM.yyyy, HH:mm' }}</td>
+                        <td>{{ order.status.notation }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div *ngIf="currentOrder !== undefined" class="container p-4 border rounded-3 bg-light mt-4 mb-4">
+		<div class="row mb-3">
+			<div class="col-md-3 form-floating gx-1">
+				<input [value]="currentOrder.id | date: 'dd.MM.yyyy, HH:mm'" disabled type="text" class="form-control" id="floatingBrojPoseta" placeholder="Broj poseta" readonly>
+                <label for="floatingBrojPoseta">ID lab. analize</label>
+			</div>
+			<div class="col-md-3 form-floating gx-1">
+				<input [value]="currentOrder.analysisParameterResults[0].analysis.abbreviation" disabled type="text" class="form-control" id="floatingBrojPoseta" placeholder="Broj poseta" readonly>
+                <label for="floatingBrojPoseta">Skraćenica lab. analize</label>
+			</div>
+			<div class="col-md-3 form-floating gx-1">
+				<input [value]="currentOrder.analysisParameterResults[0].parameter.id" disabled type="text" class="form-control" id="floatingBrojPoseta" placeholder="Broj poseta" readonly>
+                <label for="floatingBrojPoseta">ID parametra</label>
+			</div>
+			<div class="col-md-3 form-floating gx-1">
+				<input [value]="currentOrder.analysisParameterResults[0].parameter.name" disabled type="text" class="form-control" id="floatingBrojPoseta" placeholder="Broj poseta" readonly>
+                <label for="floatingBrojPoseta">Naziv parametra</label>
+			</div>
+		</div>
+        <div class="row mb-3">
+			<div class="col-md-3 form-floating gx-1">
+				<input [value]="currentOrder.analysisParameterResults[0].result" disabled type="text" class="form-control" id="floatingBrojPoseta" placeholder="Broj poseta" readonly>
+                <label for="floatingBrojPoseta">Rezultat</label>
+			</div>
+			<div class="col-md-3 form-floating gx-1">
+				<input [value]="currentOrder.analysisParameterResults[0].parameter.measureUnit" disabled type="text" class="form-control" id="floatingBrojPoseta" placeholder="Broj poseta" readonly>
+                <label for="floatingBrojPoseta">Jedinica mere</label>
+			</div>
+			<div class="col-md-3 form-floating gx-1">
+				<input [value]="currentOrder.analysisParameterResults[0].parameter.lowerBound" disabled type="text" class="form-control" id="floatingBrojPoseta" placeholder="Broj poseta" readonly>
+                <label for="floatingBrojPoseta">Donja granica</label>
+			</div>
+			<div class="col-md-3 form-floating gx-1">
+				<input [value]="currentOrder.analysisParameterResults[0].parameter.upperBound" disabled type="text" class="form-control" id="floatingBrojPoseta" placeholder="Broj poseta" readonly>
+                <label for="floatingBrojPoseta">Gornja granica</label>
+			</div>
+		</div>
+        <div class="row mb-3">
+            <div class="col-md-6 form-floating gx-1">
+                <input [value]="currentOrder.creationTime | date: 'dd.MM.yyyy, HH:mm'" disabled type="text" class="form-control" id="floatingBrojPoseta" placeholder="Broj poseta" readonly>
+                <label for="floatingBrojPoseta">Datum</label>
+            </div>
+            <div class="col-md-6 form-floating gx-1">
+                <input [value]="getDoctorByLbz(currentOrder.lbzBiochemist)" disabled type="text" class="form-control" id="floatingBrojPoseta" placeholder="Broj poseta" readonly>
+                <label for="floatingBrojPoseta">Lekar</label>
+            </div>
+        </div>
+        <button (click)="print()" class="btn btn-primary">Odštampaj</button>
+    </div>
+</div>

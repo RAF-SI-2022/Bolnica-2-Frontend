@@ -35,20 +35,20 @@ export class ScheduledAppointmentService {
       }
 
       getScheduledLabAppointments(lbp:string,date:string){
-        {
+
           let token = localStorage.getItem('token')
           let authHeader = 'Bearer ' + token;
 
-          let lbpParameter=''
-          if(lbp)
-            lbpParameter='&lbp='+lbp;
-            
-          return this.httpClient.get<AppointedPatient[]>(SCHED_LAB_EXAM_ENDPOINT+'/scheduled'+"?"+"date="+date+lbpParameter, {
+          return this.httpClient.get<AppointedPatient[]>(SCHED_LAB_EXAM_ENDPOINT+'/scheduled', {
             headers: {
                 'Authorization': authHeader
+            },
+            params: {
+              lbp: lbp,
+              date: date
             }
         });
-      }
+
     }
 
     changeExaminationStatus(id:number,status:string){
@@ -63,7 +63,7 @@ export class ScheduledAppointmentService {
           headers: {
               'Authorization': authHeader
           },
-          
+
       });
     }
   }
@@ -81,5 +81,5 @@ export class ScheduledAppointmentService {
       });
     }
 
-    
+
 }

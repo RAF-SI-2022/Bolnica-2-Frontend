@@ -21,7 +21,7 @@ export class NewLabVisitComponent implements OnInit {
   newLabVisitForm: FormGroup;
   submitted: boolean = false;
 
-  unprocessedReferrals: ReferralResponse[] = [];
+  unprocessedReferrals: any;
 
   showUnprocessedReferralsTable: boolean = false;
 
@@ -133,9 +133,9 @@ export class NewLabVisitComponent implements OnInit {
 
   getUnprocessedReferrals(): void {
     this.showUnprocessedReferralsTable = true;
-    this.labService.getUnprocessedReferrals(this.patient.lbp).subscribe({
+    this.labService.getUnprocessedReferralsV2(this.patient.lbp).subscribe({
       next: (res) => {
-        this.unprocessedReferrals = res.referrals;
+        this.unprocessedReferrals = res;
       },
       error: (e) => {
         this.toast.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
