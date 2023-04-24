@@ -35,6 +35,7 @@ import { NewWorkOrderComponent } from './components/new-work-order/new-work-orde
 import { NewLabVisitComponent } from './components/lab-visits/new-lab-visit/new-lab-visit.component';
 import { LabVisitsComponent } from './components/lab-visits/lab-visits.component';
 import { NewReferralComponent } from './components/new-referral/new-referral.component';
+import { SearchBiochemAccComponent } from './components/search-biochem-acc/search-biochem-acc.component';
 
 const routes: Routes = [
   {
@@ -181,8 +182,14 @@ const routes: Routes = [
     component: ReferralHistoryComponent,
     canActivate: [AuthGuard, PermissionGuard],
     data: { permissions: ['ROLE_DR_SPEC_ODELJENJA','ROLE_DR_SPEC','ROLE_DR_SPEC_POV'] }
+  },
+    {
+    path:'search-biochem-acc',
+    component:SearchBiochemAccComponent,
+    canActivate:[AuthGuard,PermissionGuard],
+    data:{permissions:['ROLE_MED_BIOHEMICAR','ROLE_SPEC_MED_BIOHEMIJE']}
   }
-];
+]
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

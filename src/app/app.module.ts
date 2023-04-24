@@ -41,6 +41,7 @@ import { NewWorkOrderComponent } from './components/new-work-order/new-work-orde
 import { NewLabVisitComponent } from './components/lab-visits/new-lab-visit/new-lab-visit.component';
 import { LabVisitsComponent } from './components/lab-visits/lab-visits.component';
 import { NewReferralComponent } from './components/new-referral/new-referral.component';
+import { SearchBiochemAccComponent } from './components/search-biochem-acc/search-biochem-acc.component';
 
 
 @NgModule({
@@ -73,7 +74,8 @@ import { NewReferralComponent } from './components/new-referral/new-referral.com
     NewReferralComponent,
     DateOfBirthToAgePipe,
     NewLabVisitComponent,
-    LabVisitsComponent
+    LabVisitsComponent,
+    SearchBiochemAccComponent
   ],
   imports: [
     BrowserModule,
