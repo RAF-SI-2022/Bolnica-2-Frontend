@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CreateLabExamRequest, CreateReferralRequest } from '../dto/request/laboratory.request';
 import { LabExamResponse, ReferralResponseList, ReferralResponse } from '../dto/response/laboratory.response';
-import { LAB_URL } from '../app.constants';
+import {HEALTH_RECORD_ENDPOINT, LAB_URL} from '../app.constants';
+import {MedicalHistory} from "../dto/response/health-record.response";
+import {OrderHistoryRequest, OrderHistoryResponse} from "../dto/request/issued-results.request";
 
 @Injectable({
     providedIn: 'root'
@@ -74,5 +76,26 @@ export class LabService {
                 'Authorization': 'Bearer ' + localStorage.getItem('token')
             }
         })
+    }
+
+    getIssuedResults(lbp: string, startDate: string, endDate: string, page: number, size: number) {
+      const params: any = {};
+      params.lbp = lbp;
+      if (startDate === '') params.startDate = '1970-01-01T23:59:20.253Z'; else params.startDate = startDate + 'T00:00:00.253Z';
+      if (endDate === '') params.endDate = '2500-04-23T11:16:20.253Z'; else params.endDate = endDate + 'T00:00:00.253Z';
+      const orderHistoryRequest: OrderHistoryRequest = {
+        lbp: lbp,
+        startDate: params.startDate,
+        endDate: params.endDate
+      }
+      return this.httpClient.post<OrderHistoryResponse>(LAB_URL + `/order/history`, orderHistoryRequest, {
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        params: {
+          page: page,
+          size: size
+        }
+      });
     }
 }
