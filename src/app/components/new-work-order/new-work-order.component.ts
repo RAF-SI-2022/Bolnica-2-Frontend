@@ -31,21 +31,7 @@ export class NewWorkOrderComponent implements OnInit {
     this.LBPForm = this.formBuilder.group({
       LBP: [routeParam,Validators.required],
     });
-    
-    this.data = [
-      { id: 1, name: 'John', date: null, strings: ['1', '2', '3'] },
-      { id: 2, name: 'Jane', date: null, strings: ['4', '5', '6','9','7','11'] },
-      { id: 3, name: 'Bob', date: null, strings: [] }
-    ];
-    
-    const datee = new Date(2000,1,1,1,1,1);
-    const dateee = new Date();
 
-    
-
-    this.data[0].date=datee;
-    this.data[1].date=dateee;
-    this.data[2].date=dateee;
    }
 
   ngOnInit(): void {
@@ -73,7 +59,6 @@ export class NewWorkOrderComponent implements OnInit {
       lbp=val.LBP
     if(!lbp)
       lbp=''
-    console.log(currentDate)
     
     this.healthService.getUnprocessedReferrals(
       lbp
@@ -102,14 +87,15 @@ export class NewWorkOrderComponent implements OnInit {
     else
       return false;
   }
-  makeWorkOrder(orderId:string){
+  makeWorkOrder(orderId:number){
     this.modalService.open(NgbdModalConfirm).result.then((data) => {
       this.healthService.createWorkOrder(orderId).subscribe(
         status => {
-          if(status>=400 && status<600)
-            this.toast.success('Pravljenje naloga nije uspelo');
+          if(status==200)
+            
+            this.toast.success('Pravljenje naloga je uspelo');
           else
-            this.toast.error('Pravljenje naloga nije uspelo');
+           this.toast.error('Pravljenje naloga nijeje uspelo');
         },
         error => {
           this.toast.error('Pravljenje naloga nije uspelo');

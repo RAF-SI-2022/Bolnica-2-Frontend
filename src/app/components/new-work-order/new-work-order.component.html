@@ -13,38 +13,36 @@
 			<table class="table table-striped">
                 <thead>
                     <tr>
-                      <th>ID</th>
-                      <th>Ime</th>
-                      <th>Strings</th>
+					  <th>Id uputa</th>
+                      <th>Ime lekara</th>
+                      <th>Prezime lekara</th>
+                      <th>Ime odeljenja</th>
 					  <th>Datum</th>
+					  <th>Napomena</th>
+					  <th>Potrebne analize</th><!--Doradi-->
                     </tr>
                   </thead>
 				<tbody>
 					<tr *ngFor="let item of data">
-                        <td>{{ item.id }}</td>
-                        <td>{{ item.name }}</td>
-						<td>{{ item.date }}</td>
+						<td>{{ item.referralId }}</td>
+                        <td>{{ item.doctorFirstName }}</td>
+                        <td>{{ item.doctorLastName }}</td>
+						<td>{{ item.departmentName }}</td>
+						<td>{{ item.creationDate }}</td>
+						<td>{{ item.comment }}</td>
+						<td>{{ item.requiredAnalysis }}</td>
+						
                         <td>
-                          <ul>
-                            <li *ngFor="let string of item.strings">{{ string }}</li>
-                          </ul>
+                          <!--<ul>
+                            <li *ngFor="let string of item.strings">{{ string }}</li>Doradi
+                          </ul>-->
                         </td>
 
-						<td><button *ngIf="checkIfValidDate(item.date)" (click)="makeWorkOrder(item.date)"
+						<td><button *ngIf="checkIfValidDate(item.date)" (click)="makeWorkOrder(item.referralId)"
 							ngbAutofocus class="btn btn-sm btn-primary">Napravi nalog</button></td>
-
 					</tr>
 				</tbody>
 			</table>
-			<div class="d-flex justify-content-center p-2">
-				<!--<ngb-pagination
-					[collectionSize]="collectionSize"
-					[(page)]="page"
-					[pageSize]="pageSize"
-					(pageChange)="refreshEmployees()"
-				>
-				</ngb-pagination>-->
-			</div>
 		</div>
 	</div>
 

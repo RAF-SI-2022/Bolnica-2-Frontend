@@ -35,11 +35,6 @@
                 class="dropdown-item" href="#">Zakazani pregledi</a>
             </div>
           </li>
-
-          <li class="nav-item" *ngIf="this.authService.hasEitherPermission(['ROLE_LAB_TEHNICAR', 'ROLE_VISI_LAB_TEHNICAR'])">
-            <a class="nav-link active" href="#" id="navbarItem" aria-haspopup="true" aria-expanded="false" role="button">Zakazivanje posete</a>
-          </li>
-
           <li class="nav-item dropdown" *ngIf="this.authService.hasEitherPermission(['ROLE_LAB_TEHNICAR', 'ROLE_VISI_LAB_TEHNICAR'])">
             <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">Prijem pacijenata</a>
             <div class="dropdown-menu">
@@ -48,9 +43,6 @@
               <a routerLink="/new-work-order" *ngIf="this.authService.hasEitherPermission(['ROLE_LAB_TEHNICAR', 'ROLE_VISI_LAB_TEHNICAR'])"
                 class="dropdown-item" href="#">Pravljenje radnog naloga</a>
             </div>
-          </li>
-          <li class="nav-item" *ngIf="this.authService.hasEitherPermission(['ROLE_LAB_TEHNICAR', 'ROLE_VISI_LAB_TEHNICAR'])">
-            <a class="nav-link active" href="#" id="navbarItem" aria-haspopup="true" aria-expanded="false" role="button">Izdavanje rezultata</a>
           </li>
 
         </ul>

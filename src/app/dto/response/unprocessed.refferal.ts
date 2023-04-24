@@ -1,4 +1,5 @@
 export interface UnprocessedReferral{
+    referralId: number,
     doctorFirstName :string,
     doctorLastName: string,
     departmentName:string,

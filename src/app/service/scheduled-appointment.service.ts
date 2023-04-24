@@ -37,7 +37,11 @@ export class ScheduledAppointmentService {
           let token = localStorage.getItem('token')
           let authHeader = 'Bearer ' + token;
 
-          return this.httpClient.get<AppointedPatient[]>(SCHED_LAB_EXAM_ENDPOINT+'/scheduled'+"?lbp="+lbp+"&date="+date, {
+          let lbpParameter=''
+          if(lbp)
+            lbpParameter='&lbp='+lbp;
+            
+          return this.httpClient.get<AppointedPatient[]>(SCHED_LAB_EXAM_ENDPOINT+'/scheduled'+"?"+"date="+date+lbpParameter, {
             headers: {
                 'Authorization': authHeader
             }

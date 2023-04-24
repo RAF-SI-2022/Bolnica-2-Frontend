@@ -13,9 +13,9 @@
 			<table class="table table-striped">
 				<thead>
 					<tr>
-						<!--<th scope="col">ID lab pregleda </th>
-						<th scope="col">ID odeljenja</th>
-						<th scope="col">LBZ (tehničar koji je zakazao)</th>-->
+						<th scope="col">ID lab pregleda </th>
+						<th scope="col">PBO odeljenja</th>
+						<!--<th scope="col">LBZ (tehničar koji je zakazao)-->
 						<th scope="col">LBP</th>
 						<th scope="col">Zakazan datum</th>
 						<th scope="col"> Status pregleda </th>
@@ -26,21 +26,20 @@
 				</thead>
 				<tbody>
 					<tr *ngFor="let schedule of paginatedSchedules">
-						<!--
-						<td>{{schedule.labExaminationId}}</td>
-						<td>{{schedule.departmentId }}</td>
-						<td>{{schedule.lbz}}</td>-->
+						
+						<td>{{schedule.id}}</td>
+						<!--<td>{{schedule.pbo }}</td>-->
+						<td>{{schedule.lbz}}</td>
 						<td>{{schedule.lbp}}</td>
 						<td>{{schedule.scheduledDate| date: 'dd.MM.yyyy'}}</td>
 						<td>{{schedule.examStatus.notation}}</td>
 						<td>{{schedule.note}}</td>
 
-						<td><button *ngIf="schedule.examStatus.notation==='Zakazano'" (click)="makeWorkOrder(1,'Završeno',schedule.lbp)"
+						<td><button *ngIf="schedule.examStatus.notation==='Zakazano'" (click)="makeWorkOrder(schedule.id,'Završeno',schedule.lbp)"
 							class="btn btn-sm btn-primary">Napravi radni nalog</button></td>
 						<td><button *ngIf="schedule.examStatus.notation=='Zakazano' " 
-							(click)="changeExaminationStatus(1,'Otkazano')" 
+							(click)="changeExaminationStatus(schedule.id,'Otkazano')" 
 							ngbAutofocus class="btn btn-sm btn-danger">Otkaži</button></td>
-						<!--promeni proslejenje argumente u changeExamStatus i makeWorkOrder-->
 					</tr>
 				</tbody>
 			</table>

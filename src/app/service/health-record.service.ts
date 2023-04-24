@@ -147,7 +147,7 @@ export class HealthRecordService {
       });
   }
 
-  createWorkOrder(orderId:string){
+  createWorkOrder(orderId:number){
 
     let token = localStorage.getItem('token')
     let authHeader = 'Bearer ' + token;
