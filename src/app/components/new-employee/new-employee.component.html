@@ -96,6 +96,7 @@
         <input class="form-check-input" type="checkbox" formArrayName="privilegije" (change)="onPrivilegijeCheckboxChange($event)" value="ROLE_ADMIN" id="floatingAdminPriv">
         <label class="form-check-label" for="floatingAdminPriv">Administrator</label>
       </div>
+      <hr class="my-4">
       <div class="form-check">
         <input class="form-check-input" type="checkbox" formArrayName="privilegije" (change)="onPrivilegijeCheckboxChange($event)" value="ROLE_DR_SPEC_ODELJENJA" id="floatingNacelnik">
         <label class="form-check-label" for="floatingNacelnik">Načelnik odeljenja</label>
@@ -108,6 +109,7 @@
         <input class="form-check-input" type="checkbox" formArrayName="privilegije" (change)="onPrivilegijeCheckboxChange($event)" value="ROLE_DR_SPEC_POV" id="floatingDocSpecPov">
         <label class="form-check-label" for="floatingDocSpecPov">Doktor specijalista (poverljiv pristup)</label>
       </div>
+      <hr class="my-4">
       <div class="form-check">
         <input class="form-check-input" type="checkbox" formArrayName="privilegije" (change)="onPrivilegijeCheckboxChange($event)" value="ROLE_VISA_MED_SESTRA" id="floatingMedSestra">
         <label class="form-check-label" for="floatingMedSestra">Medicinska sestra</label>
@@ -115,6 +117,24 @@
       <div class="form-check">
         <input class="form-check-input" type="checkbox" formArrayName="privilegije" (change)="onPrivilegijeCheckboxChange($event)" value="ROLE_MED_SESTRA" id="floatingMedSestraVisa">
         <label class="form-check-label" for="floatingMedSestraVisa">Viša medicinska sestra</label>
+      </div>
+      <hr class="my-4">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" formArrayName="privilegije" (change)="onPrivilegijeCheckboxChange($event)" value="ROLE_LAB_TEHNICAR" id="floatingMedSestraVisa">
+        <label class="form-check-label" for="floatingMedSestraVisa">Laboratorijski tehničar</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" formArrayName="privilegije" (change)="onPrivilegijeCheckboxChange($event)" value="ROLE_VISI_LAB_TEHNICAR" id="floatingMedSestraVisa">
+        <label class="form-check-label" for="floatingMedSestraVisa">Viši laboratorijski tehničar</label>
+      </div>
+      <hr class="my-4">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" formArrayName="privilegije" (change)="onPrivilegijeCheckboxChange($event)" value="ROLE_MED_BIOHEM" id="floatingMedSestraVisa">
+        <label class="form-check-label" for="floatingMedSestraVisa">Medicinski biohemičar</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" formArrayName="privilegije" (change)="onPrivilegijeCheckboxChange($event)" value="ROLE_SPEC_MED_BIOHEM" id="floatingMedSestraVisa">
+        <label class="form-check-label" for="floatingMedSestraVisa">Specijalista medicinske biohemije</label>
       </div>
       <div *ngIf="submitted && newemployeeForm.get('privilegije')?.errors?.required" class="validation-error small alert alert-danger">
         Odaberite bar jednu privilegiju
