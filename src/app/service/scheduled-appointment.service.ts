@@ -26,7 +26,7 @@ export class ScheduledAppointmentService {
           let token = localStorage.getItem('token')
           let authHeader = 'Bearer ' + token;
           let newTimestampArray = timestamp.split('/')
-          let newTimestamp = newTimestampArray[1]+"/"+newTimestampArray[0]+"/"+newTimestampArray[2];
+          let newTimestamp = newTimestampArray[0]+"/"+newTimestampArray[1]+"/"+newTimestampArray[2];
           return this.httpClient.get<SchedluedAppointmentsResponse>(SCHED_MED_EXAM_ENDPOINT+"/search?lbz="+lbz+"&page="+page+"&size="+pageSize+"&appointmentDate="+newTimestamp, {
             headers: {
                 'Authorization': authHeader
