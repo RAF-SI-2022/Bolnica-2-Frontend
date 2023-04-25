@@ -116,6 +116,26 @@
         <input class="form-check-input" [checked]="this.adminEditEmployeeForm.get('privilegije')?.value.includes('ROLE_MED_SESTRA')" type="checkbox" formArrayName="privilegije" (change)="onPrivilegijeCheckboxChange($event)" value="ROLE_MED_SESTRA" id="floatingMedSestraVisa">
         <label class="form-check-label" for="floatingMedSestraVisa">Viša medicinska sestra</label>
       </div>
+      <div class="form-check">
+        <input class="form-check-input" [checked]="this.adminEditEmployeeForm.get('privilegije')?.value.includes('ROLE_RECEPCIONER')" type="checkbox" formArrayName="privilegije" (change)="onPrivilegijeCheckboxChange($event)" value="ROLE_RECEPCIONER" id="floatingMedSestraVisa">
+        <label class="form-check-label" for="floatingMedSestraVisa">Recepcioner</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" [checked]="this.adminEditEmployeeForm.get('privilegije')?.value.includes('ROLE_LAB_TEHNICAR')" type="checkbox" formArrayName="privilegije" (change)="onPrivilegijeCheckboxChange($event)" value="ROLE_LAB_TEHNICAR" id="floatingMedSestraVisa">
+        <label class="form-check-label" for="floatingMedSestraVisa">Laboratorijski tehničar</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" [checked]="this.adminEditEmployeeForm.get('privilegije')?.value.includes('ROLE_VISI_LAB_TEHNICAR')" type="checkbox" formArrayName="privilegije" (change)="onPrivilegijeCheckboxChange($event)" value="ROLE_VISI_LAB_TEHNICAR" id="floatingMedSestraVisa">
+        <label class="form-check-label" for="floatingMedSestraVisa">Viši laboratorijski tehničar</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" [checked]="this.adminEditEmployeeForm.get('privilegije')?.value.includes('ROLE_MED_BIOHEMICAR')" type="checkbox" formArrayName="privilegije" (change)="onPrivilegijeCheckboxChange($event)" value="ROLE_MED_BIOHEMICAR" id="floatingMedSestraVisa">
+        <label class="form-check-label" for="floatingMedSestraVisa">Medicinski biohemičar</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" [checked]="this.adminEditEmployeeForm.get('privilegije')?.value.includes('ROLE_SPEC_MED_BIOHEMIJE')" type="checkbox" formArrayName="privilegije" (change)="onPrivilegijeCheckboxChange($event)" value="ROLE_SPEC_MED_BIOHEMIJE" id="floatingMedSestraVisa">
+        <label class="form-check-label" for="floatingMedSestraVisa">Specijalista medicinske biohemije</label>
+      </div>
       <div *ngIf="submitted && adminEditEmployeeForm.get('privilegije')?.errors?.required" class="validation-error small alert alert-danger">
         Odaberite bar jednu privilegiju
       </div>
