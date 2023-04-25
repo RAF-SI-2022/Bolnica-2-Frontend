@@ -191,7 +191,7 @@ export class NewReferralComponent implements OnInit {
 		</div>
 		<div class="modal-footer">
 			<button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Otkaži</button>
-			<button type="button" class="btn btn-primary" (click)="modal.close('Ok click')">Kreiraj uput</button>
+			<button type="button" class="btn btn-primary" (click)="modal.close('Ok click')" data-testid="confirm-submit-referral">Kreiraj uput</button>
 		</div>
 	`,
 })
