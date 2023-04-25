@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { SearchBioChemResponse_Lbp_Status,SearchBioChemResponse_Lbp } from '../dto/response/search-biochem-response';
+import { SearchBioChemRequest } from '../dto/request/search-biochem-request';
 import { BIOCHEM_ENDPOINT } from '../app.constants';
+import { SearchBiochemResponse } from '../dto/response/search-biochem-response';
 
 @Injectable({
   providedIn: 'root'
@@ -10,32 +11,19 @@ export class SearchBiochemService {
 
   constructor(private httpClient: HttpClient) { }
 
-  searchByLbpAndStatus(lbp:string,status:string,page:number,size:number,todaysDate:string) {
+  search(page: number, size: number,startDate:string,endDate:string,lbp:string,stat:string) {
     let token = localStorage.getItem('token')
     let authHeader = 'Bearer ' + token;
-    return this.httpClient.post<SearchBioChemResponse_Lbp_Status>(BIOCHEM_ENDPOINT+"/historyForLab?page="+page+"&size="+size,{
-      startDate:todaysDate,
-      endDate:todaysDate,
+    return this.httpClient.post<SearchBiochemResponse>(BIOCHEM_ENDPOINT+"/historyForLab?page="+page+"&size="+size,{
+      startDate:startDate,
+      endDate:endDate,
       lbp:lbp,
-      orderStatus:status
+      orderStatus:stat
     },{
       headers: {
           'Authorization': authHeader
       }
   });
   }
-  searchByLbp(lbp:string,page:number,size:number,todaysDate:Date) {
-    let token = localStorage.getItem('token')
-    let authHeader = 'Bearer ' + token;
-    return this.httpClient.post<SearchBioChemResponse_Lbp>(BIOCHEM_ENDPOINT+"/historyForLab?page="+page+"&size="+size,{
-      startDate:todaysDate,
-      endDate:todaysDate,
-      lbp:lbp
-    },{
-      headers: {
-          'Authorization': authHeader
-      }
-  });
-  }
-
+ 
 }

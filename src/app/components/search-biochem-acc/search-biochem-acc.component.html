@@ -36,9 +36,9 @@
       <br />
       <p class="fs-6 fw-bold">Pretraga po statusu obrade</p>
       <select id="status" class="form-select" [(ngModel)]="status">
-        <option value="obradjeno">OBRADJENO</option>
-        <option value="neobradjeno">NEOBRADJENO</option>
-        <option value="string">string</option>
+        <option value="Neobrađen">Neobrađen</option>
+        <option value="Obrađen">Obrađen</option>
+        <option value="U obradi">U obradi</option>
       </select>
       <br />
       <input
@@ -55,7 +55,7 @@
         class="table table-light table-hover border-success rounded overflow-hidden caption-top"
       >
         <thead>
-          <tr style="color: #888">
+          <tr style="color: #78c2ad">
             <th scope="col">ID</th>
             <th scope="col">Datum i vreme kreiranja</th>
             <th scope="col">LBP pacijenta</th>
@@ -64,27 +64,27 @@
           </tr>
         </thead>
         <tbody>
-          <!-- <tr
-            *ngFor="let patient of schedMedExamsList"
-            (click)="selectedPatient(patient[0], patient[1])"
+          <tr
+            style="font-size: 0.7rem; font-weight: bold; color: #78c2ad"
+            *ngFor="let order of orderList"
           >
-            <td>{{ patient[0] }}</td>
-            <td>{{ patient[1] }}</td>
-            <td>{{ patient[2] }}</td>
-            <td>{{ patient[3] }}</td>
-            <td>{{ patient[4] }}</td>
-          </tr> -->
+            <td>{{ order[0] }}</td>
+            <td>{{ order[1] }}</td>
+            <td>{{ order[2] }}</td>
+            <td>{{ order[3] }}</td>
+            <td>{{ order[4] }}</td>
+          </tr>
         </tbody>
       </table>
-      <!-- <div class="d-flex justify-content-center p-2">
+      <div class="d-flex justify-content-center p-2">
         <ngb-pagination
           [collectionSize]="collectionSize"
           [(page)]="page"
           [pageSize]="pageSize"
-          (pageChange)="getScheduledAppointmentsForDoctor()"
+          (pageChange)="search()"
         >
         </ngb-pagination>
-      </div> -->
+      </div>
     </div>
   </div>
 </div>

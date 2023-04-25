@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HotToastService } from '@ngneat/hot-toast';
-import { SearchBioChemResponse_Lbp_Status,SearchBioChemResponse_Lbp } from 'src/app/dto/response/search-biochem-response';
+import { SearchBiochemResponse } from 'src/app/dto/response/search-biochem-response';
 import { AuthService } from 'src/app/service/auth.service';
 import { SearchBiochemService } from 'src/app/service/search-biochem.service';
 
@@ -20,56 +20,61 @@ export class SearchBiochemAccComponent implements OnInit {
   endDate:string='';
   status:string='';
 
+  orderList:Array<string[]>=[];
+
+  orders:Array<string[]> = [];
+  order_single:string[] = [];
+
   constructor(private toast: HotToastService,protected authService: AuthService,private searchBiochemService:SearchBiochemService) { }
 
   ngOnInit(): void {
   }
 
   search(){
-    let todaysDate=new Date().toJSON();
-    //default
-    if(this.startDate=='' && this.endDate=='' && this.status=='' && this.lbp=='') this.toast.info("Izvrsena pretraga po tekucem datumu.")
-    //search by lbp and status
-    else if(this.lbp!=='' && this.status!==''){
-      this.searchBiochemService.searchByLbpAndStatus(this.lbp,this.status,this.page,this.pageSize,todaysDate).subscribe({
-        next:(res)=>{
-          const response = res as SearchBioChemResponse_Lbp_Status
-            console.log(response)
-        },
-        error:(e)=>{
-          this.toast.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
-        }
-      });
-    }
-    //search by lbp
-    else if(this.lbp !=='' && this.status==''){
-      let todaysDate=new Date();
-      this.searchBiochemService.searchByLbp(this.lbp,this.page,this.pageSize,todaysDate).subscribe({
-        next:(res)=>{
-          const response = res as SearchBioChemResponse_Lbp
-            console.log(response)
-        },
-        error:(e)=>{
-          this.toast.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
-        }
-      });
-    }
-    //search by status
-    else if(this.lbp=='' && this.status!==''){
-      this.toast.info("Pretraga trenutno nije moguca. Pokusajte da dodate i lbp")
-    }
-    else{
+    let currentDate = new Date(Date.now()).toLocaleString().split(',')[0];
+      if(this.lbp=='' && this.startDate=='' && this.endDate=='' && this.status=='') this.toast.info('Pretraga po tekucem datumu '+currentDate )
       if( this.startDate!=='' && this.endDate=='' ||
-          this.startDate=='' && this.endDate=='' ||
           this.startDate=='' && this.endDate!==''
        ) this.toast.warning("Odaberite oba datuma pretrage!") 
         else{
           const dateStart:Date=new Date(this.startDate);
           const dateEnd:Date=new Date(this.endDate);
           if(dateStart>dateEnd) this.toast.error("Pocetni datum ne moze biti veci od krajnjeg!")
-          else console.log('search by date')
+          else{
+            this.order_single=[];
+            this.orders=[];
+            this.searchBiochemService.search(this.page,this.pageSize,this.startDate,this.endDate,this.lbp,this.status).subscribe({
+              next:(res)=>{
+                const response = res as SearchBiochemResponse
+                console.log(response)
+                const ordersArray = Object.values(response['orderList'])
+                for(let i=0;i<ordersArray.length;i++)  {
+                  this.order_single.push(ordersArray[i].id.toString())
+                  this.order_single.push(parseDate(ordersArray[i].creationTime))
+                  this.order_single.push(ordersArray[i].lbp)
+                  this.order_single.push(ordersArray[i].status.notation)
+                  this.order_single.push(ordersArray[i].lbzTechnician)
+                  console.log(this.order_single)
+                  this.orders.push(this.order_single);
+                }
+                  this.orderList=this.orders;
+                  this.collectionSize=response.count;
+              },
+              error:(e)=>{
+                this.toast.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
+              }
+            });
+          }
         }
     }
   }
+  
 
+function parseDate(creationTime: Date): string {
+  console.log(creationTime.toLocaleDateString);
+  let date =creationTime.toLocaleString().split(',')[0];
+  let dateSplit = date.split('T');
+  let timeSplit = dateSplit[1].split('.');
+  return dateSplit[0]+" "+timeSplit[0];
 }
+

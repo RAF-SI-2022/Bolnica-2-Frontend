@@ -1,11 +1,14 @@
-export interface SearchBioChemResponse_Lbp_Status{
-    startDate: string,
-    endDate:string,
-    lbp: string,
-    orderStatus:string
+export interface SearchBiochemResponse{
+    count:number;
+    orderList:Array<OrderListResponse>;
 }
-export interface SearchBioChemResponse_Lbp{
-    startDate: string,
-    endDate:string,
-    lbp: string,
+export interface OrderListResponse{
+    id:number;
+    creationTime:Date;
+    lbp:string;
+    status:StatusResponse;
+    lbzTechnician:string;
+}
+export interface StatusResponse{
+    notation:string;
 }
