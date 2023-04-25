@@ -3,7 +3,7 @@
     <h5 *ngIf="patient" class="mb-4"><i class="bi bi-person-circle" style="margin-right: 8px;"></i>{{patient.firstName + " " + patient.lastName}}<span class="badge bg-info" style="margin-left: 15px;">{{patient.gender.notation | genderPipe}}, {{patient.birthDate | dateOfBirthToAge}}</span></h5>
     <div class="row g-3 mb-3">
         <div class="col-md-4">
-            <select (change)="onReferralTypeChange($event)" class="form-select">
+            <select (change)="onReferralTypeChange($event)" class="form-select" data-testid="tip-uputa-dropdown">
                 <option disabled selected value>Izaberite tip uputa</option>
                 <option value="Laboratorija">Laboratorija</option>
                 <option value="Dijagnostika">Dijagnostika</option>
@@ -18,9 +18,9 @@
         <h5 class="mb-4">Laboratorijski uput</h5>
         <div class="row g-3 mb-4">
             <div class="col-md-4">
-                <select formControlName="hospital" class="form-select">
+                <select formControlName="hospital" class="form-select" data-testid="lab-ustanova">
                     <option disabled selected value>Zdravstvena ustanova</option>
-                    <option *ngFor="let hospital of hospitalsWithLab">{{ hospital.hospitalResponse.fullName }}</option>
+                    <option [value]="hospital.hospitalResponse.fullName" *ngFor="let hospital of hospitalsWithLab">{{ hospital.hospitalResponse.fullName }}</option>
                 </select>
                 <div *ngIf="labFormSubmitted && labForm.get('hospital')?.errors?.required" class="validation-error small alert alert-danger">Odaberite zdravstvenu ustanovu</div>
             </div>
@@ -29,7 +29,7 @@
             <div class="col-md-4">
                 <h6>Laboratorijske analize</h6>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" formArrayName="labAnalysis" (change)="onLabAnalysisCheckboxChange($event)" value="Glukoza" id="labAnalysis1">
+                    <input class="form-check-input" type="checkbox" formArrayName="labAnalysis" (change)="onLabAnalysisCheckboxChange($event)" value="Glukoza" id="labAnalysis1" data-testid="glukoza">
                     <label class="form-check-label" for="labAnalysis1">Glukoza</label>
                 </div>
                 <div class="form-check">
@@ -126,5 +126,5 @@
         </div>
     </form>
 
-    <button *ngIf="referralType" class="btn btn-primary" (click)="onSubmit()">Kreiraj uput</button>
+    <button *ngIf="referralType" class="btn btn-primary" (click)="onSubmit()" data-testid="submit-referral">Kreiraj uput</button>
 </div>

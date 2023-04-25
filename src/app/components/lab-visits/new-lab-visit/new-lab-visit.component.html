@@ -1,7 +1,7 @@
 <ng-template #rt let-r="result" let-t="term">
     <div class="row">
         <img src="../../assets/images/person-circle.svg" class="me-1" alt="..." style="width: 5rem;"/>
-        <div class="col">
+        <div class="col" data-testid="patient-result">
             <div class="row">
                 <ngb-highlight [result]="r.firstName + ' ' + r.lastName" [term]="t"></ngb-highlight>
             </div>
@@ -24,19 +24,19 @@
                     <div class="col-md-6 form-floating gx-1">
                         <input (selectItem)="onPatientSelected($event)" formControlName="patient" [(ngModel)]="model" [ngbTypeahead]="search"
                             [resultTemplate]="rt" [inputFormatter]="inputFormatResultingPatient"
-                            type="text" id="floatingPatient" class="form-control" placeholder="patient-placeholder">
+                            type="text" id="floatingPatient" class="form-control" placeholder="patient-placeholder" data-testid="patient-input">
                         <label for="floatingPatient">Pacijent</label>
                         <div *ngIf="submitted && newLabVisitForm.get('patient')?.errors?.required" class="validation-error small alert alert-danger">Odaberite pacijenta</div>
                     </div>
                 </div>
                 <div class="row g-3 mb-2">
                     <div class="col-md-5 form-floating gx-1">
-                        <input (change)="onDateInputChange($event)" formControlName="date" type="date" class="form-control" id="floatingDate" placeholder="Datum">
+                        <input (change)="onDateInputChange($event)" formControlName="date" type="date" class="form-control" id="floatingDate" placeholder="Datum" data-testid="date">
                         <label for="floatingDate">Datum</label>
                         <div *ngIf="submitted && newLabVisitForm.get('date')?.errors?.required" class="validation-error small alert alert-danger">Odaberite datum</div>
                     </div>
                     <div class="col-md-2 form-floating gx-1">
-                        <input formControlName="time" type="time" class="form-control" id="floatingTime" placeholder="Time">
+                        <input formControlName="time" type="time" class="form-control" id="floatingTime" placeholder="Time" data-testid="time">
                         <label for="floatingTime">Vreme</label>
                         <div *ngIf="submitted && newLabVisitForm.get('time')?.errors?.required" class="validation-error small alert alert-danger">Odaberite vreme</div>
                     </div>
@@ -57,7 +57,7 @@
                         <button (click)="getUnprocessedReferrals()" [disabled]="patient === undefined" class="btn btn-md btn-secondary w-100">Pogledaj nerealizovane upute</button>
                     </div>
                     <div class="col-md-6">
-                        <button (click)="onSubmit()" class="btn btn-md btn-primary w-100" type="submit">Zakaži</button>
+                        <button (click)="onSubmit()" class="btn btn-md btn-primary w-100" type="submit" data-testid="confirm">Zakaži</button>
                     </div>
                 </div>
             </form>
