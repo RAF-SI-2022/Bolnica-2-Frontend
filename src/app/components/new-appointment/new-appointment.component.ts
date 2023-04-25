@@ -163,7 +163,9 @@ export class NewAppointmentComponent implements OnInit {
           firstName: term,
           lastName: '',
           jmbg: '',
-          lbp: ''
+          lbp: '',
+          page: 0,
+          size: 1000
         }).pipe(map(response => response.patients))
 			)
 	  );

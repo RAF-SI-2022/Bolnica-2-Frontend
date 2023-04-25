@@ -233,7 +233,7 @@
 
         <div class="col-md-2 form-floating gx-1">
             <input formControlName="childrenNum" type="number" class="form-control" id="floatingBrojDece"
-                placeholder="Broj Dece" />
+                placeholder="Broj Dece" min="0" oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"/>
             <label for="floatingBrojDece">Broj dece
             </label>
         </div>
