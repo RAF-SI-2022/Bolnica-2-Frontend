@@ -5,7 +5,7 @@
 
     <div class="row g-3 mb-3">
         <div class="col-md-3 form-floating gx-1">
-            <input formControlName="firstName" type="text" class="form-control" name="firstName" id="floatingFirstName" placeholder="Name"/>
+            <input formControlName="firstName" type="text" class="form-control" name="firstName" id="floatingFirstName" placeholder="Name" data-testid="name"/>
             <label for="floatingFirstName">Ime</label>
             <div *ngIf="submitted && editPatient.get('firstName')?.errors?.required"
                 class="validation-error small alert alert-danger">
@@ -66,7 +66,7 @@
             <input formControlName="deathMinute" type="text" class="form-control" id="floatingDeathMinute" placeholder="Minute of Death"/>
             <label for="floatingDeathMinute">Minut smrti</label>
         </div>
-        
+
 
         <div class="col-md-3 form-floating gx-1">
             <input formControlName="birthplace" type="text" class="form-control" id="floatingBirthplace" placeholder="Birth Place"/>
@@ -107,7 +107,7 @@
               <option value="BIH">Bosna i Hercegovina</option>
               <option value="BRA">Brazil</option>
               <option value="BGR">Bugarska</option>
-      
+
               <option value="CMR">Kamerun</option>
               <option value="CAN">Kanada</option>
               <option value="CHL">Čile</option>
@@ -117,10 +117,10 @@
               <option value="DNK">Danska</option>
               <option value="EGY">Egipat</option>
               <option value="FRA">Francuska</option>
-      
+
               <option value="SRB">Srbija</option>
               <option value="SVN">Slovenija</option>
-      
+
             </select>
         </div>
 
@@ -148,7 +148,7 @@
                 <option value="BIH">Bosna i Hercegovina</option>
                 <option value="BRA">Brazil</option>
                 <option value="BGR">Bugarska</option>
-        
+
                 <option value="CMR">Kamerun</option>
                 <option value="CAN">Kanada</option>
                 <option value="CHL">Čile</option>
@@ -158,17 +158,17 @@
                 <option value="DNK">Danska</option>
                 <option value="EGY">Egipat</option>
                 <option value="FRA">Francuska</option>
-        
+
                 <option value="SRB">Srbija</option>
                 <option value="SVN">Slovenija</option>
-      
+
             </select>
         </div>
     </div>
     <div class="row g-3 mb-3">
         <div class="col-md-3 form-floating gx-1">
             <input formControlName="phoneNumber" type="text" class="form-control" id="floatingPhoneNumber" placeholder="Phone Number"/>
-            <label for="floatingPhone Number">Kontakt telefon 
+            <label for="floatingPhone Number">Kontakt telefon
             </label>
 
         </div>
@@ -229,11 +229,11 @@
                 <option value="Visoko obrazovanje">Visoko obrazovanje</option>
             </select>
         </div>
-    
-    
+
+
         <div class="col-md-2 form-floating gx-1">
             <input formControlName="childrenNum" type="number" class="form-control" id="floatingBrojDece"
-                placeholder="Broj Dece" />
+                placeholder="Broj Dece" min="0" oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"/>
             <label for="floatingBrojDece">Broj dece
             </label>
         </div>
@@ -246,8 +246,8 @@
             </div>
 
             <div class="col-md-4">
-                <button (click)="save()" class="btn btn-primary form-control">Sačuvaj podatke</button>
+                <button (click)="save()" class="btn btn-primary form-control" data-testid="edit-patient-button">Sačuvaj podatke</button>
             </div>
-            
+
     </div>
 </form>

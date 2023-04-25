@@ -31,9 +31,22 @@ import { MedicalHistoryRecordComponent } from './components/health-records/medic
 import { FullMedicalHistoryComponent } from './components/health-records/full-medical-history/full-medical-history.component';
 import { IllnessHistoryRecordComponent } from './components/health-records/illness-history-record/illness-history-record.component';
 import { ScheduledAppointmentsComponent } from './components/scheduled-appointments/scheduled-appointments.component'
+import { ReferralHistoryComponent } from './components/referral-history/referral-history.component';
 import { SpecialistDoctorExaminationComponent } from './components/specialist-doctor-examination/specialist-doctor-examination.component';
 import { EditPatientComponent } from './components/edit-patient/edit-patient.component';
 import { GenderPipe } from './pipe/gender.pipe';
+import { DateOfBirthToAgePipe } from './pipe/date-of-birth-to-age.pipe';
+import { ScheduledPatientsComponent } from './components/scheduled-patients/scheduled-patients.component';
+import { NewWorkOrderComponent } from './components/new-work-order/new-work-order.component';
+import { NewLabVisitComponent } from './components/lab-visits/new-lab-visit/new-lab-visit.component';
+import { LabVisitsComponent } from './components/lab-visits/lab-visits.component';
+import { NewReferralComponent } from './components/new-referral/new-referral.component';
+import { SearchScheduledLabVisitsComponent } from './components/lab-visits/search-scheduled-lab-visits/search-scheduled-lab-visits.component';
+import { DocLabWorkOrderHistoryComponent } from './doc-lab-work-order-history/doc-lab-work-order-history.component';
+import { SearchBiochemAccComponent } from './components/search-biochem-acc/search-biochem-acc.component';
+
+import { IssuingResultsComponent } from "./components/issuing-results/issuing-results.component";
+import { FullIssuingResultsComponent } from './components/full-issuing-results/full-issuing-results.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +62,7 @@ import { GenderPipe } from './pipe/gender.pipe';
     NewAppointmentComponent,
     SearchPatientsComponent,
     NewPatientComponent,
+    ReferralHistoryComponent,
     SpecialistDoctorExaminationComponent,
     NewPatientComponent,
     HealthRecordComponent,
@@ -58,7 +72,18 @@ import { GenderPipe } from './pipe/gender.pipe';
     IllnessHistoryRecordComponent,
     ScheduledAppointmentsComponent,
     EditPatientComponent,
-    GenderPipe
+    GenderPipe,
+    ScheduledPatientsComponent,
+    NewWorkOrderComponent,
+    NewReferralComponent,
+    DateOfBirthToAgePipe,
+    NewLabVisitComponent,
+    LabVisitsComponent,
+    SearchScheduledLabVisitsComponent,
+    DocLabWorkOrderHistoryComponent,
+    SearchBiochemAccComponent,
+    IssuingResultsComponent,
+    FullIssuingResultsComponent
   ],
   imports: [
     BrowserModule,

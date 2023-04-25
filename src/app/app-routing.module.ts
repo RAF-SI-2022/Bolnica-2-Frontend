@@ -25,9 +25,21 @@ import {
 import {
   IllnessHistoryRecordComponent
 } from "./components/health-records/illness-history-record/illness-history-record.component";
+import { ReferralHistoryComponent } from './components/referral-history/referral-history.component';
+
 import { SpecialistDoctorExaminationComponent } from './components/specialist-doctor-examination/specialist-doctor-examination.component';
 import { ScheduledAppointmentsComponent } from './components/scheduled-appointments/scheduled-appointments.component';
 import { EditPatientComponent } from './components/edit-patient/edit-patient.component';
+import { ScheduledPatientsComponent } from './components/scheduled-patients/scheduled-patients.component';
+import { NewWorkOrderComponent } from './components/new-work-order/new-work-order.component';
+import { NewLabVisitComponent } from './components/lab-visits/new-lab-visit/new-lab-visit.component';
+import { LabVisitsComponent } from './components/lab-visits/lab-visits.component';
+import { NewReferralComponent } from './components/new-referral/new-referral.component';
+import { SearchScheduledLabVisitsComponent } from './components/lab-visits/search-scheduled-lab-visits/search-scheduled-lab-visits.component';
+import { DocLabWorkOrderHistoryComponent } from './doc-lab-work-order-history/doc-lab-work-order-history.component';
+import {IssuingResultsComponent} from "./components/issuing-results/issuing-results.component";
+import {FullIssuingResultsComponent} from "./components/full-issuing-results/full-issuing-results.component";
+import { SearchBiochemAccComponent } from './components/search-biochem-acc/search-biochem-acc.component';
 
 const routes: Routes = [
   {
@@ -60,7 +72,7 @@ const routes: Routes = [
     path: 'new-patient',
     component: NewPatientComponent,
     canActivate: [AuthGuard, PermissionGuard],
-    data: {permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA']}
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA', 'ROLE_RECEPCIONER'] }
   },
   {
     path: 'search-employees',
@@ -83,62 +95,131 @@ const routes: Routes = [
     path: 'new-appointment',
     component: NewAppointmentComponent,
     canActivate: [AuthGuard, PermissionGuard],
-    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA', 'ROLE_RECEPCIONER'] }
   },
   {
     path: 'search-patients',
     component: SearchPatientsComponent,
     canActivate: [AuthGuard, PermissionGuard],
-    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA','ROLE_DR_SPEC','ROLE_DR_SPEC_POV','ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV', 'ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA', 'ROLE_RECEPCIONER'] }
   },
   {
     path: 'health-record/:lbp',
     component: HealthRecordComponent,
     canActivate: [AuthGuard, PermissionGuard],
-    data: { permissions: ['ROLE_ADMIN'] }
+    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'] }
   },
   {
     path: 'basic-health-record',
     component: BasicHealthRecordComponent,
     canActivate: [AuthGuard, PermissionGuard],
-    data: {permissions: ['ROLE_ADMIN']}
+    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'] }
   },
   {
     path: 'medical-history-record',
     component: MedicalHistoryRecordComponent,
     canActivate: [AuthGuard, PermissionGuard],
-    data: {permissions: ['ROLE_ADMIN']}
+    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'] }
   },
   {
     path: 'full-medical-history',
     component: FullMedicalHistoryComponent,
     canActivate: [AuthGuard, PermissionGuard],
-    data: {permissions: ['ROLE_ADMIN']}
+    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'] }
   },
   {
     path: 'illness-history',
     component: IllnessHistoryRecordComponent,
     canActivate: [AuthGuard, PermissionGuard],
-    data: {permissions: ['ROLE_ADMIN']}
+    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'] }
   },
   {
     path: 'specialist-doctor-examination',
     component: SpecialistDoctorExaminationComponent,
     canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'] }
+  },
+  {
+    path: 'scheduled-appointments',
+    component: ScheduledAppointmentsComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV', 'ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+  },
+  {
+    path: 'edit-patient/:lbp',
+    component: EditPatientComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+  },
+  {
+    path: 'new-referral/:lbp',
+    component: NewReferralComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'] }
+  },
+  {
+    path:'scheduled-patients',
+    component:ScheduledPatientsComponent,
+    canActivate:[AuthGuard,PermissionGuard],
+    data:{permissions:['ROLE_LAB_TEHNICAR', 'ROLE_VISI_LAB_TEHNICAR']}
+  },
+  {
+    path:'new-work-order/:lbp',
+    component:NewWorkOrderComponent,
+    canActivate:[AuthGuard,PermissionGuard],
+    data:{permissions:['ROLE_LAB_TEHNICAR', 'ROLE_VISI_LAB_TEHNICAR']}
+  },
+  {
+    path:'new-work-order',
+    component:NewWorkOrderComponent,
+    canActivate:[AuthGuard,PermissionGuard],
+    data:{permissions:['ROLE_LAB_TEHNICAR', 'ROLE_VISI_LAB_TEHNICAR']}
+  },
+  {
+    path: 'lab-visits',
+    component: LabVisitsComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_VISI_LAB_TEHNICAR', 'ROLE_LAB_TEHNICAR'] }
+  },
+  {
+    path: 'new-lab-visit',
+    component: NewLabVisitComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_VISI_LAB_TEHNICAR', 'ROLE_LAB_TEHNICAR'] }
+  },
+  {
+    path: 'referral-history/:lbp',
+    component: ReferralHistoryComponent,
+    canActivate: [AuthGuard, PermissionGuard],
     data: { permissions: ['ROLE_DR_SPEC_ODELJENJA','ROLE_DR_SPEC','ROLE_DR_SPEC_POV'] }
   },
   {
-    path:'scheduled-appointments',
-    component:ScheduledAppointmentsComponent,
-    canActivate:[AuthGuard,PermissionGuard],
-    data:{permissions:['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV','ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA']}
+    path: 'search-scheduled-lab-visits',
+    component: SearchScheduledLabVisitsComponent,
+    data: { permissions: ['ROLE_VISI_LAB_TEHNICAR', 'ROLE_LAB_TEHNICAR'] }
   },
   {
-  path: 'edit-patient/:lbp',
-component: EditPatientComponent,
-canActivate: [AuthGuard, PermissionGuard],
-data: {permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA']}
-},
+    path: 'doc-lab-work-order-history/:lbp',
+    component: DocLabWorkOrderHistoryComponent,
+    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA','ROLE_DR_SPEC','ROLE_DR_SPEC_POV'] }
+  },
+    {
+    path:'search-biochem-acc',
+    component:SearchBiochemAccComponent,
+    canActivate:[AuthGuard,PermissionGuard],
+    data:{permissions:['ROLE_MED_BIOHEMICAR','ROLE_SPEC_MED_BIOHEMIJE']}
+  },
+  {
+    path: 'issuing-results',
+    component: IssuingResultsComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: {permissions: ['ROLE_VISI_LAB_TEHNICAR', 'ROLE_LAB_TEHNICAR']}
+  },
+  {
+    path: 'full-issuing-results',
+    component: FullIssuingResultsComponent,
+    data: {permissions: ['ROLE_VISI_LAB_TEHNICAR', 'ROLE_LAB_TEHNICAR']}
+  }
 ];
 
 @NgModule({

@@ -63,6 +63,8 @@ export class AuthService {
         const decodedToken = jwt_decode<CurrentUser>(token);
         localStorage.setItem('lbz', decodedToken.sub);
         localStorage.setItem('permissions', JSON.stringify(decodedToken.permissions));
+        localStorage.setItem('pbo', decodedToken.pbo);
+        localStorage.setItem('pbb', decodedToken.pbb);
         console.log(decodedToken);
         this.router.navigate(['/']);
     }

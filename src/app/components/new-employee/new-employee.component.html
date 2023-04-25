@@ -2,7 +2,7 @@
   <h4 class="mb-4">Dodaj novog zaposlenog</h4>
   <div class="row g-3 mb-3">
     <div class="col-md-6 form-floating gx-1">
-      <input formControlName="email" type="email" class="form-control" id="floatingEmail" placeholder="Email"
+      <input formControlName="email" type="email" class="form-control" id="floatingEmail" placeholder="Email" data-testid="email"
         required />
       <label for="floatingEmail">E-mail</label>
       <div *ngIf="submitted && newemployeeForm.get('email')?.errors?.required"
@@ -22,7 +22,7 @@
   </div>
   <div class="row g-3 mb-3">
     <div class="col-md-6 form-floating gx-1">
-      <input formControlName="ime" type="text" class="form-control" id="floatingIme" placeholder="Ime" />
+      <input formControlName="ime" type="text" class="form-control" id="floatingIme" placeholder="Ime" data-testid="name"/>
       <label for="floatingIme">Ime</label>
       <div *ngIf="submitted && newemployeeForm.get('ime')?.errors?.required"
         class="validation-error small alert alert-danger">
@@ -30,7 +30,7 @@
       </div>
     </div>
     <div class="col-md-6 form-floating gx-1">
-      <input formControlName="prezime" type="text" class="form-control" id="floatingPrezime" placeholder="Prezime" />
+      <input formControlName="prezime" type="text" class="form-control" id="floatingPrezime" placeholder="Prezime" data-testid="surname"/>
       <label for="floatingPrezime">Prezime</label>
       <div *ngIf="submitted && newemployeeForm.get('prezime')?.errors?.required"
         class="validation-error small alert alert-danger">
@@ -41,7 +41,7 @@
   <div class="row g-3 mb-3">
     <div class="col-md-4 form-floating gx-1">
       <input formControlName="datumrodjenja" type="date" class="form-control" id="floatingDatRodjenja"
-        placeholder="Datum rodjenja" />
+        placeholder="Datum rodjenja" data-testid="date"/>
       <label for="floatingDatRodjenja">Datum rodjenja</label>
       <div *ngIf="submitted && newemployeeForm.get('datumrodjenja')?.errors?.required"
         class="validation-error small alert alert-danger">
@@ -49,7 +49,7 @@
       </div>
     </div>
     <div class="col-md-6 form-floating gx-1">
-      <input formControlName="jmbg" type="text" class="form-control" id="floatingJmbg" placeholder="JMBG" />
+      <input formControlName="jmbg" type="text" class="form-control" id="floatingJmbg" placeholder="JMBG" data-testid="jmbg"/>
       <label for="floatingJmbg">JMBG</label>
       <div *ngIf="submitted && newemployeeForm.get('jmbg')?.errors?.required"
         class="validation-error small alert alert-danger">
@@ -58,7 +58,7 @@
     </div>
     <div class="col-md-2 form-check gx-1">
       <div class="form-check">
-        <input formControlName="pol" type="radio" value="Muski" class="form-check-input" id="floatingPolm" />
+        <input formControlName="pol" type="radio" value="Muski" class="form-check-input" id="floatingPolm" data-testid="male"/>
         <label class="form-check-label" for="floatingPolm">Muško</label>
       </div>
       <div class="form-check">
@@ -73,7 +73,7 @@
   <div class="row g-3 mb-3">
     <div class="col-md-6 form-floating gx-1">
       <input formControlName="mestostanovanja" type="text" class="form-control" id="floatingMestoStanovanja"
-        placeholder="Mesto stanovanja" />
+        placeholder="Mesto stanovanja" data-testid="place"/>
       <label for="floatingDatRodjenja">Mesto stanovanja</label>
       <div *ngIf="submitted && newemployeeForm.get('mestostanovanja')?.errors?.required"
         class="validation-error small alert alert-danger">
@@ -82,7 +82,7 @@
     </div>
     <div class="col-md-6 form-floating gx-1">
       <input formControlName="adresastanovanja" type="text" class="form-control" id="floatingAdresaStanovanja"
-        placeholder="Adresa stanovanja" />
+        placeholder="Adresa stanovanja" data-testid="address"/>
       <label for="floatingAdresaStanovanja">Adresa stanovanja</label>
       <div *ngIf="submitted && newemployeeForm.get('adresastanovanja')?.errors?.required"
         class="validation-error small alert alert-danger">
@@ -96,18 +96,20 @@
         <input class="form-check-input" type="checkbox" formArrayName="privilegije" (change)="onPrivilegijeCheckboxChange($event)" value="ROLE_ADMIN" id="floatingAdminPriv">
         <label class="form-check-label" for="floatingAdminPriv">Administrator</label>
       </div>
+      <hr class="my-4">
       <div class="form-check">
         <input class="form-check-input" type="checkbox" formArrayName="privilegije" (change)="onPrivilegijeCheckboxChange($event)" value="ROLE_DR_SPEC_ODELJENJA" id="floatingNacelnik">
         <label class="form-check-label" for="floatingNacelnik">Načelnik odeljenja</label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="checkbox" formArrayName="privilegije" (change)="onPrivilegijeCheckboxChange($event)" value="ROLE_DR_SPEC" id="floatingDocSpec">
+        <input class="form-check-input" type="checkbox" formArrayName="privilegije" (change)="onPrivilegijeCheckboxChange($event)" value="ROLE_DR_SPEC" id="floatingDocSpec" data-testid="doctor-checkbox">
         <label class="form-check-label" for="floatingDocSpec">Doktor specijalista</label>
       </div>
       <div class="form-check">
         <input class="form-check-input" type="checkbox" formArrayName="privilegije" (change)="onPrivilegijeCheckboxChange($event)" value="ROLE_DR_SPEC_POV" id="floatingDocSpecPov">
         <label class="form-check-label" for="floatingDocSpecPov">Doktor specijalista (poverljiv pristup)</label>
       </div>
+      <hr class="my-4">
       <div class="form-check">
         <input class="form-check-input" type="checkbox" formArrayName="privilegije" (change)="onPrivilegijeCheckboxChange($event)" value="ROLE_VISA_MED_SESTRA" id="floatingMedSestra">
         <label class="form-check-label" for="floatingMedSestra">Medicinska sestra</label>
@@ -116,12 +118,34 @@
         <input class="form-check-input" type="checkbox" formArrayName="privilegije" (change)="onPrivilegijeCheckboxChange($event)" value="ROLE_MED_SESTRA" id="floatingMedSestraVisa">
         <label class="form-check-label" for="floatingMedSestraVisa">Viša medicinska sestra</label>
       </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" formArrayName="privilegije" (change)="onPrivilegijeCheckboxChange($event)" value="ROLE_RECEPCIONER" id="floatingMedSestraVisa">
+        <label class="form-check-label" for="floatingMedSestraVisa">Recepcioner</label>
+      </div>
+      <hr class="my-4">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" formArrayName="privilegije" (change)="onPrivilegijeCheckboxChange($event)" value="ROLE_LAB_TEHNICAR" id="floatingMedSestraVisa">
+        <label class="form-check-label" for="floatingMedSestraVisa">Laboratorijski tehničar</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" formArrayName="privilegije" (change)="onPrivilegijeCheckboxChange($event)" value="ROLE_VISI_LAB_TEHNICAR" id="floatingMedSestraVisa">
+        <label class="form-check-label" for="floatingMedSestraVisa">Viši laboratorijski tehničar</label>
+      </div>
+      <hr class="my-4">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" formArrayName="privilegije" (change)="onPrivilegijeCheckboxChange($event)" value="ROLE_MED_BIOHEMICAR" id="floatingMedSestraVisa">
+        <label class="form-check-label" for="floatingMedSestraVisa">Medicinski biohemičar</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" formArrayName="privilegije" (change)="onPrivilegijeCheckboxChange($event)" value="ROLE_SPEC_MED_BIOHEMIJE" id="floatingMedSestraVisa">
+        <label class="form-check-label" for="floatingMedSestraVisa">Specijalista medicinske biohemije</label>
+      </div>
       <div *ngIf="submitted && newemployeeForm.get('privilegije')?.errors?.required" class="validation-error small alert alert-danger">
         Odaberite bar jednu privilegiju
       </div>
     </div>
     <div class="col-md-3">
-      <select formControlName="titula" class="form-select" aria-label="Default select example">
+      <select formControlName="titula" class="form-select" aria-label="Default select example" data-testid="titula-dropdown">
         <option disabled selected value>Titula</option>
         <option value="Prof. dr. med.">Prof. dr. med.</option>
         <option value="Dr med. spec.">Dr med. spec.</option>
@@ -132,7 +156,7 @@
       <div *ngIf="submitted && newemployeeForm.get('titula')?.errors?.required" class="validation-error small alert alert-danger">Titula je obavezna</div>
     </div>
     <div class="col-md-3">
-      <select formControlName="odeljenje" class="form-select" aria-label="Default select example">
+      <select formControlName="odeljenje" class="form-select" aria-label="Default select example" data-testid="odeljenje-dropdown">
         <option disabled selected value>Odeljenje</option>
         <option value="1">Hirurgija</option>
         <option value="2">Laboratorija</option>
@@ -141,7 +165,7 @@
       <div *ngIf="submitted && newemployeeForm.get('odeljenje')?.errors?.required" class="validation-error small alert alert-danger">Odeljenje je obavezno</div>
     </div>
     <div class="col-md-3">
-      <select formControlName="zanimanje" class="form-select" aria-label="Default select example">
+      <select formControlName="zanimanje" class="form-select" aria-label="Default select example" data-testid="zanimanje-dropdown">
         <option disabled selected value>Zanimanje</option>
         <option value="Med. sestra">Med. sestra</option>
         <option value="Spec. biohemičar">Spec. biohemičar</option>
@@ -163,7 +187,7 @@
   <hr class="my-4">
   <div class="row g-3 mb-3 justify-content-center">
     <div class="col-md-4">
-      <button type="submit" class="btn btn-primary form-control mb-2" (click)="newEmployee()">Dodaj zaposlenog</button>
+      <button type="submit" class="btn btn-primary form-control mb-2" (click)="newEmployee()" data-testid="add-employee-button">Dodaj zaposlenog</button>
     </div>
   </div>
 </form>

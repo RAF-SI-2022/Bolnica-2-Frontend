@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { HEALTH_RECORD_ENDPOINT } from '../app.constants';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HEALTH_RECORD_ENDPOINT, LAB_URL, ORDER_ENDPOINT, REFERRAL_ENDPOINT, SCHED_MED_EXAM_ENDPOINT } from '../app.constants';
 import {
   AllergenResponse,
   HealthRecordResponse,
@@ -15,6 +15,8 @@ import {
   MedicalExamination
 } from "../dto/request/health-record.request";
 import {constrainPoint} from "@fullcalendar/core/internal";
+import { UnprocessedReferral } from '../dto/response/unprocessed.refferal';
+import { map, pipe } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -133,5 +135,23 @@ export class HealthRecordService {
           'Authorization': 'Bearer ' + localStorage.getItem('token')
         }
       });
+  }
+  getUnprocessedReferrals(lbp:string){
+
+        let token = localStorage.getItem('token')
+        let authHeader = 'Bearer ' + token;
+        return this.httpClient.get<UnprocessedReferral[]>(REFERRAL_ENDPOINT+"/unprocessed?lbp="+lbp, {
+          headers: {
+              'Authorization': authHeader
+          }
+      });
+  }
+
+  createWorkOrder(orderId:number){
+    return this.httpClient.post(LAB_URL + `/order/create/${orderId}`, undefined, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    })
   }
 }

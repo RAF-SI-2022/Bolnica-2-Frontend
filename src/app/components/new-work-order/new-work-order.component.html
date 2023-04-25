@@ -1,0 +1,41 @@
+<div class="p-5">
+	<div class="row">
+		<div class="col-lg-3">
+			<form [formGroup]="LBPForm" class="p-3 border rounded-3 bg-light">
+				<div class="mb-1">
+					<input formControlName="LBP" class="form-control" type="text" placeholder="LBP">
+				</div>
+				<hr class="my-4">
+				<button (click)="search()" class="btn btn-md btn-primary w-100" type="submit">Pretraži</button>
+			</form>
+		</div>
+		<div class="col-lg-9 table-responsive">
+			<table class="table table-striped">
+                <thead>
+                    <tr>
+					  <th>Id uputa</th>
+                      <th>Ime lekara</th>
+                      <th>Prezime lekara</th>
+                      <th>Ime odeljenja</th>
+					  <th>Datum</th>
+					  <th>Napomena</th>
+					  <th>Potrebne analize</th>
+                    </tr>
+                  </thead>
+				<tbody>
+					<tr *ngFor="let item of referrals">
+						<td>{{ item.referralId }}</td>
+                        <td>{{ item.doctorFirstName }}</td>
+                        <td>{{ item.doctorLastName }}</td>
+						<td>{{ item.departmentName }}</td>
+						<td>{{ item.creationDate | date: 'dd.MM.yyyy, HH:mm' }}</td>
+						<td>{{ item.comment }}</td>
+						<td>{{ item.requiredAnalysis }}</td>
+						<td><button (click)="makeWorkOrder(item.referralId)" ngbAutofocus class="btn btn-sm btn-primary">Napravi nalog</button></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+</div>

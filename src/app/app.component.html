@@ -10,7 +10,7 @@
           <li class="nav-item">
             <a routerLink="/personal-data" class="nav-link active" aria-current="page" href="#">Moji podaci</a>
           </li>
-          <li class="nav-item dropdown">
+          <li *ngIf="this.authService.hasPermission('ROLE_ADMIN')" class="nav-item dropdown">
             <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">Zaposleni</a>
             <div class="dropdown-menu">
               <a *ngIf="this.authService.hasPermission('ROLE_ADMIN')" routerLink="/search-employees" class="dropdown-item" href="#">Pretraži zaposlene</a>
@@ -20,25 +20,35 @@
           <li class="nav-item dropdown">
             <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">Pacijenti</a>
             <div class="dropdown-menu">
-              <a *ngIf="this.authService.hasEitherPermission(['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV', 'ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])"
+              <a *ngIf="this.authService.hasEitherPermission(['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV', 'ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA', 'ROLE_RECEPCIONER'])"
               routerLink="/scheduled-appointments"     routerLink="/search-patients" class="dropdown-item" href="#">Svi pacijenti</a>
-              <a *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])"
+              <a *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA', 'ROLE_RECEPCIONER'])"
                   routerLink="/new-patient" class="dropdown-item" href="#">Dodaj novog pacijenta</a>
             </div>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">Pregledi</a>
             <div class="dropdown-menu">
-              <a routerLink="/new-appointment" *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])"
+              <a routerLink="/new-appointment" *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA', 'ROLE_RECEPCIONER'])"
                 class="dropdown-item" href="#">Zakazivanje pregleda</a>
-              <a *ngIf="this.authService.hasEitherPermission(['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV', 'ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])"
+              <a *ngIf="this.authService.hasEitherPermission(['ROLE_LAB_TEHNICAR', 'ROLE_VISI_LAB_TEHNICAR'])"
                 class="dropdown-item" href="#">Zakazani pregledi</a>
             </div>
           </li>
+          <li class="nav-item dropdown" *ngIf="this.authService.hasEitherPermission(['ROLE_LAB_TEHNICAR', 'ROLE_VISI_LAB_TEHNICAR'])">
+            <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">Prijem pacijenata</a>
+            <div class="dropdown-menu">
+              <a routerLink="/scheduled-patients" *ngIf="this.authService.hasEitherPermission(['ROLE_LAB_TEHNICAR', 'ROLE_VISI_LAB_TEHNICAR'])"
+                class="dropdown-item" href="#">Zakazani pacijenti</a>
+              <a routerLink="/new-work-order" *ngIf="this.authService.hasEitherPermission(['ROLE_LAB_TEHNICAR', 'ROLE_VISI_LAB_TEHNICAR'])"
+                class="dropdown-item" href="#">Pravljenje radnog naloga</a>
+            </div>
+          </li>
+
         </ul>
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a routerLink="/login" (click)="this.authService.logout()" class="nav-link active" href="#" aria-current="page"><i class="bi bi-box-arrow-in-right" style="font-size: 1.3rem; margin-right: 7px; color: #ff7851"></i>Odjavi se</a>
+            <a routerLink="/login" (click)="this.authService.logout()" class="nav-link active" href="#" aria-current="page"><i class="bi bi-box-arrow-in-right" style="font-size: 1.3rem; margin-right: 7px; color: #ff7851" data-testid="logout"></i>Odjavi se</a>
           </li>
         </ul>
       </div>

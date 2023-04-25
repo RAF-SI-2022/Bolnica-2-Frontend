@@ -2,7 +2,7 @@
   <h4 class="mb-4">Dodaj novog pacijenta</h4>
   <div class="row g-3 mb-3">
     <div class="col-md-6 form-floating gx-1">
-      <input formControlName="jmbg" type="text" class="form-control" id="floatingJMBG" placeholder="JMBG" />
+      <input formControlName="jmbg" type="text" class="form-control" id="floatingJMBG" placeholder="JMBG" data-testid="jmbg"/>
       <label for="floatingJMBG">JMBG</label>
       <div *ngIf="submitted && newpatientForm.get('jmbg')?.errors?.required"
            class="validation-error small alert alert-danger">
@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="col-md-4 form-floating gx-1">
-      <input formControlName="firstName" type="text" class="form-control" id="floatingIme" placeholder="Ime" />
+      <input formControlName="firstName" type="text" class="form-control" id="floatingIme" placeholder="Ime" data-testid="name"/>
       <label for="floatingIme">Ime</label>
       <div *ngIf="submitted && newpatientForm.get('firstName')?.errors?.required"
            class="validation-error small alert alert-danger">
@@ -20,7 +20,7 @@
   </div>
   <div class="row g-3 mb-3">
     <div class="col-md-2 form-floating gx-1">
-      <input formControlName="parentName" type="text" class="form-control" id="floatingImeRoditelja" placeholder="ImeRoditelja" />
+      <input formControlName="parentName" type="text" class="form-control" id="floatingImeRoditelja" placeholder="ImeRoditelja" data-testid="parent-name"/>
       <label for="floatingImeRoditelja">Ime roditelja</label>
       <div *ngIf="submitted && newpatientForm.get('parentName')?.errors?.required"
            class="validation-error small alert alert-danger">
@@ -28,7 +28,7 @@
       </div>
     </div>
     <div class="col-md-4 form-floating gx-1">
-      <input formControlName="lastName" type="text" class="form-control" id="floatingPrezime" placeholder="Prezime" />
+      <input formControlName="lastName" type="text" class="form-control" id="floatingPrezime" placeholder="Prezime" data-testid="surname"/>
       <label for="floatingPrezime">Prezime</label>
       <div *ngIf="submitted && newpatientForm.get('lastName')?.errors?.required"
            class="validation-error small alert alert-danger">
@@ -37,7 +37,7 @@
     </div>
     <div class="col-md-2 form-check gx-1">
       <div class="form-check">
-        <input formControlName="gender" type="radio" value="Muški" class="form-check-input" id="floatingPolm" />
+        <input formControlName="gender" type="radio" value="Muški" class="form-check-input" id="floatingPolm" data-testid="male"/>
         <label class="form-check-label" for="floatingPolm">Muško</label>
       </div>
       <div class="form-check">
@@ -52,7 +52,7 @@
   <div class="row g-3 mb-3">
     <div class="col-md-4 form-floating gx-1">
       <input formControlName="birthDate" type="date" class="form-control" id="floatingDatRodjenja"
-             placeholder="Datum rođenja" />
+             placeholder="Datum rođenja" data-testid="date"/>
       <label for="floatingDatRodjenja">Datum rođenja</label>
       <div *ngIf="submitted && newpatientForm.get('birthDate')?.errors?.required"
            class="validation-error small alert alert-danger">
@@ -61,7 +61,7 @@
     </div>
     <div class="col-md-4 form-floating gx-1">
       <input formControlName="birthplace" type="text" class="form-control" id="floatingMestoRodjenja"
-             placeholder="Mesto rođenja" />
+             placeholder="Mesto rođenja" data-testid="place"/>
       <label for="floatingMestoRodjenja">Mesto rođenja</label>
       <div *ngIf="submitted && newpatientForm.get('birthplace')?.errors?.required"
            class="validation-error small alert alert-danger">
@@ -71,7 +71,7 @@
   </div>
   <div class="row g-3 mb-3">
     <div class="col-md-3 form-floating gx-1">
-      <input formControlName="email" type="email" class="form-control" id="floatingEmail" placeholder="Email"/>
+      <input formControlName="email" type="email" class="form-control" id="floatingEmail" placeholder="Email" data-testid="email"/>
       <label for="floatingEmail">E-mail</label>
       <div *ngIf="submitted && newpatientForm.get('email')?.errors?.email"
            class="validation-error small alert alert-danger">
@@ -79,7 +79,7 @@
       </div>
     </div>
     <div class="col-md-3">
-      <select formControlName="citizenshipCountry" class="form-select" aria-label="Default select example">
+      <select formControlName="citizenshipCountry" class="form-select" aria-label="Default select example" data-testid="country-of-origin">
         <option disabled selected value>Zemlja Državljanstva</option>
         <option value="AFG">Avganistan</option>
         <option value="ALA">Olandska ostrva</option>
@@ -109,7 +109,7 @@
       <div *ngIf="submitted && newpatientForm.get('citizenshipCountry')?.errors?.required" class="validation-error small alert alert-danger">Zemlja Drzavljanstva je obavezna</div>
     </div>
     <div class="col-md-3">
-      <select formControlName="countryOfLiving" class="form-select" aria-label="Default select example">
+      <select formControlName="countryOfLiving" class="form-select" aria-label="Default select example" data-testid="country-of-living">
         <option disabled selected value>Zemlja stanovanja</option>
         <option value="AFG">Avganistan</option>
         <option value="ALA">Olandska ostrva</option>
@@ -148,7 +148,7 @@
   <div class="row g-3 mb-3">
     <div class="col-md-6 form-floating gx-1">
       <input formControlName="address" type="text" class="form-control" id="floatingAdresa"
-             placeholder="Adresa" />
+             placeholder="Adresa" data-testid="address"/>
       <label for="floatingAdresa">Adresa
       </label>
     </div>
@@ -175,7 +175,7 @@
   <div class="row g-3 mb-3">
     <div class="col-md-2 form-floating gx-1">
       <input formControlName="childrenNum" type="number" class="form-control" id="floatingBrojDece"
-             placeholder="Broj Dece" />
+             placeholder="Broj Dece" min="0" oninput="this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"/>
       <label for="floatingBrojDece">Broj dece
       </label>
     </div>
@@ -220,7 +220,7 @@
   <hr class="my-4">
   <div class="row g-3 mb-3 justify-content-center">
     <div class="col-md-4">
-      <button type="submit" class="btn btn-primary form-control mb-2" (click)="newPatient()">Dodaj pacijenta</button>
+      <button type="submit" class="btn btn-primary form-control mb-2" (click)="newPatient()" data-testid="add-patient-button">Dodaj pacijenta</button>
     </div>
   </div>
 </form>

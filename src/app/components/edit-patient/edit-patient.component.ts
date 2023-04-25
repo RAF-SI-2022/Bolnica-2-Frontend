@@ -94,10 +94,14 @@ export class EditPatientComponent implements OnInit {
 
     const lbp = this.route.snapshot.paramMap.get('lbp');
     const val = this.editPatient.value;
-    let deathDate=new Date(val.deathDate);
-    deathDate.setHours(val.deathHour);
-    deathDate.setMinutes(val.deathMinute);
 
+    let death='';
+    if(val.deathDate){
+      let deathDate=new Date(val.deathDate);
+      deathDate.setHours(val.deathHour);
+      deathDate.setMinutes(val.deathMinute);
+      death=deathDate.toUTCString();
+    }
 
     if(lbp){
       this.patientService.updatePatientByLbp(lbp,{
@@ -107,7 +111,7 @@ export class EditPatientComponent implements OnInit {
         lastName: val.lastName,
         gender: val.gender,
         birthDate: val.birthDate,
-        deathDate: deathDate.toUTCString(),
+        deathDate: death,
         birthplace: val.birthplace,
         citizenshipCountry: val.citizenshipCountry,
         address: val.address,
@@ -127,7 +131,7 @@ export class EditPatientComponent implements OnInit {
         next: (res) => {
           console.log(res);
           this.router.navigate(['/search-patients']).then(() => {
-            this.toast.success('Uspešno ste ažurirali zaposlenog');
+            this.toast.success('Uspešno ste ažurirali pacijenta');
           })
         },
         error: (e) => {

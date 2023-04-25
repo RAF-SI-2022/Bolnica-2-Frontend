@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { PATIENT_ENDPOINT } from '../app.constants';
+import { PATIENT_ENDPOINT, USER_URL } from '../app.constants';
 import { PatientRequest } from '../dto/request/patient.request';
 import { PatientResponse, SearchPatientsResponse } from '../dto/response/patient.response';
+import { HospitalResponse, HospitalsByDepartmentResponse } from '../dto/response/hospital.response';
+import { DepartmentResponse } from '../dto/response/department.response';
 
 @Injectable({
   providedIn: 'root'
@@ -94,11 +96,34 @@ export class PatientService {
   }
 
   updatePatientByLbp(lbp: string, updatePatientRequest: PatientRequest) {
-  
     return this.httpClient.put<PatientResponse>(PATIENT_ENDPOINT + `/update/${lbp}`, updatePatientRequest, {
         headers: {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         }
+    })
+  }
+
+  getHospitals() {
+    return this.httpClient.get<HospitalResponse[]>(USER_URL + '/departments/hospitals', {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    })
+  }
+
+  getHospitalsWithDepartment(departmentName: string) {
+    return this.httpClient.get<HospitalsByDepartmentResponse[]>(USER_URL + `/departments/name/${departmentName}`, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    })
+  }
+
+  getAllDepartments() {
+    return this.httpClient.get<DepartmentResponse[]>(USER_URL + '/departments', {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
     })
   }
 }
