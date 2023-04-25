@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { EMPLOYEE_ENDPOINT } from "../app.constants";
+import { EMPLOYEE_ENDPOINT, USER_URL } from "../app.constants";
 import { UpdateEmployeeRequest, NewEmployeeRequest } from "../dto/request/employee.request";
 import { EmployeeCountResponse, EmployeeResponse, SearchEmployeesResponse } from "../dto/response/employee.response";
 
@@ -55,6 +55,22 @@ export class EmployeesService {
 
     updateEmployee(lbz: string, updateEmployeeRequest: UpdateEmployeeRequest) {
         return this.httpClient.put<EmployeeResponse>(EMPLOYEE_ENDPOINT + `/${lbz}`, updateEmployeeRequest, {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }
+        })
+    }
+
+    getDepartmentsByPbb(pbb: string) {
+        return this.httpClient.get(USER_URL + `/departments/${pbb}`, {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }
+        })
+    }
+
+    getDoctorsByPbo(pbo: string) {
+        return this.httpClient.get(USER_URL + `/users/doctors/${pbo}`, {
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('token')
             }

@@ -69,6 +69,7 @@ export class NewAppointmentComponent implements OnInit {
   doctors: Array<DoctorsResponse> = []
   currentDoctorLbz = '';
   currentDoctorFullName = '';
+  departments: any;
 
   @ViewChild('new_appointment_content')
   newAppointmentContent!: TemplateRef<any>;
@@ -84,6 +85,7 @@ export class NewAppointmentComponent implements OnInit {
               private offcanvasService: NgbOffcanvas,
               private formBuilder: FormBuilder,
               private patientService: PatientService,
+              private employeeService: EmployeesService,
               private schedMedExamService: SchedMedExamService,
               private scheduledAppointmentService: ScheduledAppointmentService,
               private toaster: HotToastService) {
@@ -91,14 +93,23 @@ export class NewAppointmentComponent implements OnInit {
       patient: [''],
       note: ['']
     });
-    this.scheduledAppointmentService.getDoctors().subscribe({
-      next: (res) => {
-        this.doctors = Object.values(res);
-      },
-      error: (e) => {
-        this.toaster.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
-      }
-    })
+    if (!this.authService.hasPermission('ROLE_RECEPCIONER')) {
+      this.scheduledAppointmentService.getDoctors().subscribe({
+        next: (res) => {
+          this.doctors = Object.values(res);
+        },
+        error: (e) => {
+          this.toaster.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
+        }
+      })
+    } else {
+      this.employeeService.getDepartmentsByPbb(localStorage.getItem('pbb')!).subscribe({
+        next: (res) => {
+          this.departments = res;
+          console.log(this.departments);
+        }
+      })
+    }
   }
 
   onDoctorInputChange(event: any) {
@@ -126,7 +137,11 @@ export class NewAppointmentComponent implements OnInit {
   }
 
   onOdeljenjeInputChange(event: any) {
-
+    this.employeeService.getDoctorsByPbo(event.target.value).subscribe({
+      next: (res) => {
+        this.doctors = Object.values(res);
+      }
+    })
   }
 
   getEventColorBasedOnExaminationStatus(status: string): string {
