@@ -3,11 +3,11 @@
     <div class="col-lg-3">
       <form [formGroup]="searchIssueResults" class="p-3 border rounded-3 bg-light">
         <div class="mb-2">
-          <label for="od">LBP</label>
-          <input formControlName="lbp" class="form-control" type="text" id="lbp" placeholder="LBP">
+          <label for="typeaheadPatient">Pretraži pacijente:</label>
+          <input formControlName="lbp" [(ngModel)]="model" [ngbTypeahead]="searchPatients" [resultFormatter]="formatResultingPatient" [inputFormatter]="inputFormatResultingPatient" type="text" id="typeaheadPatient" class="form-control">
         </div>
         <div *ngIf="lbpError" class="validation-error small alert alert-danger">
-          LBP pacijenta je obavezan
+          Pacijent je obavezan
         </div>
         <div class="mb-2">
           <label for="od">Datum od</label>

@@ -150,4 +150,26 @@ export class LabService {
         }
       });
     }
+
+    getIssuedResultsLab(lbp: string, startDate: string, endDate: string, page: number, size: number) {
+        const params: any = {};
+        params.lbp = lbp;
+        if (startDate === '') params.startDate = '1970-01-01T23:59:20.253Z'; else params.startDate = startDate + 'T00:00:00.253Z';
+        if (endDate === '') params.endDate = '2500-04-23T11:16:20.253Z'; else params.endDate = endDate + 'T00:00:00.253Z';
+        const orderHistoryRequest: any = {
+          lbp: lbp,
+          startDate: params.startDate,
+          endDate: params.endDate,
+          orderStatus: ''
+        }
+        return this.httpClient.post<OrderHistoryResponse>(LAB_URL + `/order/historyForLab`, orderHistoryRequest, {
+          headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+          },
+          params: {
+            page: page,
+            size: size
+          }
+        });
+      }
 }

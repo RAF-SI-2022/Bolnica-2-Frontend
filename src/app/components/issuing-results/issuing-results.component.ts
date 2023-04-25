@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {HotToastService} from "@ngneat/hot-toast";
 import {DatePipe} from "@angular/common";
 import {LabService} from "../../service/lab.service";
+import { debounceTime, distinctUntilChanged, Observable, map, switchMap, mergeMap, forkJoin, of } from 'rxjs';
+import { PatientService } from 'src/app/service/patient.service';
 
 @Component({
   selector: 'app-issuing-results',
@@ -20,9 +22,13 @@ export class IssuingResultsComponent implements OnInit {
   loopClass: any[] = [];
   dateError: boolean = false;
   lbpError: boolean = false;
+
+  model: any;
+
   constructor(private formBuilder: FormBuilder,
               private labService: LabService,
               private toast: HotToastService,
+              private patientService: PatientService,
               private datepipes: DatePipe) {
     this.searchIssueResults = this.formBuilder.group({
       lbp: ['', Validators.required],
@@ -32,6 +38,28 @@ export class IssuingResultsComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  searchPatients = (text$: Observable<string>) =>
+  text$.pipe(
+    debounceTime(150),
+    distinctUntilChanged(),
+    switchMap((term) =>
+      this.patientService.searchPatients({
+        firstName: term,
+        lastName: '',
+        jmbg: '',
+        lbp: ''
+      }).pipe(map(response => response.patients))
+    )
+  );
+
+formatResultingPatient(value: any) {
+  return value.firstName + ' ' + value.lastName;
+}
+
+inputFormatResultingPatient(value: any) {
+  return value.firstName + ' ' + value.lastName;
+}
 
   search() {
     this.lbpError = false;
@@ -46,7 +74,7 @@ export class IssuingResultsComponent implements OnInit {
     }
     const val = this.searchIssueResults.value;
     this.loopClass = [];
-    this.labService.getIssuedResults(val.lbp, val.startDate, val.endDate, this.page - 1, this.pageSize
+    this.labService.getIssuedResultsLab(val.lbp.lbp, val.startDate, val.endDate, this.page - 1, this.pageSize
     ).subscribe({
       next: (res) => {
         console.log(res);
