@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import { PatientService } from "../../service/patient.service";
+import { PatientService } from "../../../service/patient.service";
 import {Router} from "@angular/router";
 import {HotToastService} from "@ngneat/hot-toast";
 
