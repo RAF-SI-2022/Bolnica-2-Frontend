@@ -8,23 +8,23 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DatePipe, DecimalPipe } from '@angular/common';
-import { AdminEditEmployeeComponent } from './components/admin-edit-employee/admin-edit-employee.component';
+import { AdminEditEmployeeComponent } from './components/admin/admin-edit-employee/admin-edit-employee.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HotToastModule } from '@ngneat/hot-toast';
 
 import { BooleanDaNePipe } from './pipe/boolean.pipe';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './components/login/login.component';
+import { LoginComponent } from './components/auth/login/login.component';
 import { HomeComponent } from './components/home/home.component';
-import { NewEmployeeComponent } from './components/new-employee/new-employee.component';
-import { SearchEmployeesComponent } from './components/search-employees/search-employees.component';
+import { NewEmployeeComponent } from './components/admin/new-employee/new-employee.component';
+import { SearchEmployeesComponent } from './components/admin/search-employees/search-employees.component';
 import { PersonalDataComponent } from './components/personal-data/personal-data.component';
-import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
-import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './components/auth/reset-password/reset-password.component';
+import { ForgotPasswordComponent } from './components/auth/forgot-password/forgot-password.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { NewAppointmentComponent } from './components/new-appointment/new-appointment.component';
-import { SearchPatientsComponent } from './components/search-patients/search-patients.component';
-import { NewPatientComponent } from "./components/new-patient/new-patient.component";
+import { SearchPatientsComponent } from './components/patients/search-patients/search-patients.component';
+import { NewPatientComponent } from "./components/patients/new-patient/new-patient.component";
 import { HealthRecordComponent } from './components/health-records/health-record/health-record.component';
 import { BasicHealthRecordComponent } from './components/health-records/basic-health-record/basic-health-record.component';
 import { MedicalHistoryRecordComponent } from './components/health-records/medical-history-record/medical-history-record.component';
@@ -33,7 +33,7 @@ import { IllnessHistoryRecordComponent } from './components/health-records/illne
 import { ScheduledAppointmentsComponent } from './components/scheduled-appointments/scheduled-appointments.component'
 import { ReferralHistoryComponent } from './components/referral-history/referral-history.component';
 import { SpecialistDoctorExaminationComponent } from './components/specialist-doctor-examination/specialist-doctor-examination.component';
-import { EditPatientComponent } from './components/edit-patient/edit-patient.component';
+import { EditPatientComponent } from './components/patients/edit-patient/edit-patient.component';
 import { GenderPipe } from './pipe/gender.pipe';
 import { DateOfBirthToAgePipe } from './pipe/date-of-birth-to-age.pipe';
 import { ScheduledPatientsComponent } from './components/scheduled-patients/scheduled-patients.component';

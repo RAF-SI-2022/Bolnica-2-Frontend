@@ -1,35 +1,29 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ForgotPasswordComponent } from './components/auth/forgot-password/forgot-password.component';
 import { AuthGuard } from './guard/auth.guard';
 import { AlreadyLoggedInGuard } from './guard/already-logged-in.guard';
 import { HomeComponent } from './components/home/home.component';
-import { LoginComponent } from './components/login/login.component';
-import { NewEmployeeComponent } from './components/new-employee/new-employee.component';
-import { NewPatientComponent } from "./components/new-patient/new-patient.component";
+import { LoginComponent } from './components/auth/login/login.component';
+import { NewEmployeeComponent } from './components/admin/new-employee/new-employee.component';
+import { NewPatientComponent } from "./components/patients/new-patient/new-patient.component";
 import { PersonalDataComponent } from './components/personal-data/personal-data.component';
-import { SearchEmployeesComponent } from './components/search-employees/search-employees.component';
-import { AdminEditEmployeeComponent } from './components/admin-edit-employee/admin-edit-employee.component';
+import { SearchEmployeesComponent } from './components/admin/search-employees/search-employees.component';
+import { AdminEditEmployeeComponent } from './components/admin/admin-edit-employee/admin-edit-employee.component';
 import { PermissionGuard } from './guard/permission.guard';
-import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { ResetPasswordComponent } from './components/auth/reset-password/reset-password.component';
 import { NewAppointmentComponent } from './components/new-appointment/new-appointment.component';
-import { SearchPatientsComponent } from './components/search-patients/search-patients.component';
+import { SearchPatientsComponent } from './components/patients/search-patients/search-patients.component';
 import { HealthRecordComponent } from "./components/health-records/health-record/health-record.component";
 import { BasicHealthRecordComponent } from "./components/health-records/basic-health-record/basic-health-record.component";
-import {
-  MedicalHistoryRecordComponent
-} from "./components/health-records/medical-history-record/medical-history-record.component";
-import {
-  FullMedicalHistoryComponent
-} from "./components/health-records/full-medical-history/full-medical-history.component";
-import {
-  IllnessHistoryRecordComponent
-} from "./components/health-records/illness-history-record/illness-history-record.component";
+import { MedicalHistoryRecordComponent } from "./components/health-records/medical-history-record/medical-history-record.component";
+import { FullMedicalHistoryComponent } from "./components/health-records/full-medical-history/full-medical-history.component";
+import { IllnessHistoryRecordComponent } from "./components/health-records/illness-history-record/illness-history-record.component";
 import { ReferralHistoryComponent } from './components/referral-history/referral-history.component';
 
 import { SpecialistDoctorExaminationComponent } from './components/specialist-doctor-examination/specialist-doctor-examination.component';
 import { ScheduledAppointmentsComponent } from './components/scheduled-appointments/scheduled-appointments.component';
-import { EditPatientComponent } from './components/edit-patient/edit-patient.component';
+import { EditPatientComponent } from './components/patients/edit-patient/edit-patient.component';
 import { ScheduledPatientsComponent } from './components/scheduled-patients/scheduled-patients.component';
 import { NewWorkOrderComponent } from './components/new-work-order/new-work-order.component';
 import { NewLabVisitComponent } from './components/lab-visits/new-lab-visit/new-lab-visit.component';
