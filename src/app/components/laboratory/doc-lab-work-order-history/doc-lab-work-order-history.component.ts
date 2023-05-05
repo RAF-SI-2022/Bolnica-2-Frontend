@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { LabService } from '../service/lab.service';
+import { LabService } from '../../../service/lab.service';
 import { ActivatedRoute } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
-import { DoctorsResponse } from '../dto/response/scheduled-appointment-response';
-import { ScheduledAppointmentService } from '../service/scheduled-appointment.service';
+import { DoctorsResponse } from '../../../dto/response/scheduled-appointment-response';
+import { ScheduledAppointmentService } from '../../../service/scheduled-appointment.service';
 
 @Component({
   selector: 'app-doc-lab-work-order-history',

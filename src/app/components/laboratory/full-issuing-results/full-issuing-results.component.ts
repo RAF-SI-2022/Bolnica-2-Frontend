@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {HealthRecordService} from "../../service/health-record.service";
+import {HealthRecordService} from "../../../service/health-record.service";
 import {HotToastService} from "@ngneat/hot-toast";
 import {DatePipe} from "@angular/common";
-import {LabService} from "../../service/lab.service";
+import {LabService} from "../../../service/lab.service";
 
 @Component({
   selector: 'app-full-issuing-results',

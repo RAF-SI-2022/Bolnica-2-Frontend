@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {HealthRecordService} from "../../../service/health-record.service";
+import {HealthRecordService} from "../../../../service/health-record.service";
 import {HotToastService} from "@ngneat/hot-toast";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {DatePipe} from "@angular/common";

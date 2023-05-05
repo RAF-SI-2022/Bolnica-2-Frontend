@@ -25,6 +25,8 @@ export interface CurrentUser {
     providedIn: 'root'
 })
 export class AuthService {
+    currentUser!: CurrentUser;
+
     constructor(private httpClient: HttpClient,
                 private router: Router) {
     }
@@ -66,6 +68,7 @@ export class AuthService {
         localStorage.setItem('pbo', decodedToken.pbo);
         localStorage.setItem('pbb', decodedToken.pbb);
         console.log(decodedToken);
+        this.currentUser = decodedToken;
         this.router.navigate(['/']);
     }
 
