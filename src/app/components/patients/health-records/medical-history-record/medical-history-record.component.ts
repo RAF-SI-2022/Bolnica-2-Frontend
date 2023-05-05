@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {HotToastService} from "@ngneat/hot-toast";
-import {HealthRecordService} from "../../../service/health-record.service";
+import {HealthRecordService} from "../../../../service/health-record.service";
 import {DatePipe} from '@angular/common'
-import {AuthService} from "../../../service/auth.service";
+import {AuthService} from "../../../../service/auth.service";
 import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {SearchPatientsResponse} from "../../../dto/response/patient.response";
-import {MedicalExaminationListResponse, MedicalHistory} from "../../../dto/response/health-record.response";
+import {SearchPatientsResponse} from "../../../../dto/response/patient.response";
+import {MedicalExaminationListResponse, MedicalHistory} from "../../../../dto/response/health-record.response";
 
 @Component({
   selector: 'app-medical-history-record',

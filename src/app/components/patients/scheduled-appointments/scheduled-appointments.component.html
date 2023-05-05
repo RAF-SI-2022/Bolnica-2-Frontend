@@ -42,12 +42,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let patient of schedMedExamsList" (click)="selectedPatient(patient[0], patient[1], patient[5])">
-            <td>{{ patient[0] }}</td>
-            <td>{{ patient[1] }}</td>
-            <td>{{ patient[2] }}</td>
-            <td>{{ patient[3] }}</td>
-            <td>{{ patient[4] }}</td>
+          <tr *ngFor="let patient of schedMedExamsList" (click)="selectedPatient(patient.patientResponse.firstName, patient.patientResponse.lastName, patient.patientResponse.lbp)">
+            <td>{{ patient.patientResponse.firstName }}</td>
+            <td>{{ patient.patientResponse.lastName }}</td>
+            <td>{{ patient.patientResponse.birthDate | dateOfBirthToAge }}</td>
+            <td>{{ patient.patientResponse.gender.notation }}</td>
+            <td>{{ patient.patientArrivalStatus.patientArrivalStatus }}</td>
           </tr>
         </tbody>
       </table>
@@ -93,11 +93,11 @@
             </thead>
             <tbody>
               <tr *ngFor="let patient of schedMedExamsList">
-                <td>{{ patient[0] }}</td>
-                <td>{{ patient[1] }}</td>
-                <td>{{ patient[2] }}</td>
-                <td>{{ patient[3] }}</td>
-                <td>{{ patient[4] }}</td>
+                <td>{{ patient.patientResponse.firstName }}</td>
+                <td>{{ patient.patientResponse.lastName }}</td>
+                <td>{{ patient.patientResponse.birthDate | dateOfBirthToAge }}</td>
+                <td>{{ patient.patientResponse.gender.notation }}</td>
+                <td>{{ patient.patientArrivalStatus.patientArrivalStatus }}</td>
               </tr>
             </tbody>
           </table>

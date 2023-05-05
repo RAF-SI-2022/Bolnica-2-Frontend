@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {HotToastService} from "@ngneat/hot-toast";
 import {DatePipe} from "@angular/common";
-import {LabService} from "../../service/lab.service";
+import {LabService} from "../../../service/lab.service";
 import { debounceTime, distinctUntilChanged, Observable, map, switchMap, mergeMap, forkJoin, of } from 'rxjs';
 import { PatientService } from 'src/app/service/patient.service';
 
