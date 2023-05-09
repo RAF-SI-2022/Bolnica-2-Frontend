@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-stationary-patient-reception',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./stationary-patient-reception.component.css']
 })
 export class StationaryPatientReceptionComponent implements OnInit {
+
+
 
   constructor() { }
 

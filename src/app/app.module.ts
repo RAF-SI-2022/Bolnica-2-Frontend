@@ -51,6 +51,8 @@ import { StationaryPatientReceptionComponent } from './components/stationary/nur
 import { StationaryMenuComponent } from './components/stationary/nurse/menu/stationary-menu.component';
 import { PermissionNamesPipePipe } from './pipe/permission-names-pipe.pipe';
 import { ViewStationaryPatientReceptionsComponent } from './components/stationary/nurse/view-receptions/view-stationary-patient-receptions.component';
+import { AppointmentSchedulingComponent } from './components/stationary/nurse/appointment-scheduling/appointment-scheduling.component';
+import { SchedulingComponent } from './components/stationary/nurse/scheduling/scheduling.component';
 
 @NgModule({
   declarations: [
@@ -91,7 +93,9 @@ import { ViewStationaryPatientReceptionsComponent } from './components/stationar
     StationaryPatientReceptionComponent,
     StationaryMenuComponent,
     PermissionNamesPipePipe,
-    ViewStationaryPatientReceptionsComponent
+    ViewStationaryPatientReceptionsComponent,
+    AppointmentSchedulingComponent,
+    SchedulingComponent
   ],
   imports: [
     BrowserModule,
