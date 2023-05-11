@@ -16,9 +16,3 @@ export interface CreateReferralRequest {
     referralDiagnosis: string,
     referralReason: string
 }
-
-export interface ScheduleAppointmentRequest {
-  lbp: string;
-  scheduledDate: string;
-  note: string;
-}

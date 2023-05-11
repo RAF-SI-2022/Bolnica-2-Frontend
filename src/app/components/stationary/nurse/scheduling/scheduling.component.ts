@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import {ScheduleAppointmentRequest} from "../../../../dto/request/laboratory.request";
 import {LabService} from "../../../../service/lab.service";
 import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {PatientService} from "../../../../service/patient.service";
+import {ScheduleAppointmentRequest} from "../../../../dto/request/patient.request";
 
 @Component({
   selector: 'app-scheduling',
@@ -13,7 +14,7 @@ export class SchedulingComponent implements OnInit {
 
   schedulingAppointmentForm: FormGroup;
   dataError: boolean = false;
-  constructor(private formBuilder: FormBuilder, private labService: LabService, private modalService: NgbModal) {
+  constructor(private formBuilder: FormBuilder, private patientService: PatientService, private modalService: NgbModal) {
     this.schedulingAppointmentForm = this.formBuilder.group({
       lbp: ['', Validators.required],
       dateAndTime: ['', Validators.required],
@@ -31,9 +32,9 @@ export class SchedulingComponent implements OnInit {
     }
     const val = this.schedulingAppointmentForm.value;
     this.modalService.open(NgbdModalConfirm).result.then((data) => {
-      this.labService.createAppointment({
+      this.patientService.createAppointment({
         lbp: val.lbp,
-        scheduledDate: val.dateAndTime,
+        receiptDate: val.dateAndTime,
         note: val.napomena
       }).subscribe({
         next: (res) => {

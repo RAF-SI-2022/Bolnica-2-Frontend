@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {
   CreateLabExamRequest,
-  CreateReferralRequest,
-  ScheduleAppointmentRequest
+  CreateReferralRequest
 } from '../dto/request/laboratory.request';
 import { LabExamResponse, ReferralResponseList, ReferralResponse } from '../dto/response/laboratory.response';
 import {HEALTH_RECORD_ENDPOINT, LAB_URL} from '../app.constants';
@@ -177,12 +176,5 @@ export class LabService {
         });
       }
 
-    createAppointment(scheduleAppointmentRequest: ScheduleAppointmentRequest) {
-        return this.httpClient.post<{}>(LAB_URL + `/examination/create`, scheduleAppointmentRequest, {
-          headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem('token')
-          }
-        });
-    }
 
 }

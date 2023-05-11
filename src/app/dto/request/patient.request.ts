@@ -38,3 +38,13 @@ export interface SpecialistDoctorExaminationRequest {
   anamnesis: string,
 }
 
+
+
+export interface ScheduleAppointmentRequest {
+  lbp: string;
+  receiptDate: string;
+  note: string;
+}
+
+
+
