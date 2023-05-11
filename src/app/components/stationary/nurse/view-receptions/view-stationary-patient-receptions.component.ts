@@ -10,54 +10,48 @@ import {DatePipe} from "@angular/common";
   styleUrls: ['./view-stationary-patient-receptions.component.css']
 })
 export class ViewStationaryPatientReceptionsComponent implements OnInit {
-  stationaryAppointmentsForm: FormGroup;
+  stationaryReceptionsForm: FormGroup;
 
   page = 1;
   pageSize = 5;
   collectionSize = 0;
-  loopClass: any[] = [];
-  date: any;
-  status: any;
-  note: any;
 
   model: any;
 
   constructor(private formBuilder: FormBuilder,
-              private patientService: PatientService,
-              private datepipes: DatePipe) {
-    this.stationaryAppointmentsForm = this.formBuilder.group({
-      lbp: [''],
-      dateAndTime: ['']
+              private patientService: PatientService) {
+    this.stationaryReceptionsForm = this.formBuilder.group({
+      patient: ['']
     });
   }
 
   ngOnInit(): void {
   }
 
+  searchPatients = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(150),
+      distinctUntilChanged(),
+      switchMap((term) =>
+        this.patientService.searchPatients({
+          firstName: term,
+          lastName: '',
+          jmbg: '',
+          lbp: ''
+        }).pipe(map(response => response.patients))
+      )
+    );
+
+  formatResultingPatient(value: any) {
+    return value.firstName + ' ' + value.lastName;
+  }
+
+  inputFormatResultingPatient(value: any) {
+    return value.firstName + ' ' + value.lastName;
+  }
+
   search() {
-    this.loopClass = [];
-    const val = this.stationaryAppointmentsForm.value;
-    if(val.dateAndTime === '') {
-      let thisDate = new Date();
-      val.dateAndTime = this.datepipes.transform(thisDate, 'yyyy-MM-dd');
-    }
-    this.patientService.getAppointments(val.lbp, val.dateAndTime, this.page-1, this.pageSize).subscribe({
-      next: (res) => {
-        console.log(res);
-        for(let i = 0; i < res.count; i++) {
-          let dateMod = this.datepipes.transform(res.appointments[i].receiptDate, 'yyyy-MM-dd')!;
-          this.date = dateMod;
-          this.status = res.appointments[i].status.notation;
-          this.note = res.appointments[i].note;
-          let elem = {
-            date: this.date,
-            status: this.status,
-            note: this.note
-          }
-          this.loopClass.push(elem);
-        }
-      }
-    });
+
   }
 
 }

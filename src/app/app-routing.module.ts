@@ -39,6 +39,7 @@ import { StationaryMenuComponent } from './components/stationary/nurse/menu/stat
 import { ViewStationaryPatientReceptionsComponent } from './components/stationary/nurse/view-receptions/view-stationary-patient-receptions.component';
 import { AppointmentSchedulingComponent } from "./components/stationary/nurse/appointment-scheduling/appointment-scheduling.component";
 import {SchedulingComponent} from "./components/stationary/nurse/scheduling/scheduling.component";
+import {ViewAppointmentsComponent} from "./components/stationary/nurse/view-appointments/view-appointments.component";
 
 const routes: Routes = [
   {
@@ -249,6 +250,12 @@ const routes: Routes = [
   {
     path: 'scheduling',
     component: SchedulingComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+  },
+  {
+    path: 'view-appointments',
+    component: ViewAppointmentsComponent,
     canActivate: [AuthGuard, PermissionGuard],
     data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
   }
