@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {PatientService} from "../../../../service/patient.service";
 import {DatePipe} from "@angular/common";
 import {AuthService} from "../../../../service/auth.service";
+import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {NgbdModalConfirm} from "../scheduling/scheduling.component";
 
 @Component({
   selector: 'app-view-appointments',
@@ -32,7 +34,8 @@ export class ViewAppointmentsComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private patientService: PatientService,
               private datepipes: DatePipe,
-              protected authService: AuthService) {
+              protected authService: AuthService,
+              private modalService: NgbModal) {
     this.stationaryAppointmentsForm = this.formBuilder.group({
       lbp: [''],
       dateAndTime: ['']
@@ -83,11 +86,46 @@ export class ViewAppointmentsComponent implements OnInit {
   }
 
   cancelAppointment(appointmentId: any, notation: string) {
-    this.patientService.cancelAppointment(appointmentId, notation).subscribe({
-      next: (res) => {
-        console.log(res);
-      }
+    this.modalService.open(NgbdModalCancel).result.then((data) => {
+      this.patientService.cancelAppointment(appointmentId, notation).subscribe({
+        next: (res) => {
+          console.log(res);
+          console.log('Termin otkazan');
+        }
+      })
+    }, (dismiss) => {
     })
   }
 
+}
+
+
+@Component({
+
+  selector: 'ngbd-modal-cancle',
+  standalone: true,
+  template: `
+		<div class="modal-header">
+			<h4 class="modal-title" id="modal-title">Otkazivanje termina</h4>
+			<button
+				type="button"
+				class="btn-close"
+				aria-describedby="modal-title"
+				(click)="modal.dismiss('Cross click')"
+			></button>
+		</div>
+		<div class="modal-body">
+			<p>
+				<strong>Da li ste sigurni da želite da otkažete termin?</strong>
+			</p>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Ne</button>
+			<button type="button" class="btn btn-success" (click)="modal.close('Ok click')">Da</button>
+		</div>
+	`,
+})
+
+export class NgbdModalCancel {
+  constructor(public modal: NgbActiveModal) {}
 }
