@@ -18,17 +18,28 @@
       <table class="table table-hover">
         <thead>
         <tr>
-          <th scope="col">Zakazan datum</th>
-          <th scope="col">Status</th>
+          <th scope="col">Ime</th>
+          <th scope="col">Prezime</th>
+          <th scope="col">Adresa</th>
+          <th scope="col">Datum Rodjenja</th>
+          <th scope="col">Datum pregleda</th>
           <th scope="col">Napomena</th>
         </tr>
         </thead>
         <tbody>
         <tbody>
         <tr *ngFor="let elem of loopClass">
+          <td>{{elem.firstName}}</td>
+          <td>{{elem.lastName}}</td>
+          <td>{{elem.address}}</td>
+          <td>{{elem.dateOfBirth}}</td>
           <td>{{elem.date}}</td>
-          <td>{{elem.status}}</td>
           <td>{{elem.note}}</td>
+          <td *ngIf="elem.notation === 'Zakazan'">
+            <button *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])"
+              (click)="cancelAppointment(elem.appointmentId, elem.notation)" class="btn btn-sm btn-danger" data-testid="health-record">Otkaži
+            </button>
+          </td>
         </tr>
         </tbody>
       </table>

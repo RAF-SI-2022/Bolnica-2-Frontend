@@ -4,15 +4,20 @@ export interface PatientAppointmentResponse {
 }
 
 export interface AppointmentList {
-  employeeLBZ: string;
   id: number;
-  lbp: string;
-  note: string;
-  pbo: string;
+  patient: Patient;
   receiptDate: string;
-  status: StatusNotation
+  note: string;
+  status: Status;
 }
 
-export interface StatusNotation {
+export interface Status {
   notation: string;
+}
+
+export interface Patient {
+  address: string;
+  birthDate: string;
+  firstName: string;
+  lastName: string;
 }

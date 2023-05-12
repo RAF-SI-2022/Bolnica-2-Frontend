@@ -151,5 +151,16 @@ export class PatientService {
     });
   }
 
+  cancelAppointment(id: any, status: string) {
+    return this.httpClient.put<{}>(PATIENT_URL + `/appointment/change-status/${id}`,{}, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      },
+      params: {
+        status: status
+      }
+    });
+  }
+
 }
 
