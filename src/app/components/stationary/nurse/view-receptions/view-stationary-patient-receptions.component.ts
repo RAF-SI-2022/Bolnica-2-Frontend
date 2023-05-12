@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, Observable, map, switchMap, mergeMap, forkJoin, of } from 'rxjs';
 import { PatientService } from 'src/app/service/patient.service';
+import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-view-stationary-patient-receptions',
@@ -28,18 +29,18 @@ export class ViewStationaryPatientReceptionsComponent implements OnInit {
   }
 
   searchPatients = (text$: Observable<string>) =>
-  text$.pipe(
-    debounceTime(150),
-    distinctUntilChanged(),
-    switchMap((term) =>
-      this.patientService.searchPatients({
-        firstName: term,
-        lastName: '',
-        jmbg: '',
-        lbp: ''
-      }).pipe(map(response => response.patients))
-    )
-  );
+    text$.pipe(
+      debounceTime(150),
+      distinctUntilChanged(),
+      switchMap((term) =>
+        this.patientService.searchPatients({
+          firstName: term,
+          lastName: '',
+          jmbg: '',
+          lbp: ''
+        }).pipe(map(response => response.patients))
+      )
+    );
 
   formatResultingPatient(value: any) {
     return value.firstName + ' ' + value.lastName;
@@ -52,4 +53,5 @@ export class ViewStationaryPatientReceptionsComponent implements OnInit {
   search() {
 
   }
+
 }

@@ -1,41 +1,41 @@
 <div class="p-5">
-    <div class="row">
-      <div class="col-lg-3">
-        <form [formGroup]="stationaryReceptionsForm" class="p-3 border rounded-3 bg-light">
-          <div class="mb-2">
-            <label for="typeaheadPatient">Pretraži pacijente:</label>
-            <input formControlName="patient" [(ngModel)]="model" [ngbTypeahead]="searchPatients" [resultFormatter]="formatResultingPatient" [inputFormatter]="inputFormatResultingPatient" type="text" id="typeaheadPatient" class="form-control">
-          </div>
-          <hr class="my-4">
-          <button (click)="search()" class="btn btn-md btn-primary w-100" type="submit">Pretraži</button>
-        </form>
-      </div>
-      <div class="col-lg-9 table-responsive">
-        <table class="table table-hover">
-          <thead>
-          <tr>
-            <th scope="col">Pacijent</th>
-            <th scope="col">Datum i vreme prijema</th>
-            <th scope="col">Odeljenje</th>
-            <th scope="col">Zaposleni</th>
-            <th scope="col">Status</th>
-          </tr>
-          </thead>
-          <tbody>
-            <tr>
-
-            </tr>
-          </tbody>
-        </table>
-        <div class="d-flex justify-content-center p-2">
-          <ngb-pagination
-            [collectionSize]="collectionSize"
-            [(page)]="page"
-            [pageSize]="pageSize"
-            (pageChange)="search()"
-          >
-          </ngb-pagination>
+  <div class="row">
+    <div class="col-lg-3">
+      <form [formGroup]="stationaryReceptionsForm" class="p-3 border rounded-3 bg-light">
+        <div class="mb-2">
+          <label for="typeaheadPatient">Pretraži pacijente:</label>
+          <input formControlName="patient" [(ngModel)]="model" [ngbTypeahead]="searchPatients" [resultFormatter]="formatResultingPatient" [inputFormatter]="inputFormatResultingPatient" type="text" id="typeaheadPatient" class="form-control">
         </div>
+        <hr class="my-4">
+        <button (click)="search()" class="btn btn-md btn-primary w-100" type="submit">Pretraži</button>
+      </form>
+    </div>
+    <div class="col-lg-9 table-responsive">
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th scope="col">Pacijent</th>
+          <th scope="col">Datum i vreme prijema</th>
+          <th scope="col">Odeljenje</th>
+          <th scope="col">Zaposleni</th>
+          <th scope="col">Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+
+        </tr>
+        </tbody>
+      </table>
+      <div class="d-flex justify-content-center p-2">
+        <ngb-pagination
+          [collectionSize]="collectionSize"
+          [(page)]="page"
+          [pageSize]="pageSize"
+          (pageChange)="search()"
+        >
+        </ngb-pagination>
       </div>
     </div>
   </div>
+</div>

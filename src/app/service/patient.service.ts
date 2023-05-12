@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { PATIENT_ENDPOINT, USER_URL } from '../app.constants';
+import {LAB_URL, PATIENT_ENDPOINT, PATIENT_URL, USER_URL} from '../app.constants';
 import { PatientRequest } from '../dto/request/patient.request';
 import { PatientResponse, SearchPatientsResponse } from '../dto/response/patient.response';
 import { HospitalResponse, HospitalsByDepartmentResponse } from '../dto/response/hospital.response';
 import { DepartmentResponse } from '../dto/response/department.response';
+import { ScheduleAppointmentRequest } from "../dto/request/patient.request";
+import {PatientAppointmentResponse} from "../dto/response/patient-appointment";
 
 @Injectable({
   providedIn: 'root'
@@ -126,5 +128,39 @@ export class PatientService {
       }
     })
   }
+
+  createAppointment(scheduleAppointmentRequest: ScheduleAppointmentRequest) {
+    return this.httpClient.post<{}>(PATIENT_URL + '/appointment/create', scheduleAppointmentRequest, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    });
+  }
+
+  getAppointments(lbp: string, date: string, page: number, size: number) {
+    return this.httpClient.get<PatientAppointmentResponse>(PATIENT_URL + '/appointment', {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      },
+      params: {
+        lbp: lbp,
+        date: date,
+        page: page,
+        size: size
+      }
+    });
+  }
+
+  cancelAppointment(id: any, status: string) {
+    return this.httpClient.put<{}>(PATIENT_URL + `/appointment/change-status/${id}`,{}, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      },
+      params: {
+        status: status
+      }
+    });
+  }
+
 }
 

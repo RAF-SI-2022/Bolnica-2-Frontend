@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { CreateLabExamRequest, CreateReferralRequest } from '../dto/request/laboratory.request';
+import {
+  CreateLabExamRequest,
+  CreateReferralRequest
+} from '../dto/request/laboratory.request';
 import { LabExamResponse, ReferralResponseList, ReferralResponse } from '../dto/response/laboratory.response';
 import {HEALTH_RECORD_ENDPOINT, LAB_URL} from '../app.constants';
 import {MedicalHistory} from "../dto/response/health-record.response";
@@ -172,4 +175,6 @@ export class LabService {
           }
         });
       }
+
+
 }
