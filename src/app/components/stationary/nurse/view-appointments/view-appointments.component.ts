@@ -86,9 +86,11 @@ export class ViewAppointmentsComponent implements OnInit {
   }
 
   cancelAppointment(appointmentId: any, notation: string) {
+    notation = 'Otkazan';
     this.modalService.open(NgbdModalCancel).result.then((data) => {
       this.patientService.cancelAppointment(appointmentId, notation).subscribe({
         next: (res) => {
+          this.search();
           console.log(res);
           console.log('Termin otkazan');
         }
