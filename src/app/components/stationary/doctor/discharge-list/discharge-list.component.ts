@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { C, aN, co } from '@fullcalendar/core/internal-common';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HotToastService } from '@ngneat/hot-toast';
 import { LabService } from 'src/app/service/lab.service';
@@ -47,19 +48,36 @@ export class DischargeListComponent implements OnInit {
     if(this.dischargeListForm.invalid)
       return;
 
+    
+
+      let pbo: string;
+      const pboFromStorage = localStorage.getItem('pbo');
+      if (pboFromStorage !== null) 
+        pbo = pboFromStorage;
+      else 
+        pbo=''
+      
+   /* let anamesa:any=this.dischargeListForm.get('anamensa');
+    let conclusion:any=this.dischargeListForm.get('conclusion');
+    let diagnosis:any=this.dischargeListForm.get('diagnosis');
+    let analasis:any=this.dischargeListForm.get('analasis');
+    let courseOfDisease:any=this.dischargeListForm.get('courseOfDisease');
+    let therapy:any=this.dischargeListForm.get('therapy');
+
     this.modalService.open(NgbdModalConfirm).result.then(data => {
-      /*this.labService.createReferral(createReferralRequest).subscribe({
+      this.patientService.makeDischargeList(anamesa.value,conclusion.value,diagnosis.value,analasis.value,courseOfDisease.value,therapy.value,pbo).subscribe({
         next: (res) => {
-          this.router.navigate(['/search-patients']).then(() => {
-            this.toast.success('Uspešno ste kreirali uput');
-          })
+            this.toast.success('Uspešno ste napravili otpusnu listu');
+          
         },
         error: (e) => {
-          this.toast.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
+          this.toast.error(e.error.errorMessage || 'Pravljenje otpusne liste nije uspelo');
         }
-      });*/
-      console.log("aaaaa");
-    });
+      });
+     
+    },(dismiss) => {
+
+    });*/
   }
 
 }

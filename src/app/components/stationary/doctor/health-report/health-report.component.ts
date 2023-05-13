@@ -46,19 +46,26 @@ export class HealthReportComponent implements OnInit {
     if(this.healthListForm.invalid)
       return;
 
-    this.modalService.open(NgbdModalConfirm).result.then(data => {
-      /*this.labService.createReferral(createReferralRequest).subscribe({
-        next: (res) => {
-          this.router.navigate(['/search-patients']).then(() => {
-            this.toast.success('Uspešno ste kreirali uput');
-          })
-        },
-        error: (e) => {
-          this.toast.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
-        }
+      let report:any=this.healthListForm.get('report');
+      let recommendedTherapy:any=this.healthListForm.get('recommendedTherapy');
+      let diagnosis:any=this.healthListForm.get('diagnosis');
+      let advice:any=this.healthListForm.get('advice');
+      let confidential:any=this.healthListForm.get('confidential');
+  
+    /*  this.modalService.open(NgbdModalConfirm).result.then(data => {
+        this.patientService.makeHealthReport(report.value,diagnosis.value,recommendedTherapy.value,advice.value,confidential.value).subscribe({
+          next: (res) => {
+              this.toast.success('Uspešno ste napravili otpusnu listu');
+            
+          },
+          error: (e) => {
+            this.toast.error(e.error.errorMessage || 'Pravljenje otpusne liste nije uspelo');
+          }
+        });
+       
+      },(dismiss) => {
+  
       });*/
-      console.log("aaaaa");
-    });
   }
 
 }

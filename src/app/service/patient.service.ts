@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {LAB_URL, PATIENT_ENDPOINT, PATIENT_URL, USER_URL} from '../app.constants';
+import {DISCHARGE_LIST_ENDPOINT, HEALTH_REPORT_ENDPOINT, LAB_URL, PATIENT_ENDPOINT, PATIENT_URL, USER_URL} from '../app.constants';
 import { PatientRequest } from '../dto/request/patient.request';
 import { PatientResponse, SearchPatientsResponse } from '../dto/response/patient.response';
 import { HospitalResponse, HospitalsByDepartmentResponse } from '../dto/response/hospital.response';
 import { DepartmentResponse } from '../dto/response/department.response';
 import { ScheduleAppointmentRequest } from "../dto/request/patient.request";
 import {PatientAppointmentResponse} from "../dto/response/patient-appointment";
+import { co } from '@fullcalendar/core/internal-common';
 
 @Injectable({
   providedIn: 'root'
@@ -161,6 +162,41 @@ export class PatientService {
       }
     });
   }
+  
+  makeDischargeList(anamensa: string,conclusion: string,diagnosis: string ,analasis: string,courseOfDisease: string,therapy: string ,pbo:string){
+    let sendObject= {
+      anamensa: anamensa,
+      conclusion: conclusion,
+      diagnosis: diagnosis,
+      analasis: analasis,
+      courseOfDisease: courseOfDisease,
+      therapy: therapy,
+      pbo:pbo
+    };
+
+    return this.httpClient.post<any>(DISCHARGE_LIST_ENDPOINT,sendObject, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    });
+  }
+
+  makeHealthReport(report: string,diagnosis: string,recommendedTherapy: string,advice: string,confidential: string) {
+    const sendObject = {
+      report: report,
+      diagnosis: diagnosis,
+      recommendedTherapy: recommendedTherapy,
+      advice: advice,
+      confidential: confidential,
+    };
+    console.log(sendObject);
+    return this.httpClient.post<any>(HEALTH_REPORT_ENDPOINT, sendObject, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    });
+  }
 
 }
+
 
