@@ -1,0 +1,67 @@
+<div style="display: flex; justify-content: center; margin-top:100px">
+    <div class="col-lg-5">
+      <form [formGroup]="healthListForm" class="p-5 border rounded-5 bg-light">
+        <div class="form-check" style="display: flex; justify-content: center;">
+        <h4><label class="form-check-label">Zdravstveni izveštaj</label></h4>
+        </div>
+        <hr class="my-4">
+
+        
+
+        <div class="row g-3 mb-2">
+            <div class="col-md-5 form-floating gx-1">
+                <div>
+                    <select formControlName="diagnosis" class="form-select">
+                        <option disabled selected value>Uputna dijagnoza (MKB-10)</option>
+                        <option value="A15.3">A15.3</option>
+                        <option value="D50">D50</option>
+                        <option value="I10">I10</option>
+                        <option value="I35.0">I35.0</option>
+                        <option value="J11">J11</option>
+                        <option value="J12.9">J12.9</option>
+                        <option value="K35">K35</option>
+                        <option value="K70.3">K70.3</option>
+                        <option value="K71.0">K71.0</option>
+                        <option value="N20.0">N20.0</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-3 form-floating gx-1" *ngIf="this.authService.hasEitherPermission(['ROLE_DR_SPEC_POV'])">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" formControlName="confidential"  value="ROLE_ADMIN" id="floatingConfidential">
+                <label class="form-check-label" for="floatingConfidential">Poverljiv izvestaj</label>
+              </div>
+            </div> 
+        </div>
+        
+        <div class="row g-3 mb-2">
+            <div class="col-md-12 form-floating gx-1">
+                <textarea formControlName="report" class="h-100 form-control rounded" placeholder="Objektivni nalaz" id="floatingReport" rows="2"></textarea>
+                <label for="floatingReport">Objektivni nalaz </label>
+            </div>
+            <div *ngIf="healthListFormSubmitted && healthListForm.get('report')?.errors?.required" class="validation-error small alert alert-danger">
+                Unesite uputnu objektivni nalaz
+            </div>
+        </div>
+
+        <div class="row g-3 mb-2">
+            <div class="col-md-12 form-floating gx-1">
+                <textarea formControlName="recommendedTherapy" class="h-100 form-control rounded" placeholder="Preporčena terapija" id="floatingRecommendedTherapy" rows="2"></textarea>
+                <label for="floatingRecommendedTherapy">Preporčena terapija</label>
+            </div>
+        </div>
+
+
+        <div class="row g-3 mb-2">
+            <div class="col-md-12 form-floating gx-1">
+                <textarea formControlName="advice" class="h-100 form-control rounded" placeholder="Savet" id="floatingAdvice" rows="2"></textarea>
+                <label for="floatingAdvice">Savet</label>
+            </div>
+        </div>
+
+        <hr class="my-4">
+        <button (click)="sendHealthReport()" class="btn btn-md btn-primary w-100" type="submit">Napravi</button>
+      </form>
+    </div>
+</div>

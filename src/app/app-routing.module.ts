@@ -40,6 +40,8 @@ import { ViewStationaryPatientReceptionsComponent } from './components/stationar
 import { AppointmentSchedulingComponent } from "./components/stationary/nurse/appointment-scheduling/appointment-scheduling.component";
 import {SchedulingComponent} from "./components/stationary/nurse/scheduling/scheduling.component";
 import {ViewAppointmentsComponent} from "./components/stationary/nurse/view-appointments/view-appointments.component";
+import { DischargeListComponent } from './components/stationary/doctor/discharge-list/discharge-list.component';
+import { HealthReportComponent } from './components/stationary/doctor/health-report/health-report.component';
 
 const routes: Routes = [
   {
@@ -258,7 +260,19 @@ const routes: Routes = [
     component: ViewAppointmentsComponent,
     canActivate: [AuthGuard, PermissionGuard],
     data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
-  }
+  },
+  {
+    path: 'discharge-list',
+    component: DischargeListComponent,
+    canActivate: [AuthGuard],
+    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA','ROLE_DR_SPEC','ROLE_DR_SPEC_POV'] }
+  },
+  {
+    path: 'health-report',
+    component: HealthReportComponent,
+    canActivate: [AuthGuard],
+    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA','ROLE_DR_SPEC','ROLE_DR_SPEC_POV'] }
+  },
 ];
 
 @NgModule({

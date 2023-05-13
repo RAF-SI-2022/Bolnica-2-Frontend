@@ -54,6 +54,8 @@ import { ViewStationaryPatientReceptionsComponent } from './components/stationar
 import { AppointmentSchedulingComponent } from './components/stationary/nurse/appointment-scheduling/appointment-scheduling.component';
 import { SchedulingComponent } from './components/stationary/nurse/scheduling/scheduling.component';
 import { ViewAppointmentsComponent } from './components/stationary/nurse/view-appointments/view-appointments.component';
+import { DischargeListComponent } from './components/stationary/doctor/discharge-list/discharge-list.component';
+import { HealthReportComponent } from './components/stationary/doctor/health-report/health-report.component';
 
 @NgModule({
   declarations: [
@@ -97,7 +99,9 @@ import { ViewAppointmentsComponent } from './components/stationary/nurse/view-ap
     ViewStationaryPatientReceptionsComponent,
     AppointmentSchedulingComponent,
     SchedulingComponent,
-    ViewAppointmentsComponent
+    ViewAppointmentsComponent,
+    DischargeListComponent,
+    HealthReportComponent
   ],
   imports: [
     BrowserModule,
