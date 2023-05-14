@@ -41,7 +41,6 @@ export class DailyBiochemAccComponent implements OnInit {
         for (let i = 0; i < this.results.length; i++) {
           this.results[i].editMode = true;
         }
-        console.log(this.results);
       }
     })
   }
