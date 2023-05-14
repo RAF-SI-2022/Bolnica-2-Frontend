@@ -1,38 +1,20 @@
-<div
-  *ngIf="
+<div *ngIf="
     this.authService.hasEitherPermission([
       'ROLE_MED_BIOHEMICAR',
       'ROLE_SPEC_MED_BIOHEMIJE'
     ]);
     else noperms
-  "
-  class="p-5"
->
+  " class="p-5">
   <div class="row d-flex justify-content-center">
     <div class="col-lg-3 d-flex flex-column">
       <p class="fs-6 fw-bold">Pretraga po lbp</p>
-      <input
-        class="form-control"
-        type="text"
-        id="byLbpSearch"
-        [(ngModel)]="lbp"
-      />
+      <input class="form-control" type="text" id="byLbpSearch" [(ngModel)]="lbp" />
       <br />
       <p class="fs-6 fw-bold">Pretraga po datumu</p>
       <label for="startDate">Od</label>
-      <input
-        id="startDate"
-        class="form-control"
-        type="date"
-        [(ngModel)]="startDate"
-      />
+      <input id="startDate" class="form-control" type="date" [(ngModel)]="startDate" />
       <label for="endDate">Do</label>
-      <input
-        id="endDate"
-        class="form-control"
-        type="date"
-        [(ngModel)]="endDate"
-      />
+      <input id="endDate" class="form-control" type="date" [(ngModel)]="endDate" />
       <br />
       <p class="fs-6 fw-bold">Pretraga po statusu obrade</p>
       <select id="status" class="form-select" [(ngModel)]="status">
@@ -41,21 +23,13 @@
         <option value="U obradi">U obradi</option>
       </select>
       <br />
-      <input
-        id="Search"
-        (click)="search()"
-        type="button"
-        class="btn btn-primary m-2"
-        value="Search"
-      />
+      <input id="Search" (click)="search()" type="button" class="btn btn-primary m-2" value="Search" />
     </div>
     <div class="col-lg-9 table-responsive">
-      <table
-        id="tabelaPregleda"
-        class="table table-light table-hover border-success rounded overflow-hidden caption-top"
-      >
+      <table id="tabelaPregleda"
+        class="table table-light table-striped border-success rounded overflow-hidden caption-top">
         <thead>
-          <tr style="color: #78c2ad">
+          <tr>
             <th scope="col">ID</th>
             <th scope="col">Datum i vreme kreiranja</th>
             <th scope="col">LBP pacijenta</th>
@@ -64,10 +38,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr
-            style="font-size: 0.7rem; font-weight: bold; color: #78c2ad"
-            *ngFor="let order of orderList"
-          >
+          <tr *ngFor="let order of orderList">
             <td>{{ order[0] }}</td>
             <td>{{ order[1] }}</td>
             <td>{{ order[2] }}</td>
@@ -77,12 +48,7 @@
         </tbody>
       </table>
       <div class="d-flex justify-content-center p-2">
-        <ngb-pagination
-          [collectionSize]="collectionSize"
-          [(page)]="page"
-          [pageSize]="pageSize"
-          (pageChange)="search()"
-        >
+        <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize" (pageChange)="search()">
         </ngb-pagination>
       </div>
     </div>

@@ -1,49 +1,31 @@
-<form [formGroup]="fullIssuingResult" class="container p-4 border rounded-3 bg-light mt-4">
-  <h4 class="mb-4">Detaljan prikaz</h4>
-  <div class="row g-3 mb-3">
-    <div class="col-md-1 form-floating gx-1">
-      <input formControlName="idLab" type="text" class="form-control" id="idLaboratorijskeAnalize" placeholder="idLaboratorijskeAnalize" />
-      <label for="idLaboratorijskeAnalize">ID lab.</label>
-    </div>
-    <div class="col-md-4 form-floating gx-1">
-      <input formControlName="skracenicaLabAnalize" type="text" class="form-control" id="floatingLbz" placeholder="Lbz" />
-      <label for="floatingLbz">Skraćenica laboratorijske analize</label>
-    </div>
-    <div class="col-md-7 form-floating gx-1">
-      <input formControlName="idParametra" type="text" class="form-control" id="floatingAdvice" placeholder="Savet" />
-      <label for="floatingAdvice">ID parametra</label>
-    </div>
+<div class="row p-3 justify-content-center">
+  <div class="col-lg-9 table-responsive">
+      <table class="table table-light table-striped">
+          <thead>
+              <tr>
+                  <th scope="col">Analiza</th>
+                  <th scope="col">Skraćenica analize</th>
+                  <th scope="col">Parametar</th>
+                  <th scope="col">Rezultat</th>
+                  <th scope="col">Jedinica mere</th>
+                  <th scope="col">Donja granica</th>
+                  <th scope="col">Gornja granica</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let result of results;">
+                  <td>{{ result.analysis.name }}</td>
+                  <td>{{ result.analysis.abbreviation }}</td>
+                  <td>{{ result.parameter.name }}</td>
+                  <td>{{ result.result }}</td>
+                  <td>{{ result.parameter.measureUnit }}</td>
+                  <td>{{ result.parameter.lowerBound }}</td>
+                  <td>{{ result.parameter.upperBound }}</td>
+              </tr>
+          </tbody>
+      </table>
   </div>
-  <div class="row g-3 mb-3">
-    <div class="col-md-2 form-floating gx-1">
-      <input formControlName="nazivParametra" type="text" class="form-control" id="floatingDate" placeholder="Datum" />
-      <label for="floatingDate">Naziv parametra</label>
-    </div>
-    <div class="col-md-4 form-floating gx-1">
-      <input formControlName="rezultat" type="text" class="form-control" id="floatingCurrentIllness" placeholder="Trenutna bolest" />
-      <label for="floatingCurrentIllness">Rezultat</label>
-    </div>
-    <div class="col-md-6 form-floating gx-1">
-      <input formControlName="jedinicaMere" type="text" class="form-control" id="floatingAnamnesis" placeholder="Amnezije" />
-      <label for="floatingAnamnesis">Jedinica mere</label>
-    </div>
-  </div>
-  <div class="row g-3 mb-3">
-    <div class="col-md-6 form-floating gx-1">
-      <input formControlName="donjaGranica" type="text" class="form-control" id="floatingDiagnosis" placeholder="Dijagnoza" />
-      <label for="floatingDiagnosis">Donja granica</label>
-    </div>
-    <div class="col-md-6 form-floating gx-1">
-      <input formControlName="gornjaGranica" type="text" class="form-control" id="floatingFamily" placeholder="Porodična Anamneza" />
-      <label for="floatingFamily">Gornja granica</label>
-    </div>
-    <div class="col-md-6 form-floating gx-1">
-      <input formControlName="datumIVreme" type="string" class="form-control" id="floatingMain" placeholder="Simptomi" />
-      <label for="floatingMain">Datum i vreme upisa rezultata</label>
-    </div>
-    <div class="col-md-6 form-floating gx-1">
-      <input formControlName="imeIPrezimeZaposlenogKojiJeUpisao" type="text" class="form-control" id="floatingFinding" placeholder="Objektivni nalaz" />
-      <label for="floatingFinding">Ime i prezime zaposlenog</label>
-    </div>
-  </div>
-</form>
+</div>
+<div class="text-center">
+  <button (click)="printResults()" class="btn btn-primary">Odštampaj rezultate</button>
+</div>

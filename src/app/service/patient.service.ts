@@ -129,6 +129,54 @@ export class PatientService {
     })
   }
 
+  getHospitalRooms(pbo: string, page: number, size: number) {
+    return this.httpClient.get(PATIENT_URL + '/hospital-room', {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      },
+      params: {
+        pbo: pbo,
+        page: page,
+        size: size
+      }
+    })
+  }
+
+  hospitalize(hospitalizeRequest: any) {
+    return this.httpClient.post(PATIENT_URL + '/hospitalization/hospitalize', hospitalizeRequest, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    })
+  }
+
+  getAppointmentsForToday(lbp: string, page: number, size: number) {
+    const params: any = {};
+    if (lbp !== '') params.lbp = lbp;
+    params.page = page;
+    params.size = size;
+    const todaysDate = new Date();
+    todaysDate.setUTCHours(0, 0, 0, 0);
+    // params.date = todaysDate.toISOString();
+    return this.httpClient.get(PATIENT_URL + '/appointment', {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      },
+      params: params
+    })
+  }
+
+  changeAppointmentStatus(id: number, status: string) {
+    return this.httpClient.put(PATIENT_URL + `/appointment/change-status/${id}`, {}, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      },
+      params: {
+        status: status
+      }
+    })
+  }
+
   createAppointment(scheduleAppointmentRequest: ScheduleAppointmentRequest) {
     return this.httpClient.post<{}>(PATIENT_URL + '/appointment/create', scheduleAppointmentRequest, {
       headers: {

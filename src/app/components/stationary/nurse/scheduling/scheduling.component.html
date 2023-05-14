@@ -1,23 +1,25 @@
 <div style="display: flex; justify-content: center; margin-top:100px">
-    <div class="col-lg-3">
-      <form [formGroup]="schedulingAppointmentForm" class="p-3 border rounded-3 bg-light">
-        <div class="form-check" style="display: flex; justify-content: center;">
-          <label class="form-check-label">Zakazivanje pregleda</label>
-        </div>
-        <div class="mb-1">
-          <input formControlName="lbp" class="form-control" type="text" placeholder="LBP">
-        </div>
-        <div class="mb-1">
-          <input formControlName="dateAndTime" class="form-control" type="datetime-local" placeholder="Datum i Vreme">
-        </div>
-        <div class="mb-1">
-          <input formControlName="napomena" class="form-control" type="text" placeholder="Napomena">
-        </div>
-        <div *ngIf="dataError" class="validation-error small alert alert-danger">
-          Molim Vas da unesete sva obavezna polja (LBP, Datum i Vreme)
-        </div>
-        <hr class="my-4">
-        <button (click)="schedule()" class="btn btn-md btn-primary w-100" type="submit">Zakaži</button>
-      </form>
-    </div>
+  <div class="col-lg-3">
+    <form [formGroup]="schedulingAppointmentForm" class="p-3 border rounded-3 bg-light">
+      <div class="form-check" style="display: flex; justify-content: center;">
+        <label class="form-check-label">Zakazivanje pregleda</label>
+      </div>
+      <div class="mb-2">
+        <input formControlName="lbp" [(ngModel)]="model" [ngbTypeahead]="searchPatients"
+          [resultFormatter]="formatResultingPatient" [inputFormatter]="inputFormatResultingPatient" type="text" placeholder="Pacijent"
+          id="typeaheadPatient" class="form-control">
+      </div>
+      <div class="mb-2">
+        <input formControlName="dateAndTime" class="form-control" type="datetime-local" placeholder="Datum i Vreme">
+      </div>
+      <div class="mb-2">
+        <input formControlName="napomena" class="form-control" type="text" placeholder="Napomena">
+      </div>
+      <div *ngIf="submitted && schedulingAppointmentForm.invalid" class="validation-error small alert alert-danger">
+        Unesite sva obavezna polja (pacijent, datum i vreme)
+      </div>
+      <hr class="my-4">
+      <button (click)="schedule()" class="btn btn-md btn-primary w-100" type="submit">Zakaži</button>
+    </form>
+  </div>
 </div>
