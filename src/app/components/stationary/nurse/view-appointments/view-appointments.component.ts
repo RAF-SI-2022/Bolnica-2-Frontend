@@ -5,6 +5,7 @@ import {DatePipe} from "@angular/common";
 import {AuthService} from "../../../../service/auth.service";
 import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {NgbdModalConfirm} from "../scheduling/scheduling.component";
+import { debounceTime, distinctUntilChanged, Observable, map, switchMap, mergeMap, forkJoin, of } from 'rxjs';
 
 @Component({
   selector: 'app-view-appointments',
@@ -37,24 +38,49 @@ export class ViewAppointmentsComponent implements OnInit {
               protected authService: AuthService,
               private modalService: NgbModal) {
     this.stationaryAppointmentsForm = this.formBuilder.group({
-      lbp: [''],
+      patient: [''],
       dateAndTime: ['']
     });
   }
 
   ngOnInit(): void {
+    this.search();
+  }
+
+  searchPatients = (text$: Observable<string>) =>
+  text$.pipe(
+    debounceTime(150),
+    distinctUntilChanged(),
+    switchMap((term) =>
+      this.patientService.searchPatients({
+        firstName: term,
+        lastName: '',
+        jmbg: '',
+        lbp: ''
+      }).pipe(map(response => response.patients))
+    )
+  );
+
+  formatResultingPatient(value: any) {
+    return value.firstName + ' ' + value.lastName;
+  }
+
+  inputFormatResultingPatient(value: any) {
+    return value.firstName + ' ' + value.lastName;
   }
 
   search() {
     this.loopClass = [];
     const val = this.stationaryAppointmentsForm.value;
-    if(val.dateAndTime === '') {
-      let thisDate = new Date();
-      val.dateAndTime = this.datepipes.transform(thisDate, 'yyyy-MM-dd');
+    let lbp: string = '';
+    if (val.patient === undefined || val.patient.lbp === undefined) {
+      lbp = '';
+    } else {
+      lbp = val.patient.lbp;
     }
-    this.patientService.getAppointments(val.lbp, val.dateAndTime, this.page-1, this.pageSize).subscribe({
+    this.patientService.getAppointments(lbp, val.dateAndTime, this.page-1, this.pageSize).subscribe({
       next: (res) => {
-        console.log(res);
+        this.collectionSize = res.count;
         for(let i = 0; i < res.count; i++) {
           let dateMod = this.datepipes.transform(res.appointments[i].receiptDate, 'yyyy-MM-dd')!;
           this.date = dateMod;

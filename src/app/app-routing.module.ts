@@ -37,9 +37,11 @@ import { SearchBiochemAccComponent } from './components/laboratory/search-bioche
 import { StationaryPatientReceptionComponent } from './components/stationary/nurse/reception-menu/stationary-patient-reception.component';
 import { StationaryMenuComponent } from './components/stationary/nurse/menu/stationary-menu.component';
 import { ViewStationaryPatientReceptionsComponent } from './components/stationary/nurse/view-receptions/view-stationary-patient-receptions.component';
+import { NewReceptionComponent } from './components/stationary/new-reception/new-reception.component';
 import { AppointmentSchedulingComponent } from "./components/stationary/nurse/appointment-scheduling/appointment-scheduling.component";
 import {SchedulingComponent} from "./components/stationary/nurse/scheduling/scheduling.component";
 import {ViewAppointmentsComponent} from "./components/stationary/nurse/view-appointments/view-appointments.component";
+import { DailyBiochemAccComponent } from './components/laboratory/daily-biochem-acc/daily-biochem-acc.component';
 
 const routes: Routes = [
   {
@@ -218,7 +220,7 @@ const routes: Routes = [
     data: {permissions: ['ROLE_VISI_LAB_TEHNICAR', 'ROLE_LAB_TEHNICAR']}
   },
   {
-    path: 'full-issuing-results',
+    path: 'full-issuing-results/:orderId',
     component: FullIssuingResultsComponent,
     canActivate: [AuthGuard, PermissionGuard],
     data: {permissions: ['ROLE_VISI_LAB_TEHNICAR', 'ROLE_LAB_TEHNICAR']}
@@ -242,6 +244,18 @@ const routes: Routes = [
     data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
   },
   {
+    path: 'new-reception/:lbp',
+    component: NewReceptionComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+  },
+  {
+    path: 'new-reception',
+    component: NewReceptionComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+  },
+  {
     path: 'appointment-scheduling',
     component: AppointmentSchedulingComponent,
     canActivate: [AuthGuard, PermissionGuard],
@@ -258,6 +272,12 @@ const routes: Routes = [
     component: ViewAppointmentsComponent,
     canActivate: [AuthGuard, PermissionGuard],
     data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+  },
+  {
+    path: 'daily-biochem-acc',
+    component: DailyBiochemAccComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_MED_BIOHEMICAR', 'ROLE_SPEC_MED_BIOHEMIJE'] }
   }
 ];
 

@@ -35,7 +35,7 @@ export class SearchBiochemAccComponent implements OnInit {
       if(this.lbp=='' && this.startDate=='' && this.endDate=='' && this.status=='') this.toast.info('Pretraga po tekucem datumu '+currentDate )
       if( this.startDate!=='' && this.endDate=='' ||
           this.startDate=='' && this.endDate!==''
-       ) this.toast.warning("Odaberite oba datuma pretrage!") 
+       ) this.toast.warning("Odaberite oba datuma pretrage!")
         else{
           const dateStart:Date=new Date(this.startDate);
           const dateEnd:Date=new Date(this.endDate);
@@ -43,7 +43,7 @@ export class SearchBiochemAccComponent implements OnInit {
           else{
             this.order_single=[];
             this.orders=[];
-            this.searchBiochemService.search(this.page,this.pageSize,this.startDate,this.endDate,this.lbp,this.status).subscribe({
+            this.searchBiochemService.search(this.page - 1,this.pageSize,this.startDate,this.endDate,this.lbp,this.status).subscribe({
               next:(res)=>{
                 const response = res as SearchBiochemResponse
                 console.log(response)
@@ -68,7 +68,7 @@ export class SearchBiochemAccComponent implements OnInit {
         }
     }
   }
-  
+
 
 function parseDate(creationTime: Date): string {
   console.log(creationTime.toLocaleDateString);
