@@ -35,7 +35,7 @@
         <tr *ngIf="elem.status.notation == 'Obrađen'; else uObradi" style='cursor: pointer; cursor: hand;' [routerLink]="['/full-issuing-results', elem.id]">
             <td>{{elem.id}}</td>
             <td>{{elem.referralId}}</td>
-            <td>{{elem.creationTime}}</td>
+            <td>{{elem.creationTime | date: 'dd-MM-yyyy HH:mm'}}</td>
             <td>{{elem.status.notation}}</td>
         </tr>
         <ng-template #uObradi>
