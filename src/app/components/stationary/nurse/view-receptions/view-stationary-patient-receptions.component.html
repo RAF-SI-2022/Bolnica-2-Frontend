@@ -30,8 +30,8 @@
               <td>{{ appointment.department.name }}</td>
               <td>{{ appointment.employee.firstName + ' ' + appointment.employee.lastName }}</td>
               <td>{{ appointment.status.notation }}</td>
-              <td *ngIf="appointment.status.notation === 'Zakazan'"><button (click)="onCancel(appointment.id)" class="btn btn-sm btn-danger">Otkaži</button></td>
-              <td *ngIf="appointment.status.notation === 'Zakazan'"><button [routerLink]="['/new-reception', appointment.patient.lbp]" class="btn btn-sm btn-primary">Prijem</button></td>
+              <td><button [disabled]="appointment.status.notation === 'Otkazan'" (click)="onCancel(appointment.id)" class="btn btn-sm btn-danger">Otkaži</button></td>
+              <td><button [disabled]="appointment.status.notation === 'Otkazan'" [routerLink]="['/new-reception', appointment.patient.lbp]" class="btn btn-sm btn-primary">Prijem</button></td>
             </tr>
           </tbody>
         </table>

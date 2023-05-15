@@ -26,6 +26,7 @@
             <th scope="col">Datum Rodjenja</th>
             <th scope="col">Datum pregleda</th>
             <th scope="col">Napomena</th>
+            <th scope="col">Status</th>
             <th scope="col"></th>
           </tr>
         </thead>
@@ -38,8 +39,9 @@
             <td>{{elem.dateOfBirth}}</td>
             <td>{{elem.date | date: 'dd-MM-yyyy'}}</td>
             <td>{{elem.note}}</td>
-            <td *ngIf="elem.notation === 'Zakazan'">
-              <button *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])"
+            <td>{{elem.notation}}</td>
+            <td>
+              <button [disabled]="elem.notation === 'Otkazan'" *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])"
                 (click)="cancelAppointment(elem.appointmentId, elem.notation)" class="btn btn-sm btn-danger"
                 data-testid="health-record">Otkaži
               </button>

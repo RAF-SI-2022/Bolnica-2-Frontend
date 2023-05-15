@@ -6,6 +6,7 @@ import {AuthService} from "../../../../service/auth.service";
 import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {NgbdModalConfirm} from "../scheduling/scheduling.component";
 import { debounceTime, distinctUntilChanged, Observable, map, switchMap, mergeMap, forkJoin, of } from 'rxjs';
+import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
   selector: 'app-view-appointments',
@@ -36,7 +37,8 @@ export class ViewAppointmentsComponent implements OnInit {
               private patientService: PatientService,
               private datepipes: DatePipe,
               protected authService: AuthService,
-              private modalService: NgbModal) {
+              private modalService: NgbModal,
+              private toaster: HotToastService) {
     this.stationaryAppointmentsForm = this.formBuilder.group({
       patient: [''],
       dateAndTime: ['']
@@ -92,9 +94,6 @@ export class ViewAppointmentsComponent implements OnInit {
           this.note = res.appointments[i].note;
           this.notation = res.appointments[i].status.notation;
           this.appointmentId = res.appointments[i].id;
-          if(this.notation !== 'Zakazan') {
-            this.notation = '';
-          }
           let elem = {
             appointmentId: this.appointmentId,
             date: this.date,
@@ -106,6 +105,7 @@ export class ViewAppointmentsComponent implements OnInit {
             notation: this.notation
           }
           this.loopClass.push(elem);
+          console.log(elem);
         }
       }
     });
@@ -117,8 +117,10 @@ export class ViewAppointmentsComponent implements OnInit {
       this.patientService.cancelAppointment(appointmentId, notation).subscribe({
         next: (res) => {
           this.search();
-          console.log(res);
-          console.log('Termin otkazan');
+          this.toaster.success('Uspešno ste otkazali termin.');
+        },
+        error: (e) => {
+          this.toaster.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
         }
       })
     }, (dismiss) => {
