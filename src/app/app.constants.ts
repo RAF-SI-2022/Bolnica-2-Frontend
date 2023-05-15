@@ -5,13 +5,13 @@ export let PATIENT_URL: string;
 export let LAB_URL: string;
 
 if (environment.production) {
-    USER_URL = 'http://bolnica-2.k8s.elab.rs/';
-    PATIENT_URL = 'http://localhost:8082/api';
-    LAB_URL = 'http://localhost:8083/api';
+    USER_URL = 'http://bolnica-2.k8s.elab.rs/api/user';
+    PATIENT_URL = 'http://bolnica-2.k8s.elab.rs/api/patient';
+    LAB_URL = 'http://bolnica-2.k8s.elab.rs/api/lab';
 } else {
-    USER_URL = 'http://localhost:8081/api';
-    PATIENT_URL = 'http://localhost:8082/api';
-    LAB_URL = 'http://localhost:8083/api';
+    USER_URL = 'http://localhost:8081/api/user';
+    PATIENT_URL = 'http://localhost:8082/api/patient';
+    LAB_URL = 'http://localhost:8083/api/lab';
 }
 
 export const LOGIN_ENDPOINT = USER_URL + "/auth/login";
