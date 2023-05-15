@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "startProd": "ng serve --host=http://bolnica-2.k8s.elab.rs --configuration production"
+    "startProd": "ng serve --host=0.0.0.0 --configuration production"
   },
   "private": true,
   "dependencies": {
