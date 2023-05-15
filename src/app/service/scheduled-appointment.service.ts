@@ -68,13 +68,11 @@ export class ScheduledAppointmentService {
     }
   }
 
-      getScheduledAppointmentsByLbz(timestamp: string, doctorLbz: string, page: number, pageSize: number) {
+      getScheduledAppointmentsByLbz(date: string, doctorLbz: string, page: number, pageSize: number) {
         let lbz = doctorLbz
         let token = localStorage.getItem('token')
         let authHeader = 'Bearer ' + token;
-        let newTimestampArray = timestamp.split('/')
-        let newTimestamp = newTimestampArray[0]+"/"+newTimestampArray[1]+"/"+newTimestampArray[2];
-        return this.httpClient.get<SchedluedAppointmentsResponse>(SCHED_MED_EXAM_ENDPOINT+"/search?lbz="+lbz+"&page="+page+"&size="+pageSize+"&appointmentDate="+newTimestamp, {
+        return this.httpClient.get<SchedluedAppointmentsResponse>(SCHED_MED_EXAM_ENDPOINT+"/search?lbz="+lbz+"&page="+page+"&size="+pageSize+"&appointmentDate="+date, {
           headers: {
               'Authorization': authHeader
           }

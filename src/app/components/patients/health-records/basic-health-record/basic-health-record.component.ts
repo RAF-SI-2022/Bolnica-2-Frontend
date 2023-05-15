@@ -70,17 +70,7 @@ export class BasicHealthRecordComponent implements OnInit {
         this.bloodtypeForm.get('krvnaGrupa')?.setValue(res.bloodType);
         const rh = Object.values(res.rhFactor);
         this.bloodtypeForm.get('rhFaktor')?.setValue(rh);
-      },
-      error: (e) => {
-        this.toast.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
-      }
-    })
 
-
-    this.healthRecordService.getRecord(localStorage.getItem('patientLBP')!).subscribe({
-      next:(res) => {
-        console.log(res);
-        console.log(res.allergies.allergies.length);
         let listOfAllergies: string = '';
         for(let i = 0; i < res.allergies.allergies.length; i++) {
           listOfAllergies = listOfAllergies.concat(res.allergies.allergies[i].allergen.name);
@@ -91,13 +81,7 @@ export class BasicHealthRecordComponent implements OnInit {
         this.allergiesForm.get('listaAlergija')?.setValue(listOfAllergies);
         this.allergies = res.allergies.allergies.map(allergy => allergy.allergen.name);
         this.allergiesForm.get('alergije')?.setValue(res.allergies);
-      }
-    })
 
-    this.healthRecordService.getRecord(localStorage.getItem('patientLBP')!).subscribe({
-      next:(res) => {
-        console.log(res);
-        console.log(res.vaccinations.count);
         let vaccineList = '';
         for(let i = 0; i < res.vaccinations.count; i++) {
           vaccineList = vaccineList.concat(res.vaccinations.vaccinations[i].vaccine.name);
@@ -107,9 +91,11 @@ export class BasicHealthRecordComponent implements OnInit {
         }
         this.vaccinationForm.get('listaPrimljenihVakcina')?.setValue(vaccineList);
         this.vaccines = res.vaccinations.vaccinations.map(vaccine => vaccine.vaccine.name);
+      },
+      error: (e) => {
+        this.toast.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
       }
     })
-
   }
 
   edit(): void {
@@ -133,10 +119,8 @@ export class BasicHealthRecordComponent implements OnInit {
         rhfactor: bloodTypeValues.rhFaktor
       }).subscribe({
         next: (res) => {
-          console.log(res);
-          this.router.navigate(['']).then(() => {
-            this.toast.success('Uspešno ste izmenili podatke');
-          })
+          this.toast.success('Uspešno ste izmenili podatke');
+          this.ngOnInit();
         },
         error: (e) => {
           this.toast.error(e.error.errorMessage);
@@ -159,10 +143,8 @@ export class BasicHealthRecordComponent implements OnInit {
         allergen: allergyTypeValues.alergije
       }).subscribe({
         next: (res) => {
-          console.log(res);
-          this.router.navigate(['']).then(() => {
-            this.toast.success('Uspešno ste dodali novu alergiju');
-          })
+          this.toast.success('Uspešno ste dodali novu alergiju');
+          this.ngOnInit();
         },
         error: (e) => {
           this.toast.error(e.error.errorMessage);
@@ -188,10 +170,8 @@ export class BasicHealthRecordComponent implements OnInit {
         date: val.datumPrijemaVakcine
       }).subscribe({
         next: (res) => {
-          console.log(res);
-          this.router.navigate(['']).then(() => {
-            this.toast.success('Uspešno ste dodali novu vakcinu');
-          })
+          this.toast.success('Uspešno ste dodali novu vakcinu');
+          this.ngOnInit();
         },
         error: (e) => {
           this.toast.error(e.error.errorMessage);
