@@ -80,7 +80,7 @@
                 <tbody>
                     <tr *ngFor="let referral of unprocessedReferrals">
                         <td>{{ referral.referralId }}</td>
-                        <td>{{ referral.creationDate }}</td>
+                        <td>{{ referral.creationDate | date: 'dd-MM-yyyy HH:mm' }}</td>
                         <td>{{ referral.doctorFirstName + ' ' + referral.doctorLastName }}</td>
                         <td>{{ referral.requiredAnalysis }}</td>
                         <td>{{ referral.comment }}</td>
