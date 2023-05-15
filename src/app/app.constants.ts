@@ -17,9 +17,9 @@ if (environment.production) {
         LAB_URL = 'http://bolnica-2.k8s.elab.rs/api/lab';
     }
 } else {
-    USER_URL = 'https://localhost:8081/api/user';
-    PATIENT_URL = 'https://localhost:8082/api/patient';
-    LAB_URL = 'https://localhost:8083/api/lab';
+    USER_URL = 'https://localhost:8081/api';
+    PATIENT_URL = 'https://localhost:8082/api';
+    LAB_URL = 'https://localhost:8083/api';
 }
 
 export const LOGIN_ENDPOINT = USER_URL + "/auth/login";
