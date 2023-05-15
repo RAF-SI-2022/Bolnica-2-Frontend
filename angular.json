@@ -53,6 +53,27 @@
               ],
               "outputHashing": "all"
             },
+            "productionS": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "2mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prods.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
             "development": {
               "buildOptimizer": false,
               "optimization": false,
@@ -69,6 +90,9 @@
           "configurations": {
             "production": {
               "browserTarget": "bolnica2-frontend:build:production"
+            },
+            "productionS": {
+              "browserTarget": "bolnica2-frontend:build:productionS"
             },
             "development": {
               "browserTarget": "bolnica2-frontend:build:development"
