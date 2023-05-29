@@ -1,0 +1,78 @@
+<div class="p-5">
+    <div class="row">
+        <div class="col-lg-3">
+            <form [formGroup]="workOrderHistoryForm" class="p-3 border rounded-3 bg-light">
+                <div class="mb-2 form-floating gx-1">
+                    <input formControlName="dateFrom" class="form-control" type="date" placeholder="placeholder" id="floatingDate">
+                    <label for="floatingDate">Datum od</label>
+                </div>
+                <div class="mb-2 form-floating gx-1">
+                    <input formControlName="dateTo" class="form-control" type="date" placeholder="placeholder" id="floatingDate">
+                    <label for="floatingDate">Datum do</label>
+                </div>
+                <div *ngIf="dateError" class="validation-error small alert alert-danger">
+                    Unesite ili oba datuma ili nijedan
+                  </div>
+                <hr class="my-4">
+                <button (click)="onSubmit()" class="btn btn-md btn-primary w-100" type="submit">Pretraži</button>
+            </form>
+        </div>
+        <div class="col-lg-9 table-responsive">
+            <div class="row">
+                <div class="col">
+                    <table class="table table-light table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID radnog naloga</th>
+                                <th scope="col">ID uputa</th>
+                                <th scope="col">Datum i vreme kreiranja</th>
+                                <th scope="col">Status obrade</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr (click)="selectOrder(order)" *ngFor="let order of orders" style="cursor: pointer;">
+                                <td>{{ order.id }}</td>
+                                <td>{{ order.referralId }}</td>
+                                <td>{{ order.creationTime | date: 'dd.MM.yyyy, HH:mm' }}</td>
+                                <td>{{ order.status.notation }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div *ngIf="currentOrder !== undefined" class="row">
+                <div class="col">
+                    <table class="table table-light table-striped" id="printable_table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Analiza</th>
+                                <th scope="col">Skraćenica analize</th>
+                                <th scope="col">Parametar</th>
+                                <th scope="col">Rezultat</th>
+                                <th scope="col">Jedinica mere</th>
+                                <th scope="col">Donja granica</th>
+                                <th scope="col">Gornja granica</th>
+                                <th scope="col">LBZ Biohemičara</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let result of results;">
+                                <td>{{ result.analysis.name }}</td>
+                                <td>{{ result.analysis.abbreviation }}</td>
+                                <td>{{ result.parameter.name }}</td>
+                                <td>{{ result.result }}</td>
+                                <td>{{ result.parameter.measureUnit }}</td>
+                                <td>{{ result.parameter.lowerBound }}</td>
+                                <td>{{ result.parameter.upperBound }}</td>
+                                <td>{{ result.lbzBiochemist }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="text-center">
+                        <button (click)="print()" class="btn btn-primary">Odštampaj</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -76,4 +76,12 @@ export class EmployeesService {
             }
         })
     }
+
+    getDoctors() {
+        return this.httpClient.get(USER_URL + '/users/doctors', {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }
+        })
+    }
 }

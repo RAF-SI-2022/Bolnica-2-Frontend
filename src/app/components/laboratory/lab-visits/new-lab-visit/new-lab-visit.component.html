@@ -1,0 +1,93 @@
+<ng-template #rt let-r="result" let-t="term">
+    <div class="row">
+        <img src="../../assets/images/person-circle.svg" class="me-1" alt="..." style="width: 5rem;"/>
+        <div class="col" data-testid="patient-result">
+            <div class="row">
+                <ngb-highlight [result]="r.firstName + ' ' + r.lastName" [term]="t"></ngb-highlight>
+            </div>
+            <div class="row">
+                <span>Starost: {{r.birthDate | dateOfBirthToAge}}</span>
+            </div>
+            <div class="row">
+                <span>{{r.gender.notation | genderPipe}}</span>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<div class="p-5">
+    <div class="row mb-5">
+        <div class="col-lg-5 mx-auto">
+            <form [formGroup]="newLabVisitForm" class="p-3 border rounded-3 bg-light">
+                <h5 class="mb-3">Zakaži novu posetu laboratoriji</h5>
+                <div class="row g-3 mb-2">
+                    <div class="col-md-6 form-floating gx-1">
+                        <input (selectItem)="onPatientSelected($event)" formControlName="patient" [(ngModel)]="model" [ngbTypeahead]="search"
+                            [resultTemplate]="rt" [inputFormatter]="inputFormatResultingPatient"
+                            type="text" id="floatingPatient" class="form-control" placeholder="patient-placeholder" data-testid="patient-input">
+                        <label for="floatingPatient">Pacijent</label>
+                        <div *ngIf="submitted && newLabVisitForm.get('patient')?.errors?.required" class="validation-error small alert alert-danger">Odaberite pacijenta</div>
+                    </div>
+                </div>
+                <div class="row g-3 mb-2">
+                    <div class="col-md-5 form-floating gx-1">
+                        <input (change)="onDateInputChange($event)" formControlName="date" type="date" class="form-control" id="floatingDate" placeholder="Datum" data-testid="date">
+                        <label for="floatingDate">Datum</label>
+                        <div *ngIf="submitted && newLabVisitForm.get('date')?.errors?.required" class="validation-error small alert alert-danger">Odaberite datum</div>
+                    </div>
+                    <div class="col-md-2 form-floating gx-1">
+                        <input formControlName="time" type="time" class="form-control" id="floatingTime" placeholder="Time" data-testid="time">
+                        <label for="floatingTime">Vreme</label>
+                        <div *ngIf="submitted && newLabVisitForm.get('time')?.errors?.required" class="validation-error small alert alert-danger">Odaberite vreme</div>
+                    </div>
+                    <div *ngIf="selectedDate !== undefined" class="col-md-5 form-floating gx-1">
+                        <input [value]="numberOfVisitsForDay" disabled type="text" class="form-control" id="floatingBrojPoseta" placeholder="Broj poseta" readonly>
+                        <label for="floatingBrojPoseta">Broj poseta za {{ selectedDate | date: 'dd/MM/yyyy' }}</label>
+                    </div>
+                </div>
+                <div class="row g-3 mb-2">
+                    <div class="col-md-12 form-floating gx-1">
+                        <textarea formControlName="note" class="h-100 form-control rounded" placeholder="Napomena" id="floatingNapomena" rows="8"></textarea>
+                        <label for="floatingNapomena">Napomena</label>
+                    </div>
+                </div>
+                <hr class="my-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button (click)="getUnprocessedReferrals()" [disabled]="patient === undefined" class="btn btn-md btn-secondary w-100">Pogledaj nerealizovane upute</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button (click)="onSubmit()" class="btn btn-md btn-primary w-100" type="submit" data-testid="confirm">Zakaži</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div *ngIf="showUnprocessedReferralsTable" class="row">
+        <div class="col-lg-9 table-responsive mx-auto">
+            <h5>Nerealizovani uputi za pacijenta:</h5>
+            <table class="table table-light table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Datum kreiranja</th>
+                        <th scope="col">Doktor</th>
+                        <th scope="col">Zahtevana analiza</th>
+                        <th scope="col">Komentar</th>
+                        <th scope="col">Odeljenje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let referral of unprocessedReferrals">
+                        <td>{{ referral.referralId }}</td>
+                        <td>{{ referral.creationDate | date: 'dd-MM-yyyy HH:mm' }}</td>
+                        <td>{{ referral.doctorFirstName + ' ' + referral.doctorLastName }}</td>
+                        <td>{{ referral.requiredAnalysis }}</td>
+                        <td>{{ referral.comment }}</td>
+                        <td>{{ referral.departmentName }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

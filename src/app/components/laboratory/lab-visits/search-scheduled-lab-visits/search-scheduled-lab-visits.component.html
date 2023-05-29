@@ -1,0 +1,61 @@
+<ng-template #rt let-r="result" let-t="term">
+    <div class="row">
+        <img src="../../assets/images/person-circle.svg" class="me-1" alt="..." style="width: 5rem;"/>
+        <div class="col">
+            <div class="row">
+                <ngb-highlight [result]="r.firstName + ' ' + r.lastName" [term]="t"></ngb-highlight>
+            </div>
+            <div class="row">
+                <span>Starost: {{r.birthDate | dateOfBirthToAge}}</span>
+            </div>
+            <div class="row">
+                <span>{{r.gender.notation | genderPipe}}</span>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<div class="p-5">
+    <div class="row">
+        <div class="col-lg-3">
+            <form [formGroup]="searchScheduledLabVisitsForm" class="p-3 border rounded-3 bg-light">
+                <div class="mb-2 form-floating gx-1">
+                    <input (selectItem)="onPatientSelected($event)" formControlName="patient" [(ngModel)]="model" [ngbTypeahead]="search"
+                    [resultTemplate]="rt" [inputFormatter]="inputFormatResultingPatient"
+                    type="text" id="floatingPatient" class="form-control" placeholder="patient-placeholder">
+                    <label for="floatingPatient">Pacijent</label>
+                </div>
+                <div class="mb-2 form-floating gx-1">
+                    <input formControlName="date" class="form-control" type="date" placeholder="placeholder" id="floatingDate">
+                    <label for="floatingDate">Datum</label>
+                </div>
+                <hr class="my-4">
+                <button (click)="onSubmit()" class="btn btn-md btn-primary w-100" type="submit">Pretraži</button>
+            </form>
+        </div>
+        <div class="col-lg-9 table-responsive">
+            <table class="table table-striped" data-testid="lab-visits-table">
+                <thead>
+                    <tr>
+                        <th scope="col">Pacijent</th>
+                        <th scope="col">Datum</th>
+                        <th scope="col">Komentar</th>
+                        <th scope="col">Status</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let visit of schedLabVisits">
+                        <td>{{ visit.lbp }}</td>
+                        <td data-testid="date">{{ visit.scheduledDate | date: 'dd.MM.yyyy, HH:mm' }}</td>
+                        <td>{{ visit.note }}</td>
+                        <td>{{ visit.examStatus.notation }}</td>
+                        <td><button (click)="onCancel(visit.id)" [disabled]="visit.examStatus.notation === 'Otkazano'" class="btn btn-sm btn-danger">Otkaži posetu</button></td>
+                        <td><button [routerLink]="['/new-work-order', visit.lbp]" [disabled]="visit.examStatus.notation === 'Otkazano'" class="btn btn-sm btn-primary">Novi radni nalog</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

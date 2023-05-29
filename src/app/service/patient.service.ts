@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { PATIENT_ENDPOINT, USER_URL } from '../app.constants';
+import {LAB_URL, PATIENT_ENDPOINT, PATIENT_URL, USER_URL} from '../app.constants';
 import { PatientRequest } from '../dto/request/patient.request';
 import { PatientResponse, SearchPatientsResponse } from '../dto/response/patient.response';
 import { HospitalResponse, HospitalsByDepartmentResponse } from '../dto/response/hospital.response';
 import { DepartmentResponse } from '../dto/response/department.response';
+import { ScheduleAppointmentRequest } from "../dto/request/patient.request";
+import {PatientAppointmentResponse} from "../dto/response/patient-appointment";
 
 @Injectable({
   providedIn: 'root'
@@ -126,5 +128,87 @@ export class PatientService {
       }
     })
   }
+
+  getHospitalRooms(pbo: string, page: number, size: number) {
+    return this.httpClient.get(PATIENT_URL + '/hospital-room', {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      },
+      params: {
+        pbo: pbo,
+        page: page,
+        size: size
+      }
+    })
+  }
+
+  hospitalize(hospitalizeRequest: any) {
+    return this.httpClient.post(PATIENT_URL + '/hospitalization/hospitalize', hospitalizeRequest, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    })
+  }
+
+  getAppointmentsForToday(lbp: string, page: number, size: number) {
+    const params: any = {};
+    if (lbp !== '') params.lbp = lbp;
+    params.page = page;
+    params.size = size;
+    const todaysDate = new Date();
+    todaysDate.setUTCHours(0, 0, 0, 0);
+    // params.date = todaysDate.toISOString();
+    return this.httpClient.get(PATIENT_URL + '/appointment', {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      },
+      params: params
+    })
+  }
+
+  changeAppointmentStatus(id: number, status: string) {
+    return this.httpClient.put(PATIENT_URL + `/appointment/change-status/${id}`, {}, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      },
+      params: {
+        status: status
+      }
+    })
+  }
+
+  createAppointment(scheduleAppointmentRequest: ScheduleAppointmentRequest) {
+    return this.httpClient.post<{}>(PATIENT_URL + '/appointment/create', scheduleAppointmentRequest, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    });
+  }
+
+  getAppointments(lbp: string, date: string, page: number, size: number) {
+    return this.httpClient.get<PatientAppointmentResponse>(PATIENT_URL + '/appointment', {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      },
+      params: {
+        lbp: lbp,
+        date: date,
+        page: page,
+        size: size
+      }
+    });
+  }
+
+  cancelAppointment(id: any, status: string) {
+    return this.httpClient.put<{}>(PATIENT_URL + `/appointment/change-status/${id}`,{}, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      },
+      params: {
+        status: status
+      }
+    });
+  }
+
 }
 

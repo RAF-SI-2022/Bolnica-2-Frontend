@@ -1,0 +1,31 @@
+<div class="row p-3 justify-content-center">
+  <div class="col-lg-9 table-responsive">
+      <table class="table table-light table-striped">
+          <thead>
+              <tr>
+                  <th scope="col">Analiza</th>
+                  <th scope="col">Skraćenica analize</th>
+                  <th scope="col">Parametar</th>
+                  <th scope="col">Rezultat</th>
+                  <th scope="col">Jedinica mere</th>
+                  <th scope="col">Donja granica</th>
+                  <th scope="col">Gornja granica</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let result of results;">
+                  <td>{{ result.analysis.name }}</td>
+                  <td>{{ result.analysis.abbreviation }}</td>
+                  <td>{{ result.parameter.name }}</td>
+                  <td>{{ result.result }}</td>
+                  <td>{{ result.parameter.measureUnit }}</td>
+                  <td>{{ result.parameter.lowerBound }}</td>
+                  <td>{{ result.parameter.upperBound }}</td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+</div>
+<div class="text-center">
+  <button (click)="printResults()" class="btn btn-primary">Odštampaj rezultate</button>
+</div>

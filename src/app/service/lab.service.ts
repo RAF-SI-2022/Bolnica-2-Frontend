@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { CreateLabExamRequest, CreateReferralRequest } from '../dto/request/laboratory.request';
+import {
+  CreateLabExamRequest,
+  CreateReferralRequest
+} from '../dto/request/laboratory.request';
 import { LabExamResponse, ReferralResponseList, ReferralResponse } from '../dto/response/laboratory.response';
 import {HEALTH_RECORD_ENDPOINT, LAB_URL} from '../app.constants';
 import {MedicalHistory} from "../dto/response/health-record.response";
@@ -50,6 +53,18 @@ export class LabService {
             },
             params: {
                 lbp: lbp
+            }
+        })
+    }
+
+    getUnprocessedReferralsV3(lbp: string, type: string) {
+        return this.httpClient.get(LAB_URL + '/referral/unprocessed', {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            params: {
+                lbp: lbp,
+                type: type
             }
         })
     }
@@ -152,14 +167,10 @@ export class LabService {
     }
 
     getIssuedResultsLab(lbp: string, startDate: string, endDate: string, page: number, size: number) {
-        const params: any = {};
-        params.lbp = lbp;
-        if (startDate === '') params.startDate = '1970-01-01T23:59:20.253Z'; else params.startDate = startDate + 'T00:00:00.253Z';
-        if (endDate === '') params.endDate = '2500-04-23T11:16:20.253Z'; else params.endDate = endDate + 'T00:00:00.253Z';
         const orderHistoryRequest: any = {
           lbp: lbp,
-          startDate: params.startDate,
-          endDate: params.endDate,
+          startDate: startDate,
+          endDate: endDate,
           orderStatus: ''
         }
         return this.httpClient.post<OrderHistoryResponse>(LAB_URL + `/order/historyForLab`, orderHistoryRequest, {
@@ -172,4 +183,6 @@ export class LabService {
           }
         });
       }
+
+
 }

@@ -1,6 +1,26 @@
-export const USER_URL = 'http://localhost:8081/api';
-export const PATIENT_URL = 'http://localhost:8082/api';
-export const LAB_URL = 'http://localhost:8083/api';
+import { environment } from "src/environments/environment";
+
+export let USER_URL: string;
+export let PATIENT_URL: string;
+export let LAB_URL: string;
+
+console.log(environment);
+
+if (environment.production) {
+    if (environment.https) {
+        USER_URL = 'https://bolnica-2.k8s.elab.rs/api/user';
+        PATIENT_URL = 'https://bolnica-2.k8s.elab.rs/api/patient';
+        LAB_URL = 'https://bolnica-2.k8s.elab.rs/api/lab';
+    } else {
+        USER_URL = 'http://bolnica-2.k8s.elab.rs/api/user';
+        PATIENT_URL = 'http://bolnica-2.k8s.elab.rs/api/patient';
+        LAB_URL = 'http://bolnica-2.k8s.elab.rs/api/lab';
+    }
+} else {
+    USER_URL = 'http://localhost:8081/api';
+    PATIENT_URL = 'http://localhost:8082/api';
+    LAB_URL = 'http://localhost:8083/api';
+}
 
 export const LOGIN_ENDPOINT = USER_URL + "/auth/login";
 export const EMPLOYEE_ENDPOINT = USER_URL + "/users";
