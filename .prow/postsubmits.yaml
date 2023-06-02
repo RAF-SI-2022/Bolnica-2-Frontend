@@ -1,4 +1,4 @@
-postsubmits:
+presubmits:
   - name: post-bolnica-2-frontend-prod-deploy
     labels:
       preset-github-ro-token: "true"
@@ -37,7 +37,7 @@ postsubmits:
               docker push harbor.k8s.elab.rs/bolnica-2/frontend:$commit_hash
 
               # update dev helm chart
-              helm upgrade bolnica-2-prod ./kubernetes/bolnica-2 --reuse-values --set git_version_front=$commit_hash -n bolnica-2-prod
+              helm upgrade bolnica-2-prod oci://harbor.k8s.elab.rs/bolnica-2/bolnica-2 --version 1.0.1 --reuse-values --set git_version_front=$commit_hash -n bolnica-2-prod
 
           securityContext:
             privileged: true
@@ -80,7 +80,7 @@ postsubmits:
               docker push harbor.k8s.elab.rs/bolnica-2/frontend:$commit_hash
 
               # update dev helm chart
-              helm upgrade bolnica-2-dev kubernetes/bolnica-2 --reuse-values --set git_version_front=$commit_hash -n bolnica-2-dev
+              helm upgrade bolnica-2-dev oci://harbor.k8s.elab.rs/bolnica-2/bolnica-2 --version 1.0.1 --reuse-values --set git_version_front=$commit_hash -n bolnica-2-dev
 
           securityContext:
             privileged: true
