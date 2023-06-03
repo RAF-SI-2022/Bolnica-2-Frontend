@@ -61,6 +61,10 @@ import { DocStationaryMedicalReportHistoryComponent } from './components/station
 import { DocStationaryDischargeHistoryComponent } from './components/stationary/doc-stationary-discharge-history/doc-stationary-discharge-history.component';
 import { PatientConditionHistoryComponent } from './components/patients/patient-condition-history/patient-condition-history.component';
 import { RegisterPatientConditionComponent } from './components/patients/register-patient-condition/register-patient-condition.component';
+import { SearchStationaryPatientsComponent } from './components/search-stationary-patients/search-stationary-patients.component';
+import { NurseStationaryMenuComponent } from './components/nurse-stationary-menu/nurse-stationary-menu.component';
+import { DoctorStationaryMenuComponent } from './components/doctor-stationary-menu/doctor-stationary-menu.component';
+import { DoctorSearchStationaryPatientsComponent } from './components/doctor-search-stationary-patients/doctor-search-stationary-patients.component';
 
 @NgModule({
   declarations: [
@@ -111,7 +115,11 @@ import { RegisterPatientConditionComponent } from './components/patients/registe
     DocStationaryMedicalReportHistoryComponent,
     DocStationaryDischargeHistoryComponent,
     PatientConditionHistoryComponent,
-    RegisterPatientConditionComponent
+    RegisterPatientConditionComponent,
+    SearchStationaryPatientsComponent,
+    NurseStationaryMenuComponent,
+    DoctorStationaryMenuComponent,
+    DoctorSearchStationaryPatientsComponent
   ],
   imports: [
     BrowserModule,

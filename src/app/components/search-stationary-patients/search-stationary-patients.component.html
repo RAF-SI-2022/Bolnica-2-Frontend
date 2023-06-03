@@ -1,0 +1,12 @@
+<div class="p-5 container w-25">
+    <form [formGroup]="form" class="p-3 border rounded-3 bg-light">
+        <div class="mb-2">
+        <label for="typeaheadPatient">Pretraži pacijenta:</label>
+        <input formControlName="patient" [(ngModel)]="model" [ngbTypeahead]="searchPatients"
+            [resultFormatter]="formatResultingPatient" [inputFormatter]="inputFormatResultingPatient" type="text"
+            id="typeaheadPatient" class="form-control">
+        </div>
+        <hr class="my-4">
+        <button [routerLink]="['/nurse-stationary-menu', model.lbp]" class="btn btn-md btn-primary w-100" type="submit">Pretraži</button>
+    </form>
+</div>

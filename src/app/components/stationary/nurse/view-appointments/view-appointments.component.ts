@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {PatientService} from "../../../../service/patient.service";
-import {DatePipe} from "@angular/common";
-import {AuthService} from "../../../../service/auth.service";
-import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {NgbdModalConfirm} from "../scheduling/scheduling.component";
+import { FormBuilder, FormGroup } from "@angular/forms";
+import { PatientService } from "../../../../service/patient.service";
+import { DatePipe } from "@angular/common";
+import { AuthService } from "../../../../service/auth.service";
+import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { NgbdModalConfirm } from "../scheduling/scheduling.component";
 import { debounceTime, distinctUntilChanged, Observable, map, switchMap, mergeMap, forkJoin, of } from 'rxjs';
 import { HotToastService } from '@ngneat/hot-toast';
 
@@ -34,11 +34,11 @@ export class ViewAppointmentsComponent implements OnInit {
   model: any;
 
   constructor(private formBuilder: FormBuilder,
-              private patientService: PatientService,
-              private datepipes: DatePipe,
-              protected authService: AuthService,
-              private modalService: NgbModal,
-              private toaster: HotToastService) {
+    private patientService: PatientService,
+    private datepipes: DatePipe,
+    protected authService: AuthService,
+    private modalService: NgbModal,
+    private toaster: HotToastService) {
     this.stationaryAppointmentsForm = this.formBuilder.group({
       patient: [''],
       dateAndTime: ['']
@@ -50,18 +50,18 @@ export class ViewAppointmentsComponent implements OnInit {
   }
 
   searchPatients = (text$: Observable<string>) =>
-  text$.pipe(
-    debounceTime(150),
-    distinctUntilChanged(),
-    switchMap((term) =>
-      this.patientService.searchPatients({
-        firstName: term,
-        lastName: '',
-        jmbg: '',
-        lbp: ''
-      }).pipe(map(response => response.patients))
-    )
-  );
+    text$.pipe(
+      debounceTime(150),
+      distinctUntilChanged(),
+      switchMap((term) =>
+        this.patientService.searchPatients({
+          firstName: term,
+          lastName: '',
+          jmbg: '',
+          lbp: ''
+        }).pipe(map(response => response.patients))
+      )
+    );
 
   formatResultingPatient(value: any) {
     return value.firstName + ' ' + value.lastName;
@@ -80,10 +80,10 @@ export class ViewAppointmentsComponent implements OnInit {
     } else {
       lbp = val.patient.lbp;
     }
-    this.patientService.getAppointments(lbp, val.dateAndTime, this.page-1, this.pageSize).subscribe({
+    this.patientService.getAppointments(lbp, val.dateAndTime, this.page - 1, this.pageSize).subscribe({
       next: (res) => {
         this.collectionSize = res.count;
-        for(let i = 0; i < res.count; i++) {
+        for (let i = 0; i < res.count; i++) {
           let dateMod = this.datepipes.transform(res.appointments[i].receiptDate, 'yyyy-MM-dd')!;
           this.date = dateMod;
           this.firstName = res.appointments[i].patient.firstName;
@@ -157,5 +157,5 @@ export class ViewAppointmentsComponent implements OnInit {
 })
 
 export class NgbdModalCancel {
-  constructor(public modal: NgbActiveModal) {}
+  constructor(public modal: NgbActiveModal) { }
 }
