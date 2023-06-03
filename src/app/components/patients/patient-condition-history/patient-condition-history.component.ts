@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
-import { size } from 'cypress/types/lodash';
 import { PatientService } from 'src/app/service/patient.service';
 
 @Component({
