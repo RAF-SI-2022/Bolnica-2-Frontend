@@ -42,6 +42,8 @@ import { AppointmentSchedulingComponent } from "./components/stationary/nurse/ap
 import {SchedulingComponent} from "./components/stationary/nurse/scheduling/scheduling.component";
 import {ViewAppointmentsComponent} from "./components/stationary/nurse/view-appointments/view-appointments.component";
 import { DailyBiochemAccComponent } from './components/laboratory/daily-biochem-acc/daily-biochem-acc.component';
+import { PatientConditionHistoryComponent } from './components/patients/patient-condition-history/patient-condition-history.component';
+import { RegisterPatientConditionComponent } from './components/patients/register-patient-condition/register-patient-condition.component';
 
 const routes: Routes = [
   {
@@ -278,6 +280,18 @@ const routes: Routes = [
     component: DailyBiochemAccComponent,
     canActivate: [AuthGuard, PermissionGuard],
     data: { permissions: ['ROLE_MED_BIOHEMICAR', 'ROLE_SPEC_MED_BIOHEMIJE'] }
+  },
+  {
+    path: 'patient-condition-history',
+    component: PatientConditionHistoryComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+  },
+  {
+    path: 'register-patient-condition/:lbp',
+    component: RegisterPatientConditionComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
   }
 ];
 

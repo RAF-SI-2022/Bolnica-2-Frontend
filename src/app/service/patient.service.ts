@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {LAB_URL, PATIENT_ENDPOINT, PATIENT_URL, USER_URL} from '../app.constants';
-import { PatientRequest } from '../dto/request/patient.request';
+import {HOSPITALIZATION_ENDPOINT, LAB_URL, PATIENT_ENDPOINT, PATIENT_URL, USER_URL} from '../app.constants';
+import { PatientConditionRequest, PatientRequest } from '../dto/request/patient.request';
 import { PatientResponse, SearchPatientsResponse } from '../dto/response/patient.response';
 import { HospitalResponse, HospitalsByDepartmentResponse } from '../dto/response/hospital.response';
 import { DepartmentResponse } from '../dto/response/department.response';
 import { ScheduleAppointmentRequest } from "../dto/request/patient.request";
 import {PatientAppointmentResponse} from "../dto/response/patient-appointment";
+import { PatientConditionResponse } from '../dto/response/condition-history.response';
 
 @Injectable({
   providedIn: 'root'
@@ -208,6 +209,27 @@ export class PatientService {
         status: status
       }
     });
+  }
+
+  getPatientsCondition(lbp:string,dateFrom:string,dateTo:string,page:number,pageSize:number){
+    return this.httpClient.get<PatientConditionResponse>(HOSPITALIZATION_ENDPOINT+"/patient-condition/"+lbp, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      },
+      params: {
+        dateFrom: dateFrom,
+        dateTo: dateTo,
+        page: page,
+        size: pageSize
+      }
+    });
+  }
+  registerPatientsCondition(conditionRequest:PatientConditionRequest,lbp:string){
+    return this.httpClient.post<PatientConditionResponse>(HOSPITALIZATION_ENDPOINT+"/patient-condition/"+lbp, conditionRequest, {
+      headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+  });
   }
 
 }

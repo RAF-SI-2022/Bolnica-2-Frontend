@@ -56,6 +56,8 @@ import { AppointmentSchedulingComponent } from './components/stationary/nurse/ap
 import { SchedulingComponent } from './components/stationary/nurse/scheduling/scheduling.component';
 import { ViewAppointmentsComponent } from './components/stationary/nurse/view-appointments/view-appointments.component';
 import { DailyBiochemAccComponent } from './components/laboratory/daily-biochem-acc/daily-biochem-acc.component';
+import { PatientConditionHistoryComponent } from './components/patients/patient-condition-history/patient-condition-history.component';
+import { RegisterPatientConditionComponent } from './components/patients/register-patient-condition/register-patient-condition.component';
 
 @NgModule({
   declarations: [
@@ -101,7 +103,9 @@ import { DailyBiochemAccComponent } from './components/laboratory/daily-biochem-
     AppointmentSchedulingComponent,
     SchedulingComponent,
     ViewAppointmentsComponent,
-    DailyBiochemAccComponent
+    DailyBiochemAccComponent,
+    PatientConditionHistoryComponent,
+    RegisterPatientConditionComponent
   ],
   imports: [
     BrowserModule,
