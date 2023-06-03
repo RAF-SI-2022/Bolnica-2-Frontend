@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {HOSPITALIZATION_ENDPOINT, LAB_URL, PATIENT_ENDPOINT, PATIENT_URL, USER_URL} from '../app.constants';
+import {CREATE_HEALTH_REPORT_ENDPOINT, DISCHARGE_LIST_ENDPOINT,  HOSPITALIZATION_ENDPOINT, PATIENT_ENDPOINT, PATIENT_URL, USER_URL} from '../app.constants';
 import { PatientConditionRequest, PatientRequest } from '../dto/request/patient.request';
 import { PatientResponse, SearchPatientsResponse } from '../dto/response/patient.response';
 import { HospitalResponse, HospitalsByDepartmentResponse } from '../dto/response/hospital.response';
@@ -227,6 +227,39 @@ export class PatientService {
       }
     });
   }
+  
+  makeDischargeList(lbp:string,anamnesis: string,conclusion: string,diagnosis: string ,analasis: string,courseOfDisease: string,therapy: string,pbo:string){
+    let sendObject= {
+      attendDiagnoses: diagnosis,
+      anamnesis: anamnesis,
+      analasis: analasis,
+      courseDisease: courseOfDisease,
+      conclusion: conclusion,
+      therapy: therapy,
+      //pbo: pbo
+    };
+
+    return this.httpClient.post<any>(DISCHARGE_LIST_ENDPOINT+'/'+lbp,sendObject, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    });
+  }
+
+  makeHealthReport(lbp:string ,report: string,diagnosis: string,recommendedTherapy: string,advice: string,confidential: string) {
+    const sendObject = {
+      confidentIndicator: confidential,
+      objectiveResult: report,
+      diagnosis: diagnosis,
+      proposedTherapy: recommendedTherapy,
+      advice: advice,
+    };
+    return this.httpClient.post<any>(CREATE_HEALTH_REPORT_ENDPOINT+'/'+lbp, sendObject, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    });
+  }
 
   getPatientConditionByLbp(lbp: string, dateFrom: string, dateTo: string, page: number, size: number) {
     const params: any = {};
@@ -292,4 +325,5 @@ export class PatientService {
   }
 
 }
+
 

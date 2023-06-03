@@ -55,6 +55,8 @@ import { NewReceptionComponent } from './components/stationary/new-reception/new
 import { AppointmentSchedulingComponent } from './components/stationary/nurse/appointment-scheduling/appointment-scheduling.component';
 import { SchedulingComponent } from './components/stationary/nurse/scheduling/scheduling.component';
 import { ViewAppointmentsComponent } from './components/stationary/nurse/view-appointments/view-appointments.component';
+import { DischargeListComponent } from './components/stationary/doctor/discharge-list/discharge-list.component';
+import { HealthReportComponent } from './components/stationary/doctor/health-report/health-report.component';
 import { DailyBiochemAccComponent } from './components/laboratory/daily-biochem-acc/daily-biochem-acc.component';
 import { DocPatientConditionHistoryComponent } from './components/stationary/doc-patient-condition-history/doc-patient-condition-history.component';
 import { DocStationaryMedicalReportHistoryComponent } from './components/stationary/doc-stationary-medical-report-history/doc-stationary-medical-report-history.component';
@@ -65,6 +67,7 @@ import { SearchStationaryPatientsComponent } from './components/search-stationar
 import { NurseStationaryMenuComponent } from './components/nurse-stationary-menu/nurse-stationary-menu.component';
 import { DoctorStationaryMenuComponent } from './components/doctor-stationary-menu/doctor-stationary-menu.component';
 import { DoctorSearchStationaryPatientsComponent } from './components/doctor-search-stationary-patients/doctor-search-stationary-patients.component';
+
 
 @NgModule({
   declarations: [
@@ -110,6 +113,8 @@ import { DoctorSearchStationaryPatientsComponent } from './components/doctor-sea
     AppointmentSchedulingComponent,
     SchedulingComponent,
     ViewAppointmentsComponent,
+    DischargeListComponent,
+    HealthReportComponent,
     DailyBiochemAccComponent,
     DocPatientConditionHistoryComponent,
     DocStationaryMedicalReportHistoryComponent,
