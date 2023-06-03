@@ -211,6 +211,48 @@ export class PatientService {
     });
   }
 
+  getPatientConditionByLbp(lbp: string, dateFrom: string, dateTo: string, page: number, size: number) {
+    const params: any = {};
+    if (dateFrom !== '') params.dateFrom = dateFrom;
+    if (dateTo !== '') params.dateTo = dateTo;
+    params.page = page;
+    params.size = size;
+    return this.httpClient.get(PATIENT_URL + `/hospitalization/patient-condition/${lbp}`, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      },
+      params: params
+    })
+  }
+
+  getPatientMedicalReportHistory(lbp: string, dateFrom: string, dateTo: string, page: number, size: number) {
+    const params: any = {};
+    if (dateFrom !== '') params.dateFrom = dateFrom;
+    if (dateTo !== '') params.dateTo = dateTo;
+    params.page = page;
+    params.size = size;
+    return this.httpClient.get(PATIENT_URL + `/hospitalization/medical-report/${lbp}`, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      },
+      params: params
+    })
+  }
+
+  getDischargeHistory(lbp: string, dateFrom: string, dateTo: string, page: number, size: number) {
+    const params: any = {};
+    if (dateFrom !== '') params.dateFrom = dateFrom;
+    if (dateTo !== '') params.dateTo = dateTo;
+    params.page = page;
+    params.size = size;
+    return this.httpClient.get(PATIENT_URL + `/hospitalization/discharge/${lbp}`, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      },
+      params: params
+    })
+  }
+
   getPatientsCondition(lbp:string,dateFrom:string,dateTo:string,page:number,pageSize:number){
     return this.httpClient.get<PatientConditionResponse>(HOSPITALIZATION_ENDPOINT+"/patient-condition/"+lbp, {
       headers: {
