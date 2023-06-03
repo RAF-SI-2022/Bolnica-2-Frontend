@@ -56,6 +56,9 @@ import { AppointmentSchedulingComponent } from './components/stationary/nurse/ap
 import { SchedulingComponent } from './components/stationary/nurse/scheduling/scheduling.component';
 import { ViewAppointmentsComponent } from './components/stationary/nurse/view-appointments/view-appointments.component';
 import { DailyBiochemAccComponent } from './components/laboratory/daily-biochem-acc/daily-biochem-acc.component';
+import { DocPatientConditionHistoryComponent } from './components/stationary/doc-patient-condition-history/doc-patient-condition-history.component';
+import { DocStationaryMedicalReportHistoryComponent } from './components/stationary/doc-stationary-medical-report-history/doc-stationary-medical-report-history.component';
+import { DocStationaryDischargeHistoryComponent } from './components/stationary/doc-stationary-discharge-history/doc-stationary-discharge-history.component';
 import { PatientConditionHistoryComponent } from './components/patients/patient-condition-history/patient-condition-history.component';
 import { RegisterPatientConditionComponent } from './components/patients/register-patient-condition/register-patient-condition.component';
 
@@ -104,6 +107,9 @@ import { RegisterPatientConditionComponent } from './components/patients/registe
     SchedulingComponent,
     ViewAppointmentsComponent,
     DailyBiochemAccComponent,
+    DocPatientConditionHistoryComponent,
+    DocStationaryMedicalReportHistoryComponent,
+    DocStationaryDischargeHistoryComponent,
     PatientConditionHistoryComponent,
     RegisterPatientConditionComponent
   ],
