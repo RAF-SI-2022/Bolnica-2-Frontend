@@ -46,5 +46,6 @@ export const SCHEDULE_ENDPOINT = PATIENT_URL + '/sched-med-exam';
 export const ORDER_ENDPOINT = LAB_URL+"/order";
 export const REFERRAL_ENDPOINT = LAB_URL+"/referral"
 export const CREATE_SCHEDULE_ENDPOINT = SCHEDULE_ENDPOINT + '/create';
+export const HOSPITALIZATION_ENDPOINT = PATIENT_URL+'/hospitalization'
 
 export const BIOCHEM_ENDPOINT = LAB_URL+'/order';
