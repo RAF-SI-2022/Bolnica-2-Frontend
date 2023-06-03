@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup,Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
 import { PatientService } from 'src/app/service/patient.service';
 
@@ -15,7 +15,7 @@ export class RegisterPatientConditionComponent implements OnInit {
   submitted = false;
   lbp:any;
 
-  constructor(private formBuilder: FormBuilder,private toast: HotToastService,private patientService:PatientService,private route: ActivatedRoute) { 
+  constructor(private formBuilder: FormBuilder,private toast: HotToastService,private patientService:PatientService,private route: ActivatedRoute, private router: Router) {
     this.newConditionForm = this.formBuilder.group({
       temperature: ['', Validators.required],
       preassure: ['', Validators.required],
@@ -23,7 +23,8 @@ export class RegisterPatientConditionComponent implements OnInit {
       therapy: ['', Validators.required],
       desc: ['', Validators.required],
       dateCollected:['',Validators.required]
-  }) }
+    })
+  }
 
   ngOnInit(): void {
   }
@@ -35,7 +36,7 @@ export class RegisterPatientConditionComponent implements OnInit {
     }
 
     const val = this.newConditionForm.value;
-    this.lbp = this.route.snapshot.paramMap.get('lbp'); 
+    this.lbp = this.route.snapshot.paramMap.get('lbp');
 
     this.patientService.registerPatientsCondition({
       collectedInfoDate:val.dateCollected,
@@ -46,8 +47,9 @@ export class RegisterPatientConditionComponent implements OnInit {
       description:val.desc,
     },this.lbp).subscribe({
       next: (res) => {
-        console.log(res);
-        this.toast.success('Uspešno ste registrovali novo stanje pacijenta');
+        this.router.navigate(['nurse-stationary-menu', this.lbp]).then(() => {
+          this.toast.success('Uspešno ste registrovali novo stanje pacijenta');
+        })
       },
       error: (e) => {
         this.toast.error(e.error.errorMessage);

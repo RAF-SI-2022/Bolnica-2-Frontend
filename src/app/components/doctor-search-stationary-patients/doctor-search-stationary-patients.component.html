@@ -1,12 +1,28 @@
-<div class="p-5 container w-25">
-    <form [formGroup]="form" class="p-3 border rounded-3 bg-light">
-        <div class="mb-2">
-        <label for="typeaheadPatient">Pretraži pacijenta:</label>
-        <input formControlName="patient" [(ngModel)]="model" [ngbTypeahead]="searchPatients"
-            [resultFormatter]="formatResultingPatient" [inputFormatter]="inputFormatResultingPatient" type="text"
-            id="typeaheadPatient" class="form-control">
+<ng-template #rt let-r="result" let-t="term">
+    <div class="row">
+        <img src="../../assets/images/person-circle.svg" class="me-1" alt="..." style="width: 5rem;" />
+        <div class="col" data-testid="patient-result">
+            <div class="row">
+                <ngb-highlight [result]="r.patientFirstName + ' ' + r.patientLastName" [term]="t"></ngb-highlight>
+            </div>
+            <div class="row">
+                <span>Starost: {{r.birthDate | dateOfBirthToAge}}</span>
+            </div>
         </div>
-        <hr class="my-4">
-        <button [routerLink]="['/doctor-stationary-menu', model.lbp]" class="btn btn-md btn-primary w-100" type="submit">Pretraži</button>
-    </form>
+    </div>
+</ng-template>
+
+<div class="p-5 container w-25">
+    <div class="p-3 border rounded-3 bg-light">
+        <div class="mb-2">
+            <label class="mb-3" for="typeaheadPatient">Pretraži hospitalizovane pacijente na stacionarnom lečenju:</label>
+            <input (selectItem)="onPatientSelected($event)" [(ngModel)]="model"
+                [ngbTypeahead]="searchPatients" [resultTemplate]="rt" [inputFormatter]="inputFormatResultingPatient"
+                type="text" id="typeaheadPatient" class="form-control">
+        </div>
+        <div *ngIf="patient !== undefined">
+            <hr class="my-4">
+            <button [routerLink]="['/doctor-stationary-menu', model.lbp]" class="btn btn-md btn-primary w-100" type="submit">Dalje</button>
+        </div>
+    </div>
 </div>

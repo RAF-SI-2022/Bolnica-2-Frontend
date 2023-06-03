@@ -28,7 +28,7 @@ export class DischargeListComponent implements OnInit {
     let lbp=this.route.snapshot.queryParamMap.get('lbp');
     if(!lbp)
       console.log("Neispravan lbp")
-    
+
     this.dischargeListForm = this.formBuilder.group({
       anamensa: ['', Validators.required],
       conclusion: ['', Validators.required],
@@ -53,15 +53,15 @@ export class DischargeListComponent implements OnInit {
     if(this.dischargeListForm.invalid)
       return;
 
-    
+
 
       let pbo: string;
       const pboFromStorage = localStorage.getItem('pbo');
-      if (pboFromStorage !== null) 
+      if (pboFromStorage !== null)
         pbo = pboFromStorage;
-      else 
+      else
         pbo=''
-      
+
     let anamesa:any=this.dischargeListForm.get('anamensa');
     let conclusion:any=this.dischargeListForm.get('conclusion');
     let diagnosis:any=this.dischargeListForm.get('diagnosis');
@@ -73,13 +73,13 @@ export class DischargeListComponent implements OnInit {
       this.patientService.makeDischargeList(this.lbp,anamesa.value,conclusion.value,diagnosis.value,analasis.value,courseOfDisease.value,therapy.value,pbo).subscribe({
         next: (res) => {
             this.toast.success('Uspešno ste napravili otpusnu listu');
-          
+
         },
         error: (e) => {
           this.toast.error(e.error.errorMessage || 'Pravljenje otpusne liste nije uspelo');
         }
       });
-     
+
     },(dismiss) => {
 
     });
@@ -92,7 +92,7 @@ export class DischargeListComponent implements OnInit {
 	standalone: true,
 	template: `
 		<div class="modal-header">
-			<h4 class="modal-title" id="modal-title">Potvrdite slanje uputa</h4>
+			<h4 class="modal-title" id="modal-title">Potvrdite otpusnu listu</h4>
 			<button
 				type="button"
 				class="btn-close"

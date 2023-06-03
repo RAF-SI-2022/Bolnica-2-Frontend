@@ -1,7 +1,14 @@
 <div class="main container mx-auto">
+  <h3 *ngIf="patient !== undefined" class="mb-4">
+    <i class="bi bi-person-circle" style="margin-right: 8px;"></i>
+    {{patient.firstName + " " + patient.lastName}}
+    <span class="badge bg-info" style="margin-left: 15px;">
+      {{patient.gender.notation | genderPipe}}, {{patient.birthDate | dateOfBirthToAge}}
+    </span>
+  </h3>
     <div class="row g-5 justify-content-center">
       <div class="col-md-4">
-        <div routerLink="/appointment-scheduling" class="card border-secondary h-100" id="personal-info-card3">
+        <div [routerLink]="['/patient-condition-history', lbp]" class="card border-secondary h-100" id="personal-info-card3">
           <img src="../../assets/images/clock-history.svg" class="card-img-top w-75 mx-auto p-2" alt="..." />
           <div class="card-body">
             <h5 class="card-title">Istorija stanja</h5>
@@ -10,7 +17,7 @@
         </div>
       </div>
       <div class="col-md-4">
-        <div routerLink="/stationary-patient-reception" class="card border-secondary h-100" id="personal-info-card5">
+        <div [routerLink]="['/register-patient-condition', lbp]" class="card border-secondary h-100" id="personal-info-card5">
           <img src="../../assets/images/clipboard-plus.svg" class="card-img-top w-75 mx-auto p-2" alt="..." />
           <div class="card-body">
             <h5 class="card-title">Registrovanje stanja</h5>
@@ -19,7 +26,7 @@
         </div>
       </div>
       <div class="col-md-4">
-        <div routerLink="/search-stationary-patients" class="card border-secondary h-100" id="personal-info-card5">
+        <div class="card border-secondary h-100" id="personal-info-card5">
           <img src="../../assets/images/clock-history.svg" class="card-img-top w-75 mx-auto p-2" alt="..." />
           <div class="card-body">
             <h5 class="card-title">Istorija poseta</h5>
@@ -28,7 +35,7 @@
         </div>
       </div>
       <div class="col-md-4">
-        <div routerLink="/search-stationary-patients" class="card border-secondary h-100" id="personal-info-card5">
+        <div class="card border-secondary h-100" id="personal-info-card5">
           <img src="../../assets/images/clipboard-plus.svg" class="card-img-top w-75 mx-auto p-2" alt="..." />
           <div class="card-body">
             <h5 class="card-title">Registracija posete</h5>
@@ -38,4 +45,3 @@
       </div>
     </div>
   </div>
-  

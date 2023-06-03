@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { PatientService } from 'src/app/service/patient.service';
 
 @Component({
   selector: 'app-nurse-stationary-menu',
@@ -9,9 +10,16 @@ import { ActivatedRoute } from '@angular/router';
 export class NurseStationaryMenuComponent implements OnInit {
   lbp: string = '';
 
-  constructor(private route: ActivatedRoute) {
+  patient: any;
+
+  constructor(private route: ActivatedRoute, private patientService: PatientService) {
     this.route.params.subscribe((params) => {
       this.lbp = params.lbp;
+      this.patientService.getPatientByLbp(this.lbp).subscribe({
+        next: (res) => {
+          this.patient = res;
+        }
+      })
     })
   }
 

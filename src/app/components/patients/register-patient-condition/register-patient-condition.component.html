@@ -1,138 +1,59 @@
-<form
-  [formGroup]="newConditionForm"
-  class="container p-4 border rounded-3 bg-light mt-4"
->
+<form [formGroup]="newConditionForm" class="container p-4 border rounded-3 bg-light mt-4">
   <h4 class="mb-4">Registruj novo stanje</h4>
   <div class="row g-3 mb-3">
-    <div class="row g-3 mb-3 w-50">
-      <div class="col-md-6 form-floating gx-1">
-        <input
-          formControlName="temperature"
-          type="text"
-          class="form-control"
-          id="floatingTemperature"
-          placeholder="Temerature"
-          data-testid="Temerature"
-          required
-        />
-        <label for="floatingTemperature">Temperatura</label>
-        <div
-          *ngIf="
-            submitted && newConditionForm.get('temperature')?.errors?.required
-          "
-          class="validation-error small alert alert-danger"
-        >
-          Temperatura je obavezno polje!
-        </div>
-      </div>
-      <div class="col-md-6 form-floating gx-1">
-        <div class="col-md-6 form-floating gx-1">
-          <input
-            formControlName="pulse"
-            type="text"
-            class="form-control"
-            id="floatingPulse"
-            placeholder="Puls"
-            required
-          />
-          <label for="floatingPulse">Puls</label>
-          <div
-            *ngIf="submitted && newConditionForm.get('pulse')?.errors?.required"
-            class="validation-error small alert alert-danger"
-          >
-            Puls je obavezno polje!
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 form-floating gx-1">
-        <input
-          formControlName="preassure"
-          type="text"
-          class="form-control"
-          id="floatingPreassure"
-          placeholder="Krvni pritisak"
-          required
-        />
-        <label for="floatingPreassure">Krvni pritisak</label>
-        <div
-          *ngIf="
-            submitted && newConditionForm.get('preassure')?.errors?.required
-          "
-          class="validation-error small alert alert-danger"
-        >
-          Krvni pritisak je obavezno polje!
-        </div>
+    <div class="col-md-4 form-floating gx-1">
+      <input formControlName="temperature" type="text" class="form-control" id="floatingTemperature"
+        placeholder="Temerature" data-testid="Temerature" required />
+      <label for="floatingTemperature">Temperatura</label>
+      <div *ngIf="submitted && newConditionForm.get('temperature')?.errors?.required" class="validation-error small alert alert-danger">
+        Temperatura je obavezno polje!
       </div>
     </div>
-    <div class="col"></div>
-    <div class="row g-3 mb-3 w-50">
-      <div class="col-md-6 form-floating gx-1">
-        <input
-          formControlName="dateCollected"
-          type="datetime-local"
-          class="form-control"
-          id="floatingDate"
-          required
-        />
-        <label for="floatingDate">Datum unosa</label>
-        <div
-          *ngIf="
-            submitted && newConditionForm.get('dateCollected')?.errors?.required
-          "
-          class="validation-error small alert alert-danger"
-        >
-          Datum unosa je obavezno polje!
-        </div>
+    <div class="col-md-4 form-floating gx-1">
+      <input formControlName="pulse" type="text" class="form-control" id="floatingPulse" placeholder="Puls" required />
+      <label for="floatingPulse">Puls</label>
+      <div *ngIf="submitted && newConditionForm.get('pulse')?.errors?.required"
+        class="validation-error small alert alert-danger">
+        Puls je obavezno polje!
       </div>
     </div>
-    <div class="row g-3 mb-3 w-50">
-      <div class="col-md-6 form-floating gx-1">
-        <input
-          formControlName="therapy"
-          type="text"
-          class="form-control"
-          id="floatingTherapy"
-          placeholder="Primenjene terapjie"
-          required
-        />
-        <label for="floatingTherapy">Primenjene terapije</label>
-        <div
-          *ngIf="submitted && newConditionForm.get('therapy')?.errors?.required"
-          class="validation-error small alert alert-danger"
-        >
-          Primenjenje terapije su obavezno polje!
-        </div>
+    <div class="col-md-4 form-floating gx-1">
+      <input formControlName="preassure" type="text" class="form-control" id="floatingPreassure"
+        placeholder="Krvni pritisak" required />
+      <label for="floatingPreassure">Krvni pritisak</label>
+      <div *ngIf="submitted && newConditionForm.get('preassure')?.errors?.required" class="validation-error small alert alert-danger">
+        Krvni pritisak je obavezno polje!
       </div>
-      <div class="col-md-6 form-floating gx-1">
-        <input
-          formControlName="desc"
-          type="text"
-          class="form-control"
-          id="floatingDesc"
-          placeholder="Opis stanja"
-          required
-        />
-        <label for="floatingDesc">Opis stanja</label>
-        <div
-          *ngIf="submitted && newConditionForm.get('desc')?.errors?.required"
-          class="validation-error small alert alert-danger"
-        >
-          Opis je obavezno polje!
-        </div>
+    </div>
+  </div>
+
+  <div class="row g-3 mb-3">
+    <div class="col-md-4 form-floating gx-1">
+      <input formControlName="dateCollected" type="datetime-local" class="form-control" id="floatingDate" required />
+      <label for="floatingDate">Datum i vreme stanja</label>
+      <div *ngIf="submitted && newConditionForm.get('dateCollected')?.errors?.required" class="validation-error small alert alert-danger">
+        Datum unosa je obavezno polje!
       </div>
+    </div>
+  </div>
+
+  <div class="row g-3 mb-3">
+    <div class="col-md-6 form-floating gx-1">
+      <textarea formControlName="therapy" class="h-100 form-control rounded" placeholder="Napomena" id="floatingTherapy" rows="8"></textarea>
+      <label for="floatingTherapy">Primenjene terapije</label>
+      <div *ngIf="submitted && newConditionForm.get('therapy')?.errors?.required" class="validation-error small alert alert-danger">Primenjenje terapije su obavezno polje!</div>
+    </div>
+    <div class="col-md-6 form-floating gx-1">
+      <textarea formControlName="desc" type="text" class="h-100 form-control rounded" id="floatingDesc" placeholder="Opis stanja" rows="8"></textarea>
+      <label for="floatingDesc">Opis stanja</label>
+      <div *ngIf="submitted && newConditionForm.get('desc')?.errors?.required" class="validation-error small alert alert-danger">Opis je obavezno polje!</div>
     </div>
   </div>
 
   <hr class="my-4" />
   <div class="row g-3 mb-3 justify-content-center">
     <div class="col-md-4">
-      <button
-        type="submit"
-        class="btn btn-primary form-control mb-2"
-        (click)="newCondition()"
-      >
-        Registruj
-      </button>
+      <button type="submit" class="btn btn-primary form-control mb-2" (click)="newCondition()">Registruj</button>
     </div>
   </div>
 </form>
