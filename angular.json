@@ -53,6 +53,69 @@
               ],
               "outputHashing": "all"
             },
+            "productionS": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "2mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prods.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "develop": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "2mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.develop.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "developS": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "2mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.develops.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
             "development": {
               "buildOptimizer": false,
               "optimization": false,
@@ -69,6 +132,15 @@
           "configurations": {
             "production": {
               "browserTarget": "bolnica2-frontend:build:production"
+            },
+            "productionS": {
+              "browserTarget": "bolnica2-frontend:build:productionS"
+            },
+            "develop": {
+              "browserTarget": "bolnica2-frontend:build:develop"
+            },
+            "developS": {
+              "browserTarget": "bolnica2-frontend:build:developS"
             },
             "development": {
               "browserTarget": "bolnica2-frontend:build:development"

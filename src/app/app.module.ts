@@ -51,11 +51,19 @@ import { StationaryPatientReceptionComponent } from './components/stationary/nur
 import { StationaryMenuComponent } from './components/stationary/nurse/menu/stationary-menu.component';
 import { PermissionNamesPipePipe } from './pipe/permission-names-pipe.pipe';
 import { ViewStationaryPatientReceptionsComponent } from './components/stationary/nurse/view-receptions/view-stationary-patient-receptions.component';
+import { NewReceptionComponent } from './components/stationary/new-reception/new-reception.component';
 import { AppointmentSchedulingComponent } from './components/stationary/nurse/appointment-scheduling/appointment-scheduling.component';
 import { SchedulingComponent } from './components/stationary/nurse/scheduling/scheduling.component';
 import { ViewAppointmentsComponent } from './components/stationary/nurse/view-appointments/view-appointments.component';
 import { DischargeListComponent } from './components/stationary/doctor/discharge-list/discharge-list.component';
 import { HealthReportComponent } from './components/stationary/doctor/health-report/health-report.component';
+import { DailyBiochemAccComponent } from './components/laboratory/daily-biochem-acc/daily-biochem-acc.component';
+import { DocPatientConditionHistoryComponent } from './components/stationary/doc-patient-condition-history/doc-patient-condition-history.component';
+import { DocStationaryMedicalReportHistoryComponent } from './components/stationary/doc-stationary-medical-report-history/doc-stationary-medical-report-history.component';
+import { DocStationaryDischargeHistoryComponent } from './components/stationary/doc-stationary-discharge-history/doc-stationary-discharge-history.component';
+import { PatientConditionHistoryComponent } from './components/patients/patient-condition-history/patient-condition-history.component';
+import { RegisterPatientConditionComponent } from './components/patients/register-patient-condition/register-patient-condition.component';
+
 
 @NgModule({
   declarations: [
@@ -97,11 +105,18 @@ import { HealthReportComponent } from './components/stationary/doctor/health-rep
     StationaryMenuComponent,
     PermissionNamesPipePipe,
     ViewStationaryPatientReceptionsComponent,
+    NewReceptionComponent,
     AppointmentSchedulingComponent,
     SchedulingComponent,
     ViewAppointmentsComponent,
     DischargeListComponent,
     HealthReportComponent
+    DailyBiochemAccComponent,
+    DocPatientConditionHistoryComponent,
+    DocStationaryMedicalReportHistoryComponent,
+    DocStationaryDischargeHistoryComponent,
+    PatientConditionHistoryComponent,
+    RegisterPatientConditionComponent
   ],
   imports: [
     BrowserModule,

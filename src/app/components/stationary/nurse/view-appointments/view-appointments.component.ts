@@ -5,6 +5,8 @@ import {DatePipe} from "@angular/common";
 import {AuthService} from "../../../../service/auth.service";
 import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {NgbdModalConfirm} from "../scheduling/scheduling.component";
+import { debounceTime, distinctUntilChanged, Observable, map, switchMap, mergeMap, forkJoin, of } from 'rxjs';
+import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
   selector: 'app-view-appointments',
@@ -35,26 +37,52 @@ export class ViewAppointmentsComponent implements OnInit {
               private patientService: PatientService,
               private datepipes: DatePipe,
               protected authService: AuthService,
-              private modalService: NgbModal) {
+              private modalService: NgbModal,
+              private toaster: HotToastService) {
     this.stationaryAppointmentsForm = this.formBuilder.group({
-      lbp: [''],
+      patient: [''],
       dateAndTime: ['']
     });
   }
 
   ngOnInit(): void {
+    this.search();
+  }
+
+  searchPatients = (text$: Observable<string>) =>
+  text$.pipe(
+    debounceTime(150),
+    distinctUntilChanged(),
+    switchMap((term) =>
+      this.patientService.searchPatients({
+        firstName: term,
+        lastName: '',
+        jmbg: '',
+        lbp: ''
+      }).pipe(map(response => response.patients))
+    )
+  );
+
+  formatResultingPatient(value: any) {
+    return value.firstName + ' ' + value.lastName;
+  }
+
+  inputFormatResultingPatient(value: any) {
+    return value.firstName + ' ' + value.lastName;
   }
 
   search() {
     this.loopClass = [];
     const val = this.stationaryAppointmentsForm.value;
-    if(val.dateAndTime === '') {
-      let thisDate = new Date();
-      val.dateAndTime = this.datepipes.transform(thisDate, 'yyyy-MM-dd');
+    let lbp: string = '';
+    if (val.patient === undefined || val.patient.lbp === undefined) {
+      lbp = '';
+    } else {
+      lbp = val.patient.lbp;
     }
-    this.patientService.getAppointments(val.lbp, val.dateAndTime, this.page-1, this.pageSize).subscribe({
+    this.patientService.getAppointments(lbp, val.dateAndTime, this.page-1, this.pageSize).subscribe({
       next: (res) => {
-        console.log(res);
+        this.collectionSize = res.count;
         for(let i = 0; i < res.count; i++) {
           let dateMod = this.datepipes.transform(res.appointments[i].receiptDate, 'yyyy-MM-dd')!;
           this.date = dateMod;
@@ -66,9 +94,6 @@ export class ViewAppointmentsComponent implements OnInit {
           this.note = res.appointments[i].note;
           this.notation = res.appointments[i].status.notation;
           this.appointmentId = res.appointments[i].id;
-          if(this.notation !== 'Zakazan') {
-            this.notation = '';
-          }
           let elem = {
             appointmentId: this.appointmentId,
             date: this.date,
@@ -80,6 +105,7 @@ export class ViewAppointmentsComponent implements OnInit {
             notation: this.notation
           }
           this.loopClass.push(elem);
+          console.log(elem);
         }
       }
     });
@@ -91,8 +117,10 @@ export class ViewAppointmentsComponent implements OnInit {
       this.patientService.cancelAppointment(appointmentId, notation).subscribe({
         next: (res) => {
           this.search();
-          console.log(res);
-          console.log('Termin otkazan');
+          this.toaster.success('Uspešno ste otkazali termin.');
+        },
+        error: (e) => {
+          this.toaster.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
         }
       })
     }, (dismiss) => {

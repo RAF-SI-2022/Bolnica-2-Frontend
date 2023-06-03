@@ -66,7 +66,7 @@
     <div *ngIf="showUnprocessedReferralsTable" class="row">
         <div class="col-lg-9 table-responsive mx-auto">
             <h5>Nerealizovani uputi za pacijenta:</h5>
-            <table class="table table-striped">
+            <table class="table table-light table-striped">
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
@@ -80,7 +80,7 @@
                 <tbody>
                     <tr *ngFor="let referral of unprocessedReferrals">
                         <td>{{ referral.referralId }}</td>
-                        <td>{{ referral.creationDate }}</td>
+                        <td>{{ referral.creationDate | date: 'dd-MM-yyyy HH:mm' }}</td>
                         <td>{{ referral.doctorFirstName + ' ' + referral.doctorLastName }}</td>
                         <td>{{ referral.requiredAnalysis }}</td>
                         <td>{{ referral.comment }}</td>

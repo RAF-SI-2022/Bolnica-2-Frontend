@@ -1,0 +1,61 @@
+<div class="row p-3 justify-content-center">
+    <div class="col-lg-9 table-responsive">
+        <h5 class="mt-2 mb-3">Današnji neobrađeni radni nalozi, {{ currentDate | date: 'dd-MM-yyyy' }}</h5>
+        <table class="table table-light table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">ID uputa</th>
+                    <th scope="col">Datum i vreme</th>
+                    <th scope="col">LBP</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr (click)="selectAcc(acc)" *ngFor="let acc of accs" style="cursor: pointer;">
+                    <td>{{ acc.id }}</td>
+                    <td>{{ acc.referralId }}</td>
+                    <td>{{ acc.creationTime | date: 'dd-MM-yyyy HH:mm' }}</td>
+                    <td>{{ acc.lbp }}</td>
+                    <td>{{ acc.status.notation }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div *ngIf="selectedAcc !== undefined" class="row p-3 justify-content-center">
+    <div class="col-lg-9 table-responsive">
+        <table class="table table-light table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Analiza</th>
+                    <th scope="col">Skraćenica analize</th>
+                    <th scope="col">Parametar</th>
+                    <th scope="col">Rezultat</th>
+                    <th scope="col">Jedinica mere</th>
+                    <th scope="col">Donja granica</th>
+                    <th scope="col">Gornja granica</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let result of results; let i = index;" (click)="toggleEditMode(i)" style="cursor: pointer;">
+                    <td>{{ result.analysis.name }}</td>
+                    <td>{{ result.analysis.abbreviation }}</td>
+                    <td>{{ result.parameter.name }}</td>
+                    <td>
+                        <span *ngIf="!result.editMode">{{ result.result }}</span>
+                        <input [(ngModel)]="result.result" *ngIf="result.editMode" type="text" class="form-control">
+                    </td>
+                    <td>{{ result.parameter.measureUnit }}</td>
+                    <td>{{ result.parameter.lowerBound }}</td>
+                    <td>{{ result.parameter.upperBound }}</td>
+                    <td><button class="btn btn-sm btn-primary" (click)="saveResult(result)" *ngIf="result.editMode">Sačuvaj rezultat</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div *ngIf="selectedAcc !== undefined && this.authService.hasPermission('ROLE_SPEC_MED_BIOHEMIJE')" class="text-center">
+    <button (click)="verifyResults()" class="btn btn-primary">Verifikuj rezultate</button>
+</div>

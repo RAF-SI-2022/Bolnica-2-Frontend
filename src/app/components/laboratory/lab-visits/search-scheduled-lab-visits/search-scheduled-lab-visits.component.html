@@ -51,8 +51,8 @@
                         <td data-testid="date">{{ visit.scheduledDate | date: 'dd.MM.yyyy, HH:mm' }}</td>
                         <td>{{ visit.note }}</td>
                         <td>{{ visit.examStatus.notation }}</td>
-                        <td><button (click)="onCancel(visit.id)" [disabled]="visit.examStatus.notation === 'Otkazano'" class="btn btn-sm btn-danger">Otkaži pregled</button></td>
-                        <td><button [routerLink]="['/new-work-order', visit.lbp]" class="btn btn-sm btn-primary">Novi radni nalog</button></td>
+                        <td><button (click)="onCancel(visit.id)" [disabled]="visit.examStatus.notation === 'Otkazano'" class="btn btn-sm btn-danger">Otkaži posetu</button></td>
+                        <td><button [routerLink]="['/new-work-order', visit.lbp]" [disabled]="visit.examStatus.notation === 'Otkazano'" class="btn btn-sm btn-primary">Novi radni nalog</button></td>
                     </tr>
                 </tbody>
             </table>

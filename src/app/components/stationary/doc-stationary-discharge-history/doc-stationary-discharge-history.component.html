@@ -1,0 +1,82 @@
+<div class="p-5">
+	<div class="row">
+		<h4>Otpusna lista</h4>
+		<h4 *ngIf="patient !== undefined" class="mb-4">
+			<i class="bi bi-person-circle" style="margin-right: 8px;"></i>
+			{{patient.firstName + " " + patient.lastName}}
+			<span class="badge bg-info" style="margin-left: 15px;">
+				{{patient.gender.notation | genderPipe}}, {{patient.birthDate | dateOfBirthToAge}}
+			</span>
+		</h4>
+		<div class="col-lg-3">
+			<form [formGroup]="form" class="p-3 border rounded-3 bg-light">
+				<div class="mb-1">
+                    <label>Od:</label>
+					<input formControlName="dateFrom" class="form-control" type="date" placeholder="Od">
+				</div>
+				<div class="mb-1">
+                    <label>Do:</label>
+					<input formControlName="dateTo" class="form-control" type="date" placeholder="Do">
+				</div>
+				<hr class="my-4">
+				<button (click)="search()" class="btn btn-md btn-primary w-100" type="submit">Pretraži</button>
+			</form>
+		</div>
+		<div class="col-lg-9 table-responsive">
+			<table class="table table-light table-hover">
+				<thead>
+					<tr>
+						<th scope="col">Datum prijema</th>
+						<th scope="col">Datum otpusta</th>
+                        <th scope="col">Doktor</th>
+                        <th scope="col">Načelnik odeljenja</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let discharge of discharges" (click)="selectCurrentDischarge(discharge)" style="cursor: pointer;">
+						<td>{{discharge.receiptDate | date: 'dd/MM/yyyy'}}</td>
+                        <td>{{discharge.dischargeDate | date: 'dd/MM/yyyy'}}</td>
+                        <td>{{discharge.doctor.firstName + ' ' + discharge.doctor.lastName}}</td>
+                        <td>{{discharge.headOfDepartment.firstName + ' ' + discharge.headOfDepartment.lastName}}</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="d-flex justify-content-center p-2">
+				<ngb-pagination
+					[collectionSize]="collectionSize"
+					[(page)]="page"
+					[pageSize]="pageSize"
+					(pageChange)="search()"
+				>
+				</ngb-pagination>
+			</div>
+		</div>
+	</div>
+    <div *ngIf="currentDischarge !== undefined" class="container p-4 border rounded-3 bg-light mt-4 mb-4" id="printable">
+		<div class="row mb-3">
+			<div class="col-md-3 form-floating gx-1">
+				<input [value]="currentDischarge.attendDiagnoses" disabled type="text" class="form-control" id="floatingBrojPoseta" placeholder="Broj poseta" readonly>
+                <label for="floatingBrojPoseta">Prateće dijagnoze</label>
+			</div>
+			<div class="col-md-3 form-floating gx-1">
+				<input [value]="currentDischarge.anamnesis" disabled type="text" class="form-control" id="floatingBrojPoseta" placeholder="Broj poseta" readonly>
+                <label for="floatingBrojPoseta">Anamneza</label>
+			</div>
+		</div>
+		<div class="row mb-3">
+			<div class="col-md-3 form-floating gx-1">
+				<input [value]="currentDischarge.courseDisease" disabled type="text" class="form-control" id="floatingBrojPoseta" placeholder="Broj poseta" readonly>
+                <label for="floatingBrojPoseta">Tok bolesti</label>
+			</div>
+			<div class="col-md-3 form-floating gx-1">
+				<input [value]="currentDischarge.conclusion" disabled type="text" class="form-control" id="floatingBrojPoseta" placeholder="Broj poseta" readonly>
+                <label for="floatingBrojPoseta">Zaključak</label>
+			</div>
+			<div class="col-md-3 form-floating gx-1">
+				<input [value]="currentDischarge.therapy" disabled type="text" class="form-control" id="floatingBrojPoseta" placeholder="Broj poseta" readonly>
+                <label for="floatingBrojPoseta">Terapija</label>
+			</div>
+		</div>
+		<button (click)="print()" class="btn btn-primary">Odštampaj</button>
+	</div>
+</div>

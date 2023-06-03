@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
 import { DoctorsResponse } from '../../../dto/response/scheduled-appointment-response';
 import { ScheduledAppointmentService } from '../../../service/scheduled-appointment.service';
+import { SearchBiochemService } from 'src/app/service/search-biochem.service';
 
 @Component({
   selector: 'app-doc-lab-work-order-history',
@@ -17,6 +18,8 @@ export class DocLabWorkOrderHistoryComponent implements OnInit {
   orders: any;
   currentOrder: any;
 
+  results: any;
+
   doctors: DoctorsResponse[] = [];
 
   dateError: boolean = false;
@@ -26,6 +29,7 @@ export class DocLabWorkOrderHistoryComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private labService: LabService,
+              private biochemService: SearchBiochemService,
               private schedMedService: ScheduledAppointmentService,
               private toast: HotToastService) {
     this.workOrderHistoryForm = this.formBuilder.group({
@@ -56,13 +60,15 @@ export class DocLabWorkOrderHistoryComponent implements OnInit {
   }
 
   onSubmit() {
+    this.currentOrder = undefined;
+
     const val = this.workOrderHistoryForm.value;
-    console.log(val);
-    console.log(this.lbp);
 
     if ((val.dateFrom === '' && val.dateTo !== '') || (val.dateFrom !== '' && val.dateTo === '')) {
       this.dateError = true;
       return;
+    } else {
+      this.dateError = false;
     }
 
     this.labService.getWorkOrderHistoryDoc(this.lbp, val.dateFrom, val.dateTo).subscribe({
@@ -81,7 +87,14 @@ export class DocLabWorkOrderHistoryComponent implements OnInit {
       return;
     }
     this.currentOrder = order;
-    console.log(this.currentOrder);
+    this.biochemService.getOrderResult(this.currentOrder.id).subscribe({
+      next: (res) => {
+        this.results = (res as any).results;
+      },
+      error: (e) => {
+        this.toast.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
+      }
+    })
   }
 
   getDoctorByLbz(lbz: string): string {

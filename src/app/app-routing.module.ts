@@ -37,11 +37,18 @@ import { SearchBiochemAccComponent } from './components/laboratory/search-bioche
 import { StationaryPatientReceptionComponent } from './components/stationary/nurse/reception-menu/stationary-patient-reception.component';
 import { StationaryMenuComponent } from './components/stationary/nurse/menu/stationary-menu.component';
 import { ViewStationaryPatientReceptionsComponent } from './components/stationary/nurse/view-receptions/view-stationary-patient-receptions.component';
+import { NewReceptionComponent } from './components/stationary/new-reception/new-reception.component';
 import { AppointmentSchedulingComponent } from "./components/stationary/nurse/appointment-scheduling/appointment-scheduling.component";
 import {SchedulingComponent} from "./components/stationary/nurse/scheduling/scheduling.component";
 import {ViewAppointmentsComponent} from "./components/stationary/nurse/view-appointments/view-appointments.component";
 import { DischargeListComponent } from './components/stationary/doctor/discharge-list/discharge-list.component';
 import { HealthReportComponent } from './components/stationary/doctor/health-report/health-report.component';
+import { DailyBiochemAccComponent } from './components/laboratory/daily-biochem-acc/daily-biochem-acc.component';
+import { DocPatientConditionHistoryComponent } from './components/stationary/doc-patient-condition-history/doc-patient-condition-history.component';
+import { DocStationaryMedicalReportHistoryComponent } from './components/stationary/doc-stationary-medical-report-history/doc-stationary-medical-report-history.component';
+import { DocStationaryDischargeHistoryComponent } from './components/stationary/doc-stationary-discharge-history/doc-stationary-discharge-history.component';
+import { PatientConditionHistoryComponent } from './components/patients/patient-condition-history/patient-condition-history.component';
+import { RegisterPatientConditionComponent } from './components/patients/register-patient-condition/register-patient-condition.component';
 
 const routes: Routes = [
   {
@@ -220,7 +227,7 @@ const routes: Routes = [
     data: {permissions: ['ROLE_VISI_LAB_TEHNICAR', 'ROLE_LAB_TEHNICAR']}
   },
   {
-    path: 'full-issuing-results',
+    path: 'full-issuing-results/:orderId',
     component: FullIssuingResultsComponent,
     canActivate: [AuthGuard, PermissionGuard],
     data: {permissions: ['ROLE_VISI_LAB_TEHNICAR', 'ROLE_LAB_TEHNICAR']}
@@ -240,6 +247,18 @@ const routes: Routes = [
   {
     path: 'view-stationary-patient-receptions',
     component: ViewStationaryPatientReceptionsComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+  },
+  {
+    path: 'new-reception/:lbp',
+    component: NewReceptionComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+  },
+  {
+    path: 'new-reception',
+    component: NewReceptionComponent,
     canActivate: [AuthGuard, PermissionGuard],
     data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
   },
@@ -273,6 +292,41 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { permissions: ['ROLE_DR_SPEC_ODELJENJA','ROLE_DR_SPEC','ROLE_DR_SPEC_POV'] }
   },
+    path: 'daily-biochem-acc',
+    component: DailyBiochemAccComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_MED_BIOHEMICAR', 'ROLE_SPEC_MED_BIOHEMIJE'] }
+  },
+  {
+    path: 'doc-patient-condition-history/:lbp',
+    component: DocPatientConditionHistoryComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA','ROLE_DR_SPEC','ROLE_DR_SPEC_POV'] }
+  },
+  {
+    path: 'doc-stationary-medical-report-history/:lbp',
+    component: DocStationaryMedicalReportHistoryComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA','ROLE_DR_SPEC','ROLE_DR_SPEC_POV'] }
+  },
+  {
+    path: 'doc-stationary-discharge-history/:lbp',
+    component: DocStationaryDischargeHistoryComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA','ROLE_DR_SPEC','ROLE_DR_SPEC_POV'] }
+  },
+  {
+    path: 'patient-condition-history',
+    component: PatientConditionHistoryComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+  },
+  {
+    path: 'register-patient-condition/:lbp',
+    component: RegisterPatientConditionComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+  }
 ];
 
 @NgModule({

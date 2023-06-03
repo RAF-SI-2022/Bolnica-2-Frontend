@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import {LabService} from "../../../../service/lab.service";
-import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {PatientService} from "../../../../service/patient.service";
-import {ScheduleAppointmentRequest} from "../../../../dto/request/patient.request";
+import { LabService } from "../../../../service/lab.service";
+import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { PatientService } from "../../../../service/patient.service";
+import { ScheduleAppointmentRequest } from "../../../../dto/request/patient.request";
+import { debounceTime, distinctUntilChanged, Observable, map, switchMap, mergeMap, forkJoin, of } from 'rxjs';
+import { HotToastService } from '@ngneat/hot-toast';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-scheduling',
@@ -13,8 +16,14 @@ import {ScheduleAppointmentRequest} from "../../../../dto/request/patient.reques
 export class SchedulingComponent implements OnInit {
 
   schedulingAppointmentForm: FormGroup;
-  dataError: boolean = false;
-  constructor(private formBuilder: FormBuilder, private patientService: PatientService, private modalService: NgbModal) {
+  submitted: boolean = false;
+  model: any;
+
+  constructor(private formBuilder: FormBuilder,
+              private patientService: PatientService,
+              private modalService: NgbModal,
+              private toaster: HotToastService,
+              private router: Router) {
     this.schedulingAppointmentForm = this.formBuilder.group({
       lbp: ['', Validators.required],
       dateAndTime: ['', Validators.required],
@@ -22,37 +31,61 @@ export class SchedulingComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
+
+  searchPatients = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(150),
+      distinctUntilChanged(),
+      switchMap((term) =>
+        this.patientService.searchPatients({
+          firstName: term,
+          lastName: '',
+          jmbg: '',
+          lbp: ''
+        }).pipe(map(response => response.patients))
+      )
+    );
+
+  formatResultingPatient(value: any) {
+    return value.firstName + ' ' + value.lastName;
+  }
+
+  inputFormatResultingPatient(value: any) {
+    return value.firstName + ' ' + value.lastName;
+  }
 
   schedule(): void {
-    this.dataError = false;
-    if (this.schedulingAppointmentForm.get('lbp')?.value === '' || this.schedulingAppointmentForm.get('dateAndTime')?.value === '') {
-      this.dataError = true;
+    this.submitted = true;
+
+    if (this.schedulingAppointmentForm.invalid) {
       return;
     }
-    const val = this.schedulingAppointmentForm.value;
+
+    const value = this.schedulingAppointmentForm.value;
+
     this.modalService.open(NgbdModalConfirm).result.then((data) => {
       this.patientService.createAppointment({
-        lbp: val.lbp,
-        receiptDate: val.dateAndTime,
-        note: val.napomena
+        lbp: value.lbp.lbp,
+        receiptDate: value.dateAndTime,
+        note: value.napomena
       }).subscribe({
         next: (res) => {
-          console.log(res);
-          this.modalService.open(NgbdModalSuccess).result.then((data) => {
+          this.router.navigate(['/appointment-scheduling']).then(() => {
+            this.toaster.success('Uspešno ste zakazali prijem')
           })
+        },
+        error: (e) => {
+          this.toaster.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
         }
       });
-    }, (dismiss) => {
     })
-
   }
 
 
 }
 
 @Component({
-
   selector: 'ngbd-modal-confirm',
   standalone: true,
   template: `
@@ -76,25 +109,6 @@ export class SchedulingComponent implements OnInit {
 		</div>
 	`,
 })
-
 export class NgbdModalConfirm {
-  constructor(public modal: NgbActiveModal) {}
-}
-
-@Component({
-
-  selector: 'ngbd-modal-success',
-  standalone: true,
-  template: `
-		<div class="modal-header">
-			<h4 class="modal-title" id="modal-title">Uspešno ste zakazali termin</h4>
-		</div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-success" (click)="modal.close('Ok click')">Ok</button>
-    </div>
-	`,
-})
-
-export class NgbdModalSuccess {
-  constructor(public modal: NgbActiveModal) {}
+  constructor(public modal: NgbActiveModal) { }
 }

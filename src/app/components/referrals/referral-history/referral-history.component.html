@@ -1,12 +1,12 @@
 <div class="p-5">
-	<h3 data-testid="referral-history-title">Istorija uputa</h3>
-	<h3 *ngIf="patient !== undefined" class="mb-4">
+	<h4 data-testid="referral-history-title">Istorija uputa</h4>
+	<h4 *ngIf="patient !== undefined" class="mb-4">
 		<i class="bi bi-person-circle" style="margin-right: 8px;"></i>
 		{{patient.firstName + " " + patient.lastName}}
 		<span class="badge bg-info" style="margin-left: 15px;">
 			{{patient.gender.notation | genderPipe}}, {{patient.birthDate | dateOfBirthToAge}}
 		</span>
-	</h3>
+	</h4>
 	<div class="row">
 		<div class="col-lg-3">
 			<form [formGroup]="searchReferralForm" class="p-3 border rounded-3 bg-light">

@@ -3,8 +3,10 @@
     <div class="col-lg-3">
       <form [formGroup]="stationaryAppointmentsForm" class="p-3 border rounded-3 bg-light">
         <div class="mb-2">
-          <label for="od">LBP</label>
-          <input formControlName="lbp" class="form-control" type="text" id="od" placeholder="LBP">
+          <label for="typeaheadPatient">Pretraži pacijenta:</label>
+          <input formControlName="patient" [(ngModel)]="model" [ngbTypeahead]="searchPatients"
+            [resultFormatter]="formatResultingPatient" [inputFormatter]="inputFormatResultingPatient" type="text"
+            id="typeaheadPatient" class="form-control">
         </div>
         <div class="mb-1">
           <label for="do">Datum</label>
@@ -15,41 +17,40 @@
       </form>
     </div>
     <div class="col-lg-9 table-responsive">
-      <table class="table table-hover">
+      <table class="table table-light table-striped">
         <thead>
-        <tr>
-          <th scope="col">Ime</th>
-          <th scope="col">Prezime</th>
-          <th scope="col">Adresa</th>
-          <th scope="col">Datum Rodjenja</th>
-          <th scope="col">Datum pregleda</th>
-          <th scope="col">Napomena</th>
-        </tr>
+          <tr>
+            <th scope="col">Ime</th>
+            <th scope="col">Prezime</th>
+            <th scope="col">Adresa</th>
+            <th scope="col">Datum Rodjenja</th>
+            <th scope="col">Datum pregleda</th>
+            <th scope="col">Napomena</th>
+            <th scope="col">Status</th>
+            <th scope="col"></th>
+          </tr>
         </thead>
         <tbody>
         <tbody>
-        <tr *ngFor="let elem of loopClass">
-          <td>{{elem.firstName}}</td>
-          <td>{{elem.lastName}}</td>
-          <td>{{elem.address}}</td>
-          <td>{{elem.dateOfBirth}}</td>
-          <td>{{elem.date}}</td>
-          <td>{{elem.note}}</td>
-          <td *ngIf="elem.notation === 'Zakazan'">
-            <button *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])"
-              (click)="cancelAppointment(elem.appointmentId, elem.notation)" class="btn btn-sm btn-danger" data-testid="health-record">Otkaži
-            </button>
-          </td>
-        </tr>
+          <tr *ngFor="let elem of loopClass">
+            <td>{{elem.firstName}}</td>
+            <td>{{elem.lastName}}</td>
+            <td>{{elem.address}}</td>
+            <td>{{elem.dateOfBirth}}</td>
+            <td>{{elem.date | date: 'dd-MM-yyyy'}}</td>
+            <td>{{elem.note}}</td>
+            <td>{{elem.notation}}</td>
+            <td>
+              <button [disabled]="elem.notation === 'Otkazan'" *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])"
+                (click)="cancelAppointment(elem.appointmentId, elem.notation)" class="btn btn-sm btn-danger"
+                data-testid="health-record">Otkaži
+              </button>
+            </td>
+          </tr>
         </tbody>
       </table>
       <div class="d-flex justify-content-center p-2">
-        <ngb-pagination
-          [collectionSize]="collectionSize"
-          [(page)]="page"
-          [pageSize]="pageSize"
-          (pageChange)="search()"
-        >
+        <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize" (pageChange)="search()">
         </ngb-pagination>
       </div>
     </div>

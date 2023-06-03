@@ -1,93 +1,92 @@
-<div
-  *ngIf="
-    this.authService.hasEitherPermission([
-      'ROLE_MED_BIOHEMICAR',
-      'ROLE_SPEC_MED_BIOHEMIJE'
-    ]);
-    else noperms
-  "
-  class="p-5"
->
-  <div class="row d-flex justify-content-center">
-    <div class="col-lg-3 d-flex flex-column">
-      <p class="fs-6 fw-bold">Pretraga po lbp</p>
-      <input
-        class="form-control"
-        type="text"
-        id="byLbpSearch"
-        [(ngModel)]="lbp"
-      />
-      <br />
-      <p class="fs-6 fw-bold">Pretraga po datumu</p>
-      <label for="startDate">Od</label>
-      <input
-        id="startDate"
-        class="form-control"
-        type="date"
-        [(ngModel)]="startDate"
-      />
-      <label for="endDate">Do</label>
-      <input
-        id="endDate"
-        class="form-control"
-        type="date"
-        [(ngModel)]="endDate"
-      />
-      <br />
-      <p class="fs-6 fw-bold">Pretraga po statusu obrade</p>
-      <select id="status" class="form-select" [(ngModel)]="status">
-        <option value="Neobrađen">Neobrađen</option>
-        <option value="Obrađen">Obrađen</option>
-        <option value="U obradi">U obradi</option>
-      </select>
-      <br />
-      <input
-        id="Search"
-        (click)="search()"
-        type="button"
-        class="btn btn-primary m-2"
-        value="Search"
-      />
+<div class="p-5">
+  <div class="row">
+    <div class="col-lg-3">
+      <form [formGroup]="accForm" class="p-3 border rounded-3 bg-light">
+        <div class="mb-2">
+          <label for="typeaheadPatient">Pretraži pacijente:</label>
+          <input formControlName="patient" [(ngModel)]="model" [ngbTypeahead]="searchPatients"
+            [resultFormatter]="formatResultingPatient" [inputFormatter]="inputFormatResultingPatient" type="text"
+            id="typeaheadPatient" class="form-control">
+        </div>
+        <div class="mb-2">
+          <label for="from">Datum od</label>
+          <input formControlName="dateFrom" class="form-control" type="date" id="from" placeholder="from">
+        </div>
+        <div class="mb-2">
+          <label for="from">Datum do</label>
+          <input formControlName="dateTo" class="form-control" type="date" id="to" placeholder="to">
+        </div>
+        <div class="mb-2">
+          <label for="status">Status</label>
+          <select id="status" class="form-select" formControlName="status">
+            <option value="Neobrađen">Neobrađen</option>
+            <option value="Obrađen">Obrađen</option>
+            <option value="U obradi">U obradi</option>
+          </select>
+        </div>
+        <hr class="my-4">
+        <button (click)="search()" type="submit" class="btn btn-md btn-primary w-100">Pretraži</button>
+      </form>
     </div>
     <div class="col-lg-9 table-responsive">
-      <table
-        id="tabelaPregleda"
-        class="table table-light table-hover border-success rounded overflow-hidden caption-top"
-      >
-        <thead>
-          <tr style="color: #78c2ad">
-            <th scope="col">ID</th>
-            <th scope="col">Datum i vreme kreiranja</th>
-            <th scope="col">LBP pacijenta</th>
-            <th scope="col">Status</th>
-            <th scope="col">Lbz tehnicara</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            style="font-size: 0.7rem; font-weight: bold; color: #78c2ad"
-            *ngFor="let order of orderList"
-          >
-            <td>{{ order[0] }}</td>
-            <td>{{ order[1] }}</td>
-            <td>{{ order[2] }}</td>
-            <td>{{ order[3] }}</td>
-            <td>{{ order[4] }}</td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="d-flex justify-content-center p-2">
-        <ngb-pagination
-          [collectionSize]="collectionSize"
-          [(page)]="page"
-          [pageSize]="pageSize"
-          (pageChange)="search()"
-        >
-        </ngb-pagination>
+      <div class="row">
+        <div class="col">
+          <table class="table table-light table-striped border-success">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Datum i vreme kreiranja</th>
+                <th scope="col">LBP pacijenta</th>
+                <th scope="col">Status</th>
+                <th scope="col">Lbz tehnicara</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr (click)="selectOrder(order)" *ngFor="let order of orders" style="cursor: pointer;">
+                <td>{{ order.id }}</td>
+                <td>{{ order.creationTime | date: 'dd-MM-yyyy HH:mm' }}</td>
+                <td>{{ order.lbp }}</td>
+                <td>{{ order.status.notation }}</td>
+                <td>{{ order.lbzTechnician }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="d-flex justify-content-center p-2">
+            <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
+              (pageChange)="search()">
+            </ngb-pagination>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="selectedOrder !== undefined" class="row">
+        <div class="col">
+          <table class="table table-light table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Analiza</th>
+                <th scope="col">Skraćenica analize</th>
+                <th scope="col">Parametar</th>
+                <th scope="col">Rezultat</th>
+                <th scope="col">Jedinica mere</th>
+                <th scope="col">Donja granica</th>
+                <th scope="col">Gornja granica</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let result of results">
+                <td>{{ result.analysis.name }}</td>
+                <td>{{ result.analysis.abbreviation }}</td>
+                <td>{{ result.parameter.name }}</td>
+                <td>{{ result.result }}</td>
+                <td>{{ result.parameter.measureUnit }}</td>
+                <td>{{ result.parameter.lowerBound }}</td>
+                <td>{{ result.parameter.upperBound }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
 </div>
-<ng-template #noperms>
-  <h4 style="color: lightcoral">Nemate odgovarajuću permisiju.</h4>
-</ng-template>

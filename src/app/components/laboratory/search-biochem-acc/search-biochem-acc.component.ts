@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { HotToastService } from '@ngneat/hot-toast';
 import { SearchBiochemResponse } from 'src/app/dto/response/search-biochem-response';
-import { AuthService } from 'src/app/service/auth.service';
+import { LabService } from 'src/app/service/lab.service';
 import { SearchBiochemService } from 'src/app/service/search-biochem.service';
+import { debounceTime, distinctUntilChanged, Observable, map, switchMap, mergeMap, forkJoin, of } from 'rxjs';
+import { PatientService } from 'src/app/service/patient.service';
 
 @Component({
   selector: 'app-search-biochem-acc',
@@ -11,70 +14,85 @@ import { SearchBiochemService } from 'src/app/service/search-biochem.service';
 })
 export class SearchBiochemAccComponent implements OnInit {
 
-  page = 0;
+  page = 1;
   pageSize = 5;
   collectionSize = 0;
 
-  lbp:string='';
-  startDate:string='';
-  endDate:string='';
-  status:string='';
+  orders: any;
+  model: any;
+  selectedOrder: any;
+  results: any;
 
-  orderList:Array<string[]>=[];
+  accForm: FormGroup;
 
-  orders:Array<string[]> = [];
-  order_single:string[] = [];
-
-  constructor(private toast: HotToastService,protected authService: AuthService,private searchBiochemService:SearchBiochemService) { }
+  constructor(private toast: HotToastService,
+    private biochemService: SearchBiochemService,
+    private patientService: PatientService,
+    private formBuilder: FormBuilder) {
+    this.accForm = this.formBuilder.group({
+      patient: [''],
+      dateFrom: [''],
+      dateTo: [''],
+      status: ['']
+    })
+  }
 
   ngOnInit(): void {
+    this.search();
   }
 
-  search(){
-    let currentDate = new Date(Date.now()).toLocaleString().split(',')[0];
-      if(this.lbp=='' && this.startDate=='' && this.endDate=='' && this.status=='') this.toast.info('Pretraga po tekucem datumu '+currentDate )
-      if( this.startDate!=='' && this.endDate=='' ||
-          this.startDate=='' && this.endDate!==''
-       ) this.toast.warning("Odaberite oba datuma pretrage!") 
-        else{
-          const dateStart:Date=new Date(this.startDate);
-          const dateEnd:Date=new Date(this.endDate);
-          if(dateStart>dateEnd) this.toast.error("Pocetni datum ne moze biti veci od krajnjeg!")
-          else{
-            this.order_single=[];
-            this.orders=[];
-            this.searchBiochemService.search(this.page,this.pageSize,this.startDate,this.endDate,this.lbp,this.status).subscribe({
-              next:(res)=>{
-                const response = res as SearchBiochemResponse
-                console.log(response)
-                const ordersArray = Object.values(response['orderList'])
-                for(let i=0;i<ordersArray.length;i++)  {
-                  this.order_single.push(ordersArray[i].id.toString())
-                  this.order_single.push(parseDate(ordersArray[i].creationTime))
-                  this.order_single.push(ordersArray[i].lbp)
-                  this.order_single.push(ordersArray[i].status.notation)
-                  this.order_single.push(ordersArray[i].lbzTechnician)
-                  console.log(this.order_single)
-                  this.orders.push(this.order_single);
-                }
-                  this.orderList=this.orders;
-                  this.collectionSize=response.count;
-              },
-              error:(e)=>{
-                this.toast.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
-              }
-            });
-          }
-        }
+  searchPatients = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(150),
+      distinctUntilChanged(),
+      switchMap((term) =>
+        this.patientService.searchPatients({
+          firstName: term,
+          lastName: '',
+          jmbg: '',
+          lbp: ''
+        }).pipe(map(response => response.patients))
+      )
+    );
+
+  formatResultingPatient(value: any) {
+    return value.firstName + ' ' + value.lastName;
+  }
+
+  inputFormatResultingPatient(value: any) {
+    return value.firstName + ' ' + value.lastName;
+  }
+
+  search() {
+    this.selectedOrder = undefined;
+
+    const value = this.accForm.value;
+
+    let lbp: string;
+    if (value.patient === undefined || value.patient.lbp === undefined) {
+      lbp = '';
+    } else {
+      lbp = value.patient.lbp;
     }
-  }
-  
 
-function parseDate(creationTime: Date): string {
-  console.log(creationTime.toLocaleDateString);
-  let date =creationTime.toLocaleString().split(',')[0];
-  let dateSplit = date.split('T');
-  let timeSplit = dateSplit[1].split('.');
-  return dateSplit[0]+" "+timeSplit[0];
+    this.biochemService.search(this.page - 1, this.pageSize, value.dateFrom, value.dateTo, lbp, value.status).subscribe({
+      next: (res) => {
+        this.orders = res.orderList;
+        this.collectionSize = res.count;
+      },
+      error: (e) => {
+        this.toast.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
+      }
+    })
+  }
+
+  selectOrder(order: any) {
+    this.selectedOrder = order;
+    this.biochemService.getOrderResult(order.id).subscribe({
+      next: (res) => {
+        this.results = (res as any).results;
+      }
+    })
+  }
 }
 

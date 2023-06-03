@@ -1,0 +1,77 @@
+<div class="row p-5 justify-content-center">
+    <form [formGroup]="patientForm" class="col-lg-2 p-3 border rounded-3 bg-light">
+        <div class="mb-2">
+            <label for="typeaheadPatient">Pretraži pacijenta:</label>
+            <input formControlName="patient" [(ngModel)]="model" [ngbTypeahead]="searchPatients"
+                [resultFormatter]="formatResultingPatient" [inputFormatter]="inputFormatResultingPatient" type="text"
+                id="typeaheadPatient" class="form-control">
+            <div *ngIf="patientFormSubmitted && patientForm.get('patient')?.errors?.required" class="validation-error small alert alert-danger">Odaberite pacijenta</div>
+        </div>
+        <hr class="my-4">
+        <button (click)="searchStationaryReferrals()" class="btn btn-md btn-primary w-100" type="submit">Pogledaj stacionarne upute</button>
+    </form>
+</div>
+<div *ngIf="referrals !== undefined" class="row p-3 justify-content-center">
+    <div class="col-lg-9 table-responsive">
+        <table class="table table-light table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Lekar</th>
+                    <th scope="col">Pacijent upućen iz odeljenja</th>
+                    <th scope="col">Datum i vreme</th>
+                    <th scope="col">Napomena</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let referral of referrals">
+                    <td>{{ referral.doctorFirstName + ' ' + referral.doctorLastName }}</td>
+                    <td>{{ referral.departmentName }}</td>
+                    <td>{{ referral.creationDate | date: 'dd/MM/yyyy HH:mm' }}</td>
+                    <td>{{ referral.comment }}</td>
+                    <td><button (click)="showHospitalRooms(referral)" class="btn btn-sm btn-primary">Pogledaj sobe</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div *ngIf="hospitalRooms !== undefined" class="row p-3 justify-content-center">
+    <div class="col-lg-9 table-responsive">
+        <table class="table table-light table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Broj sobe</th>
+                    <th scope="col">Ime sobe</th>
+                    <th scope="col">Kapacitet</th>
+                    <th scope="col">Zauzetost</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let room of hospitalRooms">
+                    <td>{{ room.roomNumber }}</td>
+                    <td>{{ room.roomName }}</td>
+                    <td>{{ room.capacity }}</td>
+                    <td>{{ room.occupation }}</td>
+                    <td><button [disabled]="room.occupation >= room.capacity" (click)="selectRoom(room)" class="btn btn-sm btn-primary">Odaberi sobu</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div *ngIf="selectedRoom !== undefined" class="row p-1 justify-content-center">
+    <div class="col-lg-2">
+        <h6>{{ selectedRoom.roomName }}</h6>
+        <select (change)="onDoctorInputChange($event)" class="form-select mb-3">
+            <option disabled selected value>Izaberite lekara</option>
+            <option *ngFor="let doctor of doctors" [value]="doctor.lbz">{{ doctor.firstName + ' ' + doctor.lastName }}</option>
+        </select>
+    </div>
+</div>
+<div *ngIf="selectedDoctorLbz !== ''" class="row p-1 justify-content-center mb-5">
+    <div class="col-lg-3 form-floating gx-1">
+        <textarea [(ngModel)]="note" class="h-100 form-control rounded" id="floatingNapomena" placeholder="Napomena" rows="10"></textarea>
+        <label for="floatingNapomena">Napomena</label>
+        <button (click)="onSubmit()" class="btn btn-primary w-100 mt-5 mb-5">Prijem</button>
+    </div>
+</div>
