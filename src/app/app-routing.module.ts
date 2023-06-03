@@ -292,6 +292,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { permissions: ['ROLE_DR_SPEC_ODELJENJA','ROLE_DR_SPEC','ROLE_DR_SPEC_POV'] }
   },
+  {
     path: 'daily-biochem-acc',
     component: DailyBiochemAccComponent,
     canActivate: [AuthGuard, PermissionGuard],

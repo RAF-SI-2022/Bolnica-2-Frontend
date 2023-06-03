@@ -1,15 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {CREATE_HEALTH_REPORT_ENDPOINT, DISCHARGE_LIST_ENDPOINT,  LAB_URL, PATIENT_ENDPOINT, PATIENT_URL, USER_URL} from '../app.constants';
-import { PatientRequest } from '../dto/request/patient.request';
-import {HOSPITALIZATION_ENDPOINT, LAB_URL, PATIENT_ENDPOINT, PATIENT_URL, USER_URL} from '../app.constants';
+import {CREATE_HEALTH_REPORT_ENDPOINT, DISCHARGE_LIST_ENDPOINT,  HOSPITALIZATION_ENDPOINT, PATIENT_ENDPOINT, PATIENT_URL, USER_URL} from '../app.constants';
 import { PatientConditionRequest, PatientRequest } from '../dto/request/patient.request';
 import { PatientResponse, SearchPatientsResponse } from '../dto/response/patient.response';
 import { HospitalResponse, HospitalsByDepartmentResponse } from '../dto/response/hospital.response';
 import { DepartmentResponse } from '../dto/response/department.response';
 import { ScheduleAppointmentRequest } from "../dto/request/patient.request";
 import {PatientAppointmentResponse} from "../dto/response/patient-appointment";
-import { co } from '@fullcalendar/core/internal-common';
 import { PatientConditionResponse } from '../dto/response/condition-history.response';
 
 @Injectable({

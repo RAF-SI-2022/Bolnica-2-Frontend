@@ -110,7 +110,7 @@ import { RegisterPatientConditionComponent } from './components/patients/registe
     SchedulingComponent,
     ViewAppointmentsComponent,
     DischargeListComponent,
-    HealthReportComponent
+    HealthReportComponent,
     DailyBiochemAccComponent,
     DocPatientConditionHistoryComponent,
     DocStationaryMedicalReportHistoryComponent,

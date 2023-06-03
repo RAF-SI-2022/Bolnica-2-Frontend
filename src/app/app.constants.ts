@@ -50,5 +50,3 @@ export const BIOCHEM_ENDPOINT = LAB_URL+'/order';
 export const HOSPITALIZATION_ENDPOINT = PATIENT_URL+'/hospitalization'
 export const DISCHARGE_LIST_ENDPOINT=HOSPITALIZATION_ENDPOINT+'/discharge';
 export const CREATE_HEALTH_REPORT_ENDPOINT=HOSPITALIZATION_ENDPOINT+'/medical-report';
-
-export const BIOCHEM_ENDPOINT = LAB_URL+'/order';
