@@ -29,20 +29,22 @@ export class DischargeListComponent implements OnInit {
     if(!lbp)
       console.log("Neispravan lbp")
     
-      this.dischargeListForm = this.formBuilder.group({
-        anamensa: ['', Validators.required],
-        conclusion: ['', Validators.required],
-        diagnosis:[''],
-        analasis:[''],
-        courseOfDisease:[''],
-        therapy:['']
-      });
+    this.dischargeListForm = this.formBuilder.group({
+      anamensa: ['', Validators.required],
+      conclusion: ['', Validators.required],
+      diagnosis:[''],
+      analasis:[''],
+      courseOfDisease:[''],
+      therapy:['']
+    });
     }
 
   ngOnInit(): void {
     let lbp = this.route.snapshot.paramMap.get('lbp');
     if(lbp)
       this.lbp=lbp
+    else
+      console.log("Neispravan lbp")
   }
 
   sendDischargeList(){

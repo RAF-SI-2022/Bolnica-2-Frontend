@@ -25,22 +25,22 @@ export class HealthReportComponent implements OnInit {
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
     protected authService: AuthService) {
-    let lbp=this.route.snapshot.queryParamMap.get('lbp');
-    if(!lbp)
-      console.log("Neispravan lbp")
-      this.healthListForm = this.formBuilder.group({
-        report: ['', Validators.required],
-        diagnosis: [''],
-        recommendedTherapy:[''],
-        advice:[''],
-        confidential:['']
-      });
+      
+    this.healthListForm = this.formBuilder.group({
+      report: ['', Validators.required],
+      diagnosis: [''],
+      recommendedTherapy:[''],
+      advice:[''],
+      confidential:[false]
+    });
     }
 
   ngOnInit(): void {
     let lbp = this.route.snapshot.paramMap.get('lbp');
     if(lbp)
       this.lbp=lbp
+    else
+      console.log("Neispravan lbp")
   }
 
   sendHealthReport(){
@@ -61,7 +61,7 @@ export class HealthReportComponent implements OnInit {
             
           },
           error: (e) => {
-            this.toast.error(e.error.errorMessage || 'Pravljenje otpusne liste nije uspelo');
+            this.toast.error(e.error.errorMessage || 'Pravljenje zdravstvenog izveštaja nije uspelo');
           }
         });
        
