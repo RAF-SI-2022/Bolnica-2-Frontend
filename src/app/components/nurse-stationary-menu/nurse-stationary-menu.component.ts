@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-nurse-stationary-menu',
@@ -6,8 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./nurse-stationary-menu.component.css']
 })
 export class NurseStationaryMenuComponent implements OnInit {
+  lbp: string = '';
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) {
+    this.route.params.subscribe((params) => {
+      this.lbp = params.lbp;
+    })
+  }
 
   ngOnInit(): void {
   }
