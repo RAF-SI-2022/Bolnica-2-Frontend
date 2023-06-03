@@ -40,6 +40,9 @@ export class DischargeListComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    let lbp = this.route.snapshot.paramMap.get('lbp');
+    if(lbp)
+      this.lbp=lbp
   }
 
   sendDischargeList(){
@@ -57,7 +60,7 @@ export class DischargeListComponent implements OnInit {
       else 
         pbo=''
       
-   /* let anamesa:any=this.dischargeListForm.get('anamensa');
+    let anamesa:any=this.dischargeListForm.get('anamensa');
     let conclusion:any=this.dischargeListForm.get('conclusion');
     let diagnosis:any=this.dischargeListForm.get('diagnosis');
     let analasis:any=this.dischargeListForm.get('analasis');
@@ -65,7 +68,7 @@ export class DischargeListComponent implements OnInit {
     let therapy:any=this.dischargeListForm.get('therapy');
 
     this.modalService.open(NgbdModalConfirm).result.then(data => {
-      this.patientService.makeDischargeList(anamesa.value,conclusion.value,diagnosis.value,analasis.value,courseOfDisease.value,therapy.value,pbo).subscribe({
+      this.patientService.makeDischargeList(this.lbp,anamesa.value,conclusion.value,diagnosis.value,analasis.value,courseOfDisease.value,therapy.value,pbo).subscribe({
         next: (res) => {
             this.toast.success('Uspešno ste napravili otpusnu listu');
           
@@ -77,7 +80,7 @@ export class DischargeListComponent implements OnInit {
      
     },(dismiss) => {
 
-    });*/
+    });
   }
 
 }

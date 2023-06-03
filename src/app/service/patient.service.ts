@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {DISCHARGE_LIST_ENDPOINT, HEALTH_REPORT_ENDPOINT, LAB_URL, PATIENT_ENDPOINT, PATIENT_URL, USER_URL} from '../app.constants';
+import {CREATE_HEALTH_REPORT_ENDPOINT, DISCHARGE_LIST_ENDPOINT,  LAB_URL, PATIENT_ENDPOINT, PATIENT_URL, USER_URL} from '../app.constants';
 import { PatientRequest } from '../dto/request/patient.request';
 import { PatientResponse, SearchPatientsResponse } from '../dto/response/patient.response';
 import { HospitalResponse, HospitalsByDepartmentResponse } from '../dto/response/hospital.response';
@@ -163,34 +163,33 @@ export class PatientService {
     });
   }
   
-  makeDischargeList(anamensa: string,conclusion: string,diagnosis: string ,analasis: string,courseOfDisease: string,therapy: string ,pbo:string){
+  makeDischargeList(lbp:string,anamnesis: string,conclusion: string,diagnosis: string ,analasis: string,courseOfDisease: string,therapy: string,pbo:string){
     let sendObject= {
-      anamensa: anamensa,
-      conclusion: conclusion,
-      diagnosis: diagnosis,
+      attendDiagnoses: diagnosis,
+      anamnesis: anamnesis,
       analasis: analasis,
-      courseOfDisease: courseOfDisease,
+      courseDisease: courseOfDisease,
+      conclusion: conclusion,
       therapy: therapy,
-      pbo:pbo
+      //pbo: pbo
     };
 
-    return this.httpClient.post<any>(DISCHARGE_LIST_ENDPOINT,sendObject, {
+    return this.httpClient.post<any>(DISCHARGE_LIST_ENDPOINT+'/'+lbp,sendObject, {
       headers: {
         'Authorization': 'Bearer ' + localStorage.getItem('token')
       }
     });
   }
 
-  makeHealthReport(report: string,diagnosis: string,recommendedTherapy: string,advice: string,confidential: string) {
+  makeHealthReport(lbp:string ,report: string,diagnosis: string,recommendedTherapy: string,advice: string,confidential: string) {
     const sendObject = {
-      report: report,
+      confidentIndicator: confidential,
+      objectiveResult: report,
       diagnosis: diagnosis,
-      recommendedTherapy: recommendedTherapy,
+      proposedTherapy: recommendedTherapy,
       advice: advice,
-      confidential: confidential,
     };
-    console.log(sendObject);
-    return this.httpClient.post<any>(HEALTH_REPORT_ENDPOINT, sendObject, {
+    return this.httpClient.post<any>(CREATE_HEALTH_REPORT_ENDPOINT+'/'+lbp, sendObject, {
       headers: {
         'Authorization': 'Bearer ' + localStorage.getItem('token')
       }

@@ -21,7 +21,6 @@ export class HealthReportComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private router: Router,
     private patientService: PatientService,
-    private labService: LabService,
     private toast: HotToastService,
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
@@ -39,6 +38,9 @@ export class HealthReportComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    let lbp = this.route.snapshot.paramMap.get('lbp');
+    if(lbp)
+      this.lbp=lbp
   }
 
   sendHealthReport(){
@@ -52,8 +54,8 @@ export class HealthReportComponent implements OnInit {
       let advice:any=this.healthListForm.get('advice');
       let confidential:any=this.healthListForm.get('confidential');
   
-    /*  this.modalService.open(NgbdModalConfirm).result.then(data => {
-        this.patientService.makeHealthReport(report.value,diagnosis.value,recommendedTherapy.value,advice.value,confidential.value).subscribe({
+      this.modalService.open(NgbdModalConfirm).result.then(data => {
+        this.patientService.makeHealthReport(this.lbp,report.value,diagnosis.value,recommendedTherapy.value,advice.value,confidential.value).subscribe({
           next: (res) => {
               this.toast.success('Uspešno ste napravili otpusnu listu');
             
@@ -65,7 +67,7 @@ export class HealthReportComponent implements OnInit {
        
       },(dismiss) => {
   
-      });*/
+      });
   }
 
 }
