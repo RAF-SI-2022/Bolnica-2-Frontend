@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
 import { PatientService } from 'src/app/service/patient.service';
 
@@ -18,24 +18,29 @@ export class PatientConditionHistoryComponent implements OnInit {
   conditions:any;
   condHistoryForm: FormGroup;
 
-  constructor(private toast: HotToastService,private formBuilder: FormBuilder,private patientService:PatientService,private router: Router) { 
+  lbp: string = '';
+
+  constructor(private toast: HotToastService,private formBuilder: FormBuilder,private patientService:PatientService,private router: Router,private route: ActivatedRoute) {
     this.condHistoryForm = this.formBuilder.group({
-    lbp:'c1c8ba08-966a-4cc5-b633-d1ef15d7caaf', 
     dateFrom: [''],
     dateTo: [''],
   })
-  this.search();
+
+  this.route.params.subscribe((params) => {
+    this.lbp = params.lbp;
+    this.search();
+  })
  }
 
   ngOnInit(): void {
   }
   search(){
     const value = this.condHistoryForm.value;
-    this.patientService.getPatientsCondition(value.lbp,value.dateFrom,value.dateTo,this.page-1,this.pageSize).subscribe({
+    this.patientService.getPatientsCondition(this.lbp,value.dateFrom,value.dateTo,this.page-1,this.pageSize).subscribe({
       next: (res) => {
         console.log(res);
         this.conditions = res.patientConditionList;
-         this.collectionSize = res.count;
+        this.collectionSize = res.count;
       },
       error: (e) => {
         this.toast.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
@@ -43,8 +48,7 @@ export class PatientConditionHistoryComponent implements OnInit {
     })
   }
   registerCondition(){
-    const value = this.condHistoryForm.value;
-    this.router.navigate(['/register-patient-condition', value.lbp]);
+    this.router.navigate(['/register-patient-condition', this.lbp]);
   }
 
 }

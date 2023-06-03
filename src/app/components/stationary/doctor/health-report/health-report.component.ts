@@ -25,7 +25,7 @@ export class HealthReportComponent implements OnInit {
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
     protected authService: AuthService) {
-      
+
     this.healthListForm = this.formBuilder.group({
       report: ['', Validators.required],
       diagnosis: [''],
@@ -53,20 +53,21 @@ export class HealthReportComponent implements OnInit {
       let diagnosis:any=this.healthListForm.get('diagnosis');
       let advice:any=this.healthListForm.get('advice');
       let confidential:any=this.healthListForm.get('confidential');
-  
+
       this.modalService.open(NgbdModalConfirm).result.then(data => {
         this.patientService.makeHealthReport(this.lbp,report.value,diagnosis.value,recommendedTherapy.value,advice.value,confidential.value).subscribe({
           next: (res) => {
-              this.toast.success('Uspešno ste napravili otpusnu listu');
-            
+            this.router.navigate(['doctor-stationary-menu', this.lbp]).then(() => {
+              this.toast.success('Uspešno ste kreirali zdravstveni izveštaj');
+            })
           },
           error: (e) => {
             this.toast.error(e.error.errorMessage || 'Pravljenje zdravstvenog izveštaja nije uspelo');
           }
         });
-       
+
       },(dismiss) => {
-  
+
       });
   }
 
@@ -77,7 +78,7 @@ export class HealthReportComponent implements OnInit {
 	standalone: true,
 	template: `
 		<div class="modal-header">
-			<h4 class="modal-title" id="modal-title">Potvrdite slanje uputa</h4>
+			<h4 class="modal-title" id="modal-title">Potvrdite kreiranje zdravstvenog izveštaja</h4>
 			<button
 				type="button"
 				class="btn-close"

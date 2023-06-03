@@ -10,24 +10,15 @@ import { PatientService } from 'src/app/service/patient.service';
   styleUrls: ['./doctor-search-stationary-patients.component.css']
 })
 export class DoctorSearchStationaryPatientsComponent implements OnInit {
-
-  form: FormGroup;
-
   page = 1;
-
   pageSize = 5;
   collectionSize = 0;
 
   model: any;
+  patient: any;
 
-  patients: any;
+  constructor(private patientService: PatientService) {
 
-  constructor(private formBuilder: FormBuilder,
-    private patientService: PatientService,
-  ) {
-    this.form = this.formBuilder.group({
-      patient: [''],
-    });
   }
 
   ngOnInit(): void {
@@ -49,16 +40,21 @@ export class DoctorSearchStationaryPatientsComponent implements OnInit {
       )
     );
 
-  formatResultingPatient(value: any) {
-    return value.patientFirstName + ' ' + value.patientLastName;
-  }
+    formatter = (x: {
+      patientFirstName: string,
+      patientLastName: string,
+      birthDate: string
+    }) => {
+      x.patientFirstName,
+      x.patientLastName,
+      x.birthDate
+    };
 
   inputFormatResultingPatient(value: any) {
     return value.patientFirstName + ' ' + value.patientLastName;
   }
 
-  search() {
-
+  onPatientSelected(event: any) {
+    this.patient = event.item;
   }
-
 }
