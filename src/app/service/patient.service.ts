@@ -40,6 +40,23 @@ export class PatientService {
     });
   }
 
+  getHospitalisedPatients(query: any) {
+    const params: any = {};
+    if (query.firstName !== '') params.firstName = query.firstName;
+    if (query.lastName !== '') params.lastName = query.firstName;
+    if (query.jmbg !== '') params.jmbg = query.jmbg;
+    if (query.lbp !== '') params.lbp = query.lbp;
+    if (query.page !== undefined) params.page = query.page;
+    if (query.size !== undefined) params.size = query.size;
+    if (query.includeDeleted !== undefined) params.includeDeleted = query.includeDeleted;
+    return this.httpClient.get<any>(PATIENT_URL+`/hospitalization/${query.pbo}`, {
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        params: params
+    });
+  }
+
   getPatients(query: any) {
     return this.httpClient.get<SearchPatientsResponse>(PATIENT_ENDPOINT, {
         headers: {
