@@ -44,11 +44,13 @@ import { ViewAppointmentsComponent } from "./components/stationary/nurse/view-ap
 import { DischargeListComponent } from './components/stationary/doctor/discharge-list/discharge-list.component';
 import { HealthReportComponent } from './components/stationary/doctor/health-report/health-report.component';
 import { DailyBiochemAccComponent } from './components/laboratory/daily-biochem-acc/daily-biochem-acc.component';
+import { CovidComponent } from './components/covid/covid/covid.component';
 import { DocPatientConditionHistoryComponent } from './components/stationary/doc-patient-condition-history/doc-patient-condition-history.component';
 import { DocStationaryMedicalReportHistoryComponent } from './components/stationary/doc-stationary-medical-report-history/doc-stationary-medical-report-history.component';
 import { DocStationaryDischargeHistoryComponent } from './components/stationary/doc-stationary-discharge-history/doc-stationary-discharge-history.component';
 import { PatientConditionHistoryComponent } from './components/patients/patient-condition-history/patient-condition-history.component';
 import { RegisterPatientConditionComponent } from './components/patients/register-patient-condition/register-patient-condition.component';
+import { CovidStatsComponent } from './components/covid/covid-stats/covid-stats.component';
 import { SearchStationaryPatientsComponent } from './components/search-stationary-patients/search-stationary-patients.component';
 import { NurseStationaryMenuComponent } from './components/nurse-stationary-menu/nurse-stationary-menu.component';
 import { DoctorSearchStationaryPatientsComponent } from './components/doctor-search-stationary-patients/doctor-search-stationary-patients.component';
@@ -304,6 +306,18 @@ const routes: Routes = [
     data: { permissions: ['ROLE_MED_BIOHEMICAR', 'ROLE_SPEC_MED_BIOHEMIJE'] }
   },
   {
+    path: 'covid',
+    component: CovidComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+  },
+  {
+    path: 'covid/new-appointment',
+    component: NewAppointmentComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+  },
+  {
     path: 'doc-patient-condition-history/:lbp',
     component: DocPatientConditionHistoryComponent,
     canActivate: [AuthGuard, PermissionGuard],
@@ -332,6 +346,11 @@ const routes: Routes = [
     component: RegisterPatientConditionComponent,
     canActivate: [AuthGuard, PermissionGuard],
     data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+  },
+  {
+    path: 'covid/covid-stats',
+    component: CovidStatsComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'search-stationary-patients',

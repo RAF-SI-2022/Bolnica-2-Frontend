@@ -4,8 +4,6 @@ export let USER_URL: string;
 export let PATIENT_URL: string;
 export let LAB_URL: string;
 
-console.log(environment);
-
 if (environment.production) {
     if (environment.https) {
         USER_URL = 'https://bolnica-2.k8s.elab.rs/api/user';
