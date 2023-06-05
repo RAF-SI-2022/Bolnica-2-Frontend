@@ -1,4 +1,4 @@
-const countryISOMapping: any = {
+export const countryISOMapping: any = {
     AFG: "AF",
     ALA: "AX",
     ALB: "AL",

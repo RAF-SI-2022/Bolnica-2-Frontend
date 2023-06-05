@@ -55,6 +55,7 @@ import { SearchStationaryPatientsComponent } from './components/search-stationar
 import { NurseStationaryMenuComponent } from './components/nurse-stationary-menu/nurse-stationary-menu.component';
 import { DoctorSearchStationaryPatientsComponent } from './components/doctor-search-stationary-patients/doctor-search-stationary-patients.component';
 import { DoctorStationaryMenuComponent } from './components/doctor-stationary-menu/doctor-stationary-menu.component';
+import { CovidSingleCountryComponent } from './components/covid/covid-single-country/covid-single-country.component';
 
 
 const routes: Routes = [
@@ -376,6 +377,11 @@ const routes: Routes = [
     canActivate: [AuthGuard, PermissionGuard],
     data: { permissions: ['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'] }
   },
+  {
+    path: 'covid/covid-single-country/:iso',
+    component: CovidSingleCountryComponent,
+    canActivate: [AuthGuard]
+  }
 ];
 
 @NgModule({

@@ -3,6 +3,7 @@ import { environment } from "src/environments/environment";
 export let USER_URL: string;
 export let PATIENT_URL: string;
 export let LAB_URL: string;
+export let STATS_URL: string;
 
 if (environment.production) {
     if (environment.https) {
@@ -29,6 +30,7 @@ if (environment.production) {
         USER_URL = 'http://localhost:8081/api';
         PATIENT_URL = 'http://localhost:8082/api';
         LAB_URL = 'http://localhost:8083/api';
+        STATS_URL = 'http://localhost:8000/api';
     }
 }
 

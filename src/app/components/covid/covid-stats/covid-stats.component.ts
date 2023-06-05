@@ -3,7 +3,8 @@ import { EChartsOption } from 'echarts';
 import { Subscription, timer } from "rxjs";
 import { map, share } from "rxjs/operators";
 import { CovidRow, STATS } from './data';
-import { getCountryISO2 } from './iso-codes';
+import { countryISOMapping, getCountryISO2 } from './iso-codes';
+import { StatsService } from 'src/app/service/stats.service';
 
 export type SortColumn = keyof CovidRow | '';
 export type SortDirection = 'asc' | 'desc' | '';
@@ -43,8 +44,120 @@ export class NgbdSortableHeader {
 })
 export class CovidStatsComponent implements OnInit {
   stats: CovidRow[];
+  filter: string = '';
+
+  worldCasesData: any;
+  worldDeathsData: any;
+
+  firstChart!: EChartsOption;
+  secondChart!: EChartsOption;
 
   @ViewChildren(NgbdSortableHeader) headers!: QueryList<NgbdSortableHeader>;
+
+  constructor(private statsService: StatsService) {
+    this.filter = 'country';
+    this.stats = STATS.filter((row) => {
+      return row.continent !== 'unknown'
+    });
+
+    this.statsService.getCases('World').subscribe({
+      next: (res) => {
+        this.worldCasesData = res;
+        this.firstChart = {
+          xAxis: {
+            data: this.worldCasesData.cases_list.map((x: any) => x.date)
+          },
+          tooltip: {},
+          yAxis: {},
+          toolbox: {
+            right: 10,
+            feature: {
+              dataZoom: {
+                yAxisIndex: 'none'
+              },
+              restore: {},
+              saveAsImage: {}
+            }
+          },
+          dataZoom: [
+            {
+              startValue: this.worldCasesData.cases_list[0].date
+            },
+            {
+              type: 'inside'
+            }
+          ],
+          devicePixelRatio: 4,
+          title: {
+            text: 'Broj slučajeva (ceo svet)',
+            left: 'center',
+            top: 12,
+            textStyle: {
+              fontFamily: 'Montserrat,-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif'
+            }
+          },
+          series: [
+            {
+              type: 'line',
+              data: this.worldCasesData.cases_list.map((x: any) => x.value),
+              animationDelay: idx => idx * 10
+            }
+          ],
+          animationEasing: 'elasticOut',
+          animationDelayUpdate: idx => idx * 5,
+        }
+      }
+    });
+
+    this.statsService.getDeaths('World').subscribe({
+      next: (res) => {
+        this.worldDeathsData = res;
+        this.secondChart = {
+          xAxis: {
+            data: this.worldDeathsData.deaths_list.map((x: any) => x.date)
+          },
+          tooltip: {},
+          yAxis: {},
+          toolbox: {
+            right: 10,
+            feature: {
+              dataZoom: {
+                yAxisIndex: 'none'
+              },
+              restore: {},
+              saveAsImage: {}
+            }
+          },
+          dataZoom: [
+            {
+              startValue: this.worldDeathsData.deaths_list[0].date
+            },
+            {
+              type: 'inside'
+            }
+          ],
+          devicePixelRatio: 4,
+          title: {
+            text: 'Broj smrtnih slučajeva (ceo svet)',
+            left: 'center',
+            top: 12,
+            textStyle: {
+              fontFamily: 'Montserrat,-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif'
+            }
+          },
+          series: [
+            {
+              type: 'line',
+              data: this.worldDeathsData.deaths_list.map((x: any) => x.value),
+              animationDelay: idx => idx * 10
+            }
+          ],
+          animationEasing: 'elasticOut',
+          animationDelayUpdate: idx => idx * 5,
+        }
+      }
+    })
+  }
 
   onSort({ column, direction }: SortEvent) {
 		// resetting other headers
@@ -56,9 +169,16 @@ export class CovidStatsComponent implements OnInit {
 
 		// sorting countries
 		if (direction === '' || column === '') {
-			this.stats = STATS;
+      if (this.filter === 'country') {
+        this.onCountries();
+      } else if (this.filter === 'continent') {
+        this.onContinents();
+      } else if (this.filter === 'world') {
+        this.onWorld();
+      }
 		} else {
-			this.stats = [...STATS].sort((a, b) => {
+      const copy = this.stats;
+			this.stats = [...copy].sort((a, b) => {
 				let res = compare(a[column], b[column]);
         if (a[column] === 'unknown' && b[column] === 'unknown') {
           res = 0;
@@ -69,62 +189,27 @@ export class CovidStatsComponent implements OnInit {
 		}
 	}
 
-  chartOption: EChartsOption = {
-    xAxis: {
-      type: 'category',
-      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-    },
-    tooltip: {},
-    yAxis: {
-      type: 'value',
-    },
-    devicePixelRatio: 4,
-    title: {
-      text: 'Broj slučajeva u poslednjih 7 dana',
-      left: 'center',
-      top: 12,
-      textStyle: {
-        fontFamily: 'Montserrat,-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif'
-      }
-    },
-    series: [
-      {
-        data: [820, 932, 901, 934, 1290, 1330, 1320],
-        type: 'bar',
-        animationDelay: idx => idx * 10
-      },
-      {
-        data: [100, 200, 300, 400, 500, 600, 700],
-        type: 'bar',
-        animationDelay: idx => idx * 10
-      },
-    ],
-    animationEasing: 'elasticOut',
-    animationDelayUpdate: idx => idx * 5,
-  }
-
-  constructor() {
-    this.stats = [];
-    this.onCountries();
-  }
 
   ngOnInit(): void {
 
   }
 
   onCountries() {
+    this.filter = 'country';
     this.stats = STATS.filter((row) => {
       return row.continent !== 'unknown'
     })
   }
 
   onContinents() {
+    this.filter = 'continent';
     this.stats = STATS.filter((row) => {
       return row.iso_code === 'OWID_OCE' || row.iso_code === 'OWID_NAM' || row.iso_code === 'OWID_AFR' || row.iso_code === 'OWID_EUR' || row.iso_code === 'OWID_ASI' || row.iso_code === 'OWID_SAM'
     })
   }
 
   onWorld() {
+    this.filter = 'world';
     this.stats = STATS.filter((row) => {
       return row.location === 'World'
     })
@@ -132,6 +217,10 @@ export class CovidStatsComponent implements OnInit {
 
   getIso2(iso3: string) {
     return getCountryISO2(iso3);
+  }
+
+  hasFlag(iso3: string) {
+    return countryISOMapping[iso3] !== undefined;
   }
 
 }
