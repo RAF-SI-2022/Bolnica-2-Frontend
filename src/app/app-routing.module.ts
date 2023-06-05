@@ -389,7 +389,7 @@ const routes: Routes = [
     path: 'nurse-stationary-menu/register-visit/:lbp',
     component: RegisterVisitComponent,
     canActivate: [AuthGuard, PermissionGuard],
-    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA', 'ROLE_RECEPCIONER'] }
   },
   {
     path: 'nurse-stationary-menu/visit-history/:lbp',

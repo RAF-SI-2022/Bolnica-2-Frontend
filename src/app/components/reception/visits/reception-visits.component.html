@@ -26,18 +26,16 @@
 						<th scope="col">Prezime</th>
 						<th scope="col">Datum rođenja</th>
 						<th scope="col">JMBG</th>
-						<th scope="col">Broj telefona</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr *ngFor="let visit of visits">
-						<td>{{visit.firstName}}</td>
-						<td>{{visit.lastName}}</td>
+						<td>{{visit.patientFirstName}}</td>
+						<td>{{visit.patientLastName}}</td>
 						<td>{{visit.birthDate | date: 'dd.MM.yyyy'}}</td>
 						<td>{{visit.jmbg}}</td>
-						<td>{{visit.phoneNumber}}</td>
                         <td><button *ngIf="this.authService.hasEitherPermission(['ROLE_RECEPCIONER'])"
-							[routerLink]="['nurse-stationary-menu/register-visit', visit.lbp]" class="btn btn-sm btn-primary" data-testid="edit">Registruj posetu</button>
+							[routerLink]="['/nurse-stationary-menu/register-visit', visit.lbp]" class="btn btn-sm btn-primary" data-testid="edit">Registruj posetu</button>
 						</td>
 					</tr>
 				</tbody>
