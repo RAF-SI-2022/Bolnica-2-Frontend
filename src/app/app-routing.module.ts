@@ -55,6 +55,7 @@ import { SearchStationaryPatientsComponent } from './components/search-stationar
 import { NurseStationaryMenuComponent } from './components/nurse-stationary-menu/nurse-stationary-menu.component';
 import { DoctorSearchStationaryPatientsComponent } from './components/doctor-search-stationary-patients/doctor-search-stationary-patients.component';
 import { DoctorStationaryMenuComponent } from './components/doctor-stationary-menu/doctor-stationary-menu.component';
+import { ReceptionVisitsComponent } from './components/reception/visits/reception-visits.component';
 
 
 const routes: Routes = [
@@ -375,6 +376,12 @@ const routes: Routes = [
     component: DoctorStationaryMenuComponent,
     canActivate: [AuthGuard, PermissionGuard],
     data: { permissions: ['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'] }
+  },
+  {
+    path: 'visits',
+    component: ReceptionVisitsComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_RECEPCIONER'] }
   },
 ];
 

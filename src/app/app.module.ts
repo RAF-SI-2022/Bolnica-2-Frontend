@@ -70,7 +70,7 @@ import { SearchStationaryPatientsComponent } from './components/search-stationar
 import { NurseStationaryMenuComponent } from './components/nurse-stationary-menu/nurse-stationary-menu.component';
 import { DoctorStationaryMenuComponent } from './components/doctor-stationary-menu/doctor-stationary-menu.component';
 import { DoctorSearchStationaryPatientsComponent } from './components/doctor-search-stationary-patients/doctor-search-stationary-patients.component';
-
+import { ReceptionVisitsComponent } from './components/reception/visits/reception-visits.component';
 
 @NgModule({
   declarations: [
@@ -129,8 +129,9 @@ import { DoctorSearchStationaryPatientsComponent } from './components/doctor-sea
     SearchStationaryPatientsComponent,
     NurseStationaryMenuComponent,
     DoctorStationaryMenuComponent,
-    DoctorSearchStationaryPatientsComponent
-  ],
+    DoctorSearchStationaryPatientsComponent,
+    ReceptionVisitsComponent
+    ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
