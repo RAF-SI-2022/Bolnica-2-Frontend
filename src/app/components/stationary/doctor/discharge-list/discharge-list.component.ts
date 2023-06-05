@@ -72,8 +72,9 @@ export class DischargeListComponent implements OnInit {
     this.modalService.open(NgbdModalConfirm).result.then(data => {
       this.patientService.makeDischargeList(this.lbp,anamesa.value,conclusion.value,diagnosis.value,analasis.value,courseOfDisease.value,therapy.value,pbo).subscribe({
         next: (res) => {
-            this.toast.success('Uspešno ste napravili otpusnu listu');
-
+            this.router.navigate(['/doctor-search-stationary-patients']).then(() => {
+              this.toast.success('Uspešno ste napravili otpusnu listu');
+            })
         },
         error: (e) => {
           this.toast.error(e.error.errorMessage || 'Pravljenje otpusne liste nije uspelo');
