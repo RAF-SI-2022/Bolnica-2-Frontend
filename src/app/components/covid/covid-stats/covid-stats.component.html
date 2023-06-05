@@ -1,0 +1,60 @@
+<div class="p-5">
+    <div class="row">
+		<h4>COVID Statistika</h4>
+        <div class="col-lg-6 p-4">
+            <div echarts [options]="firstChart"></div>
+        </div>
+        <div class="col-lg-6 p-4">
+            <div echarts [options]="secondChart"></div>
+        </div>
+    </div>
+	<div class="row mt-5">
+		<div class="col-lg-10 mx-auto p-4 rounded-5 border border-primary">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Type selector">
+                <input (click)="onCountries()" type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+                <label class="btn btn-outline-secondary" for="btnradio1">Države</label>
+
+                <input (click)="onContinents()" type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                <label class="btn btn-outline-secondary" for="btnradio2">Kontinenti</label>
+
+                <input (click)="onWorld()" type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                <label class="btn btn-outline-secondary" for="btnradio3">Svet</label>
+              </div>
+			<table class="table table-hover table-striped rounded rounded-3 overflow-hidden">
+				<thead>
+					<tr>
+                        <th scope="col">#</th>
+						<th scope="col">Lokacija</th>
+						<th scope="col" sortable="last_updated_date" (sort)="onSort($event)">Poslednje ažurirano</th>
+						<th scope="col" sortable="total_cases" (sort)="onSort($event)">Ukupno slučajeva</th>
+						<th scope="col" sortable="new_cases" (sort)="onSort($event)">Novi slučajevi</th>
+						<th scope="col" sortable="total_deaths" (sort)="onSort($event)">Ukupno smrtnih slučajeva</th>
+						<th scope="col" sortable="new_deaths" (sort)="onSort($event)">Novih smrtnih slučajeva</th>
+						<th scope="col" sortable="hosp_patients" (sort)="onSort($event)">Hospitalizovano</th>
+						<th scope="col" sortable="total_vaccinations" (sort)="onSort($event)">Ukupno vakcinacija</th>
+						<th scope="col" sortable="people_vaccinated" (sort)="onSort($event)">Broj vakcinisanih ljudi</th>
+						<th scope="col" sortable="total_boosters" (sort)="onSort($event)">Buster doze</th>
+						<th scope="col" sortable="new_vaccinations" (sort)="onSort($event)">Nove vakcinacije</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let stat of stats; let i = index;" [routerLink]="['/covid/covid-single-country', stat.iso_code]">
+                        <th scope="row">{{i + 1}}</th>
+						<td><span *ngIf="hasFlag(stat.iso_code)" class="fi fi-{{getIso2(stat.iso_code) | lowercase}}" style="margin-right: 7px;"></span>{{stat.location}}</td>
+						<td>{{stat.last_updated_date}}</td>
+						<td>{{stat.total_cases.toLocaleString() }}</td>
+						<td>{{stat.new_cases.toLocaleString() }}</td>
+                        <td>{{stat.total_deaths.toLocaleString() }}</td>
+						<td>{{stat.new_deaths.toLocaleString() }}</td>
+						<td>{{stat.hosp_patients.toLocaleString() }}</td>
+						<td>{{stat.total_vaccinations.toLocaleString() }}</td>
+						<td>{{stat.people_vaccinated.toLocaleString() }}</td>
+						<td>{{stat.total_boosters.toLocaleString() }}</td>
+						<td>{{stat.new_vaccinations.toLocaleString() }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+

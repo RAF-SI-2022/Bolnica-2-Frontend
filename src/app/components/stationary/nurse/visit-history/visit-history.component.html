@@ -1,0 +1,35 @@
+<div class="p-5">
+    <div class="row">
+        <div class="col-lg-9 table-responsive mx-auto">
+            <table class="table table-light">
+				<thead>
+					<tr>
+						<th scope="col">Datum posete</th>
+						<th scope="col">Posetioc</th>
+						<th scope="col">JMBG posetioca</th>
+						<th scope="col">Beleška</th>
+						<th scope="col">LBZ doktora</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let visit of visits">
+						<td>{{visit.visitDate | date: 'dd/MM/yyyy, HH:mm'}}</td>
+                        <td>{{visit.visitorFirstName + ' ' + visit.visitorLastName}}</td>
+                        <td>{{visit.jmbgVisitor}}</td>
+                        <td>{{visit.note}}</td>
+                        <td>{{visit.registerLbz}}</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="d-flex justify-content-center p-2">
+				<ngb-pagination
+					[collectionSize]="collectionSize"
+					[(page)]="page"
+					[pageSize]="pageSize"
+					(pageChange)="search()"
+				>
+				</ngb-pagination>
+			</div>
+        </div>
+    </div>
+</div>

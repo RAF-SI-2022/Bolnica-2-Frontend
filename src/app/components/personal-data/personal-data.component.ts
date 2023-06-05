@@ -55,6 +55,7 @@ export class PersonalDataComponent implements OnInit {
       zanimanje: ['', Validators.required],
       lbz: [{value: '', disabled: true}],
       obrisan: [{value: '', disabled: true}],
+      covid: ['', Validators.required],
       staraLozinka: ['', [
         Validators.required
       ]],

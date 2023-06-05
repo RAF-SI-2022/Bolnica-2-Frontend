@@ -3,8 +3,7 @@ import { environment } from "src/environments/environment";
 export let USER_URL: string;
 export let PATIENT_URL: string;
 export let LAB_URL: string;
-
-console.log(environment);
+export let STATS_URL: string;
 
 if (environment.production) {
     if (environment.https) {
@@ -31,6 +30,7 @@ if (environment.production) {
         USER_URL = 'http://localhost:8081/api';
         PATIENT_URL = 'http://localhost:8082/api';
         LAB_URL = 'http://localhost:8083/api';
+        STATS_URL = 'http://localhost:8000/api';
     }
 }
 
@@ -46,5 +46,7 @@ export const SCHEDULE_ENDPOINT = PATIENT_URL + '/sched-med-exam';
 export const ORDER_ENDPOINT = LAB_URL+"/order";
 export const REFERRAL_ENDPOINT = LAB_URL+"/referral"
 export const CREATE_SCHEDULE_ENDPOINT = SCHEDULE_ENDPOINT + '/create';
-
 export const BIOCHEM_ENDPOINT = LAB_URL+'/order';
+export const HOSPITALIZATION_ENDPOINT = PATIENT_URL+'/hospitalization'
+export const DISCHARGE_LIST_ENDPOINT=HOSPITALIZATION_ENDPOINT+'/discharge';
+export const CREATE_HEALTH_REPORT_ENDPOINT=HOSPITALIZATION_ENDPOINT+'/medical-report';

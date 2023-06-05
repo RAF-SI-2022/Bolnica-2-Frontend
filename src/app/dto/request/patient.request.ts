@@ -46,5 +46,13 @@ export interface ScheduleAppointmentRequest {
   note: string;
 }
 
+export interface PatientConditionRequest{
+  collectedInfoDate:Date,
+  temperature:string,
+  bloodPressure:string,
+  pulse:string
+  appliedTherapies:string,
+  description:string
+}
 
 

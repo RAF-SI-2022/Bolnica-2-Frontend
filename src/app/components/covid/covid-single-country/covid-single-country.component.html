@@ -1,0 +1,31 @@
+<div class="p-5">
+    <div class="row">
+        <div class="col-lg-4 mx-auto">
+            <div class="card bg-light mb-3">
+                <div class="card-header"><span *ngIf="hasFlag(singleStats.iso_code)" class="fi fi-{{getIso2(singleStats.iso_code) | lowercase}}" style="margin-right: 7px;"></span>{{singleStats.location}}</div>
+                <div class="card-body">
+                  <ul class="card-text">
+                    <li>Poslednje ažurirano: {{singleStats.last_updated_date}}</li>
+                    <li>Ukupno slučajeva: {{singleStats.total_cases.toLocaleString() }}</li>
+                    <li>Novih slučajeva: {{singleStats.new_cases.toLocaleString() }}</li>
+                    <li>Ukupno smrti: {{singleStats.total_deaths.toLocaleString() }}</li>
+                    <li>Novih smrti: {{singleStats.new_deaths.toLocaleString() }}</li>
+                    <li>Hospitalizovano: {{singleStats.hosp_patients.toLocaleString() }}</li>
+                    <li>Ukupno vakcinacija: {{singleStats.total_vaccinations.toLocaleString() }}</li>
+                    <li>Broj vakcinisanih ljudi: {{singleStats.people_vaccinated.toLocaleString() }}</li>
+                    <li>Buster doze: {{singleStats.total_boosters.toLocaleString() }}</li>
+                    <li>Nove vakcinacije: {{singleStats.new_vaccinations.toLocaleString() }}</li>
+                  </ul>
+                </div>
+              </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 p-4">
+            <div echarts [options]="firstChart"></div>
+        </div>
+        <div class="col-lg-6 p-4">
+            <div echarts [options]="secondChart"></div>
+        </div>
+    </div>
+</div>

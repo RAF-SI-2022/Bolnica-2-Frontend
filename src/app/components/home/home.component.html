@@ -151,5 +151,44 @@
       </div>
     </div>
 
+    <div *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])" class="col-md-4">
+      <div routerLink="/covid" class="card border-secondary h-100">
+        <img src="../../assets/images/virus2.svg" class="card-img-top w-75 mx-auto p-2" alt="..." />
+        <div class="card-body">
+          <h5 class="card-title">COVID odsek</h5>
+          <p class="card-text">Zakazivanje COVID pregleda, testiranje, vakcinacija...</p>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="this.authService.hasEitherPermission(['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'])" class="col-md-4">
+      <div routerLink="/doctor-search-stationary-patients" class="card border-secondary h-100">
+        <img src="../../assets/images/person-lines-fill.svg" class="card-img-top w-75 mx-auto p-2" alt="..." />
+        <div class="card-body">
+          <h5 class="card-title">Pacijenti (stacionar)</h5>
+          <p class="card-text">Pretraži pacijente na stacionarnom lečenju</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div routerLink="/covid/covid-stats" class="card border-secondary h-100">
+        <img src="../../assets/images/bar-chart-steps.svg" class="card-img-top w-75 mx-auto p-2" alt="..." />
+        <div class="card-body">
+          <h5 class="card-title">COVID statistika</h5>
+          <p class="card-text">Pogledaj podatke o vakcinaciji, zabeleženim slučajevima, broju preminulih...</p>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="this.authService.hasEitherPermission(['ROLE_RECEPCIONER'])" class="col-md-4">
+      <div routerLink="/visits" class="card border-secondary h-100">
+        <img src="../../assets/images/bar-chart-steps.svg" class="card-img-top w-75 mx-auto p-2" alt="..." />
+        <div class="card-body">
+          <h5 class="card-title">Posete</h5>
+          <p class="card-text">Rukovanje posetama pacijentu</p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
