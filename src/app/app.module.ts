@@ -73,7 +73,7 @@ import { DoctorSearchStationaryPatientsComponent } from './components/doctor-sea
 import { CovidSingleCountryComponent } from './components/covid/covid-single-country/covid-single-country.component';
 import { RegisterVisitComponent } from './components/stationary/nurse/register-visit/register-visit.component';
 import { VisitHistoryComponent } from './components/stationary/nurse/visit-history/visit-history.component';
-
+import { ReceptionVisitsComponent } from './components/reception/visits/reception-visits.component';
 
 @NgModule({
   declarations: [
@@ -135,8 +135,9 @@ import { VisitHistoryComponent } from './components/stationary/nurse/visit-histo
     DoctorSearchStationaryPatientsComponent,
     CovidSingleCountryComponent,
     RegisterVisitComponent,
-    VisitHistoryComponent
-  ],
+    VisitHistoryComponent,
+    ReceptionVisitsComponent
+    ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

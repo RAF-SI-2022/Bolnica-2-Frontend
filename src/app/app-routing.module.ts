@@ -58,6 +58,7 @@ import { DoctorStationaryMenuComponent } from './components/doctor-stationary-me
 import { CovidSingleCountryComponent } from './components/covid/covid-single-country/covid-single-country.component';
 import { RegisterVisitComponent } from './components/stationary/nurse/register-visit/register-visit.component';
 import { VisitHistoryComponent } from './components/stationary/nurse/visit-history/visit-history.component';
+import { ReceptionVisitsComponent } from './components/reception/visits/reception-visits.component';
 
 
 const routes: Routes = [
@@ -395,7 +396,13 @@ const routes: Routes = [
     component: VisitHistoryComponent,
     canActivate: [AuthGuard, PermissionGuard],
     data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
-  }
+  },
+  {
+    path: 'visits',
+    component: ReceptionVisitsComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_RECEPCIONER'] }
+  },
 ];
 
 @NgModule({
