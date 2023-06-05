@@ -71,6 +71,8 @@ import { NurseStationaryMenuComponent } from './components/nurse-stationary-menu
 import { DoctorStationaryMenuComponent } from './components/doctor-stationary-menu/doctor-stationary-menu.component';
 import { DoctorSearchStationaryPatientsComponent } from './components/doctor-search-stationary-patients/doctor-search-stationary-patients.component';
 import { CovidSingleCountryComponent } from './components/covid/covid-single-country/covid-single-country.component';
+import { RegisterVisitComponent } from './components/stationary/nurse/register-visit/register-visit.component';
+import { VisitHistoryComponent } from './components/stationary/nurse/visit-history/visit-history.component';
 
 
 @NgModule({
@@ -131,7 +133,9 @@ import { CovidSingleCountryComponent } from './components/covid/covid-single-cou
     NurseStationaryMenuComponent,
     DoctorStationaryMenuComponent,
     DoctorSearchStationaryPatientsComponent,
-    CovidSingleCountryComponent
+    CovidSingleCountryComponent,
+    RegisterVisitComponent,
+    VisitHistoryComponent
   ],
   imports: [
     BrowserModule,

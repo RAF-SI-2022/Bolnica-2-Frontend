@@ -56,6 +56,8 @@ import { NurseStationaryMenuComponent } from './components/nurse-stationary-menu
 import { DoctorSearchStationaryPatientsComponent } from './components/doctor-search-stationary-patients/doctor-search-stationary-patients.component';
 import { DoctorStationaryMenuComponent } from './components/doctor-stationary-menu/doctor-stationary-menu.component';
 import { CovidSingleCountryComponent } from './components/covid/covid-single-country/covid-single-country.component';
+import { RegisterVisitComponent } from './components/stationary/nurse/register-visit/register-visit.component';
+import { VisitHistoryComponent } from './components/stationary/nurse/visit-history/visit-history.component';
 
 
 const routes: Routes = [
@@ -381,6 +383,18 @@ const routes: Routes = [
     path: 'covid/covid-single-country/:iso',
     component: CovidSingleCountryComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'nurse-stationary-menu/register-visit/:lbp',
+    component: RegisterVisitComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+  },
+  {
+    path: 'nurse-stationary-menu/visit-history/:lbp',
+    component: VisitHistoryComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
   }
 ];
 
