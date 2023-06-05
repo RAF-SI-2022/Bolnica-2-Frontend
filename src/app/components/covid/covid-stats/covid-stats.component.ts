@@ -43,7 +43,8 @@ export class NgbdSortableHeader {
   styleUrls: ['./covid-stats.component.css']
 })
 export class CovidStatsComponent implements OnInit {
-  stats: CovidRow[];
+  stats!: CovidRow[];
+
   filter: string = '';
 
   worldCasesData: any;
@@ -56,9 +57,14 @@ export class CovidStatsComponent implements OnInit {
 
   constructor(private statsService: StatsService) {
     this.filter = 'country';
-    this.stats = STATS.filter((row) => {
-      return row.continent !== 'unknown'
-    });
+
+    this.statsService.getWorldStats().subscribe({
+      next: (res) => {
+        this.stats = res.filter((row) => {
+          return row.continent !== 'unknown'
+        });
+      }
+    })
 
     this.statsService.getCases('World').subscribe({
       next: (res) => {
@@ -196,22 +202,34 @@ export class CovidStatsComponent implements OnInit {
 
   onCountries() {
     this.filter = 'country';
-    this.stats = STATS.filter((row) => {
-      return row.continent !== 'unknown'
+    this.statsService.getWorldStats().subscribe({
+      next: (res) => {
+        this.stats = res.filter((row) => {
+          return row.continent !== 'unknown'
+        });
+      }
     })
   }
 
   onContinents() {
     this.filter = 'continent';
-    this.stats = STATS.filter((row) => {
-      return row.iso_code === 'OWID_OCE' || row.iso_code === 'OWID_NAM' || row.iso_code === 'OWID_AFR' || row.iso_code === 'OWID_EUR' || row.iso_code === 'OWID_ASI' || row.iso_code === 'OWID_SAM'
+    this.statsService.getWorldStats().subscribe({
+      next: (res) => {
+        this.stats = res.filter((row) => {
+          return row.iso_code === 'OWID_OCE' || row.iso_code === 'OWID_NAM' || row.iso_code === 'OWID_AFR' || row.iso_code === 'OWID_EUR' || row.iso_code === 'OWID_ASI' || row.iso_code === 'OWID_SAM'
+        });
+      }
     })
   }
 
   onWorld() {
     this.filter = 'world';
-    this.stats = STATS.filter((row) => {
-      return row.location === 'World'
+    this.statsService.getWorldStats().subscribe({
+      next: (res) => {
+        this.stats = res.filter((row) => {
+          return row.location === 'World'
+        });
+      }
     })
   }
 

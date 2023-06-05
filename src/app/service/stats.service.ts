@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { STATS_URL } from '../app.constants';
+import { CovidRow } from '../components/covid/covid-stats/data';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class StatsService {
   }
 
   getWorldStats() {
-    return this.httpClient.get(STATS_URL + '/stats/world');
+    return this.httpClient.get<CovidRow[]>(STATS_URL + '/stats/world');
   }
 
   getCases(name: string) {
