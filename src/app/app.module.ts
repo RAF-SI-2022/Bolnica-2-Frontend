@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -58,11 +59,13 @@ import { ViewAppointmentsComponent } from './components/stationary/nurse/view-ap
 import { DischargeListComponent } from './components/stationary/doctor/discharge-list/discharge-list.component';
 import { HealthReportComponent } from './components/stationary/doctor/health-report/health-report.component';
 import { DailyBiochemAccComponent } from './components/laboratory/daily-biochem-acc/daily-biochem-acc.component';
+import { CovidComponent } from './components/covid/covid/covid.component';
 import { DocPatientConditionHistoryComponent } from './components/stationary/doc-patient-condition-history/doc-patient-condition-history.component';
 import { DocStationaryMedicalReportHistoryComponent } from './components/stationary/doc-stationary-medical-report-history/doc-stationary-medical-report-history.component';
 import { DocStationaryDischargeHistoryComponent } from './components/stationary/doc-stationary-discharge-history/doc-stationary-discharge-history.component';
 import { PatientConditionHistoryComponent } from './components/patients/patient-condition-history/patient-condition-history.component';
 import { RegisterPatientConditionComponent } from './components/patients/register-patient-condition/register-patient-condition.component';
+import { CovidStatsComponent, NgbdSortableHeader } from './components/covid/covid-stats/covid-stats.component';
 import { SearchStationaryPatientsComponent } from './components/search-stationary-patients/search-stationary-patients.component';
 import { NurseStationaryMenuComponent } from './components/nurse-stationary-menu/nurse-stationary-menu.component';
 import { DoctorStationaryMenuComponent } from './components/doctor-stationary-menu/doctor-stationary-menu.component';
@@ -116,11 +119,13 @@ import { DoctorSearchStationaryPatientsComponent } from './components/doctor-sea
     DischargeListComponent,
     HealthReportComponent,
     DailyBiochemAccComponent,
+    CovidComponent,
     DocPatientConditionHistoryComponent,
     DocStationaryMedicalReportHistoryComponent,
     DocStationaryDischargeHistoryComponent,
     PatientConditionHistoryComponent,
     RegisterPatientConditionComponent,
+    CovidStatsComponent,
     SearchStationaryPatientsComponent,
     NurseStationaryMenuComponent,
     DoctorStationaryMenuComponent,
@@ -138,7 +143,11 @@ import { DoctorSearchStationaryPatientsComponent } from './components/doctor-sea
       dismissible: true,
       position: 'top-right'
     }),
-    FullCalendarModule
+    FullCalendarModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts')
+    }),
+    NgbdSortableHeader
   ],
   providers: [
     DecimalPipe,

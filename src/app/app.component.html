@@ -6,7 +6,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <ul *ngIf="!isOnHomePage()" class="navbar-nav me-auto">
+        <!-- <ul *ngIf="!isOnHomePage()" class="navbar-nav me-auto">
           <li class="nav-item">
             <a routerLink="/personal-data" class="nav-link active" aria-current="page" href="#">Moji podaci</a>
           </li>
@@ -45,7 +45,7 @@
             </div>
           </li>
 
-        </ul>
+        </ul> -->
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
             <a routerLink="/login" (click)="this.authService.logout()" class="nav-link active" href="#" aria-current="page"><i class="bi bi-box-arrow-in-right" style="font-size: 1.3rem; margin-right: 7px; color: #ff7851" data-testid="logout"></i>Odjavi se</a>
