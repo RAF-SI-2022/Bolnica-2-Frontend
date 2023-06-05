@@ -396,7 +396,7 @@ const routes: Routes = [
     component: VisitHistoryComponent,
     canActivate: [AuthGuard, PermissionGuard],
     data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
-  }
+  },
   {
     path: 'visits',
     component: ReceptionVisitsComponent,

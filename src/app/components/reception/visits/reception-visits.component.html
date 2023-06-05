@@ -37,7 +37,7 @@
 						<td>{{visit.jmbg}}</td>
 						<td>{{visit.phoneNumber}}</td>
                         <td><button *ngIf="this.authService.hasEitherPermission(['ROLE_RECEPCIONER'])"
-							[routerLink]="['/register-visit', visit.lbp]" class="btn btn-sm btn-primary" data-testid="edit">Registruj posetu</button>
+							[routerLink]="['nurse-stationary-menu/register-visit', visit.lbp]" class="btn btn-sm btn-primary" data-testid="edit">Registruj posetu</button>
 						</td>
 					</tr>
 				</tbody>
