@@ -55,7 +55,7 @@ export class RegisterVisitComponent implements OnInit {
             this.toast.success('Uspešno ste zakazali posetu');
           })
         } else {
-          this.router.navigate(['/']).then(() => {
+          this.router.navigate(['/visits']).then(() => {
             this.toast.success('Uspešno ste zakazali posetu');
           })
         }

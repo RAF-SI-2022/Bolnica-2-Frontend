@@ -19,7 +19,7 @@ export class ReceptionVisitsComponent implements OnInit {
   pageSize = 5;
   collectionSize = 0;
 
-  visits: PatientResponse[] = [];
+  visits: any;
 
   constructor(protected authService: AuthService,
     private formBuilder: FormBuilder,
@@ -48,7 +48,7 @@ export class ReceptionVisitsComponent implements OnInit {
   refreshVisits(): void {
 
     const val = this.searchVisitsForm.value;
-    this.patientsService.searchPatients({
+    this.patientsService.getHospitalisedPatientsByPbb({
       firstName: val.firstName,
       lastName: val.lastName,
       jmbg: val.jmbg,
@@ -57,10 +57,9 @@ export class ReceptionVisitsComponent implements OnInit {
       size: this.pageSize
     }).subscribe({
       next: (res) => {
-        const response = res as SearchPatientsResponse;
-        console.log(response);
-        this.visits = response.patients;
-        this.collectionSize = response.count;
+        console.log(res);
+        this.visits = (res as any).list;
+        this.collectionSize = (res as any).count;
       },
       error: (e) => {
         this.toast.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
