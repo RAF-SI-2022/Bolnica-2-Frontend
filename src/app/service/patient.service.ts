@@ -227,7 +227,7 @@ export class PatientService {
       }
     });
   }
-  
+
   makeDischargeList(lbp:string,anamnesis: string,conclusion: string,diagnosis: string ,analasis: string,courseOfDisease: string,therapy: string,pbo:string){
     let sendObject= {
       attendDiagnoses: diagnosis,
@@ -322,6 +322,31 @@ export class PatientService {
           'Authorization': 'Bearer ' + localStorage.getItem('token')
       }
   });
+  }
+
+  registerStationaryVisit(lbp: string, firstName: string, lastName: string, jmbg: string, note: string) {
+    return this.httpClient.post(PATIENT_URL + `/visits/${lbp}`, {
+      visitorFirstName: firstName,
+      visitorLastName: lastName,
+      jmbgVisitor: jmbg,
+      note: note
+    }, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    })
+  }
+
+  getStationaryVisitHistory(lbp: string, page: number, size: number) {
+    return this.httpClient.get(PATIENT_URL + `/visits/${lbp}`, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      },
+      params: {
+        page: page,
+        size: size
+      }
+    })
   }
 
 }
