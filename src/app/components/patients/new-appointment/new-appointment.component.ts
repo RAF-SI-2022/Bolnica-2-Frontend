@@ -17,6 +17,7 @@ import { FullCalendarComponent } from '@fullcalendar/angular';
 import { ScheduledAppointmentService } from 'src/app/service/scheduled-appointment.service';
 import { DoctorsResponse } from 'src/app/dto/response/scheduled-appointment-response';
 import { AuthService } from 'src/app/service/auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 const DAY_NAMES: string[] = ['nedelja', 'ponedeljak', 'utorak', 'sreda', 'četvrtak', 'petak', 'subota'];
 @Component({
@@ -70,6 +71,7 @@ export class NewAppointmentComponent implements OnInit {
   currentDoctorLbz = '';
   currentDoctorFullName = '';
   departments: any;
+  covid: boolean = false;
 
   @ViewChild('new_appointment_content')
   newAppointmentContent!: TemplateRef<any>;
@@ -88,7 +90,8 @@ export class NewAppointmentComponent implements OnInit {
               private employeeService: EmployeesService,
               private schedMedExamService: SchedMedExamService,
               private scheduledAppointmentService: ScheduledAppointmentService,
-              private toaster: HotToastService) {
+              private toaster: HotToastService,
+              protected router: Router) {
     this.newAppointmentForm = this.formBuilder.group({
       patient: [''],
       note: ['']
@@ -242,5 +245,9 @@ export class NewAppointmentComponent implements OnInit {
         this.toaster.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
       }
     })
+  }
+
+  onCovidChange(event: any) {
+    this.covid = event.target.checked;
   }
 }

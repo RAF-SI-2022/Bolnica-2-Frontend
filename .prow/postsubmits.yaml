@@ -81,7 +81,6 @@ postsubmits:
 
               # update dev helm chart
               helm upgrade bolnica-2-dev kubernetes/bolnica-2 --reuse-values --set git_version_front=$commit_hash -n bolnica-2-dev
-
           securityContext:
             privileged: true
           imagePullPolicy: Always

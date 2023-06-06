@@ -49,10 +49,16 @@
         </select>
     </div>
 
-    <select *ngIf="!authService.hasPermission('ROLE_RECEPCIONER')" (change)="onDoctorInputChange($event)" class="form-select w-25 mb-3" #notRecepcioner>
-        <option disabled selected value>Izaberite lekara</option>
-        <option *ngFor="let doctor of doctors" [value]="doctor.lbz" (ngModel)="this.currentDoctorFullName">{{ doctor.firstName + ' ' + doctor.lastName }}</option>
-    </select>
+    <div *ngIf="!authService.hasPermission('ROLE_RECEPCIONER')">
+        <div class="form-check mb-2">
+            <input [checked]="router.url.includes('covid')" (change)="onCovidChange($event)" type="checkbox" class="form-check-input" id="floatingPolm"/>
+            <label class="form-check-label" for="floatingPolm">COVID pregled</label>
+        </div>
+        <select *ngIf="!authService.hasPermission('ROLE_RECEPCIONER')" (change)="onDoctorInputChange($event)" class="form-select w-25 mb-3" #notRecepcioner>
+            <option disabled selected value>Izaberite lekara</option>
+            <option *ngFor="let doctor of doctors" [value]="doctor.lbz" (ngModel)="this.currentDoctorFullName">{{ doctor.firstName + ' ' + doctor.lastName }}</option>
+        </select>
+    </div>
 
     <div class="bg-light border rounded-3">
         <full-calendar #calendar [ngStyle]="{'pointer-events': this.calendarEnabled}" class="p-3" [options]="calendarOptions"></full-calendar>

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -55,7 +56,24 @@ import { NewReceptionComponent } from './components/stationary/new-reception/new
 import { AppointmentSchedulingComponent } from './components/stationary/nurse/appointment-scheduling/appointment-scheduling.component';
 import { SchedulingComponent } from './components/stationary/nurse/scheduling/scheduling.component';
 import { ViewAppointmentsComponent } from './components/stationary/nurse/view-appointments/view-appointments.component';
+import { DischargeListComponent } from './components/stationary/doctor/discharge-list/discharge-list.component';
+import { HealthReportComponent } from './components/stationary/doctor/health-report/health-report.component';
 import { DailyBiochemAccComponent } from './components/laboratory/daily-biochem-acc/daily-biochem-acc.component';
+import { CovidComponent } from './components/covid/covid/covid.component';
+import { DocPatientConditionHistoryComponent } from './components/stationary/doc-patient-condition-history/doc-patient-condition-history.component';
+import { DocStationaryMedicalReportHistoryComponent } from './components/stationary/doc-stationary-medical-report-history/doc-stationary-medical-report-history.component';
+import { DocStationaryDischargeHistoryComponent } from './components/stationary/doc-stationary-discharge-history/doc-stationary-discharge-history.component';
+import { PatientConditionHistoryComponent } from './components/patients/patient-condition-history/patient-condition-history.component';
+import { RegisterPatientConditionComponent } from './components/patients/register-patient-condition/register-patient-condition.component';
+import { CovidStatsComponent, NgbdSortableHeader } from './components/covid/covid-stats/covid-stats.component';
+import { SearchStationaryPatientsComponent } from './components/search-stationary-patients/search-stationary-patients.component';
+import { NurseStationaryMenuComponent } from './components/nurse-stationary-menu/nurse-stationary-menu.component';
+import { DoctorStationaryMenuComponent } from './components/doctor-stationary-menu/doctor-stationary-menu.component';
+import { DoctorSearchStationaryPatientsComponent } from './components/doctor-search-stationary-patients/doctor-search-stationary-patients.component';
+import { CovidSingleCountryComponent } from './components/covid/covid-single-country/covid-single-country.component';
+import { RegisterVisitComponent } from './components/stationary/nurse/register-visit/register-visit.component';
+import { VisitHistoryComponent } from './components/stationary/nurse/visit-history/visit-history.component';
+import { ReceptionVisitsComponent } from './components/reception/visits/reception-visits.component';
 
 @NgModule({
   declarations: [
@@ -101,8 +119,25 @@ import { DailyBiochemAccComponent } from './components/laboratory/daily-biochem-
     AppointmentSchedulingComponent,
     SchedulingComponent,
     ViewAppointmentsComponent,
-    DailyBiochemAccComponent
-  ],
+    DischargeListComponent,
+    HealthReportComponent,
+    DailyBiochemAccComponent,
+    CovidComponent,
+    DocPatientConditionHistoryComponent,
+    DocStationaryMedicalReportHistoryComponent,
+    DocStationaryDischargeHistoryComponent,
+    PatientConditionHistoryComponent,
+    RegisterPatientConditionComponent,
+    CovidStatsComponent,
+    SearchStationaryPatientsComponent,
+    NurseStationaryMenuComponent,
+    DoctorStationaryMenuComponent,
+    DoctorSearchStationaryPatientsComponent,
+    CovidSingleCountryComponent,
+    RegisterVisitComponent,
+    VisitHistoryComponent,
+    ReceptionVisitsComponent
+    ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -115,7 +150,11 @@ import { DailyBiochemAccComponent } from './components/laboratory/daily-biochem-
       dismissible: true,
       position: 'top-right'
     }),
-    FullCalendarModule
+    FullCalendarModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts')
+    }),
+    NgbdSortableHeader
   ],
   providers: [
     DecimalPipe,
