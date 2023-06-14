@@ -84,4 +84,15 @@ export class EmployeesService {
             }
         })
     }
+
+    updateCovidAccess(lbz: string, covidAccess: boolean) {
+        return this.httpClient.put(USER_URL + `/users/update-covid-access/${lbz}`, {}, {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            params: {
+                covidAccess: covidAccess
+            }
+        })
+    }
 }

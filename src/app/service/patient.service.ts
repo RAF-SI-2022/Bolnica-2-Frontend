@@ -366,6 +366,17 @@ export class PatientService {
     })
   }
 
+  getAvailableCovidTestingTerms(datetime: string) {
+    return this.httpClient.get(PATIENT_URL + '/testing/available-terms', {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      },
+      params: {
+        dateAndTime: datetime
+      }
+    })
+  }
+
 }
 
 
