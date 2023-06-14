@@ -71,7 +71,7 @@
     </div>
   </div>
   <div class="row g-3 mb-3">
-    <div class="col-md-6 form-floating gx-1">
+    <div class="col-md-5 form-floating gx-1">
       <input formControlName="mestostanovanja" type="text" class="form-control" id="floatingMestoStanovanja"
         placeholder="Mesto stanovanja" data-testid="place"/>
       <label for="floatingDatRodjenja">Mesto stanovanja</label>
@@ -80,13 +80,19 @@
         Mesto stanovanja je obavezno
       </div>
     </div>
-    <div class="col-md-6 form-floating gx-1">
+    <div class="col-md-5 form-floating gx-1">
       <input formControlName="adresastanovanja" type="text" class="form-control" id="floatingAdresaStanovanja"
         placeholder="Adresa stanovanja" data-testid="address"/>
       <label for="floatingAdresaStanovanja">Adresa stanovanja</label>
       <div *ngIf="submitted && newemployeeForm.get('adresastanovanja')?.errors?.required"
         class="validation-error small alert alert-danger">
         Adresa stanovanja je obavezna
+      </div>
+    </div>
+    <div class="col-md-2 form-check gx-1">
+      <div class="form-check">
+        <input (change)="onCovidCheckboxChange($event)" formControlName="pol" type="checkbox" class="form-check-input" id="floatingCovid" />
+        <label class="form-check-label" for="floatingCovid">Pristup COVID-u</label>
       </div>
     </div>
   </div>
