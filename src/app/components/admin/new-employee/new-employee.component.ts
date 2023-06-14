@@ -14,6 +14,7 @@ export class NewEmployeeComponent implements OnInit {
   newemployeeForm: FormGroup;
 
   submitted = false;
+  covidAccess: boolean = false;
 
   constructor(private formBuilder: FormBuilder,
               private employeesService: EmployeesService,
@@ -66,15 +67,22 @@ export class NewEmployeeComponent implements OnInit {
       permissions: val.privilegije
     }).subscribe({
       next: (res) => {
-        console.log(res);
         this.router.navigate(['']).then(() => {
           this.toast.success('Uspešno ste dodali novog zaposlenog');
+
+          this.employeesService.updateCovidAccess(res.lbz, this.covidAccess).subscribe({
+            next: (res) => {
+              console.log(res);
+            }
+          })
         })
       },
       error: (e) => {
         this.toast.error(e.error.errorMessage);
       }
     })
+
+
   }
 
   onPrivilegijeCheckboxChange(event: any) {
@@ -85,5 +93,9 @@ export class NewEmployeeComponent implements OnInit {
       const index = selectedPrivileges.controls.findIndex(x => x.value === event.target.value);
       selectedPrivileges.removeAt(index);
     }
+  }
+
+  onCovidCheckboxChange(event: any) {
+    this.covidAccess = event.target.checked;
   }
 }
