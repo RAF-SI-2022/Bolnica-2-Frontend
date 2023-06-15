@@ -12,7 +12,7 @@
                 </div>
                 <div class="form-floating mb-3">
                     <input formControlName="password" type="password" class="form-control" id="floatingPassword" placeholder="Password" data-testid="password">
-                    <label for="floatingPassword">Lozinka</label>
+                    <label for="floatingPassword">Lozinkaa</label>
                     <div *ngIf="submitted && loginForm.get('password')?.errors?.required" class="validation-error small alert alert-danger">Lozinka je obavezna</div>
                 </div>
                 <button (click)="login()" class="w-100 btn btn-lg btn-primary" type="submit" data-testid="login-button">Uloguj se</button>
