@@ -60,6 +60,7 @@ import { RegisterVisitComponent } from './components/stationary/nurse/register-v
 import { VisitHistoryComponent } from './components/stationary/nurse/visit-history/visit-history.component';
 import { ReceptionVisitsComponent } from './components/reception/visits/reception-visits.component';
 import { ScheduleCovidTestingComponent } from './covid/schedule-covid-testing/schedule-covid-testing.component';
+import { PatientsForCovidExamListComponent } from './covid/patients-for-covid-exam-list/patients-for-covid-exam-list.component';
 
 
 const routes: Routes = [
@@ -403,6 +404,12 @@ const routes: Routes = [
     component: ReceptionVisitsComponent,
     canActivate: [AuthGuard, PermissionGuard],
     data: { permissions: ['ROLE_RECEPCIONER'] }
+  },
+  {
+    path: 'covid/patients-covid-exam-list',
+    component: PatientsForCovidExamListComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'] }
   },
   {
     path: 'covid/schedule-covid-testing',

@@ -1,0 +1,43 @@
+<div class="p-5">
+    <div class="row">
+        <div class="col-lg-3">
+            <form [formGroup]="covidExamList" class="p-3 border rounded-3 bg-light">
+                <div class="mb-2 form-floating gx-1">
+                    <input formControlName="patient" [(ngModel)]="lbp" 
+                    type="text" id="floatingPatient" class="form-control" placeholder="patient-placeholder">
+                    <label for="floatingPatient">Pacijent</label>
+                </div>
+                <div class="mb-2 form-floating gx-1">
+                    <input formControlName="date" class="form-control" type="date" placeholder="placeholder" id="floatingDate" [(ngModel)]="date">
+                    <label for="floatingDate">Datum</label>
+                </div>
+                <hr class="my-4">
+                <button (click)="search()" class="btn btn-md btn-primary w-100" type="submit">Pretraži</button>
+            </form>
+        </div>
+        <div class="col-lg-9 table-responsive">
+            <table class="table table-striped" data-testid="lab-visits-table">
+                <thead>
+                    <tr>
+                        <th scope="col">Ime</th>
+                        <th scope="col">Prezime</th>
+                        <th scope="col">Starost</th>
+                        <th scope="col">Pol</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let visit of schedLabVisits">
+                        <td>{{ visit.name }}</td>
+                        <td>{{ visit.lastname }}</td>
+                        <td>{{ visit.age }}</td>
+                        <td>{{ visit.gender }}</td>
+                        <td>{{ visit.status.notation }}</td>
+                        <td><button (click)="onCancel(visit.id)" [disabled]="visit.examStatus.notation !== 'Zakazano'" class="btn btn-sm btn-danger">Otkaži posetu</button></td>
+                        <td><button TODO[routerLink]="['/new-work-order', visit.lbp]" [disabled]="visit.examStatus.notation !== 'Zakazano'" class="btn btn-sm btn-primary">Započni pregled</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

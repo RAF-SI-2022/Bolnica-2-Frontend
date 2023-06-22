@@ -7,89 +7,54 @@ import { LabService } from 'src/app/service/lab.service';
 import { PatientService } from 'src/app/service/patient.service';
 
 @Component({
-  selector: 'app-search-scheduled-lab-visits',
-  templateUrl: './search-scheduled-lab-visits.component.html',
-  styleUrls: ['./search-scheduled-lab-visits.component.css']
+  selector: 'app-patients-for-covid-exam-list',
+  templateUrl: './patients-for-covid-exam-list.component.html',
+  styleUrls: ['./patients-for-covid-exam-list.component.css']
 })
-export class SearchScheduledLabVisitsComponent implements OnInit {
-  searchScheduledLabVisitsForm: FormGroup;
-  schedLabVisits: any;
+export class PatientsForCovidExamListComponent implements OnInit {
 
-  model: any;
-  patient: any;
+  covidExamList: FormGroup;
+  schedLabVisits: any;
+  lbp:string;
+  date:string;
 
   constructor(private formBuilder: FormBuilder,
               private patientService: PatientService,
               private toast: HotToastService,
               private modalService: NgbModal,
               private labService: LabService) {
-    this.searchScheduledLabVisitsForm = this.formBuilder.group({
-      patient: [''],
+    this.covidExamList = this.formBuilder.group({
+      lbp: [''],
       date: ['']
     })
+    this.lbp='';
+    this.date='';
   }
 
   ngOnInit(): void {
-    this.labService.getSchedLabExaminations('', '').subscribe({
+    //TODO
+    /*
+    this.labService.getPatientCovidExamList('', '').subscribe({
       next: (res) => {
         this.schedLabVisits = res;
       },
       error: (e) => {
         this.toast.error(e.error.errorMessage || 'Greška server se ne odaziva.');
       }
-    })
+    })*/
   }
 
-  search = (text$: Observable<string>) =>
-  text$.pipe(
-    debounceTime(150),
-    distinctUntilChanged(),
-    switchMap((term) =>
-      this.patientService.searchPatients({
-        firstName: term,
-        lastName: '',
-        jmbg: '',
-        lbp: ''
-      }).pipe(map(response => response.patients))
-    )
-  );
-
-  formatter = (x: {
-    firstName: string,
-    lastName: string,
-    gender: string,
-    birthDate: string
-  }) => {
-    x.firstName,
-    x.lastName,
-    x.gender,
-    x.birthDate
-  };
-
-  inputFormatResultingPatient(value: any) {
-    return value.firstName + ' ' + value.lastName;
+  search():void {/*
+    this.labService.getPatientCovidExamList('', '').subscribe({
+      next: (res) => {
+        this.schedLabVisits = res;
+      },
+      error: (e) => {
+        this.toast.error(e.error.errorMessage || 'Greška server se ne odaziva.');
+      }*/
   }
-
-  onPatientSelected(event: any) {
-    this.patient = event.item;
-  }
-
   refreshVisits() {
     this.labService.getSchedLabExaminations('', '').subscribe({
-      next: (res) => {
-        this.schedLabVisits = res;
-      },
-      error: (e) => {
-        this.toast.error(e.error.errorMessage || 'Greška server se ne odaziva.');
-      }
-    })
-  }
-
-  onSubmit() {
-    const value = this.searchScheduledLabVisitsForm.value;
-    let lbp: string = '';
-    if (value.patient !== undefined) lbp = value.patient.lbp;
-    this.labService.getSchedLabExaminations(lbp, value.date).subscribe({
       next: (res) => {
         this.schedLabVisits = res;
       },
@@ -109,9 +74,9 @@ export class SearchScheduledLabVisitsComponent implements OnInit {
       })
     })
   }
+  
 
 }
-
 @Component({
 	selector: 'ngbd-modal-confirm',
 	standalone: true,
@@ -127,7 +92,7 @@ export class SearchScheduledLabVisitsComponent implements OnInit {
 		</div>
 		<div class="modal-body">
 			<p>
-				<strong>Da li ste sigurni da želite da otkažete posetu?</strong>
+				<strong>Da li ste sigurni da želite da otkažete zakazan pregled?</strong>
 			</p>
 		</div>
 		<div class="modal-footer">
