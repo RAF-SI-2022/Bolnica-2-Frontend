@@ -1,0 +1,11 @@
+<div>
+    <table>
+      <tr *ngFor="let test of testsInProcessing">
+        <td>{{test.id}}</td>
+        <td>
+          <button (click)="processTest(test.id, true)">Pozitivan</button>
+          <button (click)="processTest(test.id, false)">Negativan</button>
+        </td>
+      </tr>
+    </table>
+  </div>  

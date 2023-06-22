@@ -59,6 +59,7 @@ import { CovidSingleCountryComponent } from './components/covid/covid-single-cou
 import { RegisterVisitComponent } from './components/stationary/nurse/register-visit/register-visit.component';
 import { VisitHistoryComponent } from './components/stationary/nurse/visit-history/visit-history.component';
 import { ReceptionVisitsComponent } from './components/reception/visits/reception-visits.component';
+import { CovidTestProcessingComponent } from './components/covid/covid-test-processing/covid-test-processing.component';
 
 
 const routes: Routes = [
@@ -403,6 +404,12 @@ const routes: Routes = [
     canActivate: [AuthGuard, PermissionGuard],
     data: { permissions: ['ROLE_RECEPCIONER'] }
   },
+  {
+    path: 'covid-test-processing',
+    component: CovidTestProcessingComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_VISI_LAB_TEHNICAR','ROLE_LAB_TEHNICAR','ROLE_MED_BIOHEMICAR','ROLE_SPEC_MED_BIOHEMIJE'] }
+  }
 ];
 
 @NgModule({
