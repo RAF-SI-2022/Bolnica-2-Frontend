@@ -1,0 +1,86 @@
+postsubmits:
+  - name: post-bolnica-2-frontend-prod-deploy
+    labels:
+      preset-github-ro-token: "true"
+      preset-harbor-robot-push: "true"
+    always_run: true
+    decorate: true
+    branches:
+      - ^main$
+      # Matchuje grane i tagove (release-ove) koji su tipa v0.0.0
+      # - ^v\d+\.\d+\.\d+.*
+    spec:
+      serviceAccountName: prow-admin
+      containers:
+        - image: harbor.k8s.elab.rs/base-images/base:java-19-node-18-docker
+          command:
+            - /bin/bash
+            - -c
+            - |
+              set -euo pipefail
+
+              start-docker.sh
+
+              docker login -u $HARBOR_USERNAME -p $HARBOR_PASSWORD harbor.k8s.elab.rs
+
+              # Trenutni branch i commit hash
+              commit_hash=$(git rev-parse HEAD)
+
+              
+              # build images
+              docker build -t harbor.k8s.elab.rs/bolnica-2/frontend:latest ./
+              docker build -t harbor.k8s.elab.rs/bolnica-2/frontend:$commit_hash ./
+
+              
+              # push images
+              docker push harbor.k8s.elab.rs/bolnica-2/frontend:latest
+              docker push harbor.k8s.elab.rs/bolnica-2/frontend:$commit_hash
+
+              # update dev helm chart
+              helm upgrade bolnica-2-prod ./kubernetes/bolnica-2 --reuse-values --set git_version_front=$commit_hash -n bolnica-2-prod
+
+          securityContext:
+            privileged: true
+          imagePullPolicy: Always
+  - name: post-bolnica-2-frontend-dev-deploy
+    labels:
+      preset-github-ro-token: "true"
+      preset-harbor-robot-push: "true"
+    always_run: true
+    decorate: true
+    branches:
+      - ^develop$
+      # Matchuje grane i tagove (release-ove) koji su tipa v0.0.0
+      # - ^v\d+\.\d+\.\d+.*
+    spec:
+      serviceAccountName: prow-admin
+      containers:
+        - image: harbor.k8s.elab.rs/base-images/base:java-19-node-18-docker
+          command:
+            - /bin/bash
+            - -c
+            - |
+              set -euo pipefail
+
+              start-docker.sh
+
+              docker login -u $HARBOR_USERNAME -p $HARBOR_PASSWORD harbor.k8s.elab.rs
+
+              # Trenutni branch i commit hash
+              commit_hash=$(git rev-parse HEAD)
+
+              
+              # build images
+              docker build -t harbor.k8s.elab.rs/bolnica-2/frontend:develop-latest ./
+              docker build -t harbor.k8s.elab.rs/bolnica-2/frontend:$commit_hash ./
+
+              
+              # push images
+              docker push harbor.k8s.elab.rs/bolnica-2/frontend:develop-latest
+              docker push harbor.k8s.elab.rs/bolnica-2/frontend:$commit_hash
+
+              # update dev helm chart
+              helm upgrade bolnica-2-dev kubernetes/bolnica-2 --reuse-values --set git_version_front=$commit_hash -n bolnica-2-dev
+          securityContext:
+            privileged: true
+          imagePullPolicy: Always

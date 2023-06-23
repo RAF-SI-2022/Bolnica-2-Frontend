@@ -16,6 +16,8 @@ export class AdminEditEmployeeComponent implements OnInit {
 
   submitted = false;
   username = '';
+  lbz: string = '';
+  covidAccess: boolean = false;
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
@@ -63,6 +65,8 @@ export class AdminEditEmployeeComponent implements OnInit {
         this.adminEditEmployeeForm.get('odeljenje')?.setValue(res.department.id);
         this.adminEditEmployeeForm.get('zanimanje')?.setValue(res.profession.notation);
         this.username = res.username;
+        this.covidAccess = (res as any).covidAccess;
+        this.lbz = res.lbz;
       },
       error: (e) => {
         this.toast.error(e.error.errorMessage);
@@ -71,6 +75,7 @@ export class AdminEditEmployeeComponent implements OnInit {
   }
 
   onPrivilegijeCheckboxChange(event: any) {
+    console.log(this.covidAccess);
     const selectedPrivileges = (this.adminEditEmployeeForm.controls['privilegije'] as FormArray);
     if (event.target.checked) {
       selectedPrivileges.push(new FormControl(event.target.value));
@@ -110,6 +115,12 @@ export class AdminEditEmployeeComponent implements OnInit {
         console.log(res);
         this.router.navigate(['/search-employees']).then(() => {
           this.toast.success('Uspešno ste ažurirali zaposlenog');
+
+          this.emloyeesService.updateCovidAccess(this.lbz, this.covidAccess).subscribe({
+            next: (res) => {
+              console.log(res);
+            }
+          })
         })
       },
       error: (e) => {
