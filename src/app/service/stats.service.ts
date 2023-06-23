@@ -29,4 +29,12 @@ export class StatsService {
       }
     })
   }
+
+  getTestsInProcessing() {
+    return this.httpClient.get(STATS_URL + `/in-processing`);
+  }
+
+  processTest(id: number, result: boolean) {
+    return this.httpClient.post(STATS_URL + `/process/${id}`, { result });
+  }
 }

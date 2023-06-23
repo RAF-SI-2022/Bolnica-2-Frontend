@@ -1,0 +1,70 @@
+<div class="p-5">
+  <div class="row">
+      <div class="col-lg-3">
+          <form [formGroup]="editShiftsForm" class="p-3 border rounded-3 bg-light">
+              <div class="mb-1">
+                  <input formControlName="firstName" class="form-control" type="text" placeholder="Ime">
+              </div>
+              <div class="mb-1">
+                  <input formControlName="lastName" class="form-control" type="text" placeholder="Prezime">
+              </div>
+              <div class="mb-1">
+                  <input formControlName="departmentName" class="form-control" type="text" placeholder="Odeljenje">
+              </div>
+              <hr class="my-4">
+              <button (click)="search()" class="btn btn-md btn-primary w-100" type="submit">Pretraži</button>
+          </form>
+      </div>
+      <div class="col-lg-9 table-responsive">
+          <table class="table table-striped">
+              <thead>
+                  <tr>
+                      <th scope="col">Ime</th>
+                      <th scope="col">Prezime</th>
+                      <th scope="col">Odeljenje</th>
+                      <th scope="col">Datum rodjenja</th>
+                      <th scope="col">Titula</th>
+                      <th scope="col">Zanimanje</th>
+                      <th scope="col">Kontakt</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Smene</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let employee of paginatedEmployees">
+                      <td>{{employee.firstName}}</td>
+                      <td>{{employee.lastName}}</td>
+                      <td>{{employee.departmentName}}</td>
+                      <td>{{employee.dateOfBirth}}</td>
+                      <td>{{employee.title}}</td>
+                      <td>{{employee.profession}}</td>
+                      <td>{{employee.phone}}</td>
+                      <td>{{employee.email}}</td>
+                      <td>
+                          <div formArrayName="shifts">
+                              <div *ngFor="let shift of shifts.controls; index as i" [formGroupName]="i">
+                                  <select formControlName="shift" class="form-select form-select-sm">
+                                      <option *ngFor="let option of shiftsOptions" [value]="option.value">{{option.label}}</option>
+                                  </select>
+                              </div>
+                          </div>
+                      </td>
+                      <td>
+                        <button (click)="addShift()" class="btn btn-sm btn-success">Dodaj smenu</button>
+                        <button (click)="saveShifts()" class="btn btn-sm btn-primary" data-testid="edit">Sačuvaj smene</button>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+          <div class="d-flex justify-content-center p-2">
+              <ngb-pagination
+                  [collectionSize]="collectionSize"
+                  [(page)]="page"
+                  [pageSize]="pageSize"
+                  (pageChange)="refreshEmployees()"
+              >
+              </ngb-pagination>
+          </div>
+      </div>
+  </div>
+</div>
