@@ -75,6 +75,7 @@ import { RegisterVisitComponent } from './components/stationary/nurse/register-v
 import { VisitHistoryComponent } from './components/stationary/nurse/visit-history/visit-history.component';
 import { ReceptionVisitsComponent } from './components/reception/visits/reception-visits.component';
 import { CovidTestProcessingComponent } from './components/covid/covid-test-processing/covid-test-processing.component';
+import { EditShiftsComponent } from './components/edit-shifts/edit-shifts.component';
 
 @NgModule({
   declarations: [
@@ -138,7 +139,8 @@ import { CovidTestProcessingComponent } from './components/covid/covid-test-proc
     RegisterVisitComponent,
     VisitHistoryComponent,
     ReceptionVisitsComponent,
-    CovidTestProcessingComponent
+    CovidTestProcessingComponent,
+    EditShiftsComponent
     ],
   imports: [
     BrowserModule,

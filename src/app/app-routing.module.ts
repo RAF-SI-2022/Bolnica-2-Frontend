@@ -60,6 +60,7 @@ import { RegisterVisitComponent } from './components/stationary/nurse/register-v
 import { VisitHistoryComponent } from './components/stationary/nurse/visit-history/visit-history.component';
 import { ReceptionVisitsComponent } from './components/reception/visits/reception-visits.component';
 import { CovidTestProcessingComponent } from './components/covid/covid-test-processing/covid-test-processing.component';
+import { EditShiftsComponent } from './components/edit-shifts/edit-shifts.component';
 
 
 const routes: Routes = [
@@ -409,6 +410,12 @@ const routes: Routes = [
     component: CovidTestProcessingComponent,
     canActivate: [AuthGuard, PermissionGuard],
     data: { permissions: ['ROLE_VISI_LAB_TEHNICAR','ROLE_LAB_TEHNICAR','ROLE_MED_BIOHEMICAR','ROLE_SPEC_MED_BIOHEMIJE'] }
+  },
+  {
+    path: 'edit-shifts',
+    component: EditShiftsComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_ADMIN','ROLE_DR_SPEC_ODELJENJA','ROLE_VISA_MED_SESTRA'] }
   }
 ];
 
