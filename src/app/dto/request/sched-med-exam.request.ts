@@ -4,6 +4,7 @@ export interface CreateSchedMedExamRequest {
     appointmentDate: string;
     note: string;
     lbzNurse: string;
+    covid: boolean
 }
 
 export interface UpdateSchedMedExamRequest {

@@ -377,6 +377,56 @@ export class PatientService {
     })
   }
 
+  scheduleCovidTest(lbp: string, datetime: string, note: string) {
+    return this.httpClient.post(PATIENT_URL + `/testing/schedule/${lbp}`, {
+      dateAndTime: datetime,
+      note: note
+    }, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    })
+  }
+
+  getScheduledCovidTests(lbp: string, date: string, page: number, size: number) {
+    const params: any = {};
+    if (lbp !== '') params.lbp = lbp;
+    if (date !== '') params.date = date;
+    params.page = page;
+    params.size = size;
+    return this.httpClient.get(PATIENT_URL + `/testing/scheduled`, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      },
+      params: params
+    })
+  }
+
+  cancelScheduledCovidTest(id: number) {
+    return this.httpClient.delete(PATIENT_URL + `/testing/scheduled/delete/${id}`, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    })
+  }
+
+  newCovidTest(request: any) {
+    return this.httpClient.post(PATIENT_URL + `/testing/create/${request.lbp}`, {
+      scheduledTestingId: request.scheduledId,
+      reason: request.reason,
+      temperature: request.temperature,
+      bloodPressure: request.bloodPressure,
+      pulse: request.pulse,
+      appliedTherapies: request.appliedTherapies,
+      description: request.description,
+      collectedInfoDate: request.date
+    }, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    })
+  }
+
 }
 
 

@@ -59,7 +59,10 @@ import { CovidSingleCountryComponent } from './components/covid/covid-single-cou
 import { RegisterVisitComponent } from './components/stationary/nurse/register-visit/register-visit.component';
 import { VisitHistoryComponent } from './components/stationary/nurse/visit-history/visit-history.component';
 import { ReceptionVisitsComponent } from './components/reception/visits/reception-visits.component';
-import { ScheduleCovidTestingComponent } from './covid/schedule-covid-testing/schedule-covid-testing.component';
+import { ScheduleCovidTestingComponent } from './components/covid/testing/schedule-covid-testing/schedule-covid-testing.component';
+import { CovidTestingMenuComponent } from './components/covid/testing/covid-testing-menu/covid-testing-menu.component';
+import { ScheduledCovidTestsComponent } from './components/covid/testing/scheduled-covid-tests/scheduled-covid-tests.component';
+import { NewCovidTestComponent } from './components/covid/testing/new-covid-test/new-covid-test.component';
 
 
 const routes: Routes = [
@@ -314,7 +317,7 @@ const routes: Routes = [
     path: 'covid',
     component: CovidComponent,
     canActivate: [AuthGuard, PermissionGuard],
-    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA', 'ROLE_DR_SPEC_ODELJENJA','ROLE_DR_SPEC','ROLE_DR_SPEC_POV'] }
   },
   {
     path: 'covid/new-appointment',
@@ -405,8 +408,26 @@ const routes: Routes = [
     data: { permissions: ['ROLE_RECEPCIONER'] }
   },
   {
-    path: 'covid/schedule-covid-testing',
+    path: 'covid/testing',
+    component: CovidTestingMenuComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+  },
+  {
+    path: 'covid/testing/schedule-covid-testing',
     component: ScheduleCovidTestingComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+  },
+  {
+    path: 'covid/testing/scheduled-covid-tests',
+    component: ScheduledCovidTestsComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+  },
+  {
+    path: 'covid/testing/new-covid-test/:lbp/:id',
+    component: NewCovidTestComponent,
     canActivate: [AuthGuard, PermissionGuard],
     data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
   }
