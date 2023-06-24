@@ -63,6 +63,10 @@ import { ScheduleCovidTestingComponent } from './components/covid/testing/schedu
 import { CovidTestingMenuComponent } from './components/covid/testing/covid-testing-menu/covid-testing-menu.component';
 import { ScheduledCovidTestsComponent } from './components/covid/testing/scheduled-covid-tests/scheduled-covid-tests.component';
 import { NewCovidTestComponent } from './components/covid/testing/new-covid-test/new-covid-test.component';
+import { CovidVaccinationsMenuComponent } from './components/covid/vaccinations/covid-vaccinations-menu/covid-vaccinations-menu.component';
+import { ScheduleCovidVaccinationComponent } from './components/covid/vaccinations/schedule-covid-vaccination/schedule-covid-vaccination.component';
+import { ScheduledCovidVaccinationsComponent } from './components/covid/vaccinations/scheduled-covid-vaccinations/scheduled-covid-vaccinations.component';
+import { NewCovidVaccinationComponent } from './components/covid/vaccinations/new-covid-vaccination/new-covid-vaccination.component';
 
 
 const routes: Routes = [
@@ -428,6 +432,30 @@ const routes: Routes = [
   {
     path: 'covid/testing/new-covid-test/:lbp/:id',
     component: NewCovidTestComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+  },
+  {
+    path: 'covid/vaccinations',
+    component: CovidVaccinationsMenuComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+  },
+  {
+    path: 'covid/vaccinations/schedule-covid-vaccination',
+    component: ScheduleCovidVaccinationComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+  },
+  {
+    path: 'covid/vaccinations/scheduled-covid-vaccinations',
+    component: ScheduledCovidVaccinationsComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+  },
+  {
+    path: 'covid/vaccinations/new-covid-vaccination/:lbp/:id',
+    component: NewCovidVaccinationComponent,
     canActivate: [AuthGuard, PermissionGuard],
     data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
   }

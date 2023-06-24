@@ -7,11 +7,12 @@ import { HealthRecordService } from 'src/app/service/health-record.service';
 import { PatientService } from 'src/app/service/patient.service';
 
 @Component({
-  selector: 'app-new-covid-test',
-  templateUrl: './new-covid-test.component.html',
-  styleUrls: ['./new-covid-test.component.css']
+  selector: 'app-new-covid-vaccination',
+  templateUrl: './new-covid-vaccination.component.html',
+  styleUrls: ['./new-covid-vaccination.component.css']
 })
-export class NewCovidTestComponent implements OnInit {
+export class NewCovidVaccinationComponent implements OnInit {
+
   form: FormGroup;
 
   lbp: string = '';
@@ -19,7 +20,7 @@ export class NewCovidTestComponent implements OnInit {
 
   patient: any;
   allergies: any;
-  vaccines: any;
+  dosesSoFar: string = '/';
 
   constructor(private formBuilder: FormBuilder,
     private patientService: PatientService,
@@ -35,7 +36,9 @@ export class NewCovidTestComponent implements OnInit {
       bloodPressure: [''],
       pulse: [''],
       appliedTherapies: [''],
-      description: ['']
+      description: [''],
+      date: [''],
+      vaccine: ['']
     })
 
     this.route.params.subscribe((params) => {
@@ -48,11 +51,15 @@ export class NewCovidTestComponent implements OnInit {
         }
       })
 
+      this.patientService.getReceivedVaccinationDosage(this.lbp).subscribe({
+        next: (res) => {
+          this.dosesSoFar = (res as any).dosageReceived;
+        }
+      })
+
       this.healthRecordService.getRecord(this.lbp).subscribe({
         next: (res) => {
-          this.vaccines = (res as any).vaccinations.vaccinations;
           this.allergies = (res as any).allergies.allergies;
-          console.log(this.vaccines);
         }
       })
     })
@@ -63,29 +70,24 @@ export class NewCovidTestComponent implements OnInit {
 
   onSubmit() {
     const value = this.form.value;
+    console.log(value);
 
     const date = new Date();
     date.setDate(date.getDate() - 1);
 
-    this.patientService.newCovidTest({
+    this.patientService.newCovidVaccination({
       lbp: this.lbp,
       scheduledId: this.scheduledId,
-      reason: value.reason,
-      temperature: value.temperature,
-      bloodPressure: value.bloodPressure,
-      pulse: value.pulse,
-      appliedTherapies: value.appliedTherapies,
-      description: value.description,
-      date: this.datePipe.transform(date, 'yyyy-MM-dd 00:00:00')
+      vaccineName: value.vaccine,
+      doseReceived: this.dosesSoFar + 1,
+      dateTime: this.datePipe.transform(date, 'yyyy-MM-dd 00:00:00')
     }).subscribe({
       next: (res) => {
-        this.router.navigate(['covid/testing']).then(() => {
-          this.toast.success('Testiranje uspešno sačuvano!');
+        this.router.navigate(['covid/vaccinations']).then(() => {
+          this.toast.success('Vakcinacija uspešno sačuvana!');
 
-          this.patientService.changeCovidTestStatus(this.scheduledId, 'U toku').subscribe({
-            next: () => {
-
-            }
+          this.patientService.changeCovidVaccinationStatus(this.scheduledId, 'U toku').subscribe({
+            next: () => {}
           })
         })
       },

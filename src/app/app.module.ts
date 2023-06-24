@@ -78,6 +78,10 @@ import { ScheduleCovidTestingComponent } from './components/covid/testing/schedu
 import { CovidTestingMenuComponent } from './components/covid/testing/covid-testing-menu/covid-testing-menu.component';
 import { ScheduledCovidTestsComponent } from './components/covid/testing/scheduled-covid-tests/scheduled-covid-tests.component';
 import { NewCovidTestComponent } from './components/covid/testing/new-covid-test/new-covid-test.component';
+import { CovidVaccinationsMenuComponent } from './components/covid/vaccinations/covid-vaccinations-menu/covid-vaccinations-menu.component';
+import { NewCovidVaccinationComponent } from './components/covid/vaccinations/new-covid-vaccination/new-covid-vaccination.component';
+import { ScheduleCovidVaccinationComponent } from './components/covid/vaccinations/schedule-covid-vaccination/schedule-covid-vaccination.component';
+import { ScheduledCovidVaccinationsComponent } from './components/covid/vaccinations/scheduled-covid-vaccinations/scheduled-covid-vaccinations.component';
 
 @NgModule({
   declarations: [
@@ -144,7 +148,11 @@ import { NewCovidTestComponent } from './components/covid/testing/new-covid-test
     ScheduleCovidTestingComponent,
     CovidTestingMenuComponent,
     ScheduledCovidTestsComponent,
-    NewCovidTestComponent
+    NewCovidTestComponent,
+    CovidVaccinationsMenuComponent,
+    NewCovidVaccinationComponent,
+    ScheduleCovidVaccinationComponent,
+    ScheduledCovidVaccinationsComponent
     ],
   imports: [
     BrowserModule,

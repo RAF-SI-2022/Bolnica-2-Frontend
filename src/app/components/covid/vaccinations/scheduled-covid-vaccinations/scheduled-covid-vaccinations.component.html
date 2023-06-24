@@ -1,5 +1,5 @@
 <div class="p-5">
-    <h4>Zakazana COVID testiranja</h4>
+    <h4>Zakazane COVID vakcinacije</h4>
     <div class="row">
         <div class="col-lg-3">
             <form [formGroup]="form" class="p-3 border rounded-3 bg-light">
@@ -30,15 +30,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let test of tests">
-                        <td>{{ test.patientFirstName + ' ' + test.patientLastName }}</td>
-                        <td>{{ test.dateAndTime | date: 'dd/MM/yyyy, HH:mm' }}</td>
-                        <td>{{ test.testStatus.examinationStatus }}</td>
-                        <td>{{ test.patientArrivalStatus.patientArrivalStatus }}</td>
-                        <td>{{ test.schedulerLbz }}</td>
-                        <td>{{ test.note }}</td>
-                        <td><button [disabled]="test.testStatus.examinationStatus !== 'Zakazano'" [routerLink]="['../new-covid-test', test.lbp, test.id]" class="btn btn-sm btn-primary">Testiranje</button></td>
-                        <td><button (click)="onCancel(test.id)" class="btn btn-sm btn-danger">Otkaži</button></td>
+                    <tr *ngFor="let vaccination of vaccinations">
+                        <td>{{ vaccination.patientFirstName + ' ' + vaccination.patientLastName }}</td>
+                        <td>{{ vaccination.dateAndTime | date: 'dd/MM/yyyy, HH:mm' }}</td>
+                        <td>{{ vaccination.testStatus.examinationStatus }}</td>
+                        <td>{{ vaccination.patientArrivalStatus.patientArrivalStatus }}</td>
+                        <td>{{ vaccination.schedulerLbz }}</td>
+                        <td>{{ vaccination.note }}</td>
+                        <td><button [routerLink]="['../new-covid-vaccination', vaccination.lbp, vaccination.id]" class="btn btn-sm btn-primary">Vakcinacija</button></td>
+                        <td><button (click)="onCancel(vaccination.id)" class="btn btn-sm btn-danger">Otkaži</button></td>
                     </tr>
                 </tbody>
             </table>
