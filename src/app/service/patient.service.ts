@@ -388,6 +388,17 @@ export class PatientService {
     })
   }
 
+  scheduleCovidVaccination(lbp: string, datetime: string, note: string) {
+    return this.httpClient.post(PATIENT_URL + `/vaccination/schedule/${lbp}`, {
+      dateAndTime: datetime,
+      note: note
+    }, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    })
+  }
+
   getScheduledCovidTests(lbp: string, date: string, page: number, size: number) {
     const params: any = {};
     if (lbp !== '') params.lbp = lbp;
@@ -402,8 +413,30 @@ export class PatientService {
     })
   }
 
+  getScheduledCovidVaccinations(lbp: string, date: string, page: number, size: number) {
+    const params: any = {};
+    if (lbp !== '') params.lbp = lbp;
+    if (date !== '') params.date = date;
+    params.page = page;
+    params.size = size;
+    return this.httpClient.get(PATIENT_URL + `/vaccination/scheduled`, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      },
+      params: params
+    })
+  }
+
   cancelScheduledCovidTest(id: number) {
     return this.httpClient.delete(PATIENT_URL + `/testing/scheduled/delete/${id}`, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    })
+  }
+
+  cancelScheduledCovidVaccination(id: number) {
+    return this.httpClient.delete(PATIENT_URL + `/vaccination/scheduled/delete/${id}`, {
       headers: {
         'Authorization': 'Bearer ' + localStorage.getItem('token')
       }
@@ -423,6 +456,49 @@ export class PatientService {
     }, {
       headers: {
         'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    })
+  }
+
+  newCovidVaccination(request: any) {
+    return this.httpClient.post(PATIENT_URL + `/vaccination/create/${request.lbp}`, {
+      vaccinationId: request.scheduledId,
+      dateTime: request.dateTime,
+      vaccineName: request.vaccineName,
+      doseReceived: request.doseReceived
+    }, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    })
+  }
+
+  getReceivedVaccinationDosage(lbp: string) {
+    return this.httpClient.get(PATIENT_URL + `/vaccination/received-dosage/${lbp}`, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    })
+  }
+
+  changeCovidTestStatus(scheduledId: number, testStatus: string) {
+    return this.httpClient.patch(PATIENT_URL + `/testing/scheduled/change-status/${scheduledId}`, {}, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      },
+      params: {
+        testStatus: testStatus
+      }
+    })
+  }
+
+  changeCovidVaccinationStatus(scheduledId: number, testStatus: string) {
+    return this.httpClient.patch(PATIENT_URL + `/vaccination/scheduled/change-status/${scheduledId}`, {}, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      },
+      params: {
+        vaccStatus: testStatus
       }
     })
   }
