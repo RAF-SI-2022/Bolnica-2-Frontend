@@ -18,6 +18,10 @@
 					<input formControlName="includeDeleted" class="form-check-input" id="deletedCheckbox" type="checkbox">
 					<label class="form-check-label" for="deletedCheckbox">Pretraži i zaposlene koji su obrisani</label>
 				</div>
+				<div class="form-check">
+					<input formControlName="includeCovid" class="form-check-input" id="covidCheckbox" type="checkbox">
+					<label class="form-check-label" for="covidCheckbox">Pretraži samo zaposlene koji imaju COVID pristup</label>
+				</div>
 				<hr class="my-4">
 				<button (click)="search()" class="btn btn-md btn-primary w-100" type="submit">Pretraži</button>
 			</form>

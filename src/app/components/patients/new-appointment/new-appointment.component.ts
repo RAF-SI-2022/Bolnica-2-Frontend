@@ -71,7 +71,7 @@ export class NewAppointmentComponent implements OnInit {
   currentDoctorLbz = '';
   currentDoctorFullName = '';
   departments: any;
-  covid: boolean = false;
+  covid: boolean;
 
   @ViewChild('new_appointment_content')
   newAppointmentContent!: TemplateRef<any>;
@@ -109,9 +109,14 @@ export class NewAppointmentComponent implements OnInit {
       this.employeeService.getDepartmentsByPbb(localStorage.getItem('pbb')!).subscribe({
         next: (res) => {
           this.departments = res;
-          console.log(this.departments);
         }
       })
+    }
+
+    if (this.router.url.includes('covid')) {
+      this.covid = true;
+    } else {
+      this.covid = false;
     }
   }
 
@@ -195,7 +200,8 @@ export class NewAppointmentComponent implements OnInit {
           lbzDoctor: this.currentDoctorLbz,
           appointmentDate: selectInfo.startStr,
           note: value.note,
-          lbzNurse: localStorage.getItem('lbz')!
+          lbzNurse: localStorage.getItem('lbz')!,
+          covid: this.covid
         }
 
         this.schedMedExamService.scheduleAppointment(appointment).subscribe({
