@@ -1,0 +1,74 @@
+<ng-template #rt let-r="result" let-t="term">
+    <div class="row">
+        <img src="../../assets/images/person-circle.svg" class="me-1" alt="..." style="width: 5rem;" />
+        <div class="col" data-testid="patient-result">
+            <div class="row">
+                <ngb-highlight [result]="r.firstName + ' ' + r.lastName" [term]="t"></ngb-highlight>
+            </div>
+            <div class="row">
+                <span>Starost: {{r.birthDate | dateOfBirthToAge}}</span>
+            </div>
+            <div class="row">
+                <span>{{r.gender.notation | genderPipe}}</span>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<div class="p-5">
+    <h4 class="mb-4">Pretraži hospitalizovane pacijente u COVID bolnici</h4>
+    <div class="row">
+        <div class="col-lg-3">
+            <form [formGroup]="form" class="p-3 border rounded-3 bg-light">
+                <label for="patientId">Pacijent</label>
+                <input (selectItem)="onPatientSelected($event)" formControlName="patient" [(ngModel)]="model"
+                    [ngbTypeahead]="search" [resultTemplate]="rt" [inputFormatter]="inputFormatResultingPatient"
+                    type="text" class="form-control" data-testid="patient-input" id="patientId">
+
+                <div class="form-check mt-2 mb-2">
+                    <input formControlName="respirator" class="form-check-input" id="respiratorCheckbox" type="checkbox">
+                    <label class="form-check-label" for="respiratorCheckbox">Na respiratoru</label>
+                </div>
+                <div class="form-check">
+                    <input formControlName="imunizovan" class="form-check-input" id="imunizovanCheckbox" type="checkbox">
+                    <label class="form-check-label" for="imunizovanCheckbox">Imunizovani</label>
+                </div>
+                <hr class="my-4">
+                <button (click)="onSubmit()" class="btn btn-md btn-primary w-100" type="submit">Pretraži</button>
+            </form>
+        </div>
+        <div class="col-lg-9 table-responsive">
+            <table class="table table-light table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Pacijent</th>
+                        <th scope="col">Datum rođenja</th>
+                        <th scope="col">Datum prijema</th>
+                        <th scope="col">Dijagnoza</th>
+                        <th scope="col">Broj sobe</th>
+                        <th scope="col">Beleška</th>
+                        <th scope="col">Lekar</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let patient of patients">
+                        <td>{{patient.patientFirstName + ' ' + patient.patientLastName}}</td>
+                        <td>{{patient.birthDate | date: 'dd/MM/yyyy'}}</td>
+                        <td>{{patient.receiptDate | date: 'dd/MM/yyyy, HH:mm'}}</td>
+                        <td>{{patient.diagnosis}}</td>
+                        <td>{{patient.roomNumber}}</td>
+                        <td>{{patient.note}}</td>
+                        <td>{{patient.doctorFirstName + ' ' + patient.doctorLastName}}</td>
+                        <td><button [routerLink]="['../register-covid-health-state', patient.lbp]" class="btn btn-sm btn-primary">Registruj zdravstveno stanje</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-center p-2">
+                <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
+                    (pageChange)="onSubmit()">
+                </ngb-pagination>
+            </div>
+        </div>
+    </div>
+</div>

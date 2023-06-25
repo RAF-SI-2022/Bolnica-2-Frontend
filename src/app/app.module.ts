@@ -82,6 +82,9 @@ import { CovidVaccinationsMenuComponent } from './components/covid/vaccinations/
 import { NewCovidVaccinationComponent } from './components/covid/vaccinations/new-covid-vaccination/new-covid-vaccination.component';
 import { ScheduleCovidVaccinationComponent } from './components/covid/vaccinations/schedule-covid-vaccination/schedule-covid-vaccination.component';
 import { ScheduledCovidVaccinationsComponent } from './components/covid/vaccinations/scheduled-covid-vaccinations/scheduled-covid-vaccinations.component';
+import { CovidHospitalMenuComponent } from './components/covid/hospital/covid-hospital-menu/covid-hospital-menu.component';
+import { SearchCovidHospitalizedComponent } from './components/covid/hospital/search-covid-hospitalized/search-covid-hospitalized.component';
+import { RegisterCovidHealthStateComponent } from './components/covid/hospital/register-covid-health-state/register-covid-health-state.component';
 
 @NgModule({
   declarations: [
@@ -152,7 +155,10 @@ import { ScheduledCovidVaccinationsComponent } from './components/covid/vaccinat
     CovidVaccinationsMenuComponent,
     NewCovidVaccinationComponent,
     ScheduleCovidVaccinationComponent,
-    ScheduledCovidVaccinationsComponent
+    ScheduledCovidVaccinationsComponent,
+    CovidHospitalMenuComponent,
+    SearchCovidHospitalizedComponent,
+    RegisterCovidHealthStateComponent
     ],
   imports: [
     BrowserModule,
