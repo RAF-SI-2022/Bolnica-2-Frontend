@@ -166,6 +166,9 @@
             },
             "development": {
               "browserTarget": "bolnica2-frontend:build:development"
+            },
+            "techS": {
+              "browserTarget": "bolnica2-frontend:build:techS"
             }
           },
           "defaultConfiguration": "development"
