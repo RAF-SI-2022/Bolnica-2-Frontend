@@ -62,10 +62,11 @@ export class PatientService {
     if (query.firstName !== '') params.firstName = query.firstName;
     if (query.lastName !== '') params.lastName = query.firstName;
     if (query.jmbg !== '') params.jmbg = query.jmbg;
-    if (query.lbp !== '') params.lbp = query.lbp;
+    if (query.lbp !== undefined && query.lbp !== '') params.lbp = query.lbp;
     if (query.page !== undefined) params.page = query.page;
     if (query.size !== undefined) params.size = query.size;
-    if (query.includeDeleted !== undefined) params.includeDeleted = query.includeDeleted;
+    if (query.respirator !== undefined && query.respirator !== '') params.respirator = query.respirator;
+    if (query.imunizovan !== undefined && query.imunizovan !== '') params.imunizovan = query.imunizovan;
     return this.httpClient.get<any>(PATIENT_URL+`/hospitalization/hospital/${localStorage.getItem('pbb')}`, {
         headers: {
             'Authorization': 'Bearer ' + localStorage.getItem('token')

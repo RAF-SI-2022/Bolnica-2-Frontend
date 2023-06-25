@@ -20,6 +20,7 @@ export class NewReferralComponent implements OnInit {
   hospitalsWithLab: HospitalsByDepartmentResponse[] = [];
   hospitalsWithDiag: HospitalsByDepartmentResponse[] = [];
   hospitalsWithStacionar: HospitalsByDepartmentResponse[] = [];
+  hospitalsWithCovid: HospitalsByDepartmentResponse[] = [];
 
   labForm: FormGroup;
   labFormSubmitted: boolean = false;
@@ -29,6 +30,9 @@ export class NewReferralComponent implements OnInit {
 
   stacionarForm: FormGroup;
   stacionarFormSubmitted: boolean = false;
+
+  covidForm: FormGroup;
+  covidFormSubmitted: boolean = false;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -50,6 +54,10 @@ export class NewReferralComponent implements OnInit {
     this.stacionarForm = this.formBuilder.group({
       hospital: ['', Validators.required],
       mkb10: ['', Validators.required]
+    });
+    this.covidForm = this.formBuilder.group({
+      hospital: ['', Validators.required],
+      reason: ['', Validators.required]
     });
   }
 
@@ -79,6 +87,11 @@ export class NewReferralComponent implements OnInit {
         this.hospitalsWithStacionar = res;
       }
     });
+    this.patientService.getHospitalsWithDepartment('Covid odsek').subscribe({
+      next: (res) => {
+        this.hospitalsWithCovid = res;
+      }
+    })
   }
 
   onReferralTypeChange(event: any) {
@@ -99,6 +112,7 @@ export class NewReferralComponent implements OnInit {
     const labFormValue = this.labForm.value;
     const diagFormValue = this.diagForm.value;
     const stacionarFormValue = this.stacionarForm.value;
+    const covidFormValue = this.covidForm.value;
 
     let pboReferredTo = '';
     let mkb10 = '';
@@ -137,6 +151,16 @@ export class NewReferralComponent implements OnInit {
         }
       });
       mkb10 = stacionarFormValue.mkb10;
+    }
+    if (this.referralType === 'Covid odsek') {
+      this.covidFormSubmitted = true;
+      if (this.covidForm.invalid) return;
+      this.hospitalsWithCovid.forEach(hospitalWithCovid => {
+        if (hospitalWithCovid.hospitalResponse.fullName === covidFormValue.hospital) {
+          pboReferredTo = hospitalWithCovid.pbo;
+        }
+      });
+      reason = covidFormValue.reason;
     }
 
     const date = new Date();

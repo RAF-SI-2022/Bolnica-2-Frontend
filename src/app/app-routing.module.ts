@@ -67,6 +67,9 @@ import { CovidVaccinationsMenuComponent } from './components/covid/vaccinations/
 import { ScheduleCovidVaccinationComponent } from './components/covid/vaccinations/schedule-covid-vaccination/schedule-covid-vaccination.component';
 import { ScheduledCovidVaccinationsComponent } from './components/covid/vaccinations/scheduled-covid-vaccinations/scheduled-covid-vaccinations.component';
 import { NewCovidVaccinationComponent } from './components/covid/vaccinations/new-covid-vaccination/new-covid-vaccination.component';
+import { CovidHospitalMenuComponent } from './components/covid/hospital/covid-hospital-menu/covid-hospital-menu.component';
+import { SearchCovidHospitalizedComponent } from './components/covid/hospital/search-covid-hospitalized/search-covid-hospitalized.component';
+import { RegisterCovidHealthStateComponent } from './components/covid/hospital/register-covid-health-state/register-covid-health-state.component';
 
 
 const routes: Routes = [
@@ -321,13 +324,13 @@ const routes: Routes = [
     path: 'covid',
     component: CovidComponent,
     canActivate: [AuthGuard, PermissionGuard],
-    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA', 'ROLE_DR_SPEC_ODELJENJA','ROLE_DR_SPEC','ROLE_DR_SPEC_POV'] }
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA', 'ROLE_DR_SPEC_ODELJENJA','ROLE_DR_SPEC','ROLE_DR_SPEC_POV', 'ROLE_RECEPCIONER'] }
   },
   {
     path: 'covid/new-appointment',
     component: NewAppointmentComponent,
     canActivate: [AuthGuard, PermissionGuard],
-    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA', 'ROLE_RECEPCIONER'] }
   },
   {
     path: 'doc-patient-condition-history/:lbp',
@@ -415,13 +418,13 @@ const routes: Routes = [
     path: 'covid/testing',
     component: CovidTestingMenuComponent,
     canActivate: [AuthGuard, PermissionGuard],
-    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA', 'ROLE_RECEPCIONER'] }
   },
   {
     path: 'covid/testing/schedule-covid-testing',
     component: ScheduleCovidTestingComponent,
     canActivate: [AuthGuard, PermissionGuard],
-    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA', 'ROLE_RECEPCIONER'] }
   },
   {
     path: 'covid/testing/scheduled-covid-tests',
@@ -439,13 +442,13 @@ const routes: Routes = [
     path: 'covid/vaccinations',
     component: CovidVaccinationsMenuComponent,
     canActivate: [AuthGuard, PermissionGuard],
-    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA', 'ROLE_RECEPCIONER'] }
   },
   {
     path: 'covid/vaccinations/schedule-covid-vaccination',
     component: ScheduleCovidVaccinationComponent,
     canActivate: [AuthGuard, PermissionGuard],
-    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA', 'ROLE_RECEPCIONER'] }
   },
   {
     path: 'covid/vaccinations/scheduled-covid-vaccinations',
@@ -456,6 +459,30 @@ const routes: Routes = [
   {
     path: 'covid/vaccinations/new-covid-vaccination/:lbp/:id',
     component: NewCovidVaccinationComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+  },
+  {
+    path: 'covid/hospital',
+    component: CovidHospitalMenuComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+  },
+  {
+    path: 'covid/new-reception',
+    component: NewReceptionComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+  },
+  {
+    path: 'covid/hospital/search-hospitalized-patients',
+    component: SearchCovidHospitalizedComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+  },
+  {
+    path: 'covid/hospital/register-covid-health-state/:lbp',
+    component: RegisterCovidHealthStateComponent,
     canActivate: [AuthGuard, PermissionGuard],
     data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
   }
