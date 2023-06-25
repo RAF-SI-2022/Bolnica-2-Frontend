@@ -31,7 +31,7 @@ export class NewReceptionComponent implements OnInit {
               private laboratoryService: LabService,
               private toaster: HotToastService,
               private employeeService: EmployeesService,
-              private router: Router,
+              protected router: Router,
               private route: ActivatedRoute) {
     this.patientForm = this.formBuilder.group({
       patient: ['', Validators.required]
@@ -81,7 +81,9 @@ export class NewReceptionComponent implements OnInit {
 
     const value = this.patientForm.value;
 
-    this.laboratoryService.getUnprocessedReferralsV3(value.patient.lbp, 'Stacionar').subscribe({
+    const department = this.router.url.includes('covid') ? 'Covid odsek' : 'Stacionar';
+
+    this.laboratoryService.getUnprocessedReferralsV3(value.patient.lbp, department).subscribe({
       next: (res) => {
         this.referrals = res;
       },
@@ -133,9 +135,15 @@ export class NewReceptionComponent implements OnInit {
 
     this.patientService.hospitalize(hospitalizeRequest).subscribe({
       next: (res) => {
-        this.router.navigate(['/stationary-patient-reception']).then(() => {
-          this.toaster.success('Uspešan prijem pacijenta');
-        })
+        if (this.router.url.includes('covid')) {
+          this.router.navigate(['/covid/hospital']).then(() => {
+            this.toaster.success('Uspešan prijem pacijenta');
+          })
+        } else {
+          this.router.navigate(['/stationary-patient-reception']).then(() => {
+            this.toaster.success('Uspešan prijem pacijenta');
+          })
+        }
       },
       error: (e) => {
         this.toaster.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');

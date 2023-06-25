@@ -52,7 +52,8 @@ export interface PatientConditionRequest{
   bloodPressure:string,
   pulse:string
   appliedTherapies:string,
-  description:string
+  description:string,
+  onRespirator: boolean
 }
 
 

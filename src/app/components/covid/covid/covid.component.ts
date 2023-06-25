@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'app-covid',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CovidComponent implements OnInit {
 
-  constructor() { }
+  constructor(protected authService: AuthService) { }
 
   ngOnInit(): void {
   }

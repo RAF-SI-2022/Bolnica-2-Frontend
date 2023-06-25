@@ -10,7 +10,8 @@
     "startProd": "ng serve --host=0.0.0.0 --configuration production --public-host bolnica-2.k8s.elab.rs",
     "startProdS": "ng serve --host=0.0.0.0 --configuration productionS --public-host bolnica-2.k8s.elab.rs",
     "startDevelop": "ng serve --host=0.0.0.0 --configuration develop --public-host bolnica-2-dev.k8s.elab.rs",
-    "startDevelopS": "ng serve --host=0.0.0.0 --configuration developS --public-host bolnica-2-dev.k8s.elab.rs"
+    "startDevelopS": "ng serve --host=0.0.0.0 --configuration developS --public-host bolnica-2-dev.k8s.elab.rs",
+    "startTechS": "ng serve --host=0.0.0.0 --configuration techS --public-host bolnica-2.tech"
   },
   "private": true,
   "dependencies": {

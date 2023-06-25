@@ -8,6 +8,7 @@
                 <option value="Laboratorija">Laboratorija</option>
                 <option value="Dijagnostika">Dijagnostika</option>
                 <option value="Stacionar">Stacionar</option>
+                <option value="Covid odsek">Covid odsek</option>
             </select>
         </div>
     </div>
@@ -122,6 +123,26 @@
                     <option value="N20.0">N20.0</option>
                 </select>
                 <div *ngIf="stacionarFormSubmitted && stacionarForm.get('mkb10')?.errors?.required" class="validation-error small alert alert-danger">Unesite uputnu dijagnozu</div>
+            </div>
+        </div>
+    </form>
+
+    <form *ngIf="referralType === 'Covid odsek'" [formGroup]="covidForm">
+        <h5 class="mb-4">COVID uput</h5>
+        <div class="row g-3 mb-4">
+            <div class="col-md-4">
+                <select formControlName="hospital" class="form-select">
+                    <option disabled selected value>Zdravstvena ustanova</option>
+                    <option *ngFor="let hospital of hospitalsWithCovid">{{ hospital.hospitalResponse.fullName }}</option>
+                </select>
+                <div *ngIf="covidFormSubmitted && covidForm.get('hospital')?.errors?.required" class="validation-error small alert alert-danger">Odaberite zdravstvenu ustanovu</div>
+            </div>
+        </div>
+        <div class="row g-3 mb-4">
+            <div class="col-md-6 form-floating gx-1">
+                <textarea formControlName="reason" class="h-100 form-control rounded" placeholder="Razlog upućivanja" id="floatingRazlog" rows="10"></textarea>
+                <label for="floatingRazlog">Razlog upućivanja</label>
+                <div *ngIf="covidFormSubmitted && covidForm.get('reason')?.errors?.required" class="validation-error small alert alert-danger">Unesite razlog upućivanja</div>
             </div>
         </div>
     </form>

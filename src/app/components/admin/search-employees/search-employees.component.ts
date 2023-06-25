@@ -30,7 +30,8 @@ export class SearchEmployeesComponent implements OnInit {
       lastName: [''],
       departmentName: [''],
       hospitalName: [''],
-      includeDeleted: [false]
+      includeDeleted: [false],
+      includeCovid: [false]
     });
     this.refreshEmployees();
   }
@@ -51,6 +52,7 @@ export class SearchEmployeesComponent implements OnInit {
       departmentName: val.departmentName,
       hospitalName: val.hospitalName,
       includeDeleted: val.includeDeleted,
+      includeCovid: val.includeCovid,
       page: this.page - 1,
       size: this.pageSize
     }).subscribe({

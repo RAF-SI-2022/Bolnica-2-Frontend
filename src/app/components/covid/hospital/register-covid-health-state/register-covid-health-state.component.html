@@ -1,0 +1,55 @@
+<form [formGroup]="form" class="container p-4 border rounded-3 bg-light mt-4">
+    <h4 class="mb-4">Registruj novo stanje</h4>
+    <div class="row g-3 mb-3">
+        <div class="form-check">
+            <input formControlName="respirator" class="form-check-input" id="respiratorCheckbox" type="checkbox">
+            <label class="form-check-label" for="respiratorCheckbox">Na respiratoru</label>
+        </div>
+    </div>
+
+    <div class="row g-3 mb-3">
+        <div class="col-md-4 form-floating gx-1">
+            <input formControlName="dateCollected" type="datetime-local" class="form-control" id="floatingDate"/>
+            <label for="floatingDate">Datum i vreme stanja</label>
+            <div *ngIf="submitted && form.get('dateCollected')?.errors?.required"
+                class="validation-error small alert alert-danger">Datum i vreme stanja su obavezni</div>
+        </div>
+    </div>
+
+    <div class="row g-3 mb-3">
+        <div class="col-md-4 form-floating gx-1">
+            <input formControlName="temperature" type="text" class="form-control" id="floatingTemperature"
+                placeholder="Temerature" data-testid="Temerature" />
+            <label for="floatingTemperature">Temperatura</label>
+        </div>
+        <div class="col-md-4 form-floating gx-1">
+            <input formControlName="pulse" type="text" class="form-control" id="floatingPulse" placeholder="Puls" />
+            <label for="floatingPulse">Puls</label>
+        </div>
+        <div class="col-md-4 form-floating gx-1">
+            <input formControlName="preassure" type="text" class="form-control" id="floatingPreassure"
+                placeholder="Krvni pritisak" />
+            <label for="floatingPreassure">Krvni pritisak</label>
+        </div>
+    </div>
+
+    <div class="row g-3 mb-3">
+        <div class="col-md-6 form-floating gx-1">
+            <textarea formControlName="therapy" class="h-100 form-control rounded" placeholder="Napomena"
+                id="floatingTherapy" rows="8"></textarea>
+            <label for="floatingTherapy">Primenjene terapije</label>
+        </div>
+        <div class="col-md-6 form-floating gx-1">
+            <textarea formControlName="desc" type="text" class="h-100 form-control rounded" id="floatingDesc"
+                placeholder="Opis stanja" rows="8"></textarea>
+            <label for="floatingDesc">Opis stanja</label>
+        </div>
+    </div>
+
+    <hr class="my-4" />
+    <div class="row g-3 mb-3 justify-content-center">
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-primary form-control mb-2" (click)="newCondition()">Registruj</button>
+        </div>
+    </div>
+</form>

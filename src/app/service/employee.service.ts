@@ -31,6 +31,7 @@ export class EmployeesService {
                 departmentName: query.departmentName,
                 hospitalName: query.hospitalName,
                 includeDeleted: query.includeDeleted,
+                covidAccess: query.includeCovid,
                 page: query.page,
                 size: query.size
             }
