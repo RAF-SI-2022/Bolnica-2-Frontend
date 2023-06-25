@@ -4,8 +4,10 @@
 
 export const environment = {
   production: false,
-  https: false,
-  dev: false
+  user_url: "http://localhost:8081/api",
+  patient_url: "http://localhost:8082/api",
+  lab_url: "http://localhost:8083/api",
+  stats_url: "http://localhost:8000/api"
 };
 
 /*
