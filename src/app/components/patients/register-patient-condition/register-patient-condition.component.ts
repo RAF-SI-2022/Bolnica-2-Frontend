@@ -45,6 +45,7 @@ export class RegisterPatientConditionComponent implements OnInit {
       pulse:val.pulse,
       appliedTherapies:val.therapy,
       description:val.desc,
+      onRespirator: false
     },this.lbp).subscribe({
       next: (res) => {
         this.router.navigate(['nurse-stationary-menu', this.lbp]).then(() => {

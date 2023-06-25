@@ -1,0 +1,61 @@
+<ng-template #rt let-r="result" let-t="term">
+    <div class="row">
+        <img src="../../assets/images/person-circle.svg" class="me-1" alt="..." style="width: 5rem;"/>
+        <div class="col" data-testid="patient-result">
+            <div class="row">
+                <ngb-highlight [result]="r.firstName + ' ' + r.lastName" [term]="t"></ngb-highlight>
+            </div>
+            <div class="row">
+                <span>Starost: {{r.birthDate | dateOfBirthToAge}}</span>
+            </div>
+            <div class="row">
+                <span>{{r.gender.notation | genderPipe}}</span>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<div class="p-5">
+    <div class="row mb-5">
+        <div class="col-lg-5 mx-auto">
+            <form [formGroup]="form" class="p-3 border rounded-3 bg-light">
+                <h5 class="mb-3">Zakaži novo COVID testiranje</h5>
+                <div class="row g-3 mb-2">
+                    <div class="col-md-6 form-floating gx-1">
+                        <input (selectItem)="onPatientSelected($event)" formControlName="patient" [(ngModel)]="model" [ngbTypeahead]="search"
+                            [resultTemplate]="rt" [inputFormatter]="inputFormatResultingPatient"
+                            type="text" id="floatingPatient" class="form-control" placeholder="patient-placeholder" data-testid="patient-input">
+                        <label for="floatingPatient">Pacijent</label>
+                    </div>
+                </div>
+                <div class="row g-3 mb-2">
+                    <div class="col-md-3 form-floating gx-1">
+                        <input (change)="onDateInputChange($event)" formControlName="date" type="date" class="form-control" id="floatingDate" placeholder="Datum" data-testid="date">
+                        <label for="floatingDate">Datum</label>
+                    </div>
+                    <div class="col-md-2 form-floating gx-1">
+                        <input formControlName="time" type="time" class="form-control" id="floatingTime" placeholder="Time" data-testid="time">
+                        <label for="floatingTime">Vreme</label>
+                    </div>
+                    <div class="col-md-3 form-floating gx-1 align-self-center">
+                        <button (click)="checkAvailability()" class="btn btn-sm btn-secondary w-100">Proveri dostupnost</button>
+                    </div>
+                    <div class="col-md-4 form-floating gx-1">
+                        <input [value]="availableNurses" disabled type="text" class="form-control" id="floatingBrojPoseta" placeholder="Broj slobodnih sestara" readonly>
+                        <label for="floatingBrojPoseta">Broj slobodnih sestara</label>
+                    </div>
+                </div>
+                <div class="row g-3 mb-2">
+                    <div class="col-md-12 form-floating gx-1">
+                        <textarea formControlName="note" class="h-100 form-control rounded" placeholder="Napomena" id="floatingNapomena" rows="8"></textarea>
+                        <label for="floatingNapomena">Napomena</label>
+                    </div>
+                </div>
+                <hr class="my-4">
+                <button (click)="onSubmit()" class="btn btn-md btn-primary w-100" type="submit" data-testid="confirm">Zakaži</button>
+
+
+            </form>
+        </div>
+    </div>
+</div>
