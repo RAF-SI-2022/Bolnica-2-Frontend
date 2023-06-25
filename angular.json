@@ -75,6 +75,27 @@
               ],
               "outputHashing": "all"
             },
+            "techS": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "2mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.techs.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
             "develop": {
               "budgets": [
                 {

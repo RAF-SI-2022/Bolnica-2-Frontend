@@ -1,5 +1,6 @@
 export const environment = {
     production: false,
     https: false,
-    dev: true
+    dev: true,
+    cloud: false
   };

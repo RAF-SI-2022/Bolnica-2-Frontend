@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   https: false,
-  dev: false
+  dev: false,
+  cloud: false
 };
 
 /*

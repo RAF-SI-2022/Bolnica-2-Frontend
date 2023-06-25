@@ -31,10 +31,18 @@ if (environment.production) {
             STATS_URL = 'http://bolnica-2-dev.k8s.elab.rs/api/stats';
         }
     } else {
-        USER_URL = 'http://localhost:8081/api';
-        PATIENT_URL = 'http://localhost:8082/api';
-        LAB_URL = 'http://localhost:8083/api';
-        STATS_URL = 'http://localhost:8000/api';
+        if(environment.cloud){
+            USER_URL = 'http://bolnica-2.tech/api/user';
+            PATIENT_URL = 'http://bolnica-2.tech/api/patient';
+            LAB_URL = 'http://bolnica-2.tech/api/lab';
+            STATS_URL = 'http://bolnica-2.tech/api/stats';
+        }
+        else{
+            USER_URL = 'http://localhost:8081/api';
+            PATIENT_URL = 'http://localhost:8082/api';
+            LAB_URL = 'http://localhost:8083/api';
+            STATS_URL = 'http://localhost:8000/api';
+        }
     }
 }
 
