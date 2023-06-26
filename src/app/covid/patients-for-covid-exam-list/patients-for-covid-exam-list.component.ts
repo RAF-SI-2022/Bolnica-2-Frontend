@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HotToastService } from '@ngneat/hot-toast';
-import { debounceTime, distinctUntilChanged, Observable, map, switchMap } from 'rxjs';
-import { LabService } from 'src/app/service/lab.service';
 import { PatientService } from 'src/app/service/patient.service';
 
 @Component({
@@ -13,16 +11,21 @@ import { PatientService } from 'src/app/service/patient.service';
 })
 export class PatientsForCovidExamListComponent implements OnInit {
 
+
   covidExamList: FormGroup;
-  schedLabVisits: any;
+  schedLabVisits:any [] = [];
   lbp:string;
   date:string;
+  
+  page = 1;
+  pageSize = 5;
+  collectionSize = 0;
 
   constructor(private formBuilder: FormBuilder,
               private patientService: PatientService,
               private toast: HotToastService,
               private modalService: NgbModal,
-              private labService: LabService) {
+              ) {
     this.covidExamList = this.formBuilder.group({
       lbp: [''],
       date: ['']
@@ -32,47 +35,54 @@ export class PatientsForCovidExamListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.search();
+  }
+
+  calculateAge(birthDate: string): number {
+    const today = new Date();
+    const birthDateObj = new Date(birthDate);
+    let age = today.getFullYear() - birthDateObj.getFullYear();
+    const monthDiff = today.getMonth() - birthDateObj.getMonth();
+  
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDateObj.getDate())) {
+      age--;
+    }
+  
+    return age;
+  }
+
+  search():void {
+    this.patientService.getPatientCovidExamList(this.lbp, this.date,this.page,this.pageSize).subscribe({
+      next: (res) => {
+        this.schedLabVisits = res.schedMedExamResponseList;
+        this.collectionSize = res.count;
+      },
+      error: (e) => {
+        this.toast.error(e.error.errorMessage || 'Greška server se ne odaziva.');
+      }
+    });
+
+  }
+
+  startExam(arg0: any) {
     //TODO
-    /*
-    this.labService.getPatientCovidExamList('', '').subscribe({
-      next: (res) => {
-        this.schedLabVisits = res;
-      },
-      error: (e) => {
-        this.toast.error(e.error.errorMessage || 'Greška server se ne odaziva.');
-      }
-    })*/
+  throw new Error('Method not implemented.');
   }
 
-  search():void {/*
-    this.labService.getPatientCovidExamList('', '').subscribe({
-      next: (res) => {
-        this.schedLabVisits = res;
-      },
-      error: (e) => {
-        this.toast.error(e.error.errorMessage || 'Greška server se ne odaziva.');
-      }*/
-  }
-  refreshVisits() {
-    this.labService.getSchedLabExaminations('', '').subscribe({
-      next: (res) => {
-        this.schedLabVisits = res;
-      },
-      error: (e) => {
-        this.toast.error(e.error.errorMessage || 'Greška server se ne odaziva.');
-      }
-    })
-  }
-
-  onCancel(id: number) {
-    this.modalService.open(NgbdModalConfirm).result.then(data => {
-      this.labService.updateLabExamStatus(id, 'Otkazano').subscribe({
+  onCancel(id: string) {
+    this.modalService.open(NgbdModalConfirm).result.then((data) => {
+      this.patientService.cancelExam(id).subscribe({
         next: (res) => {
-          this.toast.success('Uspešno ste otkazali laboratorijsku posetu');
-          this.refreshVisits();
+          this.toast.success('Pregled je otkazan');
+          this.search();
+        },
+        error: (e) => {
+          console.log(e)
+          this.toast.error(e.error.errorMessage);
         }
-      })
-    })
+      });
+    }, (dismiss) => {
+    });
   }
   
 
@@ -82,7 +92,7 @@ export class PatientsForCovidExamListComponent implements OnInit {
 	standalone: true,
 	template: `
 		<div class="modal-header">
-			<h4 class="modal-title" id="modal-title">Potvrdite otkazivanje posete</h4>
+			<h4 class="modal-title" id="modal-title">Potvrdite otkazivanje pregleda</h4>
 			<button
 				type="button"
 				class="btn-close"

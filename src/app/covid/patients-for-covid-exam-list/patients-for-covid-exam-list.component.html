@@ -3,12 +3,12 @@
         <div class="col-lg-3">
             <form [formGroup]="covidExamList" class="p-3 border rounded-3 bg-light">
                 <div class="mb-2 form-floating gx-1">
-                    <input formControlName="patient" [(ngModel)]="lbp" 
+                    <input formControlName="lbp" [(ngModel)]="lbp" 
                     type="text" id="floatingPatient" class="form-control" placeholder="patient-placeholder">
                     <label for="floatingPatient">Pacijent</label>
                 </div>
                 <div class="mb-2 form-floating gx-1">
-                    <input formControlName="date" class="form-control" type="date" placeholder="placeholder" id="floatingDate" [(ngModel)]="date">
+                    <input formControlName="date" class="form-control" type="date" placeholder="date-placeholder" id="floatingDate" [(ngModel)]="date">
                     <label for="floatingDate">Datum</label>
                 </div>
                 <hr class="my-4">
@@ -24,20 +24,32 @@
                         <th scope="col">Starost</th>
                         <th scope="col">Pol</th>
                         <th scope="col">Status</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let visit of schedLabVisits">
-                        <td>{{ visit.name }}</td>
-                        <td>{{ visit.lastname }}</td>
-                        <td>{{ visit.age }}</td>
-                        <td>{{ visit.gender }}</td>
-                        <td>{{ visit.status.notation }}</td>
-                        <td><button (click)="onCancel(visit.id)" [disabled]="visit.examStatus.notation !== 'Zakazano'" class="btn btn-sm btn-danger">Otkaži posetu</button></td>
-                        <td><button TODO[routerLink]="['/new-work-order', visit.lbp]" [disabled]="visit.examStatus.notation !== 'Zakazano'" class="btn btn-sm btn-primary">Započni pregled</button></td>
+                    <tr *ngFor="let visit of schedLabVisits" >
+                        <td *ngIf="visit.covid==false">{{ visit.patientResponse.firstName }}</td>
+                        <td *ngIf="visit.covid==false">{{ visit.patientResponse.lastName }}</td>
+                        <td *ngIf="visit.covid==false">{{ calculateAge(visit.patientResponse.birthDate) }}</td>
+                        <td *ngIf="visit.covid==false">{{ visit.patientResponse.gender.notation }}</td>
+                        <td *ngIf="visit.covid==false">{{ visit.examinationStatus.examinationStatus }}</td>
+                        <td *ngIf="visit.covid==false"><button (click)="onCancel(visit.id)" [disabled]="visit.examinationStatus.examinationStatus !== 'Zakazano'" class="btn btn-sm btn-danger">Otkaži posetu</button></td>
+                        <td *ngIf="visit.covid==false"><button (click)="startExam(visit.id)" [disabled]="visit.examinationStatus.examinationStatus !== 'Zakazano'" class="btn btn-sm btn-primary">Započni pregled</button></td>
+                        
                     </tr>
                 </tbody>
             </table>
+            <div class="d-flex justify-content-center p-2">
+				<ngb-pagination
+					[collectionSize]="collectionSize"
+					[(page)]="page"
+					[pageSize]="pageSize"
+					(pageChange)="search()"
+				>
+				</ngb-pagination>
+			</div>
         </div>
     </div>
 </div>
