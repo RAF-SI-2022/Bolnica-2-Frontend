@@ -74,8 +74,18 @@ import { CovidSingleCountryComponent } from './components/covid/covid-single-cou
 import { RegisterVisitComponent } from './components/stationary/nurse/register-visit/register-visit.component';
 import { VisitHistoryComponent } from './components/stationary/nurse/visit-history/visit-history.component';
 import { ReceptionVisitsComponent } from './components/reception/visits/reception-visits.component';
-import { ScheduleCovidTestingComponent } from './covid/schedule-covid-testing/schedule-covid-testing.component';
 import { PatientsForCovidExamListComponent } from './covid/patients-for-covid-exam-list/patients-for-covid-exam-list.component';
+import { ScheduleCovidTestingComponent } from './components/covid/testing/schedule-covid-testing/schedule-covid-testing.component';
+import { CovidTestingMenuComponent } from './components/covid/testing/covid-testing-menu/covid-testing-menu.component';
+import { ScheduledCovidTestsComponent } from './components/covid/testing/scheduled-covid-tests/scheduled-covid-tests.component';
+import { NewCovidTestComponent } from './components/covid/testing/new-covid-test/new-covid-test.component';
+import { CovidVaccinationsMenuComponent } from './components/covid/vaccinations/covid-vaccinations-menu/covid-vaccinations-menu.component';
+import { NewCovidVaccinationComponent } from './components/covid/vaccinations/new-covid-vaccination/new-covid-vaccination.component';
+import { ScheduleCovidVaccinationComponent } from './components/covid/vaccinations/schedule-covid-vaccination/schedule-covid-vaccination.component';
+import { ScheduledCovidVaccinationsComponent } from './components/covid/vaccinations/scheduled-covid-vaccinations/scheduled-covid-vaccinations.component';
+import { CovidHospitalMenuComponent } from './components/covid/hospital/covid-hospital-menu/covid-hospital-menu.component';
+import { SearchCovidHospitalizedComponent } from './components/covid/hospital/search-covid-hospitalized/search-covid-hospitalized.component';
+import { RegisterCovidHealthStateComponent } from './components/covid/hospital/register-covid-health-state/register-covid-health-state.component';
 
 @NgModule({
   declarations: [
@@ -141,6 +151,16 @@ import { PatientsForCovidExamListComponent } from './covid/patients-for-covid-ex
     ReceptionVisitsComponent,
     ScheduleCovidTestingComponent,
     PatientsForCovidExamListComponent
+    CovidTestingMenuComponent,
+    ScheduledCovidTestsComponent,
+    NewCovidTestComponent,
+    CovidVaccinationsMenuComponent,
+    NewCovidVaccinationComponent,
+    ScheduleCovidVaccinationComponent,
+    ScheduledCovidVaccinationsComponent,
+    CovidHospitalMenuComponent,
+    SearchCovidHospitalizedComponent,
+    RegisterCovidHealthStateComponent
     ],
   imports: [
     BrowserModule,

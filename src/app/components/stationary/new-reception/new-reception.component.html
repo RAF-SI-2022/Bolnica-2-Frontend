@@ -8,7 +8,7 @@
             <div *ngIf="patientFormSubmitted && patientForm.get('patient')?.errors?.required" class="validation-error small alert alert-danger">Odaberite pacijenta</div>
         </div>
         <hr class="my-4">
-        <button (click)="searchStationaryReferrals()" class="btn btn-md btn-primary w-100" type="submit">Pogledaj stacionarne upute</button>
+        <button (click)="searchStationaryReferrals()" class="btn btn-md btn-primary w-100" type="submit">Pogledaj upute</button>
     </form>
 </div>
 <div *ngIf="referrals !== undefined" class="row p-3 justify-content-center">
@@ -44,6 +44,7 @@
                     <th scope="col">Ime sobe</th>
                     <th scope="col">Kapacitet</th>
                     <th scope="col">Zauzetost</th>
+                    <th scope="col">COVID soba</th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -53,7 +54,9 @@
                     <td>{{ room.roomName }}</td>
                     <td>{{ room.capacity }}</td>
                     <td>{{ room.occupation }}</td>
-                    <td><button [disabled]="room.occupation >= room.capacity" (click)="selectRoom(room)" class="btn btn-sm btn-primary">Odaberi sobu</button></td>
+                    <td>{{ room.covid === true ? 'Da' : 'Ne' }}</td>
+                    <td><button [disabled]="room.occupation >= room.capacity || (router.url.includes('covid') && !room.covid) || (!router.url.includes('covid') && room.covid)"
+                        (click)="selectRoom(room)" class="btn btn-sm btn-primary">Odaberi sobu</button></td>
                 </tr>
             </tbody>
         </table>

@@ -1,7 +1,7 @@
 <div class="main container mx-auto">
     <div class="row g-5 justify-content-center">
 
-        <div class="col-md-4">
+        <div class="col-md-4" *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA', 'ROLE_RECEPCIONER'])">
             <div routerLink="/covid/new-appointment" class="card border-secondary h-100" id="personal-info-card">
                 <img src="../../assets/images/calendar-plus.svg" class="card-img-top w-75 mx-auto p-2" alt="..." />
                 <div class="card-body">
@@ -11,8 +11,8 @@
             </div>
         </div>
 
-        <div class="col-md-4">
-            <div routerLink="/covid/schedule-covid-testing" class="card border-secondary h-100" id="personal-info-card">
+        <div class="col-md-4" *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA', 'ROLE_RECEPCIONER'])">
+            <div routerLink="/covid/testing" class="card border-secondary h-100" id="personal-info-card">
                 <img src="../../assets/images/eyedropper.svg" class="card-img-top w-75 mx-auto p-2" alt="..." />
                 <div class="card-body">
                     <h5 class="card-title">Testiranje</h5>
@@ -21,8 +21,8 @@
             </div>
         </div>
 
-        <div class="col-md-4">
-            <div routerLink="/personal-data" class="card border-secondary h-100" id="personal-info-card">
+        <div class="col-md-4" *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA', 'ROLE_RECEPCIONER'])">
+            <div routerLink="/covid/vaccinations" class="card border-secondary h-100" id="personal-info-card">
                 <img src="../../assets/images/vaccine-svgrepo-com.svg" class="card-img-top w-75 mx-auto p-2" alt="..." />
                 <div class="card-body">
                     <h5 class="card-title">Vakcinacija</h5>
@@ -31,8 +31,8 @@
             </div>
         </div>
 
-        <div class="col-md-4">
-            <div routerLink="/personal-data" class="card border-secondary h-100" id="personal-info-card">
+        <div class="col-md-4" *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])">
+            <div routerLink="/covid/hospital" class="card border-secondary h-100" id="personal-info-card">
                 <img src="../../assets/images/hospital.svg" class="card-img-top w-75 mx-auto p-2" alt="..." />
                 <div class="card-body">
                     <h5 class="card-title">COVID Bolnica</h5>
@@ -41,7 +41,7 @@
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-4" *ngIf="this.authService.hasEitherPermission(['ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'])">
             <div routerLink="/covid/patients-covid-exam-list" class="card border-secondary h-100" id="personal-info-card">
                 <img src="../../assets/images/person-lines-fill.svg" class="card-img-top w-75 mx-auto p-2" alt="..." />
                 <div class="card-body">
