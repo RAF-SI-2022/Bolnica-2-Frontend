@@ -59,6 +59,7 @@ import { CovidSingleCountryComponent } from './components/covid/covid-single-cou
 import { RegisterVisitComponent } from './components/stationary/nurse/register-visit/register-visit.component';
 import { VisitHistoryComponent } from './components/stationary/nurse/visit-history/visit-history.component';
 import { ReceptionVisitsComponent } from './components/reception/visits/reception-visits.component';
+import { PatientsForCovidExamListComponent } from './covid/patients-for-covid-exam-list/patients-for-covid-exam-list.component';
 import { ScheduleCovidTestingComponent } from './components/covid/testing/schedule-covid-testing/schedule-covid-testing.component';
 import { CovidTestingMenuComponent } from './components/covid/testing/covid-testing-menu/covid-testing-menu.component';
 import { ScheduledCovidTestsComponent } from './components/covid/testing/scheduled-covid-tests/scheduled-covid-tests.component';
@@ -70,6 +71,7 @@ import { NewCovidVaccinationComponent } from './components/covid/vaccinations/ne
 import { CovidHospitalMenuComponent } from './components/covid/hospital/covid-hospital-menu/covid-hospital-menu.component';
 import { SearchCovidHospitalizedComponent } from './components/covid/hospital/search-covid-hospitalized/search-covid-hospitalized.component';
 import { RegisterCovidHealthStateComponent } from './components/covid/hospital/register-covid-health-state/register-covid-health-state.component';
+
 
 
 const routes: Routes = [
@@ -413,6 +415,12 @@ const routes: Routes = [
     component: ReceptionVisitsComponent,
     canActivate: [AuthGuard, PermissionGuard],
     data: { permissions: ['ROLE_RECEPCIONER'] }
+  },
+  {
+    path: 'covid/patients-covid-exam-list',
+    component: PatientsForCovidExamListComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'] }
   },
   {
     path: 'covid/testing',

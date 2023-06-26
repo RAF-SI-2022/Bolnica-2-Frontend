@@ -74,6 +74,7 @@ import { CovidSingleCountryComponent } from './components/covid/covid-single-cou
 import { RegisterVisitComponent } from './components/stationary/nurse/register-visit/register-visit.component';
 import { VisitHistoryComponent } from './components/stationary/nurse/visit-history/visit-history.component';
 import { ReceptionVisitsComponent } from './components/reception/visits/reception-visits.component';
+import { PatientsForCovidExamListComponent } from './covid/patients-for-covid-exam-list/patients-for-covid-exam-list.component';
 import { ScheduleCovidTestingComponent } from './components/covid/testing/schedule-covid-testing/schedule-covid-testing.component';
 import { CovidTestingMenuComponent } from './components/covid/testing/covid-testing-menu/covid-testing-menu.component';
 import { ScheduledCovidTestsComponent } from './components/covid/testing/scheduled-covid-tests/scheduled-covid-tests.component';
@@ -149,6 +150,7 @@ import { RegisterCovidHealthStateComponent } from './components/covid/hospital/r
     VisitHistoryComponent,
     ReceptionVisitsComponent,
     ScheduleCovidTestingComponent,
+    PatientsForCovidExamListComponent,
     CovidTestingMenuComponent,
     ScheduledCovidTestsComponent,
     NewCovidTestComponent,

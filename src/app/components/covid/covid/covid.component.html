@@ -41,8 +41,8 @@
             </div>
         </div>
 
-        <div class="col-md-4" *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])">
-            <div routerLink="/personal-data" class="card border-secondary h-100" id="personal-info-card">
+        <div class="col-md-4" *ngIf="this.authService.hasEitherPermission(['ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'])">
+            <div routerLink="/covid/patients-covid-exam-list" class="card border-secondary h-100" id="personal-info-card">
                 <img src="../../assets/images/person-lines-fill.svg" class="card-img-top w-75 mx-auto p-2" alt="..." />
                 <div class="card-body">
                     <h5 class="card-title">Pacijenti</h5>
