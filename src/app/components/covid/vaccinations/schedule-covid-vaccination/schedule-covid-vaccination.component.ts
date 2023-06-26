@@ -87,15 +87,15 @@ export class ScheduleCovidVaccinationComponent implements OnInit {
   }
 
   checkAvailability() {
-    // const value = this.form.value;
-    // this.patientService.getAvailableCovidTestingTerms(value.date + ' ' + value.time + ':00').subscribe({
-    //   next: (res) => {
-    //     this.availableNurses = (res as any).availableNursesNum;
-    //   },
-    //   error: (e) => {
-    //     this.toast.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
-    //   }
-    // })
+    const value = this.form.value;
+    this.patientService.getAvailableCovidTestingTerms(value.date + ' ' + value.time + ':00').subscribe({
+      next: (res) => {
+        this.availableNurses = (res as any).availableNursesNum;
+      },
+      error: (e) => {
+        this.toast.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
+      }
+    })
   }
 
 }

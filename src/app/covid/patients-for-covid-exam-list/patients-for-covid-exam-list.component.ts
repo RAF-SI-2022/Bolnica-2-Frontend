@@ -16,9 +16,9 @@ export class PatientsForCovidExamListComponent implements OnInit {
   schedLabVisits:any [] = [];
   lbp:string;
   date:string;
-  
+
   page = 1;
-  pageSize = 5;
+  pageSize = 10;
   collectionSize = 0;
 
   constructor(private formBuilder: FormBuilder,
@@ -43,11 +43,11 @@ export class PatientsForCovidExamListComponent implements OnInit {
     const birthDateObj = new Date(birthDate);
     let age = today.getFullYear() - birthDateObj.getFullYear();
     const monthDiff = today.getMonth() - birthDateObj.getMonth();
-  
+
     if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDateObj.getDate())) {
       age--;
     }
-  
+
     return age;
   }
 
@@ -62,11 +62,6 @@ export class PatientsForCovidExamListComponent implements OnInit {
       }
     });
 
-  }
-
-  startExam(arg0: any) {
-    //TODO
-  throw new Error('Method not implemented.');
   }
 
   onCancel(id: string) {
@@ -84,7 +79,11 @@ export class PatientsForCovidExamListComponent implements OnInit {
     }, (dismiss) => {
     });
   }
-  
+
+  isMyPatient(lbz: string) {
+    return localStorage.getItem('lbz') === lbz;
+  }
+
 
 }
 @Component({

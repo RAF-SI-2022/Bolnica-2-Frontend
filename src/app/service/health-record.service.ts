@@ -113,7 +113,7 @@ export class HealthRecordService {
 
   createExaminationReport(lbp: string, lbz: string, confidential: boolean, mainSymptoms: string, currentIllness: string, anamnesis: string, familyAnamnesis: string,
                           patientOpinion: string, objectiveFinding: string, suggestedTherapy: string, advice: string, diagnosis: string, existingDiagnosis: string,
-                          treatmentResult: string, currentStateDescription: string) {
+                          treatmentResult: string, currentStateDescription: string, covid: boolean) {
     return this.httpClient.post<any>(HEALTH_RECORD_ENDPOINT + `/create-examination-report/${lbp}?lbz=${lbz}`,
       {
         confidential,

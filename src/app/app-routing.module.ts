@@ -173,6 +173,12 @@ const routes: Routes = [
     data: { permissions: ['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'] }
   },
   {
+    path: 'covid/specialist-doctor-examination',
+    component: SpecialistDoctorExaminationComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'] }
+  },
+  {
     path: 'scheduled-appointments',
     component: ScheduledAppointmentsComponent,
     canActivate: [AuthGuard, PermissionGuard],
@@ -311,7 +317,19 @@ const routes: Routes = [
     data: { permissions: ['ROLE_DR_SPEC_ODELJENJA','ROLE_DR_SPEC','ROLE_DR_SPEC_POV'] }
   },
   {
+    path: 'covid/discharge-list/:lbp',
+    component: DischargeListComponent,
+    canActivate: [AuthGuard],
+    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA','ROLE_DR_SPEC','ROLE_DR_SPEC_POV'] }
+  },
+  {
     path: 'health-report/:lbp',
+    component: HealthReportComponent,
+    canActivate: [AuthGuard],
+    data: { permissions: ['ROLE_DR_SPEC_ODELJENJA','ROLE_DR_SPEC','ROLE_DR_SPEC_POV'] }
+  },
+  {
+    path: 'covid/health-report/:lbp',
     component: HealthReportComponent,
     canActivate: [AuthGuard],
     data: { permissions: ['ROLE_DR_SPEC_ODELJENJA','ROLE_DR_SPEC','ROLE_DR_SPEC_POV'] }
@@ -474,7 +492,7 @@ const routes: Routes = [
     path: 'covid/hospital',
     component: CovidHospitalMenuComponent,
     canActivate: [AuthGuard, PermissionGuard],
-    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'] }
   },
   {
     path: 'covid/new-reception',
@@ -486,7 +504,7 @@ const routes: Routes = [
     path: 'covid/hospital/search-hospitalized-patients',
     component: SearchCovidHospitalizedComponent,
     canActivate: [AuthGuard, PermissionGuard],
-    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'] }
   },
   {
     path: 'covid/hospital/register-covid-health-state/:lbp',
