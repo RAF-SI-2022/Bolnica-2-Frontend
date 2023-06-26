@@ -1,5 +1,5 @@
 <form [formGroup]="specialistDoctorExaminationForm" class="container p-4 border rounded-3 bg-light mt-4 mb-4">
-    <h3 class="mb-4"><i class="bi bi-person-circle" style="margin-right: 8px;"></i>{{patient.firstName + " " + patient.lastName}}<span class="badge bg-info" style="margin-left: 15px;">{{patient.gender.notation | genderPipe}}, {{patient.birthDate | dateOfBirthToAge}}</span></h3>
+    <h3 *ngIf="patient !== undefined" class="mb-4"><i class="bi bi-person-circle" style="margin-right: 8px;"></i>{{patient.firstName + " " + patient.lastName}}<span class="badge bg-info" style="margin-left: 15px;">{{patient.gender.notation | genderPipe}}, {{patient.birthDate | dateOfBirthToAge}}</span></h3>
     <h4>Vakcine:</h4>
     <span class="badge rounded-pill bg-danger" *ngFor="let item of vaccines"
         style="margin-left: 5px; font-size: 0.8rem;">{{item}}</span>
@@ -7,6 +7,12 @@
     <span class="badge rounded-pill bg-warning" *ngFor="let item of alergies"
         style="margin-left: 5px; font-size: 0.8rem;">{{item}}</span>
     <hr class="my-4">
+
+    <div class="form-check mb-3">
+        <input [checked]="router.url.includes('covid')" (change)="onCovidCheckboxChange($event)" class="form-check-input" type="checkbox" id="covidCheckbox">
+        <label class="form-check-label" for="covidCheckbox">COVID pregled</label>
+    </div>
+
     <h4 class="mb-3">Anamneza:</h4>
 
     <div class="row mb-3">

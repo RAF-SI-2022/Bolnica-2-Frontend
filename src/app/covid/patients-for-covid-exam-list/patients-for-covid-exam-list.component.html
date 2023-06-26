@@ -3,9 +3,9 @@
         <div class="col-lg-3">
             <form [formGroup]="covidExamList" class="p-3 border rounded-3 bg-light">
                 <div class="mb-2 form-floating gx-1">
-                    <input formControlName="lbp" [(ngModel)]="lbp" 
+                    <input formControlName="lbp" [(ngModel)]="lbp"
                     type="text" id="floatingPatient" class="form-control" placeholder="patient-placeholder">
-                    <label for="floatingPatient">Pacijent</label>
+                    <label for="floatingPatient">LBP</label>
                 </div>
                 <div class="mb-2 form-floating gx-1">
                     <input formControlName="date" class="form-control" type="date" placeholder="date-placeholder" id="floatingDate" [(ngModel)]="date">
@@ -29,15 +29,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let visit of schedLabVisits" >
-                        <td *ngIf="visit.covid==false">{{ visit.patientResponse.firstName }}</td>
-                        <td *ngIf="visit.covid==false">{{ visit.patientResponse.lastName }}</td>
-                        <td *ngIf="visit.covid==false">{{ calculateAge(visit.patientResponse.birthDate) }}</td>
-                        <td *ngIf="visit.covid==false">{{ visit.patientResponse.gender.notation }}</td>
-                        <td *ngIf="visit.covid==false">{{ visit.examinationStatus.examinationStatus }}</td>
-                        <td *ngIf="visit.covid==false"><button (click)="onCancel(visit.id)" [disabled]="visit.examinationStatus.examinationStatus !== 'Zakazano'" class="btn btn-sm btn-danger">Otkaži posetu</button></td>
-                        <td *ngIf="visit.covid==false"><button (click)="startExam(visit.id)" [disabled]="visit.examinationStatus.examinationStatus !== 'Zakazano'" class="btn btn-sm btn-primary">Započni pregled</button></td>
-                        
+                    <tr *ngFor="let visit of schedLabVisits">
+                        <ng-container *ngIf="visit.covid && isMyPatient(visit.lbzDoctor)">
+                            <td>{{ visit.patientResponse.firstName }}</td>
+                            <td>{{ visit.patientResponse.lastName }}</td>
+                            <td>{{ calculateAge(visit.patientResponse.birthDate) }}</td>
+                            <td>{{ visit.patientResponse.gender.notation }}</td>
+                            <td>{{ visit.examinationStatus.examinationStatus }}</td>
+                            <td><button (click)="onCancel(visit.id)" [disabled]="visit.examinationStatus.examinationStatus !== 'Zakazano'" class="btn btn-sm btn-danger">Otkaži posetu</button></td>
+                            <td><button [routerLink]="['/covid/specialist-doctor-examination']" [queryParams]="{lbp: visit.patientResponse.lbp}" [disabled]="visit.examinationStatus.examinationStatus !== 'Zakazano'" class="btn btn-sm btn-primary">Započni pregled</button></td>
+                        </ng-container>
                     </tr>
                 </tbody>
             </table>

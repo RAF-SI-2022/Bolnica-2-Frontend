@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { HotToastService } from '@ngneat/hot-toast';
 import { PatientService } from 'src/app/service/patient.service';
 import { debounceTime, distinctUntilChanged, Observable, map, switchMap } from 'rxjs';
+import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'app-search-covid-hospitalized',
@@ -22,6 +23,7 @@ export class SearchCovidHospitalizedComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private patientService: PatientService,
+              protected authService: AuthService,
               private toast: HotToastService) {
     this.form = this.formBuilder.group({
       patient: [''],

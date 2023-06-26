@@ -49,6 +49,8 @@
                         <th scope="col">Beleška</th>
                         <th scope="col">Lekar</th>
                         <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -60,7 +62,9 @@
                         <td>{{patient.roomNumber}}</td>
                         <td>{{patient.note}}</td>
                         <td>{{patient.doctorFirstName + ' ' + patient.doctorLastName}}</td>
-                        <td><button [routerLink]="['../register-covid-health-state', patient.lbp]" class="btn btn-sm btn-primary">Registruj zdravstveno stanje</button></td>
+                        <td *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])"><button [routerLink]="['../register-covid-health-state', patient.lbp]" class="btn btn-sm btn-primary">Registruj zdravstveno stanje</button></td>
+                        <td *ngIf="this.authService.hasEitherPermission(['ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'])"><button [routerLink]="['../../../covid/health-report', patient.lbp]" class="btn btn-sm btn-primary">Lekarski izveštaj</button></td>
+                        <td *ngIf="this.authService.hasEitherPermission(['ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'])"><button [routerLink]="['../../../covid/discharge-list', patient.lbp]" class="btn btn-sm btn-primary">Otpusna lista</button></td>
                     </tr>
                 </tbody>
             </table>
