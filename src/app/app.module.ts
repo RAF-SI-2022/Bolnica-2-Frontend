@@ -150,7 +150,7 @@ import { RegisterCovidHealthStateComponent } from './components/covid/hospital/r
     VisitHistoryComponent,
     ReceptionVisitsComponent,
     ScheduleCovidTestingComponent,
-    PatientsForCovidExamListComponent
+    PatientsForCovidExamListComponent,
     CovidTestingMenuComponent,
     ScheduledCovidTestsComponent,
     NewCovidTestComponent,
