@@ -5,6 +5,7 @@ import { CalendarOptions, DateSelectArg, EventApi, EventClickArg } from '@fullca
 import dayGridMonthPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction';
 import { NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
+import { HotToastService } from '@ngneat/hot-toast';
 import { EmployeesService } from 'src/app/service/employee.service';
 
 @Component({
@@ -43,7 +44,8 @@ export class EditEmployeeShiftsComponent implements OnInit {
   shiftType: string = '';
 
   constructor(private employeeService: EmployeesService,
-              private offcanvasService: NgbOffcanvas) {
+              private offcanvasService: NgbOffcanvas,
+              private toast: HotToastService) {
     this.employeeService.getShiftsByLbz(localStorage.getItem('lbz')!).subscribe({
       next: (res) => {
         const shifts: any[] = (res as any).shifts;
@@ -79,6 +81,9 @@ export class EditEmployeeShiftsComponent implements OnInit {
       this.employeeService.addShift(localStorage.getItem('lbz')!, this.shiftType, this.examViewDate, this.od, this.do).subscribe({
         next: (res) => {
           location.reload();
+        },
+        error: (e) => {
+          this.toast.error(e.error.errorMessage || 'Greška. Server se ne odaziva');
         }
       })
     })
