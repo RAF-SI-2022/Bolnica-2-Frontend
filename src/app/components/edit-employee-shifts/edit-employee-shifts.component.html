@@ -1,0 +1,37 @@
+<ng-template #new_shift_content let-offcanvas>
+    <div class="offcanvas-header">
+        <h4 class="offcanvas-title">Dodaj smenu</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss('Cross click')"></button>
+    </div>
+    <div class="offcanvas-body">
+        <p><i class="bi bi-calendar" style="margin-right: 5px;"></i><strong>Datum: </strong>{{ this.examViewDate | date: 'dd.MM.yyyy'}}</p>
+        <div class="form-group mb-3">
+            <select (change)="onShiftChange($event)" class="form-select">
+                <option disabled selected value>Smena</option>
+                <option value="Prva smena">Prva</option>
+                <option value="Druga smena">Druga</option>
+                <option value="Treća smena">Treća</option>
+                <option value="Međusmena">Međusmena</option>
+            </select>
+        </div>
+
+        <div class="form-floating gx-1 mb-2">
+            <input [(ngModel)]="od" type="time" class="form-control" id="floatingTime" placeholder="Time">
+            <label for="floatingTime">Od</label>
+        </div>
+
+        <div class="form-floating gx-1">
+            <input [(ngModel)]="do" type="time" class="form-control" id="floatingTime1" placeholder="Time">
+            <label for="floatingTime1">Do</label>
+        </div>
+
+        <button type="button" class="btn btn-outline-success mt-4 w-100"
+            (click)="offcanvas.close('Close click')">Sačuvaj</button>
+    </div>
+</ng-template>
+
+<div class="container mt-4">
+    <div class="bg-light border rounded-3">
+        <full-calendar #calendar class="p-3" [options]="calendarOptions"></full-calendar>
+    </div>
+</div>

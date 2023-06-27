@@ -98,4 +98,37 @@ export class EmployeesService {
             }
         })
     }
+
+    getSubordinates(page: number, size: number) {
+        return this.httpClient.get(USER_URL + '/users/subordinates', {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            params: {
+                page: page,
+                size: size
+            }
+        })
+    }
+
+    getShiftsByLbz(lbz: string) {
+        return this.httpClient.get(USER_URL + `/users/${lbz}/shifts`, {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }
+        })
+    }
+
+    addShift(lbz: string, shiftType: string, date: string, start: string, end: string) {
+        return this.httpClient.post(USER_URL + `/users/add-shift/${lbz}`, {
+            shiftType: shiftType,
+            date: date,
+            startTime: start + ':00',
+            endTime: end + ':00'
+        }, {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }
+        })
+    }
 }
