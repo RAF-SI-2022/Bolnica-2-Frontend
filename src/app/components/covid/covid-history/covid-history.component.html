@@ -1,0 +1,44 @@
+<div class="p-5">
+    <h4>Vakcinacije</h4>
+    <div class="row mb-5">
+        <div class="col-lg-12 table-responsive">
+            <table class="table table-light">
+                <thead>
+                    <tr>
+                        <th scope="col">Datum vakcinacije</th>
+                        <th scope="col">Vakcina</th>
+                        <th scope="col">Doze</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let vaccination of vaccinations">
+                        <td>{{ vaccination.localDateTime | date: 'dd/MM/yyyy, HH:mm' }}</td>
+                        <td>{{ vaccination.vaccine }}</td>
+                        <td>{{ vaccination.doseReceived }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <h4>Testiranja</h4>
+    <div class="row">
+        <div class="col-lg-12 table-responsive">
+            <table class="table table-light">
+                <thead>
+                    <tr>
+                        <th scope="col">Datum testiranja</th>
+                        <th scope="col">Rezultat</th>
+                        <th scope="col">Razlog</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let test of tests">
+                        <td>{{ test.dateAndTimeOfTesting | date: 'dd/MM/yyyy, HH:mm' }}</td>
+                        <td>{{ test.testResult.notation }}</td>
+                        <td>{{ test.reason }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

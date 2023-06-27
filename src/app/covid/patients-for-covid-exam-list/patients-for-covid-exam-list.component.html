@@ -36,7 +36,7 @@
                             <td>{{ calculateAge(visit.patientResponse.birthDate) }}</td>
                             <td>{{ visit.patientResponse.gender.notation }}</td>
                             <td>{{ visit.examinationStatus.examinationStatus }}</td>
-                            <td><button (click)="onCancel(visit.id)" [disabled]="visit.examinationStatus.examinationStatus !== 'Zakazano'" class="btn btn-sm btn-danger">Otkaži posetu</button></td>
+                            <td><button (click)="onCancel(visit.id)" [disabled]="visit.examinationStatus.examinationStatus !== 'Zakazano'" class="btn btn-sm btn-danger">Otkaži pregled</button></td>
                             <td><button [routerLink]="['/covid/specialist-doctor-examination']" [queryParams]="{lbp: visit.patientResponse.lbp}" [disabled]="visit.examinationStatus.examinationStatus !== 'Zakazano'" class="btn btn-sm btn-primary">Započni pregled</button></td>
                         </ng-container>
                     </tr>

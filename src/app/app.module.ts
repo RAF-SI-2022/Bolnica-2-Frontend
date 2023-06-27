@@ -86,6 +86,8 @@ import { ScheduledCovidVaccinationsComponent } from './components/covid/vaccinat
 import { CovidHospitalMenuComponent } from './components/covid/hospital/covid-hospital-menu/covid-hospital-menu.component';
 import { SearchCovidHospitalizedComponent } from './components/covid/hospital/search-covid-hospitalized/search-covid-hospitalized.component';
 import { RegisterCovidHealthStateComponent } from './components/covid/hospital/register-covid-health-state/register-covid-health-state.component';
+import { CovidHistoryComponent } from './components/covid/covid-history/covid-history.component';
+import { ProcessCovidTestsComponent } from './components/covid/testing/process-covid-tests/process-covid-tests.component';
 
 @NgModule({
   declarations: [
@@ -160,7 +162,9 @@ import { RegisterCovidHealthStateComponent } from './components/covid/hospital/r
     ScheduledCovidVaccinationsComponent,
     CovidHospitalMenuComponent,
     SearchCovidHospitalizedComponent,
-    RegisterCovidHealthStateComponent
+    RegisterCovidHealthStateComponent,
+    CovidHistoryComponent,
+    ProcessCovidTestsComponent
     ],
   imports: [
     BrowserModule,

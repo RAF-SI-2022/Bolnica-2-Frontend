@@ -32,6 +32,7 @@ export class ScheduledCovidVaccinationsComponent implements OnInit {
     this.patientService.getScheduledCovidVaccinations('', '', this.page - 1, this.pageSize).subscribe({
       next: (res) => {
         this.vaccinations = (res as any).vaccinationResponseList
+        this.collectionSize = (res as any).count;
       }
     })
   }

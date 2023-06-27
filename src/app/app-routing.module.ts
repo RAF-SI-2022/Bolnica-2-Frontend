@@ -71,6 +71,8 @@ import { NewCovidVaccinationComponent } from './components/covid/vaccinations/ne
 import { CovidHospitalMenuComponent } from './components/covid/hospital/covid-hospital-menu/covid-hospital-menu.component';
 import { SearchCovidHospitalizedComponent } from './components/covid/hospital/search-covid-hospitalized/search-covid-hospitalized.component';
 import { RegisterCovidHealthStateComponent } from './components/covid/hospital/register-covid-health-state/register-covid-health-state.component';
+import { CovidHistoryComponent } from './components/covid/covid-history/covid-history.component';
+import { ProcessCovidTestsComponent } from './components/covid/testing/process-covid-tests/process-covid-tests.component';
 
 
 
@@ -344,7 +346,7 @@ const routes: Routes = [
     path: 'covid',
     component: CovidComponent,
     canActivate: [AuthGuard, PermissionGuard],
-    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA', 'ROLE_DR_SPEC_ODELJENJA','ROLE_DR_SPEC','ROLE_DR_SPEC_POV', 'ROLE_RECEPCIONER'] }
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA', 'ROLE_DR_SPEC_ODELJENJA','ROLE_DR_SPEC','ROLE_DR_SPEC_POV', 'ROLE_RECEPCIONER', 'ROLE_VISI_LAB_TEHNICAR', 'ROLE_LAB_TEHNICAR', 'ROLE_MED_BIOHEMICAR', 'ROLE_SPEC_MED_BIOHEMIJE'] }
   },
   {
     path: 'covid/new-appointment',
@@ -444,7 +446,7 @@ const routes: Routes = [
     path: 'covid/testing',
     component: CovidTestingMenuComponent,
     canActivate: [AuthGuard, PermissionGuard],
-    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA', 'ROLE_RECEPCIONER'] }
+    data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA', 'ROLE_RECEPCIONER', 'ROLE_VISI_LAB_TEHNICAR', 'ROLE_LAB_TEHNICAR', 'ROLE_MED_BIOHEMICAR', 'ROLE_SPEC_MED_BIOHEMIJE'] }
   },
   {
     path: 'covid/testing/schedule-covid-testing',
@@ -511,6 +513,18 @@ const routes: Routes = [
     component: RegisterCovidHealthStateComponent,
     canActivate: [AuthGuard, PermissionGuard],
     data: { permissions: ['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+  },
+  {
+    path: 'health-record/covid/:lbp',
+    component: CovidHistoryComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV', 'ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'] }
+  },
+  {
+    path: 'covid/testing/process-covid-tests',
+    component: ProcessCovidTestsComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_VISI_LAB_TEHNICAR', 'ROLE_LAB_TEHNICAR', 'ROLE_MED_BIOHEMICAR', 'ROLE_SPEC_MED_BIOHEMIJE'] }
   }
 ];
 
