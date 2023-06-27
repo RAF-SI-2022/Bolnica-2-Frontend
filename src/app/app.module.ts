@@ -88,6 +88,8 @@ import { SearchCovidHospitalizedComponent } from './components/covid/hospital/se
 import { RegisterCovidHealthStateComponent } from './components/covid/hospital/register-covid-health-state/register-covid-health-state.component';
 import { CovidHistoryComponent } from './components/covid/covid-history/covid-history.component';
 import { ProcessCovidTestsComponent } from './components/covid/testing/process-covid-tests/process-covid-tests.component';
+import { EmployeeShiftsComponent } from './components/employee-shifts/employee-shifts.component';
+import { EditEmployeeShiftsComponent } from './components/edit-employee-shifts/edit-employee-shifts.component';
 
 @NgModule({
   declarations: [
@@ -164,7 +166,9 @@ import { ProcessCovidTestsComponent } from './components/covid/testing/process-c
     SearchCovidHospitalizedComponent,
     RegisterCovidHealthStateComponent,
     CovidHistoryComponent,
-    ProcessCovidTestsComponent
+    ProcessCovidTestsComponent,
+    EmployeeShiftsComponent,
+    EditEmployeeShiftsComponent
     ],
   imports: [
     BrowserModule,

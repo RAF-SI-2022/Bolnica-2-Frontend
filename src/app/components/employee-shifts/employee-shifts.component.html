@@ -1,0 +1,40 @@
+<div class="p-5">
+    <h4 class="mb-4">Podređeni zaposleni</h4>
+    <div class="row">
+        <div class="col-lg-12 table-responsive">
+            <table class="table table-light">
+                <thead>
+                    <tr>
+                        <th scope="col">Zaposleni</th>
+                        <th scope="col">Titula</th>
+                        <th scope="col">Broj telefona</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Bolnica</th>
+                        <th scope="col">Odeljenje</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let employee of employees">
+                        <td>{{ employee.firstName + ' ' + employee.lastName }}</td>
+                        <td>{{ employee.title.notation }}</td>
+                        <td>{{ employee.phone }}</td>
+                        <td>{{ employee.email }}</td>
+                        <td>{{ employee.hospitalName }}</td>
+                        <td>{{ employee.departmentName }}</td>
+                        <td><button [routerLink]="['/employee-shifts', employee.lbz]" class="btn btn-sm btn-primary">Uredi smene</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-center p-2">
+				<ngb-pagination
+					[collectionSize]="collectionSize"
+					[(page)]="page"
+					[pageSize]="pageSize"
+					(pageChange)="search()"
+				>
+				</ngb-pagination>
+			</div>
+        </div>
+    </div>
+</div>

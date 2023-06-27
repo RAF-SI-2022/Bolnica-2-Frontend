@@ -73,6 +73,8 @@ import { SearchCovidHospitalizedComponent } from './components/covid/hospital/se
 import { RegisterCovidHealthStateComponent } from './components/covid/hospital/register-covid-health-state/register-covid-health-state.component';
 import { CovidHistoryComponent } from './components/covid/covid-history/covid-history.component';
 import { ProcessCovidTestsComponent } from './components/covid/testing/process-covid-tests/process-covid-tests.component';
+import { EmployeeShiftsComponent } from './components/employee-shifts/employee-shifts.component';
+import { EditEmployeeShiftsComponent } from './components/edit-employee-shifts/edit-employee-shifts.component';
 
 
 
@@ -525,6 +527,18 @@ const routes: Routes = [
     component: ProcessCovidTestsComponent,
     canActivate: [AuthGuard, PermissionGuard],
     data: { permissions: ['ROLE_VISI_LAB_TEHNICAR', 'ROLE_LAB_TEHNICAR', 'ROLE_MED_BIOHEMICAR', 'ROLE_SPEC_MED_BIOHEMIJE'] }
+  },
+  {
+    path: 'employee-shifts',
+    component: EmployeeShiftsComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_ADMIN', 'ROLE_DR_SPEC_POV', 'ROLE_VISA_MED_SESTRA'] }
+  },
+  {
+    path: 'employee-shifts/:lbz',
+    component: EditEmployeeShiftsComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: { permissions: ['ROLE_ADMIN', 'ROLE_DR_SPEC_POV', 'ROLE_VISA_MED_SESTRA'] }
   }
 ];
 
