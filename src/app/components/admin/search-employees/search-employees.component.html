@@ -19,7 +19,7 @@
 					<label class="form-check-label" for="deletedCheckbox">Pretraži i zaposlene koji su obrisani</label>
 				</div>
 				<div class="form-check">
-					<input formControlName="includeCovid" class="form-check-input" id="covidCheckbox" type="checkbox">
+					<input (change)="onCovidCheckboxChange($event)" class="form-check-input" id="covidCheckbox" type="checkbox">
 					<label class="form-check-label" for="covidCheckbox">Pretraži samo zaposlene koji imaju COVID pristup</label>
 				</div>
 				<hr class="my-4">

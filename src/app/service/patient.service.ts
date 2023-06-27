@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {CREATE_HEALTH_REPORT_ENDPOINT, DISCHARGE_LIST_ENDPOINT,  HOSPITALIZATION_ENDPOINT, PATIENT_ENDPOINT, PATIENT_URL, USER_URL} from '../app.constants';
+import {CREATE_HEALTH_REPORT_ENDPOINT, DISCHARGE_LIST_ENDPOINT,  HOSPITALIZATION_ENDPOINT, PATIENT_ENDPOINT, PATIENT_URL, SCHED_MED_EXAM_ENDPOINT, USER_URL} from '../app.constants';
 import { PatientConditionRequest, PatientRequest } from '../dto/request/patient.request';
 import { PatientResponse, SearchPatientsResponse } from '../dto/response/patient.response';
 import { HospitalResponse, HospitalsByDepartmentResponse } from '../dto/response/hospital.response';
@@ -377,6 +377,44 @@ export class PatientService {
       }
     })
   }
+  getPatientCovidExamList(lbp: string, date: string, page:number ,  size:number){
+
+    console.log("page "+page)
+    let formatedDate:any;
+    let params={};
+    if(lbp && !date){
+      params={page:page,size:size,lbp:lbp}
+    }
+    else if(date && !lbp){
+        formatedDate=date.split("-")[2]+"/"+date.split("-")[1]+"/"+date.split("-")[0];
+        params={page:page,size:size,date:formatedDate}
+    }
+    else if(date && lbp){
+      formatedDate=date.split("-")[2]+"/"+date.split("-")[1]+"/"+date.split("-")[0];
+      params={page:page,size:size,lbp:lbp,date:formatedDate}
+    }
+    else{
+      params={page:page-1,size:size}
+    }
+
+      return this.httpClient.get<any>(SCHED_MED_EXAM_ENDPOINT +"/covid",  {
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },params
+      });
+  }
+
+  cancelExam(visitId: string){
+      return this.httpClient.put<any>(SCHED_MED_EXAM_ENDPOINT +"/update-exam-status",{id:visitId, newStatus:"Otkazano"} , {
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+      });
+
+  }
+  startExam(visitId: string){
+
+  }
 
   scheduleCovidTest(lbp: string, datetime: string, note: string) {
     return this.httpClient.post(PATIENT_URL + `/testing/schedule/${lbp}`, {
@@ -500,6 +538,45 @@ export class PatientService {
       },
       params: {
         vaccStatus: testStatus
+      }
+    })
+  }
+
+  getCovidTestHistory(lbp: string) {
+    return this.httpClient.get(PATIENT_URL + `/testing/history/${lbp}`, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    })
+  }
+
+  getCovidVaccinationHistory(lbp: string) {
+    return this.httpClient.get(PATIENT_URL + `/vaccination/history/${lbp}`, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    })
+  }
+
+  getInProcessCovidTests(page: number, size: number) {
+    return this.httpClient.get(PATIENT_URL + '/testing/scheduled/in-process', {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      },
+      params: {
+        page: page,
+        size: size
+      }
+    })
+  }
+
+  updateCovidTestResult(testId: number, result: string) {
+    return this.httpClient.patch(PATIENT_URL + `/testing/${testId}/update-test-result`, {}, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      },
+      params: {
+        newTestResult: result
       }
     })
   }

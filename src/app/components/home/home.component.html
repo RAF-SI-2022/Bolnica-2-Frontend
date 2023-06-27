@@ -151,7 +151,12 @@
       </div>
     </div>
 
-    <div *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA', 'ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV', 'ROLE_RECEPCIONER'])" class="col-md-4">
+    <div *ngIf="this.authService.hasEitherPermission([
+    'ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA',
+    'ROLE_DR_SPEC_ODELJENJA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV',
+    'ROLE_RECEPCIONER',
+    'ROLE_VISI_LAB_TEHNICAR', 'ROLE_LAB_TEHNICAR', 'ROLE_MED_BIOHEMICAR', 'ROLE_SPEC_MED_BIOHEMIJE'
+    ])" class="col-md-4">
       <div routerLink="/covid" class="card border-secondary h-100">
         <img src="../../assets/images/virus2.svg" class="card-img-top w-75 mx-auto p-2" alt="..." />
         <div class="card-body">
@@ -187,6 +192,16 @@
         <div class="card-body">
           <h5 class="card-title">Posete</h5>
           <p class="card-text">Rukovanje posetama pacijentu</p>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="this.authService.hasEitherPermission(['ROLE_ADMIN', 'ROLE_DR_SPEC_POV', 'ROLE_VISA_MED_SESTRA'])" class="col-md-4">
+      <div routerLink="/employee-shifts" class="card border-secondary h-100">
+        <img src="../../assets/images/clock-history.svg" class="card-img-top w-75 mx-auto p-2" alt="..." />
+        <div class="card-body">
+          <h5 class="card-title">Smene</h5>
+          <p class="card-text">Upravljanje smenama rada zaposlenih</p>
         </div>
       </div>
     </div>

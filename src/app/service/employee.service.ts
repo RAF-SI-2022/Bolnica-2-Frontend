@@ -21,20 +21,22 @@ export class EmployeesService {
     }
 
     searchEmployees(query: any) {
+        const params: any = {};
+        params.firstName = query.firstName;
+        params.lastName = query.lastName;
+        params.departmentName = query.departmentName;
+        params.hospitalName = query.hospitalName;
+        params.includeDeleted = query.includeDeleted;
+        if (query.includeCovid) {
+            params.covidAccess = query.includeCovid;
+        }
+        params.page = query.page;
+        params.size = query.size;
         return this.httpClient.get<SearchEmployeesResponse>(EMPLOYEE_ENDPOINT, {
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('token')
             },
-            params: {
-                firstName: query.firstName,
-                lastName: query.lastName,
-                departmentName: query.departmentName,
-                hospitalName: query.hospitalName,
-                includeDeleted: query.includeDeleted,
-                covidAccess: query.includeCovid,
-                page: query.page,
-                size: query.size
-            }
+            params: params
         });
     }
 
@@ -93,6 +95,39 @@ export class EmployeesService {
             },
             params: {
                 covidAccess: covidAccess
+            }
+        })
+    }
+
+    getSubordinates(page: number, size: number) {
+        return this.httpClient.get(USER_URL + '/users/subordinates', {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            params: {
+                page: page,
+                size: size
+            }
+        })
+    }
+
+    getShiftsByLbz(lbz: string) {
+        return this.httpClient.get(USER_URL + `/users/${lbz}/shifts`, {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }
+        })
+    }
+
+    addShift(lbz: string, shiftType: string, date: string, start: string, end: string) {
+        return this.httpClient.post(USER_URL + `/users/add-shift/${lbz}`, {
+            shiftType: shiftType,
+            date: date,
+            startTime: start + ':00',
+            endTime: end + ':00'
+        }, {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
             }
         })
     }

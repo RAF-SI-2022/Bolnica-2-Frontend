@@ -74,6 +74,7 @@ import { CovidSingleCountryComponent } from './components/covid/covid-single-cou
 import { RegisterVisitComponent } from './components/stationary/nurse/register-visit/register-visit.component';
 import { VisitHistoryComponent } from './components/stationary/nurse/visit-history/visit-history.component';
 import { ReceptionVisitsComponent } from './components/reception/visits/reception-visits.component';
+import { PatientsForCovidExamListComponent } from './covid/patients-for-covid-exam-list/patients-for-covid-exam-list.component';
 import { ScheduleCovidTestingComponent } from './components/covid/testing/schedule-covid-testing/schedule-covid-testing.component';
 import { CovidTestingMenuComponent } from './components/covid/testing/covid-testing-menu/covid-testing-menu.component';
 import { ScheduledCovidTestsComponent } from './components/covid/testing/scheduled-covid-tests/scheduled-covid-tests.component';
@@ -85,6 +86,10 @@ import { ScheduledCovidVaccinationsComponent } from './components/covid/vaccinat
 import { CovidHospitalMenuComponent } from './components/covid/hospital/covid-hospital-menu/covid-hospital-menu.component';
 import { SearchCovidHospitalizedComponent } from './components/covid/hospital/search-covid-hospitalized/search-covid-hospitalized.component';
 import { RegisterCovidHealthStateComponent } from './components/covid/hospital/register-covid-health-state/register-covid-health-state.component';
+import { CovidHistoryComponent } from './components/covid/covid-history/covid-history.component';
+import { ProcessCovidTestsComponent } from './components/covid/testing/process-covid-tests/process-covid-tests.component';
+import { EmployeeShiftsComponent } from './components/employee-shifts/employee-shifts.component';
+import { EditEmployeeShiftsComponent } from './components/edit-employee-shifts/edit-employee-shifts.component';
 
 @NgModule({
   declarations: [
@@ -149,6 +154,7 @@ import { RegisterCovidHealthStateComponent } from './components/covid/hospital/r
     VisitHistoryComponent,
     ReceptionVisitsComponent,
     ScheduleCovidTestingComponent,
+    PatientsForCovidExamListComponent,
     CovidTestingMenuComponent,
     ScheduledCovidTestsComponent,
     NewCovidTestComponent,
@@ -158,7 +164,11 @@ import { RegisterCovidHealthStateComponent } from './components/covid/hospital/r
     ScheduledCovidVaccinationsComponent,
     CovidHospitalMenuComponent,
     SearchCovidHospitalizedComponent,
-    RegisterCovidHealthStateComponent
+    RegisterCovidHealthStateComponent,
+    CovidHistoryComponent,
+    ProcessCovidTestsComponent,
+    EmployeeShiftsComponent,
+    EditEmployeeShiftsComponent
     ],
   imports: [
     BrowserModule,

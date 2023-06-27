@@ -97,7 +97,7 @@ export class NewAppointmentComponent implements OnInit {
       note: ['']
     });
     if (!this.authService.hasPermission('ROLE_RECEPCIONER')) {
-      this.scheduledAppointmentService.getDoctors().subscribe({
+      this.employeeService.getDoctorsByPbo(localStorage.getItem('pbo')!).subscribe({
         next: (res) => {
           this.doctors = Object.values(res);
         },

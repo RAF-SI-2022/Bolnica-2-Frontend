@@ -1,0 +1,56 @@
+<div class="p-5">
+    <div class="row">
+        <div class="col-lg-3">
+            <form [formGroup]="covidExamList" class="p-3 border rounded-3 bg-light">
+                <div class="mb-2 form-floating gx-1">
+                    <input formControlName="lbp" [(ngModel)]="lbp"
+                    type="text" id="floatingPatient" class="form-control" placeholder="patient-placeholder">
+                    <label for="floatingPatient">LBP</label>
+                </div>
+                <div class="mb-2 form-floating gx-1">
+                    <input formControlName="date" class="form-control" type="date" placeholder="date-placeholder" id="floatingDate" [(ngModel)]="date">
+                    <label for="floatingDate">Datum</label>
+                </div>
+                <hr class="my-4">
+                <button (click)="search()" class="btn btn-md btn-primary w-100" type="submit">Pretraži</button>
+            </form>
+        </div>
+        <div class="col-lg-9 table-responsive">
+            <table class="table table-striped" data-testid="lab-visits-table">
+                <thead>
+                    <tr>
+                        <th scope="col">Ime</th>
+                        <th scope="col">Prezime</th>
+                        <th scope="col">Starost</th>
+                        <th scope="col">Pol</th>
+                        <th scope="col">Status</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let visit of schedLabVisits">
+                        <ng-container *ngIf="visit.covid && isMyPatient(visit.lbzDoctor)">
+                            <td>{{ visit.patientResponse.firstName }}</td>
+                            <td>{{ visit.patientResponse.lastName }}</td>
+                            <td>{{ calculateAge(visit.patientResponse.birthDate) }}</td>
+                            <td>{{ visit.patientResponse.gender.notation }}</td>
+                            <td>{{ visit.examinationStatus.examinationStatus }}</td>
+                            <td><button (click)="onCancel(visit.id)" [disabled]="visit.examinationStatus.examinationStatus !== 'Zakazano'" class="btn btn-sm btn-danger">Otkaži pregled</button></td>
+                            <td><button [routerLink]="['/covid/specialist-doctor-examination']" [queryParams]="{lbp: visit.patientResponse.lbp}" [disabled]="visit.examinationStatus.examinationStatus !== 'Zakazano'" class="btn btn-sm btn-primary">Započni pregled</button></td>
+                        </ng-container>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-center p-2">
+				<ngb-pagination
+					[collectionSize]="collectionSize"
+					[(page)]="page"
+					[pageSize]="pageSize"
+					(pageChange)="search()"
+				>
+				</ngb-pagination>
+			</div>
+        </div>
+    </div>
+</div>
