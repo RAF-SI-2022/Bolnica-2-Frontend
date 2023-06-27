@@ -18,7 +18,8 @@ export interface CurrentUser {
     permissions: string[],
     profession: string,
     sub: string,
-    title: string
+    title: string,
+    gender: string
 }
 
 @Injectable({
@@ -67,6 +68,7 @@ export class AuthService {
         localStorage.setItem('permissions', JSON.stringify(decodedToken.permissions));
         localStorage.setItem('pbo', decodedToken.pbo);
         localStorage.setItem('pbb', decodedToken.pbb);
+        localStorage.setItem('gender', decodedToken.gender);
         console.log(decodedToken);
         this.currentUser = decodedToken;
         this.router.navigate(['/']);

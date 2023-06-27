@@ -21,20 +21,22 @@ export class EmployeesService {
     }
 
     searchEmployees(query: any) {
+        const params: any = {};
+        params.firstName = query.firstName;
+        params.lastName = query.lastName;
+        params.departmentName = query.departmentName;
+        params.hospitalName = query.hospitalName;
+        params.includeDeleted = query.includeDeleted;
+        if (query.includeCovid) {
+            params.covidAccess = query.includeCovid;
+        }
+        params.page = query.page;
+        params.size = query.size;
         return this.httpClient.get<SearchEmployeesResponse>(EMPLOYEE_ENDPOINT, {
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('token')
             },
-            params: {
-                firstName: query.firstName,
-                lastName: query.lastName,
-                departmentName: query.departmentName,
-                hospitalName: query.hospitalName,
-                includeDeleted: query.includeDeleted,
-                covidAccess: query.includeCovid,
-                page: query.page,
-                size: query.size
-            }
+            params: params
         });
     }
 

@@ -72,7 +72,6 @@ export class PatientsForCovidExamListComponent implements OnInit {
           this.search();
         },
         error: (e) => {
-          console.log(e)
           this.toast.error(e.error.errorMessage);
         }
       });

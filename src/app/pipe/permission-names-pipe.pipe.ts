@@ -17,9 +17,15 @@ export class PermissionNamesPipePipe implements PipeTransform {
         return 'Doktor specijalista (načelnik odeljenja)';
       }
       case 'ROLE_MED_SESTRA': {
+        if (localStorage.getItem('gender') === 'Muski') {
+          return 'Medicinski tehničar';
+        }
         return 'Medicinska sestra';
       }
       case 'ROLE_VISA_MED_SESTRA': {
+        if (localStorage.getItem('gender') === 'Muski') {
+          return 'Viši medicinski tehničar';
+        }
         return 'Viša medicinska sestra';
       }
       case 'ROLE_LAB_TEHNICAR': {
