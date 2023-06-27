@@ -18,6 +18,8 @@ export class SearchEmployeesComponent implements OnInit {
   pageSize = 5;
   collectionSize = 0;
 
+  includeCovid: boolean = false;
+
   paginatedEmployees: SearchedEmployee[] = [];
 
   constructor(private formBuilder: FormBuilder,
@@ -30,8 +32,7 @@ export class SearchEmployeesComponent implements OnInit {
       lastName: [''],
       departmentName: [''],
       hospitalName: [''],
-      includeDeleted: [false],
-      includeCovid: [false]
+      includeDeleted: [false]
     });
     this.refreshEmployees();
   }
@@ -52,13 +53,12 @@ export class SearchEmployeesComponent implements OnInit {
       departmentName: val.departmentName,
       hospitalName: val.hospitalName,
       includeDeleted: val.includeDeleted,
-      includeCovid: val.includeCovid,
+      includeCovid: this.includeCovid,
       page: this.page - 1,
       size: this.pageSize
     }).subscribe({
       next: (res) => {
         const response = res as SearchEmployeesResponse;
-        console.log(response);
         this.paginatedEmployees = response.userList;
         this.collectionSize = response.count;
       },
@@ -81,6 +81,10 @@ export class SearchEmployeesComponent implements OnInit {
       });
     }, (dismiss) => {
     });
+  }
+
+  onCovidCheckboxChange(event: any) {
+    this.includeCovid = event.target.checked;
   }
 }
 

@@ -1,7 +1,7 @@
 <div class="main container mx-auto">
     <div class="row g-5 justify-content-center">
 
-        <div class="col-md-4">
+        <div class="col-md-4" *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA'])">
             <div routerLink="/covid/new-reception" class="card border-secondary h-100"
                 id="personal-info-card">
                 <img src="../../assets/images/arrow-bar-up.svg" class="card-img-top w-75 mx-auto p-2" alt="..." />
@@ -12,7 +12,7 @@
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-4" *ngIf="this.authService.hasEitherPermission(['ROLE_MED_SESTRA', 'ROLE_VISA_MED_SESTRA', 'ROLE_DR_SPEC', 'ROLE_DR_SPEC_POV'])">
             <div routerLink="/covid/hospital/search-hospitalized-patients" class="card border-secondary h-100">
                 <img src="../../assets/images/search.svg" class="card-img-top w-75 mx-auto p-2" alt="..." />
                 <div class="card-body">

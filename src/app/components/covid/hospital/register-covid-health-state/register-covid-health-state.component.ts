@@ -61,6 +61,9 @@ export class RegisterCovidHealthStateComponent implements OnInit {
         this.router.navigate(['covid/hospital']).then(() => {
           this.toast.success('Uspešno ste registrovali novo stanje pacijenta');
         })
+      },
+      error: (e) => {
+        this.toast.error(e.error.errorMessage || 'Greška. Server se ne odaziva.');
       }
     })
   }

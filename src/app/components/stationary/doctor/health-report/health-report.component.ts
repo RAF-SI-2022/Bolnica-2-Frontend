@@ -57,9 +57,15 @@ export class HealthReportComponent implements OnInit {
       this.modalService.open(NgbdModalConfirm).result.then(data => {
         this.patientService.makeHealthReport(this.lbp,report.value,diagnosis.value,recommendedTherapy.value,advice.value,confidential.value).subscribe({
           next: (res) => {
-            this.router.navigate(['doctor-stationary-menu', this.lbp]).then(() => {
-              this.toast.success('Uspešno ste kreirali zdravstveni izveštaj');
-            })
+            if (this.router.url.includes('covid')) {
+              this.router.navigate(['covid/hospital/search-hospitalized-patients']).then(() => {
+                this.toast.success('Uspešno ste kreirali zdravstveni izveštaj');
+              })
+            } else {
+              this.router.navigate(['doctor-stationary-menu', this.lbp]).then(() => {
+                this.toast.success('Uspešno ste kreirali zdravstveni izveštaj');
+              })
+            }
           },
           error: (e) => {
             this.toast.error(e.error.errorMessage || 'Pravljenje zdravstvenog izveštaja nije uspelo');
